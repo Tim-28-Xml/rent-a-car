@@ -1,6 +1,7 @@
 package com.tim26.demo.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -14,10 +15,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(name = "user_status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private UserStatus userStatus;
-
     @Column(name="email", unique = true)
     private String email;
 
@@ -26,6 +23,9 @@ public class User {
 
     @Column(name="username", unique = true)
     private String username;
+
+    @OneToMany(mappedBy = "user")
+    private List<PriceList> priceLists;
 
     public User() {
         super();
@@ -53,14 +53,6 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public UserStatus getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(UserStatus userStatus) {
-        this.userStatus = userStatus;
     }
 
     public String getEmail() {
