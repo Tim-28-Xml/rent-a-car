@@ -27,6 +27,15 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<PriceList> priceLists;
 
+    @OneToMany(mappedBy = "user")
+    private List<Ad> ad;
+
+    @OneToMany(mappedBy = "sender")
+    private List<Message> sentMessages;
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Message> receivedMessages;
+
     public User() {
         super();
     }

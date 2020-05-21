@@ -1,6 +1,7 @@
 package com.tim26.demo.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class PriceList {
@@ -21,8 +22,8 @@ public class PriceList {
     @ManyToOne
     private User user;
 
-    @ManyToOne
-    private Ad ad;
+    @OneToMany(mappedBy = "priceList")
+    private List<Ad> ads;
 
     public PriceList() {
     }
@@ -67,11 +68,11 @@ public class PriceList {
         this.user = user;
     }
 
-    public Ad getAd() {
-        return ad;
+    public List<Ad> getAds() {
+        return ads;
     }
 
-    public void setAd(Ad ad) {
-        this.ad = ad;
+    public void setAds(List<Ad> ads) {
+        this.ads = ads;
     }
 }
