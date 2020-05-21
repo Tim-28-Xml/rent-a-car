@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/../AdministrationService/AdministrationService.iml" filepath="$PROJECT_DIR$/../AdministrationService/AdministrationService.iml" />
       <module fileurl="file://$PROJECT_DIR$/../AuthenticationService/AuthenticationService.iml" filepath="$PROJECT_DIR$/../AuthenticationService/AuthenticationService.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ChatService/ChatService.iml" filepath="$PROJECT_DIR$/../ChatService/ChatService.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../EurekaService/EurekaService.iml" filepath="$PROJECT_DIR$/../EurekaService/EurekaService.iml" />
       <module fileurl="file://$PROJECT_DIR$/../PricelistService/PricelistService.iml" filepath="$PROJECT_DIR$/../PricelistService/PricelistService.iml" />
       <module fileurl="file://$PROJECT_DIR$/../RentRequestService/RentRequestService.iml" filepath="$PROJECT_DIR$/../RentRequestService/RentRequestService.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ReportService/ReportService.iml" filepath="$PROJECT_DIR$/../ReportService/ReportService.iml" />

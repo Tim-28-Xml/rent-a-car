@@ -14,7 +14,6 @@
         <module name="APIGateway" />
         <module name="UserService" />
         <module name="AdministrationService" />
-        <module name="EurekaService" />
         <module name="AuthenticationService" />
         <module name="ReviewService" />
       </profile>

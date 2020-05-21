@@ -8,7 +8,6 @@
         <option value="$PROJECT_DIR$/../AdministrationService/pom.xml" />
         <option value="$PROJECT_DIR$/../AuthenticationService/pom.xml" />
         <option value="$PROJECT_DIR$/../ChatService/pom.xml" />
-        <option value="$PROJECT_DIR$/../EurekaService/pom.xml" />
         <option value="$PROJECT_DIR$/../PricelistService/pom.xml" />
         <option value="$PROJECT_DIR$/../RentRequestService/pom.xml" />
         <option value="$PROJECT_DIR$/../ReportService/pom.xml" />
