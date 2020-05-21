@@ -1,10 +1,10 @@
-package com.tim26.APIGateway;
+package com.tim26.Zuul;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiGatewayApplicationTests {
+class ZuulApplicationTests {
 
 	@Test
 	void contextLoads() {
