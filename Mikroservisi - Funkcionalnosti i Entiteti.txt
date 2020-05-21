@@ -1,0 +1,88 @@
+AdService
+
+	Funkcionalnosti:
+		1. CRUD Oglasa 
+		2. Pretraga oglasa 
+		3. Detaljan prikaz oglasa
+		4. Postavljanje zauzetosti auta
+	Entiteti:
+		1. Ad
+		2. Date range
+		
+AdministrationService
+
+	Funkcionalnosti:
+		1. Odrzavanje sifarnika	
+		2. Blokiranje, Aktiviranje, Korisnika
+		3. Kreiranje agenta/Firme
+		4. Definisanje permisija
+
+	Entiteti:
+		1. CodeBook
+		2. Admin
+
+Authentication service
+
+	Funkcionalnosti:
+		1. Registracija
+		2. Logovanje
+	
+ChatService
+
+	Funkcionalnosti:
+		1. Slanje poruka izmedju EndUser-a i Agent-a (WebSocket?)
+	
+	Entiteti:
+		1. Messages
+
+PricelistService
+
+	Funkcionalnosti:
+		1. CRUD Cenovnika
+
+	Entiteti: 
+		1. Pricelist
+
+RentRequestService
+
+	Funkcionalnosti:
+		1. Kreiranje, odobravanje, brisanje, otkazivanje zahteva
+		2. Online placanje
+
+	Entiteti:
+		1.RentRequest
+		2. RequestStatus
+
+ReportService
+	
+	Funkcionalnosti:
+		1. Kreiranje izveštaja
+		2. Obračunavanje dodatnih km i cene
+
+	Entiteti:
+		1. Report
+
+ReviewService
+
+	Funkcionalnosti:
+		1. CRD Recenzija (Komentar/Ocena/Oba)
+		2. Odobravanje/Odbijanje komentara
+ 		
+	Entiteti:
+		1. Review
+
+UserService
+
+	Funkcionalnosti:
+		1. Dodavanje u korpu
+		2. CRUD profila za EndUser/Agenta
+		3. R istorija zahteva 
+		4. Statistika upotrebe
+
+	Entiteti:
+		1. User
+		2. Agent
+		3. EndUser	
+
+
+
