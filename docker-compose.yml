@@ -1,0 +1,144 @@
+version: '3'
+services:
+  eureka:
+    build: ./Eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - rent-a-car-network
+
+  zuul:
+    build: ./Zuul
+    ports:
+      - "8099:8099"
+    links:
+      - eureka
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+    networks:
+      - rent-a-car-network
+
+  administrationservice:
+    build: ./AdministrationService
+    ports:
+      - "8084:8084"
+    links:
+      - eureka
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+    networks:
+      - rent-a-car-network
+
+  adservice:
+    build: ./AdService
+    ports:
+      - "8085:8085"
+    links:
+      - eureka
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+    networks:
+      - rent-a-car-network
+
+  authenticationservice:
+    build: ./AuthenticationService
+    ports:
+      - "8086:8086"
+    links:
+      - eureka
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+    networks:
+      - rent-a-car-network
+
+  chatservice:
+    build: ./ChatService
+    ports:
+      - "8087:8087"
+    links:
+      - eureka
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+    networks:
+      - rent-a-car-network
+
+  pricelistservice:
+    build: ./PricelistService
+    ports:
+      - "8077:8077"
+    links:
+      - eureka
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+    networks:
+      - rent-a-car-network
+
+  rentrequestservice:
+    build: ./RentRequestService
+    ports:
+      - "8090:8090"
+    links:
+      - eureka
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+    networks:
+      - rent-a-car-network
+
+  reportservice:
+      build: ./ReportService
+      ports:
+        - "8091:8091"
+      links:
+        - eureka
+      depends_on:
+        - eureka
+      environment:
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      networks:
+        - rent-a-car-network
+
+
+  reviewservice:
+      build: ./ReviewService
+      ports:
+        - "8092:8092"
+      links:
+        - eureka
+      depends_on:
+        - eureka
+      environment:
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      networks:
+        - rent-a-car-network
+
+  userservice:
+      build: ./UserService
+      ports:
+        - "8056:8056"
+      links:
+        - eureka
+      depends_on:
+        - eureka
+      environment:
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      networks:
+        - rent-a-car-network
+
+networks:
+  rent-a-car-network:
+    driver: bridge
+
