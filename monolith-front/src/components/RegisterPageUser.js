@@ -97,6 +97,12 @@ class RegisterPageUser extends React.Component{
                     <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter email" id="email" name="email" onChange={this.handleChange} />
                 </Form.Group>
 
+                
+                <Form.Group as={Col}>
+                    <Form.Label className="labelRegA">Username:</Form.Label>
+                    <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} />
+                </Form.Group>
+
                 <Form.Row >
                     <Form.Group as={Col} className="formRowRegL">
                         <Form.Label className="labelRegA">Password</Form.Label>

@@ -57,13 +57,13 @@ class LoginPage extends React.Component{
                 <Form className="formRLogin" onSubmit={this.Login}>
 
                     <Form.Group as={Col}>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter email" id="email" name="email" onChange={this.handleChange} />
+                        <Form.Label>Username:</Form.Label>
+                        <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} />
                     </Form.Group>
 
                     <Form.Group as={Col}>
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" style={{background: "rgb(244, 245, 249)"}} placeholder="Password" id="password" name="password" onChange={this.handleChange} />
+                        <Form.Control type="password" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter password" id="password" name="password" onChange={this.handleChange} />
                     </Form.Group>
 
                     
