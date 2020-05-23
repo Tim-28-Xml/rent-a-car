@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Form, Button, FormGroup, FormControl, ControlLabel,Col, Modal } from "react-bootstrap";
 import '../css/RegisterPageAgent.css'
+import {serviceConfig} from '../appSettings.js'
+import axios from 'axios'
+
 
 
 class RegisterPageAgent extends React.Component{
@@ -23,6 +26,8 @@ class RegisterPageAgent extends React.Component{
             name: '',
             address: '',
 
+            repeatedPassword: '',
+
 
         }
     }
@@ -31,8 +36,25 @@ class RegisterPageAgent extends React.Component{
         this.setState({...this.state, [e.target.name]: e.target.value});
     }
 
-    SendRegisterRequest() {
+    SendRegisterRequest(e) {
 
+        if(this.state.password.length < 8){
+
+            alert('Password is too short!');
+            return;
+
+        } else if(this.state.password != this.state.repeatedPassword){
+
+            alert('Repeated password does not match!');
+            return;
+        } else {
+
+            axios.post(`${serviceConfig.baseURL}/auth/register/agent`,this.state).then(
+                (resp) => { alert('success') },
+                (resp) => { alert('error') }
+            );
+
+        }
     }
 
     handleClose() {
@@ -89,7 +111,7 @@ class RegisterPageAgent extends React.Component{
 
                 <Form.Group as={Col}>
                     <Form.Label className="labelRegA">Username:</Form.Label>
-                    <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} required/>
+                    <Form.Control type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} required/>
                 </Form.Group>
 
                 <Form.Row >
