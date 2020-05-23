@@ -37,7 +37,8 @@ public class Car {
     @Column(nullable = false)
     private byte childSeats;
 
-    //private List<String> photos;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Ad ad;
 
     public Car() {
     }
@@ -120,5 +121,13 @@ public class Car {
 
     public void setChildSeats(byte childSeats) {
         this.childSeats = childSeats;
+    }
+
+    public Ad getAd() {
+        return ad;
+    }
+
+    public void setAd(Ad ad) {
+        this.ad = ad;
     }
 }

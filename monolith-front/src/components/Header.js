@@ -21,6 +21,7 @@ class Header extends React.Component{
                 <h2 className="headerTitle">Rent a Car</h2>
                 <img src={caricon} style={{height:'40px', width: 'auto', margin: "0 0 0 40%"}} alt='Unavailable icon' />
 
+                
                 <button className="btnHeaderHome">Home</button>
                 <label className="borderLabel">|</label>
                 <RegisterPageAgent />
@@ -28,6 +29,7 @@ class Header extends React.Component{
                 <RegisterPageUser />
 
                 <LoginPage />
+                
 
             </div>
         )

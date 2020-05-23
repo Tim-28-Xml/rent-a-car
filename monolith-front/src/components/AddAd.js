@@ -1,0 +1,178 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Modal, Button } from "react-bootstrap";
+import axios from 'axios'
+import '../css/AddAd.css'
+
+
+class AddAd extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
+        this.newAd = this.newAd.bind(this);
+
+        this.state = {
+            show: false,
+            name: '',
+            brand: '',
+            model: '',
+            fuel: '',
+            transmission: '',
+            carClass: '',
+            km: '',
+            kmLimit: '',
+        };
+    }
+
+    newAd(event) {
+        event.preventDefault();
+
+         axios.post("http://localhost:8082/api/ads/save", this.state).then(
+             (resp) => this.onSuccessHandler(resp),
+             (resp) => this.onErrorHandler(resp)
+         );
+    }
+
+    onErrorHandler(resp) {
+        alert("Error!");
+    }
+
+    onSuccessHandler(resp) {
+
+        alert("OK!");
+
+    }
+
+    handleClose() {
+        this.setState({ show: false });
+    }
+
+    handleShow() {
+        this.setState({ show: true });
+    }
+
+    handleChange(e) {
+        this.setState({...this.state, [e.target.name]: e.target.value});
+    }
+
+    render() {
+        return (
+            <div>
+                <Button id="newAddBtn" onClick={this.handleShow}>
+                    New Add
+                </Button>
+                <Modal
+                    show={this.state.show}
+                    onHide={this.handleClose}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered = "true"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            New Add
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form onSubmit={this.newAd} id="newAdForm">
+                            <div className="form-group">
+                                <label htmlFor="name">Name</label>
+                                <input type="text"
+                                    className="form-control form-control-sm"
+                                    id="name"
+                                    name="name"
+                                    onChange={this.handleChange}
+                                    placeholder="Enter ad name"
+                                    required
+                                />
+                                <br/>
+                                <label htmlFor="model">Model of a car</label>
+                                <input type="text"
+                                    className="form-control form-control-sm"
+                                    id="model"
+                                    name="model"
+                                    onChange={this.handleChange}
+                                    placeholder="Enter model of a car"
+                                    required
+                                />
+                                <br/>
+                                <label htmlFor="brand">Brand of a car</label>
+                                <input type="brand"
+                                    className="form-control form-control-sm"
+                                    id="brand"
+                                    name="brand"
+                                    onChange={this.handleChange}
+                                    placeholder="Enter brand of a car"
+                                    required
+                                />
+                                <br/>
+                                <label htmlFor="fuel">Fuel type</label>
+                                <input type="text"
+                                    className="form-control form-control-sm"
+                                    id="fuel"
+                                    name="fuel"
+                                    onChange={this.handleChange}
+                                    placeholder="Enter fuel type"
+                                    required
+                                />
+                                <br/>
+                                <label htmlFor="km">Km</label>
+                                <input type="text"
+                                    className="form-control form-control-sm"
+                                    id="km"
+                                    name="km"
+                                    onChange={this.handleChange}
+                                    placeholder="Enter km"
+                                    required
+                                />
+                                <br/>
+                                <label htmlFor="kmLimit">Km Limit</label>
+                                <input type="text"
+                                    className="form-control form-control-sm"
+                                    id="kmLimit"
+                                    name="kmLimit"
+                                    onChange={this.handleChange}
+                                    placeholder="Enter km limit"
+                                    required
+                                />
+                                <br/>
+                                <br/>
+                                <label htmlFor="carClass">Car class</label>
+                                <input type="text"
+                                    className="form-control form-control-sm"
+                                    id="carClass"
+                                    name="carClass"
+                                    onChange={this.handleChange}
+                                    placeholder="Enter car class"
+                                    required
+                                />
+                                <br/>
+                                <label htmlFor="transmission">Transmission</label>
+                                <input type="text"
+                                    className="form-control form-control-sm"
+                                    id="transmission"
+                                    name="transmission"
+                                    onChange={this.handleChange}
+                                    placeholder="Enter transmission"
+                                    required
+                                />
+                                <br/>
+                            </div>
+                            <hr/>
+                            <Button type="submit" className="btnCreateAd">Create</Button>
+                            <Button className="btnCloseAd" onClick={this.handleClose}>Close</Button>
+                        </form>
+                    </Modal.Body>
+                </Modal>
+            </div>
+
+        );
+    }
+}
+
+export default AddAd;

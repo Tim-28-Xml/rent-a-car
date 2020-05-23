@@ -31,6 +31,13 @@ public class Ad {
     @OneToMany
     private List<Review> reviews = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    private Car car;
+
+    @Column
+    private String name;
+
     public Ad() {
     }
 
@@ -88,5 +95,21 @@ public class Ad {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
