@@ -2,11 +2,13 @@ package com.tim26.demo.service;
 
 import com.tim26.demo.model.User;
 import com.tim26.demo.repository.UserRepository;
+import com.tim26.demo.service.interfaces.UService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
-public class UserService {
+public class UserServiceImpl implements UService {
 
     @Autowired
     UserRepository userRepository;
@@ -20,6 +22,7 @@ public class UserService {
     }
 
     public User save(User user){
+
         return  userRepository.save(user);
     }
 

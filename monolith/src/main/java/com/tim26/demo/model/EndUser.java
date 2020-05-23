@@ -32,6 +32,8 @@ public class EndUser extends User {
         super(email, password, username);
     }
 
+
+
     public String getFirstname() {
         return firstname;
     }
@@ -62,5 +64,13 @@ public class EndUser extends User {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public List<RentRequest> getRentRequests() {
+        return rentRequests;
+    }
+
+    public void setRentRequests(List<RentRequest> rentRequests) {
+        this.rentRequests = rentRequests;
     }
 }

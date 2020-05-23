@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Button, FormGroup, FormControl, ControlLabel,Col, Modal } from "react-bootstrap";
 import '../css/RegisterPageAgent.css'
+import {serviceConfig} from '../appSettings.js'
+import axios from 'axios'
 
 
 class RegisterPageUser extends React.Component{
@@ -8,7 +10,6 @@ class RegisterPageUser extends React.Component{
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleChangePass = this.handleChangePass.bind(this);
         this.SendRegisterRequest = this.SendRegisterRequest.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -23,7 +24,7 @@ class RegisterPageUser extends React.Component{
             firstname: '',
             lastname: '',
 
-            goodPass:'',
+            repeatedPassword: '',
 
 
         }
@@ -33,21 +34,27 @@ class RegisterPageUser extends React.Component{
         this.setState({...this.state, [e.target.name]: e.target.value});
     }
 
-    handleChangePass(event) {
-        var pass = event.target.value;
-        var reg = /^[A-Z]*$/;
-        var test = reg.test(pass);
-        if (test) {
-           this.setState({password: pass});
-           this.setState({goodPass: "Good"});
-        }else{
-            this.setState({goodPass: "Not good enough"});
-        }        
-   }
 
 
-    SendRegisterRequest() {
+    SendRegisterRequest(e) {
 
+        if(this.state.password.length < 8){
+
+            alert('Password is too short!');
+            return;
+
+        } else if(this.state.password != this.state.repeatedPassword){
+
+            alert('Repeated password does not match!');
+            return;
+        } else {
+
+            axios.post(`${serviceConfig.baseURL}/auth/register/user`,this.state).then(
+                (resp) => { alert('success') },
+                (resp) => { alert('error') }
+            );
+
+        }
     }
 
     handleClose() {
@@ -100,7 +107,7 @@ class RegisterPageUser extends React.Component{
                 
                 <Form.Group as={Col}>
                     <Form.Label className="labelRegA">Username:</Form.Label>
-                    <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} required/>
+                    <Form.Control type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} required/>
                 </Form.Group>
 
                 <Form.Row >

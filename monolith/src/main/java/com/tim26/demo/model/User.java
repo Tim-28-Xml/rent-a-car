@@ -39,10 +39,10 @@ public class User implements UserDetails {
     private List<Message> receivedMessages;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
+    @JoinTable(name = "user_permissions",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "name"))
-    private List<Role> roles = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "name"))
+    private List<Permission> permissions = new ArrayList<>();
 
     @Column
     private Timestamp lastPasswordResetDate;
@@ -130,13 +130,13 @@ public class User implements UserDetails {
         this.lastPasswordResetDate = lastPasswordResetDate;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return permissions;
     }
 
     @Override
