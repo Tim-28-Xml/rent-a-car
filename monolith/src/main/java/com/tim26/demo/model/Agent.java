@@ -14,11 +14,10 @@ public class Agent extends User {
 
     public Agent() {
         super();
-        this.setRole(Role.AGENT);
     }
 
-    public Agent(Role role, String email, String password, String username) {
-        super(role, email, password, username);
+    public Agent(String email, String password, String username) {
+        super(email, password, username);
     }
 
     public int getMbr() {

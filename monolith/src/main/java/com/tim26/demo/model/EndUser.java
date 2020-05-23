@@ -28,8 +28,8 @@ public class EndUser extends User {
         super();
     }
 
-    public EndUser(Role role, String email, String password, String username, String firstname, String lastname) {
-        super(role, email, password, username);
+    public EndUser(String email, String password, String username, String firstname, String lastname) {
+        super(email, password, username);
     }
 
     public String getFirstname() {
