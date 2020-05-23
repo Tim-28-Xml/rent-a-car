@@ -4,6 +4,7 @@ import com.tim26.demo.security.TokenUtils;
 import com.tim26.demo.security.auth.RestAuthenticationEntryPoint;
 import com.tim26.demo.security.auth.TokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Qualifier("userDetails")
     @Autowired
     private UserDetailsService jwtUserDetailsService;
 
