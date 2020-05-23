@@ -82,37 +82,37 @@ class RegisterPageUser extends React.Component{
 
                 <Form.Group as={Col}>
                     <Form.Label className="labelRegA">First Name</Form.Label>
-                    <Form.Control type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter first name" id="firstname" name="firstname" onChange={this.handleChange} />
+                    <Form.Control type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter first name" id="firstname" name="firstname" onChange={this.handleChange} required/>
                 </Form.Group>
 
                 <Form.Group as={Col}>
                     <Form.Label className="labelRegA">Last Name</Form.Label>
-                    <Form.Control  type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter last name" id="lastname" name="lastname" onChange={this.handleChange} />
+                    <Form.Control  type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter last name" id="lastname" name="lastname" onChange={this.handleChange} required/>
                 </Form.Group>
 
 
 
                 <Form.Group as={Col}>
                     <Form.Label className="labelRegA">Email</Form.Label>
-                    <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter email" id="email" name="email" onChange={this.handleChange} />
+                    <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter email" id="email" name="email" onChange={this.handleChange} required/>
                 </Form.Group>
 
                 
                 <Form.Group as={Col}>
                     <Form.Label className="labelRegA">Username:</Form.Label>
-                    <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} />
+                    <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} required/>
                 </Form.Group>
 
                 <Form.Row >
                     <Form.Group as={Col} className="formRowRegL">
                         <Form.Label className="labelRegA">Password</Form.Label>
-                        <Form.Control type="password" style={{background: "rgb(244, 245, 249)"}} placeholder="Password" id="password" name="password" onChange={this.handleChange} />
+                        <Form.Control type="password" style={{background: "rgb(244, 245, 249)"}} placeholder="Password" id="password" name="password" onChange={this.handleChange} required/>
                         <legend className="legendPass">Password should contain 8 characters minimum, at least one number and a special character.</legend>
                     </Form.Group>
 
                     <Form.Group as={Col} className="formRowRegR">
                         <Form.Label className="labelRegA">Repeat password</Form.Label>
-                        <Form.Control type="password" style={{background: "rgb(244, 245, 249)"}} placeholder="Repeat your password" id="repeatedPassword" name="repeatedPassword" onChange={this.handleChange} />
+                        <Form.Control type="password" style={{background: "rgb(244, 245, 249)"}} placeholder="Repeat your password" id="repeatedPassword" name="repeatedPassword" onChange={this.handleChange} required/>
                     </Form.Group>
                 </Form.Row>
 
