@@ -44,7 +44,7 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "name"))
     private List<Permission> permissions = new ArrayList<>();
 
-    @Column
+    @Column(name = "reset_pass")
     private Timestamp lastPasswordResetDate;
 
     public User() {

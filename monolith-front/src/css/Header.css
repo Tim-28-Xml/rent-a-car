@@ -11,23 +11,16 @@
     margin: 2px 8px;
 }
 
-.btnHeaderHome, .btnHeaderUR{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 21px;
-    font-weight: 350;
-    color: rgb(247, 244, 244);
-    background-color: transparent;
-    box-shadow: none;
-    outline: none;
-    border: none;
-}
-
-.btnHeaderUR{
-    float: right;
-}
 
 .btnHeaderHome{
-    margin-left: 17.8%;
+    background-color: transparent;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 22px;
+    font-weight: 80;
+    color: rgb(247, 244, 244);
+    outline: none;
+    border: none;
+
 }
 
 .btnHeaderHome:hover, .btnHeaderUR:hover{
@@ -40,6 +33,37 @@
     height: 100%;
     font-size: 33px;
     font-weight: 100;
-    margin-top: -7px;
     color: rgb(168, 185, 185);
+}
+
+.headerButtons{
+    margin-left: 38.5%;
+    display: flex;
+    flex-direction: row;
+}
+
+.headerButtons1{
+    margin-left: 27%;
+    display: flex;
+    flex-direction: row;
+}
+
+.logoutBtn{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 21px;
+    font-weight: 350;
+    color: rgb(98, 114, 129);
+    background-color: rgb(234, 239, 240);
+    border: none;
+    outline: none;
+    margin-top: 1.5%;
+    height: 80%;
+    border-radius: 10%;
+
+}
+
+.logoutBtn:hover{
+    background-color: rgb(225, 230, 231);
+    outline: none;
+    border: none;
 }

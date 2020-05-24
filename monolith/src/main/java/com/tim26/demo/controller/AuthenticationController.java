@@ -1,9 +1,6 @@
 package com.tim26.demo.controller;
 
-import com.tim26.demo.model.Agent;
-import com.tim26.demo.model.EndUser;
-import com.tim26.demo.model.PersonTokenState;
-import com.tim26.demo.model.User;
+import com.tim26.demo.model.*;
 import com.tim26.demo.security.TokenUtils;
 import com.tim26.demo.security.auth.JwtAuthenticationRequest;
 import com.tim26.demo.service.CustomUserDetailsService;
@@ -20,6 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -91,5 +94,27 @@ public class AuthenticationController {
         return ResponseEntity.ok(new PersonTokenState(jwt, expiresIn));
 
     }
+
+    @RequestMapping(value = "/role", method = RequestMethod.GET)
+    public ResponseEntity<?> getRole(Principal p){
+
+        User user = userService.findByUsername(p.getName());
+
+        Collection<?> auth = user.getAuthorities();
+
+        if(auth.size() == 0){
+            return ResponseEntity.status(500).build();
+        }
+
+        return ResponseEntity.ok(auth);
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ResponseEntity<?> logout(HttpServletRequest request) throws ServletException {
+        request.logout();
+
+        return ResponseEntity.ok().build();
+    }
+
 
 }
