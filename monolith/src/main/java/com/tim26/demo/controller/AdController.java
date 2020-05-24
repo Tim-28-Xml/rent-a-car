@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://localhost:4542/")
 @RestController
 @RequestMapping(value = "api/ads")
 public class AdController {

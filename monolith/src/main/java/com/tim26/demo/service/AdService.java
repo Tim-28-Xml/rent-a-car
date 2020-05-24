@@ -22,6 +22,7 @@ public class AdService {
 
         try {
             connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+
             preparedStatement = connection.prepareStatement("INSERT INTO car (brand, car_class, model, fuel, transmission, km, km_limit) values (?, ?, ?, ?, ?, ?, ?)");
             preparedStatement.setString(1, createAdDto.getBrand());
             preparedStatement.setString(2, createAdDto.getCarClass());

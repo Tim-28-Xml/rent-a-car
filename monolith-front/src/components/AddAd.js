@@ -39,7 +39,31 @@ class AddAd extends React.Component {
             return alert("Please enter a number for Km Limit!")
 
         var obj = {name:this.state.name, brand:this.state.brand, model:this.state.model, fuel: this.state.fuel, transmission: this.state.transmission, carClass: this.state.carClass, km: this.state.km, kmLimit: this.state.kmLimit}
-        console.log(obj);
+        
+        var array = [this.state.name, this.state.model, this.state.brand, this.state.carClass, this.state.fuel,this.state.transmission];
+        let malicious = 0;
+
+        array.forEach(element => {
+            if(element.includes("<") || element.includes(">"))
+            {
+                malicious++;
+            }
+
+            if(element === null || element === "")
+            {
+                return alert("Fill out all of the fields!");
+            }
+            
+        });
+
+        if(malicious > 0) {
+            return alert("Sorry..");
+        }
+
+        if(this.state.km > this.state.kmLimit) {
+            return alert("Km cannot be greater than km limit!");
+        }
+        
 
          axios.post("http://localhost:8082/api/ads/save", obj).then(
              (resp) => this.onSuccessHandler(resp),
