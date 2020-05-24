@@ -24,14 +24,19 @@ class AddAd extends React.Component {
             fuel: '',
             transmission: '',
             carClass: '',
-            km: '',
-            kmLimit: '',
+            km: 0,
+            kmLimit: 0,
         };
     }
 
     newAd(event) {
         event.preventDefault();
         console.log(this.state);
+
+        if(isNaN(this.state.km)) {
+           return alert("Please enter a number for Km Limit!");
+        } else if(isNaN(this.state.kmLimit))
+            return alert("Please enter a number for Km Limit!")
 
         var obj = {name:this.state.name, brand:this.state.brand, model:this.state.model, fuel: this.state.fuel, transmission: this.state.transmission, carClass: this.state.carClass, km: this.state.km, kmLimit: this.state.kmLimit}
         console.log(obj);

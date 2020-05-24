@@ -7,8 +7,8 @@ public class CreateAdDto {
     private String fuel;
     private String carClass;
     private String transmission;
-    private String km;
-    private String kmLimit;
+    private double km;
+    private double kmLimit;
 
     public CreateAdDto() {
 
@@ -62,19 +62,19 @@ public class CreateAdDto {
         this.transmission = transmission;
     }
 
-    public String getKm() {
+    public double getKm() {
         return km;
     }
 
-    public void setKm(String km) {
+    public void setKm(double km) {
         this.km = km;
     }
 
-    public String getKmLimit() {
+    public double getKmLimit() {
         return kmLimit;
     }
 
-    public void setKmLimit(String kmLimit) {
+    public void setKmLimit(double kmLimit) {
         this.kmLimit = kmLimit;
     }
 }

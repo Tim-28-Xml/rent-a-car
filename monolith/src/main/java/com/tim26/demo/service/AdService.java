@@ -13,6 +13,7 @@ import java.sql.SQLException;
 public class AdService {
 
     public boolean createAd(CreateAdDto createAdDto) throws SQLException {
+
         Connection connection = null;
         String dbUrl = "jdbc:postgresql://localhost:5432/RentACar";
         String dbUsername = "postgres";
