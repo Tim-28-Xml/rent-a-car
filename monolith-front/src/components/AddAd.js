@@ -31,8 +31,12 @@ class AddAd extends React.Component {
 
     newAd(event) {
         event.preventDefault();
+        console.log(this.state);
 
-         axios.post("http://localhost:8082/api/ads/save", this.state).then(
+        var obj = {name:this.state.name, brand:this.state.brand, model:this.state.model, fuel: this.state.fuel, transmission: this.state.transmission, carClass: this.state.carClass, km: this.state.km, kmLimit: this.state.kmLimit}
+        console.log(obj);
+
+         axios.post("http://localhost:8082/api/ads/save", obj).then(
              (resp) => this.onSuccessHandler(resp),
              (resp) => this.onErrorHandler(resp)
          );

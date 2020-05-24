@@ -10,31 +10,31 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String brand;
 
-    @Column(nullable = false)
+    @Column
     private String model;
 
-    @Column(nullable = false)
+    @Column
     private String fuel;
 
-    @Column(nullable = false)
+    @Column
     private String transmission;
 
-    @Column(nullable = false)
+    @Column
     private String carClass;
 
-    @Column(nullable = false)
+    @Column
     private double km;
 
-    @Column(nullable = false)
+    @Column
     private double kmLimit;
 
-    @Column(nullable = false)
+    @Column
     private boolean cdw;
 
-    @Column(nullable = false)
+    @Column
     private byte childSeats;
 
     @OneToOne(cascade = CascadeType.ALL)
