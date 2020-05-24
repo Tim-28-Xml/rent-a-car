@@ -52,9 +52,10 @@ class AddAd extends React.Component {
     }
 
     onSuccessHandler(resp) {
-
-        alert("OK!");
-
+        alert("Ok");
+        this.setState({ redirect: this.state.redirect === false });
+        window.location.reload();
+        this.handleClose();
     }
 
     handleClose() {

@@ -13,7 +13,6 @@ import java.sql.SQLException;
 public class AdService {
 
     public boolean createAd(CreateAdDto createAdDto) throws SQLException {
-
         Connection connection = null;
         String dbUrl = "jdbc:postgresql://localhost:5432/RentACar";
         String dbUsername = "postgres";
@@ -23,12 +22,14 @@ public class AdService {
 
         try {
             connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-            preparedStatement = connection.prepareStatement("INSERT INTO car (brand, car_class, model, fuel, transmission) values (?, ?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO car (brand, car_class, model, fuel, transmission, km, km_limit) values (?, ?, ?, ?, ?, ?, ?)");
             preparedStatement.setString(1, createAdDto.getBrand());
             preparedStatement.setString(2, createAdDto.getCarClass());
             preparedStatement.setString(3, createAdDto.getModel());
             preparedStatement.setString(4, createAdDto.getFuel());
             preparedStatement.setString(5, createAdDto.getTransmission());
+            preparedStatement.setDouble(6, createAdDto.getKm());
+            preparedStatement.setDouble(7, createAdDto.getKmLimit());
             preparedStatement.executeUpdate();
         }
         finally {
