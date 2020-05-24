@@ -62,8 +62,6 @@ class Header extends React.Component{
     }
 
     logout(){
-        console.log('usao')
-
         //const token = JSON.parse(localStorage.getItem('token'));
       
         this.setState({
@@ -72,9 +70,8 @@ class Header extends React.Component{
           
         localStorage.clear();
         window.location.href="http://localhost:3000/";
-
-
     }
+    
 
     render(){
         console.log(this.state.roles)

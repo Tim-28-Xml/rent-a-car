@@ -51,7 +51,7 @@ class RegisterPageAgent extends React.Component{
         } else {
 
             axios.post(`${serviceConfig.baseURL}/auth/register/agent`,this.state).then(
-                (resp) => { alert('success') },
+                (resp) => { window.location.href = "http://localhost:3000/" },
                 (resp) => { alert('error') }
             );
 

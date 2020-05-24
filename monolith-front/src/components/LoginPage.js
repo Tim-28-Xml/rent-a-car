@@ -37,9 +37,9 @@ class LoginPage extends React.Component{
                 };
 
                 window.location.href = "http://localhost:3000/"
-                alert('success') 
+                //alert('success') 
             },
-            (resp) => { alert('error') }
+            (resp) => { alert('Username or password is incorrect!') }
         );
 
     }
