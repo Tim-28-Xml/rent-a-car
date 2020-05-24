@@ -37,6 +37,7 @@ class RegisterPageAgent extends React.Component{
     }
 
     SendRegisterRequest(e) {
+        e.preventDefault();
 
         if(this.state.password.length < 8){
 

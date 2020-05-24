@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form, Button, FormGroup, FormControl, ControlLabel,Col, Modal } from "react-bootstrap";
 import '../css/LoginPage.css'
+import {serviceConfig} from '../appSettings.js'
+import axios from 'axios'
 
 class LoginPage extends React.Component{
     constructor(props){
@@ -12,10 +14,9 @@ class LoginPage extends React.Component{
         this.handleClose = this.handleClose.bind(this);
 
         this.state = {
-            userType: '',
-            email: '',
-            password: '',
+            
             username: '',
+            password: '',          
         }
     }
 
@@ -23,7 +24,23 @@ class LoginPage extends React.Component{
         this.setState({...this.state, [e.target.name]: e.target.value});
     }
 
-    Login() {
+    Login(e) {
+        e.preventDefault();
+
+        axios.post(`${serviceConfig.baseURL}/auth/login`,this.state).then(
+            (resp) => { 
+                let self = this;
+                localStorage.setItem('token', resp.data.accessToken)
+
+                const options = {
+                    headers: { 'token': resp.data.accessToken}
+                };
+
+                window.location.href = "http://localhost:3000/"
+                alert('success') 
+            },
+            (resp) => { alert('error') }
+        );
 
     }
 
@@ -58,7 +75,7 @@ class LoginPage extends React.Component{
 
                     <Form.Group as={Col}>
                         <Form.Label>Username:</Form.Label>
-                        <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} />
+                        <Form.Control type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} />
                     </Form.Group>
 
                     <Form.Group as={Col}>
