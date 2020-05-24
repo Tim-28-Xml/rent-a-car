@@ -6,10 +6,16 @@ import javax.persistence.Entity;
 @Entity
 public class Agent extends User {
 
+    @Column
     private int mbr;
 
+    @Column
     private String name;
+
+    @Column
     private String address;
+
+    @Column
     private double quota;
 
     public Agent() {
