@@ -3,6 +3,7 @@ import RegisterPageAgent from './RegisterPageAgent'
 import {Button} from "react-bootstrap"
 import '../css/Header.css'
 import caricon from '../icons/vehicle.svg'
+import usericon from '../icons/user.svg'
 import RegisterPageUser from './RegisterPageUser'
 import LoginPage from './LoginPage'
 import {serviceConfig} from '../appSettings.js'
@@ -71,7 +72,8 @@ class Header extends React.Component{
         localStorage.clear();
         window.location.href="http://localhost:3000/";
     }
-    
+
+
 
     render(){
         console.log(this.state.roles)
@@ -83,7 +85,7 @@ class Header extends React.Component{
                 { 
                     !this.state.isLoggedIn &&
                     <div className="headerButtons1">
-                    <button className="btnHeaderHome" href="http://localhost:3000/">Home</button>
+                    <a className="btnHeaderHome" href="http://localhost:3000/">Home</a>
                     <RegisterPageUser />
                     <LoginPage />
                     </div>
@@ -91,9 +93,10 @@ class Header extends React.Component{
 
                 { 
                     this.state.roles[0] === 'ROLE_ADMIN' &&
-                    <div className="headerButtons1">
-                    <button href="http://localhost:3000/" className="btnHeaderHome">Home</button>
+                    <div className="headerButtons2">
+                    <a href="http://localhost:3000/" className="btnHeaderHome">Home</a>
                     <RegisterPageAgent />
+                    <a href="http://localhost:3000/profile/admin" className="profileBtn">Profile</a>
                     <button className="logoutBtn" onClick={this.logout}>Log out</button>
                     </div>
                 }
@@ -101,7 +104,7 @@ class Header extends React.Component{
                 { 
                     this.state.roles[0] === 'ROLE_USER' &&
                     <div className="headerButtons">
-                    <button className="btnHeaderHome" href="http://localhost:3000/">Home</button>
+                    <a className="btnHeaderHome" href="http://localhost:3000/">Home</a>
                     <button className="logoutBtn" onClick={this.logout}>Log out</button>
                     </div>
                 }

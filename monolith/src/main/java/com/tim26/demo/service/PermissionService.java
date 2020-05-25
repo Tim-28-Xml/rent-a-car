@@ -1,4 +1,4 @@
-package com.tim26.demo.service.interfaces;
+package com.tim26.demo.service;
 
 import com.tim26.demo.model.Permission;
 import com.tim26.demo.repository.PermissionRepository;

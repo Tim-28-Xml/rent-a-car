@@ -1,5 +1,6 @@
 package com.tim26.demo.service;
 
+import com.tim26.demo.dto.EndUserDTO;
 import com.tim26.demo.model.EndUser;
 import com.tim26.demo.model.Permission;
 import com.tim26.demo.repository.EndUserRepository;
@@ -31,6 +32,18 @@ public class EndUserServiceImpl implements EndUserService {
 
     public EndUser findByUsername(String username){
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<EndUserDTO> findAll() {
+        List<EndUser> users = userRepository.findAll();
+        List<EndUserDTO> usersDTO = new ArrayList<>();
+
+        for (EndUser user: users) {
+            EndUserDTO userDTO = new EndUserDTO(user);
+            usersDTO.add(userDTO);
+        }
+         return usersDTO;
     }
 
     public EndUser findByEmail(String email){
