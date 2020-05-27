@@ -1,7 +1,9 @@
 package com.tim26.demo.controller;
 
+import com.tim26.demo.dto.AgentDTO;
 import com.tim26.demo.dto.EndUserDTO;
 import com.tim26.demo.model.EndUser;
+import com.tim26.demo.service.interfaces.AgentService;
 import com.tim26.demo.service.interfaces.EndUserService;
 import com.tim26.demo.service.interfaces.UService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class UserController {
 
     @Autowired
     UService uService;
+
+    @Autowired
+    AgentService agentService;
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/endusers")
@@ -53,6 +58,14 @@ public class UserController {
 
         List<String> permissions = uService.addPermission(username,permission);
         return new ResponseEntity<>(permissions, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/agents")
+    public ResponseEntity<List<AgentDTO>> getAgents(){
+
+        List<AgentDTO> users = agentService.findAllAgents();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 }

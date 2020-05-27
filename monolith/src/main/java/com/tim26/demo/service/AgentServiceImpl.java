@@ -1,5 +1,6 @@
 package com.tim26.demo.service;
 
+import com.tim26.demo.dto.AgentDTO;
 import com.tim26.demo.model.Agent;
 import com.tim26.demo.model.Permission;
 import com.tim26.demo.repository.AgentRepository;
@@ -44,5 +45,16 @@ public class AgentServiceImpl implements AgentService {
     @Override
     public Agent findByMbr(int mbr) {
         return agentRepository.findByMbr(mbr);
+    }
+
+    @Override
+    public List<AgentDTO> findAllAgents() {
+        List<Agent> agents = agentRepository.findAll();
+        List<AgentDTO> agentDTOS = new ArrayList<>();
+        for (Agent agent: agents) {
+            AgentDTO agentDTO = new AgentDTO(agent);
+            agentDTOS.add(agentDTO);
+        }
+        return agentDTOS;
     }
 }
