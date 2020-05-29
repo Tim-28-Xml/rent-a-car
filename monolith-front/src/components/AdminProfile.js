@@ -62,6 +62,23 @@ class AdminProfile extends React.Component{
         );
     }
 
+
+    removeUser(username){
+        let token = localStorage.getItem('token');
+        const options = {
+            headers: { 'Authorization': 'Bearer ' + token}
+        };
+        
+        axios.get(`${serviceConfig.baseURL}/users/remove/${username}`,options).then(
+            (resp) => { 
+                
+                window.location.reload();
+
+             },
+            (resp) => { alert('error') }
+        );
+    }
+
     renderTable(){
         return this.state.endUsers.map((endUser, index) => {
             const { username, email, firstname, lastname} = endUser
@@ -73,7 +90,7 @@ class AdminProfile extends React.Component{
                     <td>{firstname}</td>
                     <td>{lastname}</td>
                     <td><ManagePermissions content={username}/></td>
-                    <td><Button variant="outline-danger">Remove</Button></td>
+                    <td><Button variant="outline-danger" onClick={this.removeUser.bind(this, username)}>Remove</Button></td>
                 </tr>
             )
         })
@@ -91,7 +108,7 @@ class AdminProfile extends React.Component{
                     <td>{mbr}</td>
                     <td>{address}</td>
                     <td><ManagePermissions content={username}/></td>
-                    <td><Button variant="outline-danger">Remove</Button></td>
+                    <td><Button variant="outline-danger" onClick={this.removeUser.bind(this, username)}>Remove</Button></td>
                 </tr>
             )
         })
