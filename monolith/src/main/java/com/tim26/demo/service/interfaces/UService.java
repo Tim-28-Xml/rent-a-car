@@ -1,5 +1,6 @@
 package com.tim26.demo.service.interfaces;
 
+import com.tim26.demo.dto.PermissionsDTO;
 import com.tim26.demo.model.User;
 import com.tim26.demo.dto.EndUserDTO;
 
@@ -11,8 +12,8 @@ public interface UService {
     User findByEmail(String email);
     List<User> findAll();
     User save(User user);
-    List<String> getAllPermissions(String username);
-    List<String> removePermission(String username, String permission);
-    List<String> addPermission(String username, String permission);
+    PermissionsDTO getAllPermissions(String username);
+    PermissionsDTO removePermission(String username, String permission);
+    PermissionsDTO addPermission(String username, String permission);
 
 }

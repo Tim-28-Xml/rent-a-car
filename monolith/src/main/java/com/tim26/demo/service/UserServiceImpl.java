@@ -1,5 +1,6 @@
 package com.tim26.demo.service;
 
+import com.tim26.demo.dto.PermissionsDTO;
 import com.tim26.demo.model.Permission;
 import com.tim26.demo.model.User;
 import com.tim26.demo.repository.UserRepository;
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UService {
     }
 
     @Override
-    public List<String> getAllPermissions(String username) {
+    public PermissionsDTO getAllPermissions(String username) {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
@@ -54,11 +55,15 @@ public class UserServiceImpl implements UService {
                 permissions.add(p);
             }
         }
-        return permissions;
+
+        PermissionsDTO permissionsDTO = new PermissionsDTO();
+        permissionsDTO.setPermissions(permissions);
+        permissionsDTO.setBlockedPermissions(user.getBlockedPermissions());
+        return permissionsDTO;
     }
 
     @Override
-    public List<String> removePermission(String username, String permission) {
+    public PermissionsDTO removePermission(String username, String permission) {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
@@ -66,10 +71,13 @@ public class UserServiceImpl implements UService {
         }
 
         List<String> newList = new ArrayList<>();
+        List<String> blockedPermissions = user.getBlockedPermissions();
+        PermissionsDTO permissionsDTO = new PermissionsDTO();
 
         for (GrantedAuthority p : user.getAuthorities()) {
             if (p.getAuthority().equals(permission)) {
                 user.getAuthorities().remove(p);
+                user.getBlockedPermissions().add(permission);
                 userRepository.save(user);
                 break;
             }
@@ -82,12 +90,15 @@ public class UserServiceImpl implements UService {
             }
         }
 
-        return newList;
+        permissionsDTO.setPermissions(newList);
+        permissionsDTO.setBlockedPermissions(blockedPermissions);
+
+        return permissionsDTO;
 
     }
 
     @Override
-    public List<String> addPermission(String username, String permission) {
+    public PermissionsDTO addPermission(String username, String permission) {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
@@ -95,6 +106,7 @@ public class UserServiceImpl implements UService {
         }
 
         List<String> newList = new ArrayList<>();
+        List<String> permissionsDTOlist = new ArrayList<>();
         List<Permission> newPermissions = new ArrayList<>();
 
         Permission prm = permissionService.findByName(permission);
@@ -107,11 +119,21 @@ public class UserServiceImpl implements UService {
         for (String s: newList) {
             Permission pr = permissionService.findByName(s);
             newPermissions.add(pr);
+            if(!s.contains("ROLE")){
+                permissionsDTOlist.add(s);
+            }
         }
+
+
         user.setPermissions(newPermissions);
+        user.getBlockedPermissions().remove(permission);
         userRepository.save(user);
 
-        return newList;
+        PermissionsDTO permissionsDTO = new PermissionsDTO();
+        permissionsDTO.setPermissions(permissionsDTOlist);
+        permissionsDTO.setBlockedPermissions(user.getBlockedPermissions());
+
+        return permissionsDTO;
 
     }
 

@@ -44,6 +44,9 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "name"))
     private List<Permission> permissions = new ArrayList<>();
 
+    @ElementCollection
+    private List<String> blockedPermissions = new ArrayList<>();
+
     @Column(name = "reset_pass")
     private Timestamp lastPasswordResetDate;
 
@@ -157,5 +160,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public List<String> getBlockedPermissions() {
+        return blockedPermissions;
+    }
+
+    public void setBlockedPermissions(List<String> blockedPermissions) {
+        this.blockedPermissions = blockedPermissions;
     }
 }
