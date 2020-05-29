@@ -14,7 +14,8 @@ class ManagePermissions extends React.Component{
 
         this.state = {
             show: false,
-            permissions: []             
+            permissions: [],
+            blockedPermissions: [],             
         }
     }
 
@@ -30,11 +31,12 @@ class ManagePermissions extends React.Component{
             headers: { 'Authorization': 'Bearer ' + token}
         };
         
-        axios.get(`${serviceConfig.baseURL}/users/enduser/permissions/${username}`,options).then(
+        axios.get(`${serviceConfig.baseURL}/users/permissions/${username}`,options).then(
             (resp) => { 
-
+                console.log(resp)
                 this.setState({
-                    permissions: resp.data
+                    permissions: resp.data.permissions,
+                    blockedPermissions: resp.data.blockedPermissions
                 })
                 
              },
@@ -49,12 +51,13 @@ class ManagePermissions extends React.Component{
         };
         
         var username = this.props.content;
-        console.log(perm)
+
         axios.get(`${serviceConfig.baseURL}/users/remove/permission/${username}/${perm}`,options).then(
             (resp) => { 
 
                 this.setState({
-                    permissions: resp.data
+                    permissions: resp.data.permissions,
+                    blockedPermissions: resp.data.blockedPermissions
                 })
 
 
@@ -73,10 +76,12 @@ class ManagePermissions extends React.Component{
         console.log(perm)
         axios.get(`${serviceConfig.baseURL}/users/add/permission/${username}/${perm}`,options).then(
             (resp) => { 
-
+                console.log(resp);
                 this.setState({
-                    permissions: resp.data
+                    permissions: resp.data.permissions,
+                    blockedPermissions: resp.data.blockedPermissions
                 })
+                console.log(this.state)
 
              },
             (resp) => { alert('error') }
@@ -106,36 +111,22 @@ class ManagePermissions extends React.Component{
     }
 
     renderTableBlocked(){
-        return(
-            <div>
-                <h4 className="blockedPermTitle">Blocked permissions:</h4>
-                {
-                    !this.state.permissions.includes("ORDER") &&
-                    <tr>
-                        <td><Button onClick={this.addPermission.bind(this, "ORDER")} style={{float: 'right'}} variant="outline-success">Allow ordering</Button></td>
+        if(this.state.blockedPermissions != null) {
+            return this.state.blockedPermissions.map((perm, index) => {
+                
+                return (
+                    <tr key={perm}>
+                        <td>{perm}</td>
+                        <td><Button onClick={this.addPermission.bind(this, perm)} style={{float: 'right'}} variant="outline-success">Enable</Button></td>
                     </tr>
-                }
-                {
-                    !this.state.permissions.includes("CREATE_AD") &&
-                    <tr>
-                        <td><Button onClick={this.addPermission.bind(this, "CREATE_AD")} style={{float: 'right'}} variant="outline-success">Allow creating ads</Button></td>
-                    </tr>
-                }
-                {
-                    !this.state.permissions.includes("CREATE_REVIEW") &&
-                    <tr>
-                        <td><Button onClick={this.addPermission.bind(this, "CREATE_REVIEW")} style={{float: 'right'}} variant="outline-success">Allow creating reviews</Button></td>
-                    </tr>
-                }
-                {
-                    !this.state.permissions.includes("USE_CART") &&
-                    <tr>
-                        <td><Button onClick={this.addPermission.bind(this, "USE_CART")} style={{float: 'right'}} variant="outline-success">Allow using shopping cart</Button></td>
-                    </tr>
-                }
-            </div>
-        )
-    }
+                )
+            })
+        } else {
+            return(
+                <td></td>
+            )
+        }
+        }
     
 
     
