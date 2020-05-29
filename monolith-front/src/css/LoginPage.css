@@ -7,8 +7,10 @@
     border: none;
     outline: none;
     float: right; 
-    margin-top: 8%;
+    margin-top: 7%;
     border-radius: 10%;
+    height: 80%;
+    width: 68px;
 }
 
 .modalBtnLogin:hover{

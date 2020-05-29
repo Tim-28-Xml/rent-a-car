@@ -4,6 +4,7 @@ import LoginPage from './components/LoginPage';
 import RegisterPageAgent from './components/RegisterPageAgent';
 import Header from './components/Header'
 import HomePage from './components/HomePage'
+import AdminProfile from './components/AdminProfile'
 
 class Routes extends React.Component {
 
@@ -14,10 +15,17 @@ class Routes extends React.Component {
     render(){
         return (
             <Switch>
-                <Route path='/' render={props =>
+                <Route exact path='/' render={props =>
                     <div>
                         <Header />
                         <HomePage />
+                    </div>
+                    } />
+
+                <Route path='/profile/admin' render={props =>
+                    <div>
+                        <Header />
+                        <AdminProfile />
                     </div>
                     } />
             </Switch>
