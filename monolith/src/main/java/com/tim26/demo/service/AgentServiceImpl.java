@@ -52,8 +52,10 @@ public class AgentServiceImpl implements AgentService {
         List<Agent> agents = agentRepository.findAll();
         List<AgentDTO> agentDTOS = new ArrayList<>();
         for (Agent agent: agents) {
-            AgentDTO agentDTO = new AgentDTO(agent);
-            agentDTOS.add(agentDTO);
+            if(agent.isEnabled()) {
+                AgentDTO agentDTO = new AgentDTO(agent);
+                agentDTOS.add(agentDTO);
+            }
         }
         return agentDTOS;
     }

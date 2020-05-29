@@ -79,6 +79,7 @@ public class AuthenticationController {
             return ResponseEntity.notFound().build();
         }
 
+
         final Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
                         authenticationRequest.getPassword()));
@@ -87,6 +88,9 @@ public class AuthenticationController {
 
         User user = (User)userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
+        if(!user.isEnabled()){
+            return ResponseEntity.badRequest().build();
+        }
 
         String jwt = tokenUtils.generateToken(user.getUsername());
         int expiresIn = tokenUtils.getExpiredIn();

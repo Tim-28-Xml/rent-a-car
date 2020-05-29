@@ -2,7 +2,9 @@ package com.tim26.demo.controller;
 
 import com.tim26.demo.dto.AgentDTO;
 import com.tim26.demo.dto.EndUserDTO;
+import com.tim26.demo.dto.PermissionsDTO;
 import com.tim26.demo.model.EndUser;
+import com.tim26.demo.model.Permission;
 import com.tim26.demo.service.interfaces.AgentService;
 import com.tim26.demo.service.interfaces.EndUserService;
 import com.tim26.demo.service.interfaces.UService;
@@ -37,26 +39,26 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = "/enduser/permissions/{username}")
-    public ResponseEntity<List<String>> getEndUserPermissions(@PathVariable String username){
+    @GetMapping(value = "/permissions/{username}")
+    public ResponseEntity<PermissionsDTO> getEndUserPermissions(@PathVariable String username){
 
-        List<String> permissions = uService.getAllPermissions(username);
+        PermissionsDTO permissions = uService.getAllPermissions(username);
         return new ResponseEntity<>(permissions, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/remove/permission/{username}/{permission}")
-    public ResponseEntity<List<String>> removeEndUserPermission(@PathVariable String username, @PathVariable String permission){
+    public ResponseEntity<PermissionsDTO> removeEndUserPermission(@PathVariable String username, @PathVariable String permission){
 
-        List<String> permissions = uService.removePermission(username,permission);
+        PermissionsDTO permissions = uService.removePermission(username,permission);
         return new ResponseEntity<>(permissions, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/add/permission/{username}/{permission}")
-    public ResponseEntity<List<String>> addEndUserPermission(@PathVariable String username, @PathVariable String permission){
+    public ResponseEntity<PermissionsDTO> addEndUserPermission(@PathVariable String username, @PathVariable String permission){
 
-        List<String> permissions = uService.addPermission(username,permission);
+        PermissionsDTO permissions = uService.addPermission(username,permission);
         return new ResponseEntity<>(permissions, HttpStatus.OK);
     }
 
@@ -66,6 +68,17 @@ public class UserController {
 
         List<AgentDTO> users = agentService.findAllAgents();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/remove/{username}")
+    public ResponseEntity removeUser(@PathVariable String username){
+
+        if(uService.removeUser(username)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
