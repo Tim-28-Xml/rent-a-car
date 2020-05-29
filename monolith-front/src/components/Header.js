@@ -78,7 +78,7 @@ class Header extends React.Component{
     render(){
         console.log(this.state.roles)
         return(
-            <Navbar style={{background: "rgb(112,128,144)", height: "auto", position:"sticky", display:"flex", alignItems:"center"}} >
+            <Navbar style={{background: "rgb(112,128,144)", display: "flex", height: "45px"}} >
                 <h2 className="headerTitle">Rent a Car</h2>
                 <img src={caricon} style={{height:'40px', width: 'auto', margin: "0 0 0 40%"}} alt='Unavailable icon' />
 
@@ -97,6 +97,7 @@ class Header extends React.Component{
                     <a href="http://localhost:3000/" className="btnHeaderHome">Home</a>
                     <RegisterPageAgent />
                     <a href="http://localhost:3000/profile/admin" className="profileBtn">Profile</a>
+                    <a href="http://localhost:3000/codebook" className="profileBtn">Codebook</a>
                     <button className="logoutBtn" onClick={this.logout}>Log out</button>
                     </div>
                 }

@@ -5,6 +5,7 @@ import RegisterPageAgent from './components/RegisterPageAgent';
 import Header from './components/Header'
 import HomePage from './components/HomePage'
 import AdminProfile from './components/AdminProfile'
+import Codebook from './components/Codebook'
 
 class Routes extends React.Component {
 
@@ -26,6 +27,12 @@ class Routes extends React.Component {
                     <div>
                         <Header />
                         <AdminProfile />
+                    </div>
+                    } />
+                <Route path='/codebook' render={props =>
+                    <div>
+                        <Header />
+                        <Codebook />
                     </div>
                     } />
             </Switch>

@@ -1,8 +1,8 @@
 package com.tim26.demo.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 public class Codebook {
@@ -11,11 +11,8 @@ public class Codebook {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ElementCollection
-    private List<String> brands;
-
-    @ElementCollection
-    private Map<String, String> models;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<BrandModels> brandModels = new ArrayList<>();
 
     @ElementCollection
     private List<String> fuelTypes;
@@ -37,20 +34,12 @@ public class Codebook {
         this.id = id;
     }
 
-    public List<String> getBrands() {
-        return brands;
+    public List<BrandModels> getBrandModels() {
+        return brandModels;
     }
 
-    public void setBrands(List<String> brands) {
-        this.brands = brands;
-    }
-
-    public Map<String, String> getModels() {
-        return models;
-    }
-
-    public void setModels(Map<String, String> models) {
-        this.models = models;
+    public void setBrandModels(List<BrandModels> brandModels) {
+        this.brandModels = brandModels;
     }
 
     public List<String> getFuelTypes() {
