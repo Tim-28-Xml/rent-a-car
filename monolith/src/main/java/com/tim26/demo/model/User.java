@@ -50,6 +50,9 @@ public class User implements UserDetails {
     @Column(name = "reset_pass")
     private Timestamp lastPasswordResetDate;
 
+    @Column
+    private boolean enabled;
+
     public User() {
         super();
     }
@@ -159,7 +162,11 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public List<String> getBlockedPermissions() {

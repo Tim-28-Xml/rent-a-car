@@ -70,4 +70,15 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/remove/{username}")
+    public ResponseEntity removeUser(@PathVariable String username){
+
+        if(uService.removeUser(username)){
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

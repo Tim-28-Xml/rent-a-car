@@ -44,7 +44,7 @@ public class UserServiceImpl implements UService {
     public PermissionsDTO getAllPermissions(String username) {
         User user = userRepository.findByUsername(username);
 
-        if (user == null) {
+        if (user == null || !user.isEnabled()) {
             return null;
         }
 
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UService {
     public PermissionsDTO removePermission(String username, String permission) {
         User user = userRepository.findByUsername(username);
 
-        if (user == null) {
+        if (user == null || !user.isEnabled()) {
             return null;
         }
 
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UService {
     public PermissionsDTO addPermission(String username, String permission) {
         User user = userRepository.findByUsername(username);
 
-        if (user == null) {
+        if (user == null || !user.isEnabled()) {
             return null;
         }
 
@@ -124,7 +124,6 @@ public class UserServiceImpl implements UService {
             }
         }
 
-
         user.setPermissions(newPermissions);
         user.getBlockedPermissions().remove(permission);
         userRepository.save(user);
@@ -135,6 +134,19 @@ public class UserServiceImpl implements UService {
 
         return permissionsDTO;
 
+    }
+
+    @Override
+    public boolean removeUser(String username) {
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            return false;
+        }
+
+        user.setEnabled(false);
+        userRepository.save(user);
+        return true;
     }
 
 

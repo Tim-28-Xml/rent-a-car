@@ -15,5 +15,6 @@ public interface UService {
     PermissionsDTO getAllPermissions(String username);
     PermissionsDTO removePermission(String username, String permission);
     PermissionsDTO addPermission(String username, String permission);
+    boolean removeUser(String username);
 
 }

@@ -40,8 +40,10 @@ public class EndUserServiceImpl implements EndUserService {
         List<EndUserDTO> usersDTO = new ArrayList<>();
 
         for (EndUser user: users) {
-            EndUserDTO userDTO = new EndUserDTO(user);
-            usersDTO.add(userDTO);
+            if(user.isEnabled()) {
+                EndUserDTO userDTO = new EndUserDTO(user);
+                usersDTO.add(userDTO);
+            }
         }
          return usersDTO;
     }
