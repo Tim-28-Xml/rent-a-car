@@ -1,6 +1,6 @@
 import React from 'react';
 import RegisterPageAgent from './RegisterPageAgent'
-import {Button} from "react-bootstrap"
+import {Button, Navbar} from "react-bootstrap"
 import '../css/Header.css'
 import caricon from '../icons/vehicle.svg'
 import usericon from '../icons/user.svg'
@@ -78,7 +78,7 @@ class Header extends React.Component{
     render(){
         console.log(this.state.roles)
         return(
-            <div style={{background: "rgb(112,128,144)", display: "flex", height: "45px"}} >
+            <Navbar style={{background: "rgb(112,128,144)", height: "auto", position:"sticky", display:"flex", alignItems:"center"}} >
                 <h2 className="headerTitle">Rent a Car</h2>
                 <img src={caricon} style={{height:'40px', width: 'auto', margin: "0 0 0 40%"}} alt='Unavailable icon' />
 
@@ -117,7 +117,7 @@ class Header extends React.Component{
                     </div>
                 }
 
-            </div>
+            </Navbar>
         )
     }
 }
