@@ -54,6 +54,8 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().build();
         }
 
+        user.setEnabled(false);
+        user.setActivated(false);
         endUserService.save(user);
         return ResponseEntity.ok().build();
     }
@@ -66,7 +68,7 @@ public class AuthenticationController {
                 agentService.findByMbr(user.getMbr()) != null){
             return ResponseEntity.badRequest().build();
         }
-
+        user.setEnabled(true);
         agentService.save(user);
         return ResponseEntity.ok().build();
     }
@@ -88,7 +90,7 @@ public class AuthenticationController {
 
         User user = (User)userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
-        if(!user.isEnabled()){
+        if(!user.isEnabled() || !user.isActivated()){
             return ResponseEntity.badRequest().build();
         }
 
