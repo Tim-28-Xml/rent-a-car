@@ -1,41 +1,43 @@
 import React from 'react';
 import RegisterPageAgent from './RegisterPageAgent'
-import {Button} from "react-bootstrap"
-import {serviceConfig} from '../appSettings.js'
+import { Button, Card } from "react-bootstrap"
+import { serviceConfig } from '../appSettings.js'
 import axios from 'axios'
+import CreateNewAd from './CreateNewAd'
+import megaphoneicon from '../icons/megaphone.svg'
 import '../css/HomePage.css'
 
 
-class HomePage extends React.Component{
-    constructor(props){
+class HomePage extends React.Component {
+    constructor(props) {
         super(props);
 
-        
+
         this.state = {
             isLoggedIn: false,
             roles: [],
         }
     }
 
-    componentDidMount(){
-        
+    componentDidMount() {
+
         this.getRole();
     }
 
-    getRole(){
+    getRole() {
 
         let token = localStorage.getItem('token');
         let self = this;
 
-        if(token !== null){
-  
+        if (token !== null) {
+
             const options = {
-                headers: { 'Authorization': 'Bearer ' + token}
+                headers: { 'Authorization': 'Bearer ' + token }
             };
 
             axios.get(`${serviceConfig.baseURL}/auth/role`, options).then(
-                    (response) => { self.changeState(response) },
-                    (response) => { }
+                (response) => { self.changeState(response) },
+                (response) => { }
             );
         }
 
@@ -50,25 +52,37 @@ class HomePage extends React.Component{
         resp.data.forEach(element => {
             permissons.push(element.authority);
         });
-        
-        
-        this.setState({ 
+
+
+        this.setState({
             isLoggedIn: true,
             roles: permissons,
-         })
+        })
+
+        console.log(this.state);
     }
 
 
 
-    render(){
-        return(
-            <div>
-                <h1 style={{color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0"}}>Welcome to Rent a Car</h1>
+    render() {
+        if (this.state.roles[0] === 'ROLE_USER') {
+            return (
+                <div>
+                    <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Welcome to Rent a Car</h1>
+                    <CreateNewAd role={this.state.roles[0]}></CreateNewAd>
 
-            
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <h1>no user</h1>
 
-            </div>
-        )
+
+
+                </div>
+            )
+        }
     }
 }
 

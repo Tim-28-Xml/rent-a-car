@@ -59,7 +59,7 @@
     flex-direction: row;
 }
 
-.logoutBtn, .logoutBtnAdmin{
+.logoutBtn, .logoutBtnAdmin, .createAdBtn{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 21px;
     font-weight: 350;
@@ -73,7 +73,7 @@
     border-radius: 10%;
 }
 
-.logoutBtn{
+.logoutBtn, .createAdBtn{
     margin-top: 2.5%;
 }
 
