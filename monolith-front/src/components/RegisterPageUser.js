@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Button, FormGroup, FormControl, ControlLabel,Col, Modal } from "react-bootstrap";
 import '../css/RegisterPageAgent.css'
+import {serviceConfig} from '../appSettings.js'
+import axios from 'axios'
 
 
 class RegisterPageUser extends React.Component{
@@ -8,7 +10,6 @@ class RegisterPageUser extends React.Component{
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleChangePass = this.handleChangePass.bind(this);
         this.SendRegisterRequest = this.SendRegisterRequest.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -23,7 +24,7 @@ class RegisterPageUser extends React.Component{
             firstname: '',
             lastname: '',
 
-            goodPass:'',
+            repeatedPassword: '',
 
 
         }
@@ -33,21 +34,28 @@ class RegisterPageUser extends React.Component{
         this.setState({...this.state, [e.target.name]: e.target.value});
     }
 
-    handleChangePass(event) {
-        var pass = event.target.value;
-        var reg = /^[A-Z]*$/;
-        var test = reg.test(pass);
-        if (test) {
-           this.setState({password: pass});
-           this.setState({goodPass: "Good"});
-        }else{
-            this.setState({goodPass: "Not good enough"});
-        }        
-   }
 
 
-    SendRegisterRequest() {
+    SendRegisterRequest(e) {
+        e.preventDefault();
 
+        if(this.state.password.length < 8){
+
+            alert('Password is too short!');
+            return;
+
+        } else if(this.state.password != this.state.repeatedPassword){
+
+            alert('Repeated password does not match!');
+            return;
+        } else {
+
+            axios.post(`${serviceConfig.baseURL}/auth/register/user`,this.state).then(
+                (resp) => { window.location.href = "http://localhost:3000/" },
+                (resp) => { alert('error') }
+            );
+
+        }
     }
 
     handleClose() {
@@ -82,31 +90,37 @@ class RegisterPageUser extends React.Component{
 
                 <Form.Group as={Col}>
                     <Form.Label className="labelRegA">First Name</Form.Label>
-                    <Form.Control type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter first name" id="firstname" name="firstname" onChange={this.handleChange} />
+                    <Form.Control type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter first name" id="firstname" name="firstname" onChange={this.handleChange} required/>
                 </Form.Group>
 
                 <Form.Group as={Col}>
                     <Form.Label className="labelRegA">Last Name</Form.Label>
-                    <Form.Control  type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter last name" id="lastname" name="lastname" onChange={this.handleChange} />
+                    <Form.Control  type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter last name" id="lastname" name="lastname" onChange={this.handleChange} required/>
                 </Form.Group>
 
 
 
                 <Form.Group as={Col}>
                     <Form.Label className="labelRegA">Email</Form.Label>
-                    <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter email" id="email" name="email" onChange={this.handleChange} />
+                    <Form.Control type="email" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter email" id="email" name="email" onChange={this.handleChange} required/>
+                </Form.Group>
+
+                
+                <Form.Group as={Col}>
+                    <Form.Label className="labelRegA">Username:</Form.Label>
+                    <Form.Control type="text" style={{background: "rgb(244, 245, 249)"}} placeholder="Enter username" id="username" name="username" onChange={this.handleChange} required/>
                 </Form.Group>
 
                 <Form.Row >
                     <Form.Group as={Col} className="formRowRegL">
                         <Form.Label className="labelRegA">Password</Form.Label>
-                        <Form.Control type="password" style={{background: "rgb(244, 245, 249)"}} placeholder="Password" id="password" name="password" onChange={this.handleChange} />
+                        <Form.Control type="password" style={{background: "rgb(244, 245, 249)"}} placeholder="Password" id="password" name="password" onChange={this.handleChange} required/>
                         <legend className="legendPass">Password should contain 8 characters minimum, at least one number and a special character.</legend>
                     </Form.Group>
 
                     <Form.Group as={Col} className="formRowRegR">
                         <Form.Label className="labelRegA">Repeat password</Form.Label>
-                        <Form.Control type="password" style={{background: "rgb(244, 245, 249)"}} placeholder="Repeat your password" id="repeatedPassword" name="repeatedPassword" onChange={this.handleChange} />
+                        <Form.Control type="password" style={{background: "rgb(244, 245, 249)"}} placeholder="Repeat your password" id="repeatedPassword" name="repeatedPassword" onChange={this.handleChange} required/>
                     </Form.Group>
                 </Form.Row>
 

@@ -6,19 +6,24 @@ import javax.persistence.Entity;
 @Entity
 public class Agent extends User {
 
+    @Column
     private int mbr;
 
+    @Column
     private String name;
+
+    @Column
     private String address;
+
+    @Column
     private double quota;
 
     public Agent() {
         super();
-        this.setRole(Role.AGENT);
     }
 
-    public Agent(Role role, String email, String password, String username) {
-        super(role, email, password, username);
+    public Agent(String email, String password, String username) {
+        super(email, password, username);
     }
 
     public int getMbr() {
