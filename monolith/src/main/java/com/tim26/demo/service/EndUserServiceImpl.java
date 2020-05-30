@@ -48,6 +48,20 @@ public class EndUserServiceImpl implements EndUserService {
          return usersDTO;
     }
 
+    @Override
+    public List<EndUserDTO> findAllRequests() {
+        List<EndUser> allUsers = userRepository.findAll();
+        List<EndUserDTO> allRequests = new ArrayList<>();
+
+        for (EndUser endUser: allUsers) {
+            if(!endUser.isActivated() && endUser.getVerificationCode() == null) {
+                EndUserDTO endUserDTO = new EndUserDTO(endUser);
+                allRequests.add(endUserDTO);
+            }
+        }
+        return allRequests;
+    }
+
     public EndUser findByEmail(String email){
         return userRepository.findByEmail(email);
     }
