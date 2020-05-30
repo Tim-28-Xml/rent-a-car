@@ -5,15 +5,19 @@ import com.tim26.demo.dto.EndUserDTO;
 import com.tim26.demo.dto.PermissionsDTO;
 import com.tim26.demo.model.EndUser;
 import com.tim26.demo.model.Permission;
+import com.tim26.demo.model.User;
 import com.tim26.demo.service.interfaces.AgentService;
 import com.tim26.demo.service.interfaces.EndUserService;
 import com.tim26.demo.service.interfaces.UService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.List;
 
@@ -80,5 +84,56 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping(value="/confirm-account/{verificationCode}")
+    public ResponseEntity confirmUserAccount(@PathVariable("verificationCode") String verificationCode) throws URISyntaxException {
+
+        User user = uService.findVerificationCode(verificationCode);
+
+        user.setEnabled(true);
+        user.setActivated(true);
+        uService.save(user);
+
+        URI newUri = new URI("http://localhost:3000/activated-account");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(newUri);
+
+        return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/requests")
+    public ResponseEntity<List<EndUserDTO>> getAccountRequests(){
+
+        List<EndUserDTO> requests = endUserService.findAllRequests();
+        return new ResponseEntity<>(requests, HttpStatus.OK);
+
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/requests/accept/{username}")
+    public ResponseEntity acceptRegistrationRequest(@PathVariable String username){
+
+        boolean accepted = uService.acceptAccount(username);
+        if(accepted){
+            return new ResponseEntity(HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/requests/decline/{username}")
+    public ResponseEntity declineRegistrationRequest(@PathVariable String username){
+
+        boolean declined = uService.declineAccount(username);
+        if(declined){
+            return new ResponseEntity(HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 }

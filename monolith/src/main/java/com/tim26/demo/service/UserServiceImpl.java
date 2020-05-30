@@ -1,9 +1,13 @@
 package com.tim26.demo.service;
 
+import com.tim26.demo.dto.EndUserDTO;
 import com.tim26.demo.dto.PermissionsDTO;
+import com.tim26.demo.model.EndUser;
 import com.tim26.demo.model.Permission;
 import com.tim26.demo.model.User;
 import com.tim26.demo.repository.UserRepository;
+import com.tim26.demo.service.interfaces.EmailService;
+import com.tim26.demo.service.interfaces.EndUserService;
 import com.tim26.demo.service.interfaces.UService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -21,6 +26,12 @@ public class UserServiceImpl implements UService {
 
     @Autowired
     PermissionService permissionService;
+
+    @Autowired
+    EmailService emailService;
+
+    @Autowired
+    EndUserService endUserService;
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -146,6 +157,46 @@ public class UserServiceImpl implements UService {
 
         user.setEnabled(false);
         userRepository.save(user);
+        return true;
+    }
+
+    @Override
+    public User findVerificationCode(String findVerificationCode) {
+        Optional<User> user = Optional.ofNullable(userRepository.findByVerificationCode(findVerificationCode));
+
+        if(user.isPresent())
+            return user.get();
+        else
+            return null;
+    }
+
+    @Override
+    public boolean acceptAccount(String username) {
+        User user = userRepository.findByUsername(username);
+
+        try {
+            emailService.sendAcceptNotificaitionAsync(user);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    @Override
+    public boolean declineAccount(String username) {
+
+        User user = userRepository.findByUsername(username);
+        user.setVerificationCode("-1");
+        userRepository.save(user);
+
+        try {
+            emailService.sendDeclineNotificaitionAsync(user);
+        } catch (Exception e) {
+            return false;
+        }
+
         return true;
     }
 
