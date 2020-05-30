@@ -4,6 +4,9 @@ import com.tim26.demo.model.Codebook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public interface CodebookRepository extends JpaRepository<Codebook, Long> {
 
@@ -11,4 +14,9 @@ public interface CodebookRepository extends JpaRepository<Codebook, Long> {
     Codebook getFirstCodebook();
 
     Codebook save(Codebook codebook);
+    /*List<String> findAllByFuelTypes();
+    List<String> findAllByTransmissionTypes();
+    List<String> findAllByCarClasses();
+    List<String> findAllByBrandModels();*/
+
 }

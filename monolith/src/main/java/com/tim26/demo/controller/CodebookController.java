@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/codebook")
 public class CodebookController {
@@ -24,4 +27,22 @@ public class CodebookController {
         Codebook c = codebookService.getFirstCodebook();
         return new ResponseEntity<>(codebookService.getFirstCodebook(), HttpStatus.OK);
     }
+
+    /*@GetMapping(value = "/fuel-types")
+    @PreAuthorize("hasRole('CREATE_AD')")
+    public ResponseEntity<List<String>> getFuelTypes(){
+        return new ResponseEntity<List<String>>(codebookService.getFuelTypes(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/transmission-types")
+    @PreAuthorize("hasRole('CREATE_AD')")
+    public ResponseEntity<List<String>> getTransmissionTypes(){
+        return new ResponseEntity<List<String>>(codebookService.getTransmissionTypes(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/car-classes")
+    @PreAuthorize("hasRole('CREATE_AD')")
+    public ResponseEntity<List<String>> getCarClasses(){
+        return new ResponseEntity<List<String>>(codebookService.getCarClasses(), HttpStatus.OK);
+    }*/
 }
