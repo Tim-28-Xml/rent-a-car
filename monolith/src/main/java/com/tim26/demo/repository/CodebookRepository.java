@@ -14,9 +14,5 @@ public interface CodebookRepository extends JpaRepository<Codebook, Long> {
     Codebook getFirstCodebook();
 
     Codebook save(Codebook codebook);
-    /*List<String> findAllByFuelTypes();
-    List<String> findAllByTransmissionTypes();
-    List<String> findAllByCarClasses();
-    List<String> findAllByBrandModels();*/
 
 }
