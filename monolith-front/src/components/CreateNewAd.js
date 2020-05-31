@@ -30,6 +30,7 @@ class CreateNewAd extends React.Component {
         this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
         this.handleChangeEndDate = this.handleChangeStartDate.bind(this);
         this.handleChangeChecked = this.handleChangeChecked.bind(this);
+        this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
 
 
         this.state = {
@@ -55,7 +56,8 @@ class CreateNewAd extends React.Component {
             kmLimit: 0,
             cdw: 'off',
             collision: false,
-            childSeats: ''
+            childSeats: '',
+            files: []
         }
     }
 
@@ -219,6 +221,18 @@ class CreateNewAd extends React.Component {
             this.setState({collision:false});
         }
 
+    }
+
+    fileSelectedHandler = (e) => {
+        var imageNames = [];
+        var array = e.target.files;
+        var i;
+        for (i = 0; i < array.length; i++) {
+            var file = array[i];  
+            var filename = file.name;
+            imageNames.push(filename);
+          }
+        this.setState({ files: imageNames})
     }
 
     addDays(date, days) {
@@ -389,6 +403,8 @@ class CreateNewAd extends React.Component {
                                         placeholder="Enter number of childSeats"
                                         required
                                     />
+                                    <label htmlFor="images">Images</label>
+                                    <input type="file" multiple onChange={this.fileSelectedHandler} name="images" class="images" />
                                 </div>
                                 <hr />
                                 <button type="submit" className="submitAd">Create</button>
