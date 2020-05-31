@@ -1,45 +1,39 @@
-package com.tim26.demo.model;
+package com.tim26.demo.dto;
 
-import javax.persistence.*;
-import java.util.List;
+import com.tim26.demo.model.Car;
 
-@Entity
-public class Car {
+public class CarDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String brand;
-
-    @Column(nullable = false)
     private String model;
-
-    @Column(nullable = false)
     private String fuel;
-
-    @Column(nullable = false)
     private String transmission;
-
-    @Column(nullable = false)
     private String carClass;
-
-    @Column(nullable = false)
     private double km;
-
-    @Column(nullable = false)
     private double kmLimit;
-
-    @Column(nullable = false)
     private boolean cdw;
-
-    @Column(nullable = false)
     private byte childSeats;
 
-    //private List<String> photos;
+    public CarDTO(){
 
-    public Car() {
+    }
+
+    public CarDTO(Long id, String brand, String model, String fuel, String transmission, String carClass, double km, double kmLimit, boolean cdw, byte childSeats) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.fuel = fuel;
+        this.transmission = transmission;
+        this.carClass = carClass;
+        this.km = km;
+        this.kmLimit = kmLimit;
+        this.cdw = cdw;
+        this.childSeats = childSeats;
+    }
+
+    public CarDTO(Car car){
+        this(car.getId(),car.getBrand(),car.getModel(),car.getFuel(),car.getTransmission(),car.getCarClass(),car.getKm(),car.getKmLimit(),car.isCdw(),car.getChildSeats());
     }
 
     public Long getId() {
@@ -121,5 +115,4 @@ public class Car {
     public void setChildSeats(byte childSeats) {
         this.childSeats = childSeats;
     }
-
 }

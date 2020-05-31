@@ -9,7 +9,11 @@ public class Ad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    private Car car;
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(joinColumns=@JoinColumn(referencedColumnName="id"),
@@ -34,11 +38,11 @@ public class Ad {
     public Ad() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -88,5 +92,13 @@ public class Ad {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 }
