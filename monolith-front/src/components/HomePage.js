@@ -76,7 +76,7 @@ class HomePage extends React.Component {
         } else {
             return (
                 <div>
-                    <h1>no user</h1>
+                    <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Welcome to Rent a Car</h1>
 
 
 
