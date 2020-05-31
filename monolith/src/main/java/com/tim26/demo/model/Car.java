@@ -37,7 +37,8 @@ public class Car {
     @Column(nullable = false)
     private int childSeats;
 
-    //private List<String> photos;
+    @ElementCollection
+    private List<String> files;
 
     public Car() {
     }
@@ -120,5 +121,13 @@ public class Car {
 
     public void setChildSeats(int childSeats) {
         this.childSeats = childSeats;
+    }
+
+    public List<String> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<String> files) {
+        this.files = files;
     }
 }
