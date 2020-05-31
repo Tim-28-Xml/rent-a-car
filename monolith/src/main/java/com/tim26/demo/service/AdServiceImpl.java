@@ -42,6 +42,7 @@ public class AdServiceImpl implements AdService {
                 car.setKmLimit(ad.getKmLimit());
                 car.setChildSeats(Integer.parseInt(ad.getChildSeats()));
                 car.setCdw(ad.isCollision());
+                car.setFiles(ad.getFiles());
                 advertisment.setCar(car);
 
                 DateRange dateRange = new DateRange();
