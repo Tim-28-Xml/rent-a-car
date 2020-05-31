@@ -92,6 +92,37 @@ option {
     width: 30px;
     margin-left: 10px;
 }
+
+.images {
+    color: rgb(57, 153, 177);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    content: 'Select some files';
+    display: inline-block;
+    background: linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: none;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+
+}
+
+.images:hover::before {
+    border-color: black;
+}
+  
+.images:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.images::-webkit-file-upload-button {
+    color: lightseagreen;
+  }
 /*.startDate {
     margin-left: 20%;
     margin-top: -10%;
