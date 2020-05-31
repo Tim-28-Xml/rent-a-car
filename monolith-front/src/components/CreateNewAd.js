@@ -28,7 +28,7 @@ class CreateNewAd extends React.Component {
         this.handleSelectFuel = this.handleSelectFuel.bind(this);
         this.handleSelectCarClass = this.handleSelectCarClass.bind(this);
         this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
-        this.handleChangeEndDate = this.handleChangeStartDate.bind(this);
+        this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
         this.handleChangeChecked = this.handleChangeChecked.bind(this);
         this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
 
@@ -118,6 +118,9 @@ class CreateNewAd extends React.Component {
         else if (isNaN(this.state.childSeats))
             return alert("Please enter a number for child seats!");
 
+        this.state.endDate = moment(this.state.dateStringEnd).format('YYYY-MM-DD');
+        console.log(this.state);
+
         axios.post("http://localhost:8082/ad/save", this.state, options).then(
             (resp) => this.onSuccessHandler(resp),
             (resp) => this.onErrorHandler(resp)
@@ -195,7 +198,7 @@ class CreateNewAd extends React.Component {
         this.setState({
             startDate: date,
             dateStringStart: dateString,
-
+            minEndDate : this.addDays(this.state.startDate, 1)
         });
     }
 
@@ -392,6 +395,7 @@ class CreateNewAd extends React.Component {
                                         required
                                     />
                                     <br />
+                                    <label htmlFor="collision">Collision damage waiver</label>
                                     <input type="checkbox" id="cdw" name="cdw" onChange={this.handleChangeChecked} />
                                     <br />
                                     <label htmlFor="childSeats">Child seats</label>
@@ -403,6 +407,7 @@ class CreateNewAd extends React.Component {
                                         placeholder="Enter number of childSeats"
                                         required
                                     />
+                                    <br />
                                     <label htmlFor="images">Images</label>
                                     <input type="file" multiple onChange={this.fileSelectedHandler} name="images" class="images" />
                                 </div>
