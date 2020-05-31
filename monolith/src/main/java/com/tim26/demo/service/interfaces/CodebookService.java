@@ -1,5 +1,6 @@
 package com.tim26.demo.service.interfaces;
 
+import com.tim26.demo.model.BrandModels;
 import com.tim26.demo.model.Codebook;
 
 import java.util.ArrayList;
@@ -11,14 +12,13 @@ public interface CodebookService {
 
     Codebook save(Codebook codebook);
 
-    /*List<String> getFuelTypes();
+    List<BrandModels> getBrands();
+
+    List<String> getModelsFromBrand(String brand);
+
+    List<String> getFuelTypes();
 
     List<String> getTransmissionTypes();
 
-    List<String> getBrands();
-
-    List<String> getModels();
-
-    List<String> getCarClasses();*/
-
+    List<String> getCarClasses();
 }
