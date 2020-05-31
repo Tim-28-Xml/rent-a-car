@@ -16,6 +16,7 @@ public class CreateAdDto {
     private double kmLimit;
     private boolean collision;
     private String childSeats;
+    private List<String> files;
 
     public CreateAdDto() {
 
@@ -107,5 +108,13 @@ public class CreateAdDto {
 
     public void setCollision(boolean collision) {
         this.collision = collision;
+    }
+
+    public List<String> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<String> files) {
+        this.files = files;
     }
 }
