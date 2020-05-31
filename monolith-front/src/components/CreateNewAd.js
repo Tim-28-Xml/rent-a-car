@@ -5,9 +5,13 @@ import axios from 'axios'
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import megaphoneicon from '../icons/megaphone.svg'
+import moreicon from '../icons/more.svg'
+import Select from 'react-select';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import '../css/CreateNewAd.css'
-import Calendar from './Calendar.js';
 
+const moment = require('moment');
 const AdCreationAlert = withReactContent(Swal)
 class CreateNewAd extends React.Component {
 
@@ -18,6 +22,15 @@ class CreateNewAd extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.createNewAd = this.createNewAd.bind(this);
+        this.handleSelectBrand = this.handleSelectBrand.bind(this);
+        this.handleSelectModel = this.handleSelectModel.bind(this);
+        this.handleSelectTransmission = this.handleSelectTransmission.bind(this);
+        this.handleSelectFuel = this.handleSelectFuel.bind(this);
+        this.handleSelectCarClass = this.handleSelectCarClass.bind(this);
+        this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
+        this.handleChangeEndDate = this.handleChangeStartDate.bind(this);
+        this.handleChangeChecked = this.handleChangeChecked.bind(this);
+
 
         this.state = {
             show: false,
@@ -29,8 +42,20 @@ class CreateNewAd extends React.Component {
             carClassList: [],
             transmissionList: [],
             fuelList: [],
-            startDate: null,
-            endDate: null
+            brandList: [],
+            modelList: [],
+            startDate: new Date(),
+            endDate: new Date(),
+            dateStringStart: '',
+            dateStringEnd: '',
+            inputValueStart: '',
+            inputValueEnd: '',
+            minEndDate: new Date(),
+            km: 0,
+            kmLimit: 0,
+            cdw: 'off',
+            collision: false,
+            childSeats: ''
         }
     }
 
@@ -40,19 +65,38 @@ class CreateNewAd extends React.Component {
             headers: { 'Authorization': 'Bearer ' + token }
         };
 
+        this.state.minEndDate = this.addDays(this.state.startDate, 1);
+        this.state.endDate = this.state.minEndDate;
 
-        axios.get("http://localhost:8081/api/codebook/fuel-types", options).then(
+        axios.get("http://localhost:8082/codebook/fuel-types", options).then(
             (resp) => { this.setState({ fuelList: resp.data }) },
             (resp) => this.onErrorHandler(resp),
         );
 
-        axios.get('http://localhost:8082/api/codebook/transmission-types', options).then(
+        axios.get('http://localhost:8082/codebook/transmission-types', options).then(
             (resp) => { this.setState({ transmissionList: resp.data }) },
             (resp) => this.onErrorHandler(resp),
         );
 
-        axios.get('http://localhost:8082/api/codebook/car-classes', options).then(
+        axios.get('http://localhost:8082/codebook/car-classes', options).then(
             (resp) => { this.setState({ carClassList: resp.data }) },
+            (resp) => this.onErrorHandler(resp),
+        );
+
+        axios.get('http://localhost:8082/codebook/brands', options).then(
+            (resp) => { this.setState({ brandList: resp.data }) },
+            (resp) => this.onErrorHandler(resp),
+        );
+    }
+
+    getModelsFromBrand(brand) {
+        let token = localStorage.getItem('token');
+        const options = {
+            headers: { 'Authorization': 'Bearer ' + token }
+        };
+
+        axios.get(`http://localhost:8082/codebook/models-from-brand/${brand}`, options).then(
+            (resp) => { this.setState({ modelList: resp.data }) },
             (resp) => this.onErrorHandler(resp),
         );
     }
@@ -65,7 +109,14 @@ class CreateNewAd extends React.Component {
             headers: { 'Authorization': 'Bearer ' + token }
         };
 
-        axios.post("http://localhost:8082/api/ad/save", this.state, options).then(
+        if (isNaN(this.state.km)) {
+            return alert("Please enter a number for Km!");
+        } else if (isNaN(this.state.kmLimit))
+            return alert("Please enter a number for Km Limit!")
+        else if (isNaN(this.state.childSeats))
+            return alert("Please enter a number for child seats!");
+
+        axios.post("http://localhost:8082/ad/save", this.state, options).then(
             (resp) => this.onSuccessHandler(resp),
             (resp) => this.onErrorHandler(resp)
         );
@@ -107,11 +158,82 @@ class CreateNewAd extends React.Component {
     }
 
     handleSelect(e) {
+
         this.setState({ ...this.state, [e.target.name]: e.target.value });
         console.log(this.state);
     }
 
+    handleSelectBrand(e) {
+        console.log(e);
+        this.setState({ brand: e.value });
+        this.getModelsFromBrand(e.value);
+        console.log(this.state);
+    }
+
+    handleSelectModel(e) {
+        this.setState({ model: e.value });
+    }
+
+    handleSelectCarClass(e) {
+        this.setState({ carClass: e.value });
+    }
+
+    handleSelectTransmission(e) {
+        this.setState({ transmission: e.value });
+    }
+
+    handleSelectFuel(e) {
+        this.setState({ fuel: e.value });
+    }
+
+    handleChangeStartDate = date => {
+        var dateString = date.toISOString().substring(0, 10);
+        console.log(dateString);
+
+        this.setState({
+            startDate: date,
+            dateStringStart: dateString,
+
+        });
+    }
+
+    handleChangeEndDate = date => {
+        var dateString = date.toISOString().substring(0, 10);
+        console.log(dateString);
+
+        this.setState({
+            endDate: date,
+            dateStringEnd: dateString,
+
+        });
+    }
+
+    handleChangeChecked(e) {
+
+        if (document.getElementsByName(e.target.name)[0].checked === true) {
+            this.setState({ ...this.state, [e.target.name]: e.target.value });
+            this.setState({collision:true});
+        } else {
+            document.getElementsByName(e.target.name)[0].checked = false;
+            this.setState({ ...this.state, [e.target.name]: "off" });
+            this.setState({collision:false});
+        }
+
+    }
+
+    addDays(date, days) {
+        var result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+    }
+
+
     render() {
+
+        console.log(this.state);
+        this.state.minEndDate = this.addDays(this.state.startDate, 1);
+        this.state.endDate = this.state.minEndDate;
+
         if (this.props.role === 'ROLE_USER') {
             return (
                 <div>
@@ -140,49 +262,137 @@ class CreateNewAd extends React.Component {
                         <Modal.Body>
                             <form onSubmit={this.createNewAd} id="createAdForm">
                                 <div className="form-group">
-                                    <br />  
                                     <label htmlFor="brand">Brand</label>
-                                    <select name="brand" className="selectValue" defaultValue="None" onChange={this.handleSelect}>
-                                        <option value="None">None</option>
-                                        {this.state.transmissionList}
-                                    </select>
+                                    <Select
+                                        className="selectoptions"
+                                        style={{ width: "40px", marginBottom: "10px" }}
+                                        onChange={this.handleSelectBrand}
+                                        value={this.state.brand.value}
+                                        options={
+                                            this.state.brandList.map((type, i) => {
+                                                return { value: type.brand, label: type.brand };
+                                            })
+                                        }
+                                    />
                                     <br />
                                     <br />
                                     <label htmlFor="model">Model</label>
-                                    <select name="model" className="selectValue" defaultValue="None" onChange={this.handleSelect}>
-                                        <option value="None">None</option>
-                                        {this.state.transmissionList}
-                                    </select>
+                                    <Select
+                                        className="selectoptions"
+                                        style={{ width: "70%", marginBottom: "10px" }}
+                                        onChange={this.handleSelectModel}
+                                        value={this.state.model.value}
+                                        options={
+                                            this.state.modelList.map((type, i) => {
+                                                return { value: type, label: type };
+                                            })
+                                        }
+                                    />
                                     <br />
                                     <br />
                                     <label htmlFor="fuel">Fuel type</label>
-                                    <select name="fuel" className="selectValue" defaultValue="None" onChange={this.handleSelect}>
-                                        <option value="None">None</option>
-                                        {this.state.fuelList}
-                                    </select>
+                                    <Select
+                                        className="selectoptions"
+                                        style={{ width: "70%", marginBottom: "10px" }}
+                                        onChange={this.handleSelectFuel}
+                                        value={this.state.fuel.value}
+                                        options={
+
+                                            this.state.fuelList.map((type, i) => {
+                                                return { value: type, label: type };
+                                            })
+                                        }
+                                    />
                                     <br />
                                     <br />
                                     <label htmlFor="transmission">Transmission type</label>
-                                    <select name="transmission" className="selectValue" defaultValue="None" onChange={this.handleSelect}>
-                                        <option value="None">None</option>
-                                        {this.state.transmissionList}
-                                    </select>
+                                    <Select
+                                        className="selectoptions"
+                                        style={{ width: "70%", marginBottom: "10px" }}
+                                        onChange={this.handleSelectTransmission}
+                                        value={this.state.transmission.value}
+                                        options={
+
+                                            this.state.transmissionList.map((type, i) => {
+                                                return { value: type, label: type };
+                                            })
+                                        }
+                                    />
                                     <br />
                                     <br />
                                     <label htmlFor="carClass">Car class</label>
-                                    <select name="carClass" className="selectValue" defaultValue="None" onChange={this.handleSelect}>
-                                        <option value="None">None</option>
-                                        {this.state.carClassList}
-                                    </select>
+                                    <Select
+                                        className="selectoptions"
+                                        style={{ width: "70%", marginBottom: "10px" }}
+                                        onChange={this.handleSelectCarClass}
+                                        value={this.state.carClass.value}
+                                        options={
+
+                                            this.state.carClassList.map((type, i) => {
+                                                return { value: type, label: type };
+                                            })
+                                        }
+                                    />
                                     <br />
+                                    <div className="startDate">
+                                        <label htmlFor="startDate">Start date</label>
+                                        <br />
+                                        <DatePicker
+                                            selected={this.state.startDate}
+                                            onChange={this.handleChangeStartDate}
+                                            value={this.state.dateStringStart.value}
+                                            name="startDate"
+                                            minDate={moment().toDate()}
+                                        />
+                                    </div>
                                     <br />
-                                    <Calendar></Calendar>
+                                    <div className="endDate">
+                                        <label htmlFor="endDate">End date</label>
+                                        <br />
+                                        <DatePicker
+                                            selected={this.state.endDate}
+                                            onChange={this.handleChangeEndDate}
+                                            value={this.state.dateStringEnd.value}
+                                            name="endDate"
+                                            minDate={this.state.minEndDate}
+                                        />
+                                    </div>
+                                    <br />
+                                    <label htmlFor="km">Km</label>
+                                    <input type="text"
+                                        className="form-control form-control-sm"
+                                        id="km"
+                                        name="km"
+                                        onChange={this.handleChange}
+                                        placeholder="Enter km"
+                                        required
+                                    />
+                                    <br />
+                                    <label htmlFor="kmLimit">Km Limit</label>
+                                    <input type="text"
+                                        className="form-control form-control-sm"
+                                        id="kmLimit"
+                                        name="kmLimit"
+                                        onChange={this.handleChange}
+                                        placeholder="Enter km limit"
+                                        required
+                                    />
+                                    <br />
+                                    <input type="checkbox" id="cdw" name="cdw" onChange={this.handleChangeChecked} />
+                                    <br />
+                                    <label htmlFor="childSeats">Child seats</label>
+                                    <input type="text"
+                                        className="form-control form-control-sm"
+                                        id="childSeats"
+                                        name="childSeats"
+                                        onChange={this.handleChange}
+                                        placeholder="Enter number of childSeats"
+                                        required
+                                    />
                                 </div>
                                 <hr />
                                 <button type="submit" className="submitAd">Create</button>
                                 <button className="closeModal" onClick={this.handleClose}>Close</button>
-                                <br/>
-                                <br/>
                             </form>
                         </Modal.Body>
                     </Modal>
