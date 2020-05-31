@@ -78,3 +78,18 @@ insert into user_permissions(user_id,permission_id) values (-5,'USE_CART');
 insert into user_permissions(user_id,permission_id) values (-5,'ORDER');
 insert into user_permissions(user_id,permission_id) values (-5,'CREATE_REVIEW');
 
+--car
+insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-1,'AUDI','sedan',false,1,'diesel',50000,1000,'A6','automatic');
+insert into ad(id,car_id,price_list_id,rent_request_id,user_id) values (-1,-1,null,null,-4);
+
+insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-2,'RENAULT','hatchback',false,0,'diesel',50000,1000,'Clio','manual');
+insert into ad(id,car_id,price_list_id,rent_request_id,user_id) values (-2,-2,null,null,-4);
+
+insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-3,'BMW','sedan',false,1,'diesel',66000,5000,'3','manual');
+insert into ad(id,car_id,price_list_id,rent_request_id,user_id) values (-3,-3,null,null,-4);
+
+insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-4,'Volkswagen','hatchback',true,2,'diesel',30000,2000,'Golf 7','automatic');
+insert into ad(id,car_id,price_list_id,rent_request_id,user_id) values (-4,-4,null,null,-4);
+
+insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-5,'BMW','coupe',true,0,'diesel',50000,1000,'3','automatic');
+insert into ad(id,car_id,price_list_id,rent_request_id,user_id) values (-5,-5,null,null,-4);
