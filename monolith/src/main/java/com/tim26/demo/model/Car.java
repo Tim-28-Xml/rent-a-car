@@ -35,7 +35,7 @@ public class Car {
     private boolean cdw;
 
     @Column(nullable = false)
-    private byte childSeats;
+    private int childSeats;
 
     //private List<String> photos;
 
@@ -114,11 +114,11 @@ public class Car {
         this.cdw = cdw;
     }
 
-    public byte getChildSeats() {
+    public int getChildSeats() {
         return childSeats;
     }
 
-    public void setChildSeats(byte childSeats) {
+    public void setChildSeats(int childSeats) {
         this.childSeats = childSeats;
     }
 }
