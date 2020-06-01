@@ -7,17 +7,35 @@ AdService
 		4. Postavljanje zauzetosti auta
 		5. CRUD Cenovnika
 		6. Odrzavanje sifarnika	
+		7. Kreiranje izveštaja
+		8. Obračunavanje dodatnih km i cene
 	Entiteti:
 		1. Ad
 		2. Date range
 		3. PriceList
 		4. CodeBook
+		5. Report
 
 Authentication service
 
 	Funkcionalnosti:
 		1. Registracija
 		2. Logovanje
+
+		3. Dodavanje u korpu
+		4. CRUD profila za EndUser/Agenta
+		5. R istorija zahteva 
+		6. Statistika upotrebe
+
+		7. Blokiranje, Aktiviranje, Korisnika
+		8. Kreiranje agenta/Firme
+		9. Definisanje permisija
+
+	Entiteti:
+		1. User
+		2. Agent
+		3. EndUser
+		4. Admin
 	
 ChatService
 
@@ -37,15 +55,6 @@ RentRequestService
 		1.RentRequest
 		2. RequestStatus
 
-ReportService
-	
-	Funkcionalnosti:
-		1. Kreiranje izveštaja
-		2. Obračunavanje dodatnih km i cene
-
-	Entiteti:
-		1. Report
-
 ReviewService
 
 	Funkcionalnosti:
@@ -55,23 +64,9 @@ ReviewService
 	Entiteti:
 		1. Review
 
-UserService
 
-	Funkcionalnosti:
-		1. Dodavanje u korpu
-		2. CRUD profila za EndUser/Agenta
-		3. R istorija zahteva 
-		4. Statistika upotrebe
 
-		5. Blokiranje, Aktiviranje, Korisnika
-		6. Kreiranje agenta/Firme
-		7. Definisanje permisija
-
-	Entiteti:
-		1. User
-		2. Agent
-		3. EndUser
-		4. Admin	
+	
 
 
 
