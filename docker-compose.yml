@@ -109,24 +109,6 @@ services:
       - rent-a-car-network
 
 
-  reportservice:
-    image: reportservice
-    build:
-      context: ./ReportService
-      dockerfile: Dockerfile
-    ports:
-        - "8091:8091"
-    tty: true
-    restart: on-failure
-    container_name: reportservice
-    depends_on:
-        - eureka
-    environment:
-        - REGISTRY_HOST=eureka
-    networks:
-        - rent-a-car-network
-
-
 
   reviewservice:
     image: reviewservice
@@ -145,23 +127,6 @@ services:
     networks:
         - rent-a-car-network
 
-
-  userservice:
-    image: userservice
-    build:
-      context: ./UserService
-      dockerfile: Dockerfile
-    ports:
-        - "8085:8085"
-    tty: true
-    restart: on-failure
-    container_name: userservice
-    depends_on:
-        - eureka
-    environment:
-        - REGISTRY_HOST=eureka
-    networks:
-        - rent-a-car-network
 
 
 networks:
