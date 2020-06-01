@@ -10,5 +10,6 @@ public interface EndUserService {
     EndUser findByEmail(String email);
     EndUser findByUsername(String username);
     List<EndUserDTO> findAll();
+    List<EndUserDTO> findAllRequests();
     EndUser save(EndUser endUser);
 }

@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -52,6 +53,12 @@ public class User implements UserDetails {
 
     @Column
     private boolean enabled;
+
+    @Column
+    private String verificationCode;
+
+    @Column
+    private boolean isActivated;
 
     public User() {
         super();
@@ -175,5 +182,21 @@ public class User implements UserDetails {
 
     public void setBlockedPermissions(List<String> blockedPermissions) {
         this.blockedPermissions = blockedPermissions;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isActivated() {
+        return isActivated;
+    }
+
+    public void setActivated(boolean activated) {
+        isActivated = activated;
     }
 }
