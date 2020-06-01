@@ -1,54 +1,25 @@
-package com.tim26.demo.model;
+package com.tim26.demo.dto;
 
-import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Car {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
+public class CreateAdDto {
     private String brand;
-
-    @Column(nullable = false)
     private String model;
-
-    @Column(nullable = false)
     private String fuel;
-
-    @Column(nullable = false)
     private String transmission;
-
-    @Column(nullable = false)
     private String carClass;
-
-    @Column(nullable = false)
+    private LocalDate startDate;
+    private LocalDate endDate;
     private double km;
-
-    @Column(nullable = false)
     private double kmLimit;
-
-    @Column(nullable = false)
-    private boolean cdw;
-
-    @Column(nullable = false)
-    private int childSeats;
-
-    @ElementCollection
+    private boolean collision;
+    private String childSeats;
     private List<String> files;
 
-    public Car() {
-    }
+    public CreateAdDto() {
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getBrand() {
@@ -91,6 +62,22 @@ public class Car {
         this.carClass = carClass;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
     public double getKm() {
         return km;
     }
@@ -107,20 +94,20 @@ public class Car {
         this.kmLimit = kmLimit;
     }
 
-    public boolean isCdw() {
-        return cdw;
-    }
-
-    public void setCdw(boolean cdw) {
-        this.cdw = cdw;
-    }
-
-    public int getChildSeats() {
+    public String getChildSeats() {
         return childSeats;
     }
 
-    public void setChildSeats(int childSeats) {
+    public void setChildSeats(String childSeats) {
         this.childSeats = childSeats;
+    }
+
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
     }
 
     public List<String> getFiles() {
