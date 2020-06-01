@@ -27,8 +27,6 @@ services:
       - eureka
     environment:
       - REGISTRY_HOST=eureka
-    volumes:
-      - ./etc/ssl/certs
     networks:
       - rent-a-car-network
 
