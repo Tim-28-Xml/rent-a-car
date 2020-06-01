@@ -57,7 +57,7 @@ class CreateNewAd extends React.Component {
             cdw: 'off',
             collision: false,
             childSeats: '',
-            files: []
+            files: [],
         }
     }
 
@@ -119,7 +119,6 @@ class CreateNewAd extends React.Component {
             return alert("Please enter a number for child seats!");
 
         this.state.endDate = moment(this.state.dateStringEnd).format('YYYY-MM-DD');
-        console.log(this.state);
 
         axios.post("http://localhost:8082/ad/save", this.state, options).then(
             (resp) => this.onSuccessHandler(resp),
@@ -198,7 +197,7 @@ class CreateNewAd extends React.Component {
         this.setState({
             startDate: date,
             dateStringStart: dateString,
-            minEndDate : this.addDays(this.state.startDate, 1)
+            minEndDate: this.addDays(this.state.startDate, 1)
         });
     }
 
@@ -217,11 +216,11 @@ class CreateNewAd extends React.Component {
 
         if (document.getElementsByName(e.target.name)[0].checked === true) {
             this.setState({ ...this.state, [e.target.name]: e.target.value });
-            this.setState({collision:true});
+            this.setState({ collision: true });
         } else {
             document.getElementsByName(e.target.name)[0].checked = false;
             this.setState({ ...this.state, [e.target.name]: "off" });
-            this.setState({collision:false});
+            this.setState({ collision: false });
         }
 
     }
@@ -230,12 +229,21 @@ class CreateNewAd extends React.Component {
         var imageNames = [];
         var array = e.target.files;
         var i;
+
         for (i = 0; i < array.length; i++) {
-            var file = array[i];  
-            var filename = file.name;
-            imageNames.push(filename);
-          }
-        this.setState({ files: imageNames})
+
+            var file = array[i];
+            var reader = new FileReader();
+
+            reader.onload = (em) => {
+                imageNames.push(em.target.result);
+                console.log(em.target.result)
+            }
+
+            reader.readAsDataURL(e.target.files[i]);
+        }
+
+        this.setState({files: imageNames});
     }
 
     addDays(date, days) {

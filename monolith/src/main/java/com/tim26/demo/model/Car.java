@@ -38,7 +38,7 @@ public class Car {
     private int childSeats;
 
     @ElementCollection
-    private List<String> files;
+    private List<byte[]> files;
 
     public Car() {
     }
@@ -123,11 +123,11 @@ public class Car {
         this.childSeats = childSeats;
     }
 
-    public List<String> getFiles() {
+    public List<byte[]> getFiles() {
         return files;
     }
 
-    public void setFiles(List<String> files) {
+    public void setFiles(List<byte[]> files) {
         this.files = files;
     }
 }
