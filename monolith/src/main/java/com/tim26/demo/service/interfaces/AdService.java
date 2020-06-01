@@ -9,4 +9,6 @@ import java.util.List;
 public interface AdService {
     boolean save(CreateAdDto ad, Principal p);
     List<Ad> getAllAds();
+    List<AdDTO> findAll();
+    AdDTO findById(long id);
 }

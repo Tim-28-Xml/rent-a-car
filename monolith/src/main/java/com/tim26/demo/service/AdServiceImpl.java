@@ -15,6 +15,9 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import com.tim26.demo.dto.AdDTO;
+
+import java.util.Optional;
 
 @Service
 public class AdServiceImpl implements AdService {
@@ -78,7 +81,26 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public List<Ad> getAllAds() {
+    public List<AdDTO> findAll() {
+        List<Ad> allAds = adRepository.findAll();
+        List<AdDTO> adDTOS = new ArrayList<>();
+
+        for (Ad ad: allAds) {
+            AdDTO adDTO = new AdDTO(ad);
+            adDTOS.add(adDTO);
+        }
+        return adDTOS;
+    }
+
+    @Override
+    public AdDTO findById(long id) {
+        Ad ad = adRepository.findById(id);
+
+        if(ad != null){
+            AdDTO adDTO = new AdDTO(ad);
+            return adDTO;
+        }
+
         return null;
     }
 }

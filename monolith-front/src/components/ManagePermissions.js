@@ -33,7 +33,7 @@ class ManagePermissions extends React.Component{
         
         axios.get(`${serviceConfig.baseURL}/users/permissions/${username}`,options).then(
             (resp) => { 
-                console.log(resp)
+
                 this.setState({
                     permissions: resp.data.permissions,
                     blockedPermissions: resp.data.blockedPermissions

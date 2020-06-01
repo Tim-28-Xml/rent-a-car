@@ -7,6 +7,7 @@ import HomePage from './components/HomePage'
 import AdminProfile from './components/AdminProfile'
 import Codebook from './components/Codebook'
 import ActivatedAccount from './components/ActivatedAccount'
+import SingleAd from './components/SingleAd'
 
 class Routes extends React.Component {
 
@@ -42,6 +43,8 @@ class Routes extends React.Component {
                         <ActivatedAccount />
                     </div>
                     } />
+                <Route path='/ad/:id' component = {SingleAd}/>
+
             </Switch>
         );
     }
