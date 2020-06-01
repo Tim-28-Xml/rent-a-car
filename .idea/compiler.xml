@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ChatService" />
+        <module name="AdService" />
+        <module name="RentRequestService" />
+        <module name="Zuul" />
+        <module name="Eureka" />
+        <module name="AuthenticationService" />
+        <module name="ReviewService" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AdService" target="1.8" />
+      <module name="AuthenticationService" target="1.8" />
+      <module name="ChatService" target="1.8" />
+      <module name="Eureka" target="1.8" />
+      <module name="rent-a-car" target="1.5" />
+      <module name="RentRequestService" target="1.8" />
+      <module name="ReviewService" target="1.8" />
+      <module name="Zuul" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="AdService" options="-parameters" />
+      <module name="AuthenticationService" options="-parameters" />
+      <module name="ChatService" options="-parameters" />
+      <module name="Eureka" options="-parameters" />
+      <module name="RentRequestService" options="-parameters" />
+      <module name="ReviewService" options="-parameters" />
+      <module name="Zuul" options="-parameters" />
+    </option>
+  </component>
+</project>

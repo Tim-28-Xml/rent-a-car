@@ -2,6 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AdService/AdService.iml" filepath="$PROJECT_DIR$/AdService/AdService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AuthenticationService/AuthenticationService.iml" filepath="$PROJECT_DIR$/AuthenticationService/AuthenticationService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ChatService/ChatService.iml" filepath="$PROJECT_DIR$/ChatService/ChatService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Eureka/Eureka.iml" filepath="$PROJECT_DIR$/Eureka/Eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RentRequestService/RentRequestService.iml" filepath="$PROJECT_DIR$/RentRequestService/RentRequestService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ReviewService/ReviewService.iml" filepath="$PROJECT_DIR$/ReviewService/ReviewService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Zuul/Zuul.iml" filepath="$PROJECT_DIR$/Zuul/Zuul.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/rent-a-car.iml" filepath="$PROJECT_DIR$/.idea/rent-a-car.iml" />
     </modules>
   </component>
