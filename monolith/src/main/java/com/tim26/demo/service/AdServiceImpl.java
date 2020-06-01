@@ -11,6 +11,7 @@ import com.tim26.demo.service.interfaces.EndUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.bind.DatatypeConverter;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,14 @@ public class AdServiceImpl implements AdService {
                 car.setKmLimit(ad.getKmLimit());
                 car.setChildSeats(Integer.parseInt(ad.getChildSeats()));
                 car.setCdw(ad.isCollision());
-                car.setFiles(ad.getFiles());
+                List<byte[]> imgBytes = new ArrayList<byte[]>();
+
+                for(String img : ad.getFiles()) {
+                    byte[] imgByte =  DatatypeConverter.parseBase64Binary(img.getBytes().toString());
+                    imgBytes.add(imgByte);
+                }
+                car.setFiles(imgBytes);
+
                 advertisment.setCar(car);
 
                 DateRange dateRange = new DateRange();
