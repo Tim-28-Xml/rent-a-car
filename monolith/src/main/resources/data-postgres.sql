@@ -13,21 +13,21 @@ insert into permission(name) values ('ORDER');
 insert into codebook(id) values (-1);
 
 --BrandModels object
-insert into brand_model(brand) values ('Mercedes');
-insert into brand_model(brand) values ('Audi');
-insert into brand_model(brand) values ('BMW');
+insert into brands(brand) values ('Mercedes');
+insert into brands(brand) values ('Audi');
+insert into brands(brand) values ('BMW');
 
 -- models list in BrandModels object
-insert into brand_model_models(brand_model_brand, models) values ('Mercedes', 'C class');
-insert into brand_model_models(brand_model_brand, models) values ('Mercedes', 'E class');
-insert into brand_model_models(brand_model_brand, models) values ('Mercedes', 'S class');
+insert into brands_models(brands_brand, models) values ('Mercedes', 'C class');
+insert into brands_models(brands_brand, models) values ('Mercedes', 'E class');
+insert into brands_models(brands_brand, models) values ('Mercedes', 'S class');
 
-insert into brand_model_models(brand_model_brand, models) values ('BMW', '5 series');
-insert into brand_model_models(brand_model_brand, models) values ('BMW', '3 series');
+insert into brands_models(brands_brand, models) values ('BMW', '5 series');
+insert into brands_models(brands_brand, models) values ('BMW', '3 series');
 
-insert into brand_model_models(brand_model_brand, models) values ('Audi', 'A4');
-insert into brand_model_models(brand_model_brand, models) values ('Audi', 'A6');
-insert into brand_model_models(brand_model_brand, models) values ('Audi', 'A8');
+insert into brands_models(brands_brand, models) values ('Audi', 'A4');
+insert into brands_models(brands_brand, models) values ('Audi', 'A6');
+insert into brands_models(brands_brand, models) values ('Audi', 'A8');
 
 --Codebook brandModels list
 insert into codebook_brand_models(codebook_id, brand_models_brand) values (-1, 'Mercedes');

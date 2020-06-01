@@ -21,7 +21,6 @@ public class CodebookController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Codebook> getCodebook(){
-        Codebook c = codebookService.getFirstCodebook();
         return new ResponseEntity<>(codebookService.getFirstCodebook(), HttpStatus.OK);
     }
 }
