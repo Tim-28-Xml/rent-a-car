@@ -7,8 +7,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8761:8761"
+    tty: true
+    restart: on-failure
+    container_name: eureka
     networks:
       - rent-a-car-network
+
+
 
   zuul:
     image: zuul
@@ -16,31 +21,21 @@ services:
       context: ./Zuul
       dockerfile: Dockerfile
     ports:
-      - "8099:8099"
-    links:
-      - eureka
+      - "8443:8443"
+    tty: true
+    restart: on-failure
+    container_name: zuul
     depends_on:
       - eureka
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      - REGISTRY_HOST=eureka
+    volumes:
+      - ./etc/ssl/certs
     networks:
       - rent-a-car-network
 
-  administrationservice:
-    image: administrationservice
-    build:
-      context: ./AdministrationService
-      dockerfile: Dockerfile
-    ports:
-      - "8084:8084"
-    links:
-      - eureka
-    depends_on:
-      - eureka
-    environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
-    networks:
-      - rent-a-car-network
+
+
 
   adservice:
     image: adservice
@@ -48,15 +43,17 @@ services:
       context: ./AdService
       dockerfile: Dockerfile
     ports:
-      - "8085:8085"
-    links:
-      - eureka
+      - "8084:8084"
+    tty: true
+    restart: on-failure
+    container_name: adservice
     depends_on:
       - eureka
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      - REGISTRY_HOST=eureka
     networks:
       - rent-a-car-network
+
 
   authenticationservice:
     image: authenticationservice
@@ -65,14 +62,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8086:8086"
-    links:
-      - eureka
+    tty: true
+    restart: on-failure
+    container_name: authenticationservice
     depends_on:
       - eureka
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      - REGISTRY_HOST=eureka
     networks:
       - rent-a-car-network
+
 
   chatservice:
     image: chatservice
@@ -81,30 +80,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8087:8087"
-    links:
-      - eureka
+    tty: true
+    restart: on-failure
+    container_name: chatservice
     depends_on:
       - eureka
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      - REGISTRY_HOST=eureka
     networks:
       - rent-a-car-network
 
-  pricelistservice:
-    image: pricelistservice
-    build:
-      context: ./PricelistService
-      dockerfile: Dockerfile
-    ports:
-      - "8077:8077"
-    links:
-      - eureka
-    depends_on:
-      - eureka
-    environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
-    networks:
-      - rent-a-car-network
 
   rentrequestservice:
     image: rentrequestservice
@@ -113,14 +98,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8090:8090"
-    links:
-      - eureka
+    tty: true
+    restart: on-failure
+    container_name: rentrequestservice
     depends_on:
       - eureka
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+      - REGISTRY_HOST=eureka
     networks:
       - rent-a-car-network
+
 
   reportservice:
     image: reportservice
@@ -129,14 +116,16 @@ services:
       dockerfile: Dockerfile
     ports:
         - "8091:8091"
-    links:
-        - eureka
+    tty: true
+    restart: on-failure
+    container_name: reportservice
     depends_on:
         - eureka
     environment:
-        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+        - REGISTRY_HOST=eureka
     networks:
         - rent-a-car-network
+
 
 
   reviewservice:
@@ -146,14 +135,16 @@ services:
       dockerfile: Dockerfile
     ports:
         - "8092:8092"
-    links:
-        - eureka
+    tty: true
+    restart: on-failure
+    container_name: reviewservice
     depends_on:
         - eureka
     environment:
-        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+        - REGISTRY_HOST=eureka
     networks:
         - rent-a-car-network
+
 
   userservice:
     image: userservice
@@ -161,17 +152,18 @@ services:
       context: ./UserService
       dockerfile: Dockerfile
     ports:
-        - "8056:8056"
-    links:
-        - eureka
+        - "8085:8085"
+    tty: true
+    restart: on-failure
+    container_name: userservice
     depends_on:
         - eureka
     environment:
-        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+        - REGISTRY_HOST=eureka
     networks:
         - rent-a-car-network
+
 
 networks:
   rent-a-car-network:
     driver: bridge
-
