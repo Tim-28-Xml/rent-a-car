@@ -1,38 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Container, Row, Col, ListGroup, Accordion, Button} from 'react-bootstrap';
 import '../css/CodebookInfo.css'
-import {serviceConfig} from '../appSettings.js'
 
-function CodebookInfo() {
-    const [codebook, setCodebook] = useState();
-
-    useEffect(() => {
-        const fetchData = async () => {
-        
-        let token = localStorage.getItem('token');
-
-        const options = {
-            method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + token}
-        };
-        
-        await fetch(`${serviceConfig.baseURL}/codebook`, options)
-            .then(response => {
-              if (!response.ok) {
-                  return Promise.reject(response);
-              }
-              return response.json(); 
-          })
-          .then((data) =>  {
-            setCodebook(data);
-          })
-          .catch(response => {
-              console.log(response);
-          })  
-        };
-     
-        fetchData();
-      }, []);
+function CodebookInfo({codebook}) {
 
     function renderBrand(){
         if(codebook !== undefined){

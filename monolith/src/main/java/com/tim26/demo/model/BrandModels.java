@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "brand_model")
+@Entity(name = "brands")
 public class BrandModels {
 
     @Id

@@ -11,7 +11,7 @@ public class Codebook {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<BrandModels> brandModels = new ArrayList<>();
 
     @ElementCollection
