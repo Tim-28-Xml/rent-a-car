@@ -28,6 +28,7 @@ public class RentRequest {
     private LocalDateTime reservationTime;
 
     public RentRequest() {
+        this.requestStatus = RequestStatus.PENDING;
     }
 
     public RentRequest(List<Ad> ads, RequestStatus requestStatus){

@@ -4,7 +4,9 @@ import com.tim26.demo.model.RentRequest;
 import com.tim26.demo.repository.RentRequestRepository;
 import com.tim26.demo.service.interfaces.RentRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RentRequestServiceImpl implements RentRequestService {
     @Autowired
     RentRequestRepository rentRequestRepository;
