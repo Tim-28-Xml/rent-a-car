@@ -8,6 +8,7 @@ import com.tim26.demo.model.EndUser;
 import com.tim26.demo.repository.AdRepository;
 import com.tim26.demo.service.interfaces.AdService;
 import com.tim26.demo.service.interfaces.EndUserService;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class AdServiceImpl implements AdService {
                 List<byte[]> imgBytes = new ArrayList<byte[]>();
 
                 for(String img : ad.getFiles()) {
-                    byte[] imgByte =  DatatypeConverter.parseBase64Binary(img.getBytes().toString());
+                    byte[] imgByte = Base64.decodeBase64(img.getBytes());
                     imgBytes.add(imgByte);
                 }
                 car.setFiles(imgBytes);
