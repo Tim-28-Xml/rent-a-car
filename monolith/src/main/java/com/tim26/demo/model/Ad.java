@@ -35,10 +35,6 @@ public class Ad {
     @OneToMany
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "car_id", referencedColumnName = "id")
-    private Car car;
-
     public Ad() {
     }
 
