@@ -39,7 +39,7 @@ public class AuthenticationController {
         return "Hello svet from authentication service";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest){
 
         if(userService.findByUsername(authenticationRequest.getUsername()) == null){

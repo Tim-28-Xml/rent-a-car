@@ -3,6 +3,7 @@ package com.tim26.AuthenticationService.config;
 import com.tim26.AuthenticationService.security.TokenUtils;
 import com.tim26.AuthenticationService.security.auth.RestAuthenticationEntryPoint;
 import com.tim26.AuthenticationService.security.auth.TokenAuthenticationFilter;
+import com.tim26.AuthenticationService.service.UServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +20,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
+@EnableWebMvc
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -29,9 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Qualifier("userDetails")
+
     @Autowired
-    private UserDetailsService jwtUserDetailsService;
+    private UServiceImpl jwtUserDetailsService;
 
     // Neautorizovani pristup zastcenim resursima
     @Autowired
