@@ -120,7 +120,7 @@ class CreateNewAd extends React.Component {
 
         this.state.endDate = moment(this.state.dateStringEnd).format('YYYY-MM-DD');
 
-        axios.post("http://localhost:8082/ad/save", this.state, options).then(
+        axios.post("http://localhost:8082/ads/save", this.state, options).then(
             (resp) => this.onSuccessHandler(resp),
             (resp) => this.onErrorHandler(resp)
         );

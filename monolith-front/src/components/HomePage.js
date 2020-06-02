@@ -16,11 +16,13 @@ class HomePage extends React.Component {
         this.state = {
             isLoggedIn: false,
             roles: [],
+            ads: [],
         }
     }
 
     componentDidMount() {
 
+        this.getAds();
         this.getRole();
     }
 
@@ -43,6 +45,26 @@ class HomePage extends React.Component {
 
     }
 
+    getAds() {
+        let token = localStorage.getItem('token');
+
+        const options = {
+            headers: { 'Authorization': 'Bearer ' + token }
+        };
+
+        axios.get(`${serviceConfig.baseURL}/ads/all`, options).then(
+            (resp) => {
+                console.log(resp.data)
+                this.setState({
+                    ads: resp.data
+                })
+
+            },
+            (resp) => { alert('error') }
+        );
+    }
+
+
 
     changeState(resp) {
         console.log(resp);
@@ -62,6 +84,35 @@ class HomePage extends React.Component {
         console.log(this.state);
     }
 
+    view(id) {
+        window.location.href = `http://localhost:3000/ad/${id}`
+    }
+
+
+    renderAdCards() {
+        return this.state.ads.map((ad, index) => {
+            const { carDTO, username } = ad
+
+            return (
+                <Card key={carDTO.id} className="cardContainer" onClick={this.view.bind(this, carDTO.id)}>
+                    <Card.Body className="cardBody">
+                        <Card.Title className="cardTitle" >{carDTO.brand} {carDTO.model}</Card.Title>
+                        <Card.Text className='cardText'>
+
+                            fuel: {carDTO.fuel}
+                            <br />
+                                class: {carDTO.carClass}
+                            <br />
+                                transmission: {carDTO.transmission}
+
+
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            )
+
+        })
+    }
 
 
     render() {
@@ -70,16 +121,19 @@ class HomePage extends React.Component {
                 <div>
                     <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Welcome to Rent a Car</h1>
                     <CreateNewAd role={this.state.roles[0]}></CreateNewAd>
-
+                    <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Ads</h1>
+                    <div className="renderCardsAds">
+                        {this.renderAdCards()}
+                    </div>
                 </div>
             )
         } else {
             return (
                 <div>
                     <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Welcome to Rent a Car</h1>
-
-
-
+                    <div className="renderCardsAds">
+                        {this.renderAdCards()}
+                    </div>
                 </div>
             )
         }
