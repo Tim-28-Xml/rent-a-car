@@ -2,6 +2,8 @@ package com.tim26.demo.dto;
 
 import com.tim26.demo.model.Car;
 
+import java.util.List;
+
 public class CarDTO {
 
     private Long id;
@@ -14,12 +16,13 @@ public class CarDTO {
     private double kmLimit;
     private boolean cdw;
     private byte childSeats;
+    private List<byte[]> files;
 
     public CarDTO(){
 
     }
 
-    public CarDTO(Long id, String brand, String model, String fuel, String transmission, String carClass, double km, double kmLimit, boolean cdw, byte childSeats) {
+    public CarDTO(Long id, String brand, String model, String fuel, String transmission, String carClass, double km, double kmLimit, boolean cdw, byte childSeats, List<byte[]> files) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -30,10 +33,11 @@ public class CarDTO {
         this.kmLimit = kmLimit;
         this.cdw = cdw;
         this.childSeats = childSeats;
+        this.files = files;
     }
 
     public CarDTO(Car car){
-        this(car.getId(),car.getBrand(),car.getModel(),car.getFuel(),car.getTransmission(),car.getCarClass(),car.getKm(),car.getKmLimit(),car.isCdw(),car.getChildSeats());
+        this(car.getId(),car.getBrand(),car.getModel(),car.getFuel(),car.getTransmission(),car.getCarClass(),car.getKm(),car.getKmLimit(),car.isCdw(), (byte) car.getChildSeats(), car.getFiles());
     }
 
     public Long getId() {
@@ -114,5 +118,13 @@ public class CarDTO {
 
     public void setChildSeats(byte childSeats) {
         this.childSeats = childSeats;
+    }
+
+    public List<byte[]> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<byte[]> files) {
+        this.files = files;
     }
 }
