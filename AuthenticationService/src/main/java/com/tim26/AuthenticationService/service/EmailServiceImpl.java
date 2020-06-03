@@ -49,7 +49,7 @@ public class EmailServiceImpl implements EmailService {
         mail.setTo(user.getEmail());
         mail.setFrom(env.getProperty("spring.mail.username"));
         mail.setSubject("Rent a Car: Confirm account");
-        mail.setText("Hello " + user.getUsername() + ",\n\nYour request for registration has been accepted. Click the following link to activate your account:\n\n" + "http://localhost:8082/users/confirm-account/" + user.getVerificationCode() + "\n\nRent a Car Team");
+        mail.setText("Hello " + user.getUsername() + ",\n\nYour request for registration has been accepted. Click the following link to activate your account:\n\n" + "https://localhost:8443/authenticationservice/api/users/confirm-account/" + user.getVerificationCode() + "\n\nRent a Car Team");
         javaMailSender.send(mail);
     }
 }

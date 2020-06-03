@@ -95,7 +95,7 @@ public class UserController {
         user.setActivated(true);
         uService.save(user);
 
-        URI newUri = new URI("http://localhost:3000/activated-account");
+        URI newUri = new URI("https://localhost:3000/activated-account");
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(newUri);
 
