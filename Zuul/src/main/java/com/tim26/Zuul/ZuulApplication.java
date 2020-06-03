@@ -20,6 +20,7 @@ import org.springframework.web.filter.CorsFilter;
 
 @EnableDiscoveryClient
 @EnableZuulProxy
+@EnableFeignClients
 @SpringBootApplication
 public class ZuulApplication {
 
