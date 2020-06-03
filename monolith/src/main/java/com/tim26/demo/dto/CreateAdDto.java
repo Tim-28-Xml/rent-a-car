@@ -1,5 +1,7 @@
 package com.tim26.demo.dto;
 
+import com.tim26.demo.model.DateRange;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,7 @@ public class CreateAdDto {
     private String fuel;
     private String transmission;
     private String carClass;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private List<DateRange> dates;
     private double km;
     private double kmLimit;
     private boolean collision;
@@ -20,6 +21,20 @@ public class CreateAdDto {
 
     public CreateAdDto() {
 
+    }
+
+    public CreateAdDto(String brand, String model, String fuel, String transmission, String carClass, List<DateRange> dates, double km, double kmLimit, boolean collision, String childSeats, List<String> files) {
+        this.brand = brand;
+        this.model = model;
+        this.fuel = fuel;
+        this.transmission = transmission;
+        this.carClass = carClass;
+        this.dates = dates;
+        this.km = km;
+        this.kmLimit = kmLimit;
+        this.collision = collision;
+        this.childSeats = childSeats;
+        this.files = files;
     }
 
     public String getBrand() {
@@ -62,22 +77,6 @@ public class CreateAdDto {
         this.carClass = carClass;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
     public double getKm() {
         return km;
     }
@@ -116,5 +115,13 @@ public class CreateAdDto {
 
     public void setFiles(List<String> files) {
         this.files = files;
+    }
+
+    public List<DateRange> getDates() {
+        return dates;
+    }
+
+    public void setDates(List<DateRange> dates) {
+        this.dates = dates;
     }
 }
