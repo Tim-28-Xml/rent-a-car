@@ -18,7 +18,9 @@ class CreateNewAd extends React.Component {
     constructor(props) {
         super(props);
         this.handleShow = this.handleShow.bind(this);
+        this.handleShowDateModal = this.handleShowDateModal.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleCloseDateModal = this.handleCloseDateModal.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.createNewAd = this.createNewAd.bind(this);
@@ -29,12 +31,15 @@ class CreateNewAd extends React.Component {
         this.handleSelectCarClass = this.handleSelectCarClass.bind(this);
         this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
         this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
+        this.handleChangeStartDateAnother = this.handleChangeStartDateAnother.bind(this);
+        this.handleChangeEndDateAnother = this.handleChangeEndDateAnother.bind(this);
         this.handleChangeChecked = this.handleChangeChecked.bind(this);
         this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
 
 
         this.state = {
             show: false,
+            showDateModal: false,
             brand: '',
             model: '',
             fuel: '',
@@ -52,12 +57,18 @@ class CreateNewAd extends React.Component {
             inputValueStart: '',
             inputValueEnd: '',
             minEndDate: new Date(),
+            dates: [],
             km: 0,
             kmLimit: 0,
             cdw: 'off',
             collision: false,
             childSeats: '',
             files: [],
+            startDateAnother: new Date(),
+            endDateAnother: new Date(),
+            dateStringStartAnother: '',
+            dateStringEndAnother: '',
+
         }
     }
 
@@ -157,6 +168,15 @@ class CreateNewAd extends React.Component {
         this.setState({ show: true });
     }
 
+    handleShowDateModal() {
+        this.setState({ showDateModal: true });
+    }
+
+    handleCloseDateModal() {
+        this.setState({ showDateModal: false });
+    }
+
+
     handleChange(e) {
         this.setState({ ...this.state, [e.target.name]: e.target.value });
     }
@@ -212,6 +232,28 @@ class CreateNewAd extends React.Component {
         });
     }
 
+    handleChangeStartDateAnother = date => {
+        var dateString = date.toISOString().substring(0, 10);
+        console.log(dateString);
+
+        this.setState({
+            startDateAnother: date,
+            dateStringStartAnother: dateString,
+            minEndDate: this.addDays(this.state.startDate, 1)
+        });
+    }
+
+    handleChangeEndDateAnother = date => {
+        var dateString = date.toISOString().substring(0, 10);
+        console.log(dateString);
+
+        this.setState({
+            endDateAnother: date,
+            dateStringEndAnother: dateString,
+
+        });
+    }
+
     handleChangeChecked(e) {
 
         if (document.getElementsByName(e.target.name)[0].checked === true) {
@@ -243,13 +285,29 @@ class CreateNewAd extends React.Component {
             reader.readAsDataURL(e.target.files[i]);
         }
 
-        this.setState({files: imageNames});
+        this.setState({ files: imageNames });
     }
 
     addDays(date, days) {
         var result = new Date(date);
         result.setDate(result.getDate() + days);
         return result;
+    }
+
+    addMoreDates() {
+
+        var ok = false;
+        if (moment(this.state.startDateAnother).isBetween(moment(this.state.startDate), moment(this.state.endDate))) {
+            return alert("Dates are not good!");
+        } else if (moment(this.state.endDateAnother).isBetween(moment(this.state.startDate), moment(this.state.endDate))) {
+            return alert("Dates are NOT good!");
+        }
+
+        var obj = { startDate: this.state.startDateAnother, endDate: this.state.endDateAnother }
+        var list = [];
+        list.push(obj);
+        this.setState({ dates: list });
+
     }
 
 
@@ -383,6 +441,59 @@ class CreateNewAd extends React.Component {
                                         />
                                     </div>
                                     <br />
+                                    <button className="moreDatesBtn" onClick={this.handleShowDateModal}>More dates</button>
+                                    <Modal
+                                        show={this.state.showDateModal}
+                                        onHide={this.handleCloseDateModal}
+                                        size="lg"
+                                        aria-labelledby="contained-modal-title-vcenter"
+                                        centered="true"
+                                        className="modalAd"
+                                    >
+                                        <Modal.Header closeButton>
+                                            <Modal.Title style={{ color: 'rgb(110,120,130)' }} id="contained-modal-title-vcenter">
+                                                Choose another date
+                                            </Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <form onSubmit={this.addMoreDates} id="addMoreDates">
+                                                <div className="form-group">
+
+                                                    <br />
+                                                    <div className="startDateM">
+                                                        <label htmlFor="startDateM">Start date</label>
+                                                        <br />
+                                                        <DatePicker
+                                                            selected={this.state.startDateAnother}
+                                                            onChange={this.handleChangeStartDateAnother}
+                                                            value={this.state.dateStringStartAnother.value}
+                                                            name="datesM"
+                                                            minDate={moment().toDate()}
+                                                        />
+                                                    </div>
+                                                    <br />
+                                                    <div className="endDateM">
+                                                        <label htmlFor="endDateM">End date</label>
+                                                        <br />
+                                                        <DatePicker
+                                                            selected={this.state.endDateAnother}
+                                                            onChange={this.handleChangeEndDateAnother}
+                                                            value={this.state.dateStringEndAnother.value}
+                                                            name="datesM"
+                                                            minDate={this.state.minEndDate}
+                                                        />
+                                                    </div>
+                                                    <br />
+                                                </div>
+                                                <hr />
+                                                <button type="submit" className="submitAd">Add another Date</button>
+                                                <button className="closeModal" onClick={this.handleCloseDateModal}>Close</button>
+                                            </form>
+                                        </Modal.Body>
+                                    </Modal>
+
+                                    <br />
+                                    <br />
                                     <label htmlFor="km">Km</label>
                                     <input type="text"
                                         className="form-control form-control-sm"
@@ -405,6 +516,7 @@ class CreateNewAd extends React.Component {
                                     <br />
                                     <label htmlFor="collision">Collision damage waiver</label>
                                     <input type="checkbox" id="cdw" name="cdw" onChange={this.handleChangeChecked} />
+                                    <br />
                                     <br />
                                     <label htmlFor="childSeats">Child seats</label>
                                     <input type="text"
