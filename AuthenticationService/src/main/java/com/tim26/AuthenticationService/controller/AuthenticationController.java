@@ -43,6 +43,7 @@ public class AuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest){
 
         if(userService.findByUsername(authenticationRequest.getUsername()) == null){
+            System.out.println("OVDE SMO");
             return ResponseEntity.notFound().build();
         }
 
