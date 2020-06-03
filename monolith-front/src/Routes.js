@@ -8,6 +8,7 @@ import AdminProfile from './components/AdminProfile'
 import Codebook from './components/Codebook'
 import ActivatedAccount from './components/ActivatedAccount'
 import SingleAd from './components/SingleAd'
+import CreateNewAd from './components/CreateNewAd';
 
 class Routes extends React.Component {
 
@@ -41,6 +42,12 @@ class Routes extends React.Component {
                     <div>
                         <Header />
                         <ActivatedAccount />
+                    </div>
+                    } />
+                <Route exact path='/create-ad' render={props =>
+                    <div>
+                        <Header />
+                        <CreateNewAd />
                     </div>
                     } />
                 <Route path='/ad/:id' component = {SingleAd}/>
