@@ -137,19 +137,7 @@ option {
     border-radius: 10%;
 
 }
-/*.startDate {
-    margin-left: 20%;
-    margin-top: -10%;
-}
 
-.endDate {
-    margin-left: 20%;
-    margin-top: 30%;
+#moredatesdiv {
+    display: none;
 }
-
-.dates {
-    margin-top: -40%;
-    width: 300px;
-    margin-left: 40%;
-    height: 400px;
-}*/
