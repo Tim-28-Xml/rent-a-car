@@ -17,6 +17,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.Collection;
+
 @RestController
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
@@ -43,7 +46,6 @@ public class AuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest){
 
         if(userService.findByUsername(authenticationRequest.getUsername()) == null){
-            System.out.println("OVDE SMO");
             return ResponseEntity.notFound().build();
         }
 
@@ -66,5 +68,20 @@ public class AuthenticationController {
         return ResponseEntity.ok(new PersonTokenState(jwt, expiresIn));
 
     }
+
+    @GetMapping(value = "/role")
+    public ResponseEntity<?> getRole(Principal p){
+
+        User user = userService.findByUsername(p.getName());
+
+        Collection<?> auth = user.getAuthorities();
+
+        if(auth.size() == 0){
+            return ResponseEntity.status(500).build();
+        }
+
+        return ResponseEntity.ok(auth);
+    }
+
 
 }
