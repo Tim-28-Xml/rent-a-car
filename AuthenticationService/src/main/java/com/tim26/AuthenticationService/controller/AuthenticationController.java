@@ -122,5 +122,16 @@ public class AuthenticationController {
     }
 
 
+    @GetMapping(value="/one/{id}")
+    public ResponseEntity<?> getUser(@PathVariable String id){
+        User user = userService.findById(Long.parseLong(id));
+
+        if(user != null){
+            return ResponseEntity.ok(user);
+        }else {
+            return  ResponseEntity.status(500).build();
+        }
+
+    }
 
 }

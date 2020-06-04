@@ -20,4 +20,5 @@ public interface UService {
     User findVerificationCode(String findVerificationCode);
     boolean acceptAccount(String username);
     boolean declineAccount(String username);
+    User findById(Long id);
 }
