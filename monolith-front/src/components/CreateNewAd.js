@@ -68,7 +68,8 @@ class CreateNewAd extends React.Component {
             endDateAnother: new Date(),
             dateStringStartAnother: '',
             dateStringEndAnother: '',
-            minEndDateAnother: new Date()
+            minEndDateAnother: new Date(),
+            city: ''
 
         }
     }
@@ -545,6 +546,16 @@ class CreateNewAd extends React.Component {
                             placeholder="Enter number of childSeats"
                             required
                         />
+                        <label htmlFor="city">City</label>
+                        <input type="text"
+                            className="form-control form-control-sm"
+                            id="city"
+                            name="city"
+                            onChange={this.handleChange}
+                            placeholder="Enter city"
+                            required
+                        />
+                        <br />
                         <br />
                         <label htmlFor="images">Images</label>
                         <input type="file" multiple onChange={this.fileSelectedHandler} name="images" class="images" />

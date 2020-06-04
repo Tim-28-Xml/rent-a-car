@@ -53,11 +53,9 @@ public class AdServiceImpl implements AdService {
                     imgBytes.add(imgByte);
                 }
                 car.setFiles(imgBytes);
-
                 advertisment.setCar(car);
-
+                advertisment.setCity(ad.getCity());
                 advertisment.setRentDates(ad.getDates());
-
                 agent.getAd().add(advertisment);
                 advertisment.setUser(agent);
 

@@ -18,12 +18,13 @@ public class CreateAdDto {
     private boolean collision;
     private String childSeats;
     private List<String> files;
+    private String city;
 
     public CreateAdDto() {
 
     }
 
-    public CreateAdDto(String brand, String model, String fuel, String transmission, String carClass, List<DateRange> dates, double km, double kmLimit, boolean collision, String childSeats, List<String> files) {
+    public CreateAdDto(String brand, String model, String fuel, String transmission, String carClass, List<DateRange> dates, double km, double kmLimit, boolean collision, String childSeats, List<String> files, String city) {
         this.brand = brand;
         this.model = model;
         this.fuel = fuel;
@@ -35,6 +36,7 @@ public class CreateAdDto {
         this.collision = collision;
         this.childSeats = childSeats;
         this.files = files;
+        this.city = city;
     }
 
     public String getBrand() {
@@ -123,5 +125,13 @@ public class CreateAdDto {
 
     public void setDates(List<DateRange> dates) {
         this.dates = dates;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
