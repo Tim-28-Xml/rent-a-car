@@ -11,8 +11,16 @@ import org.springframework.stereotype.Component;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Collection;
+import java.util.Collections;
+
 @Component
 public class ZuulPreFilter extends ZuulFilter {
+
+    private static final Logger LOGGER=LoggerFactory.getLogger(ZuulPreFilter.class);
 
     @Autowired
     private AuthClient authClient;
@@ -46,22 +54,34 @@ public class ZuulPreFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        String token = request.getHeader("Authorization");
+        for (String header : Collections.list(request.getHeaderNames())){
+            LOGGER.info("This is header: " + header);
+        }
 
-        if(token == null){
+        String authHeader = request.getHeader("Authorization");
+        LOGGER.info("This is auth header: " + authHeader);
+        String token = "";
+
+        if (authHeader != null && authHeader.contains("Bearer "))
+            token = authHeader.replace("Bearer ", "");
+
+        LOGGER.info("This is token: " + token);
+        if(token.equals("")){
             return null;
         }
 
         try {
-           // authClient.verify(email);
 
-           // ctx.addZuulRequestHeader("username", email);
+            ctx.addZuulRequestHeader("Authorization", authHeader);
 
+            boolean verified = authClient.verify();
+
+            if(!verified)
+                setFailedRequest("User not verified", 403);
 
         } catch (FeignException.NotFound e) {
             setFailedRequest("Consumer does not exist!", 403);
         }
-
 
         return null;
     }

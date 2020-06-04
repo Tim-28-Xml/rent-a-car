@@ -1,6 +1,5 @@
 package com.tim26.AuthenticationService.controller;
 
-import com.netflix.discovery.converters.Auto;
 import com.tim26.AuthenticationService.model.PersonTokenState;
 import com.tim26.AuthenticationService.model.User;
 import com.tim26.AuthenticationService.security.TokenUtils;
@@ -10,11 +9,11 @@ import com.tim26.AuthenticationService.service.interfaces.UService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -36,6 +35,7 @@ public class AuthenticationController {
     @Autowired
     private TokenUtils tokenUtils;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/test")
     public String test() {
         System.out.println("hello secured");
@@ -81,6 +81,17 @@ public class AuthenticationController {
         }
 
         return ResponseEntity.ok(auth);
+    }
+
+    @GetMapping(value = "/verify")
+    public boolean verify(Principal principal){
+        User user = userService.findByUsername(principal.getName());
+
+        if(user != null){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.tim26.AuthenticationService.security.auth;
 
+import com.tim26.AuthenticationService.controller.AuthenticationController;
 import com.tim26.AuthenticationService.security.TokenUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,8 +12,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
+
+    private static final Logger LOGGER=LoggerFactory.getLogger(TokenAuthenticationFilter.class);
 
     private TokenUtils tokenUtils;
 
@@ -29,8 +36,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         String username;
         String authToken = tokenUtils.getToken(httpServletRequest);
 
+        for (String header : Collections.list(httpServletRequest.getHeaderNames())){
+            LOGGER.info("This is header: " + header);
+        }
+
+        LOGGER.info("This is request: " + httpServletRequest.getHeader("Authorization"));
+        LOGGER.info("This is token: " + authToken);
+
         if(authToken != null){
             username = tokenUtils.getUsernameFromToken(authToken);
+            LOGGER.info("This is username: " + username);
 
             if(username != null){
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
