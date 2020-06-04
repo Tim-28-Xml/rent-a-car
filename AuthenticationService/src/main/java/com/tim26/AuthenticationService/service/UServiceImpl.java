@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UServiceImpl implements UService, UserDetailsService {
 
@@ -19,6 +21,12 @@ public class UServiceImpl implements UService, UserDetailsService {
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User findById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        return user.get();
     }
 
     @Override
