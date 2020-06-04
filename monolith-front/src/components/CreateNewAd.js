@@ -380,7 +380,7 @@ class CreateNewAd extends React.Component {
         //this.state.endDateAnother = this.state.minEndDateAnother;
 
         return (
-            <div>
+            <div class="mainDiv" style={{ width: "25%", marginLeft: "35%", height: "50%", padding: "50px" }}>
 
                 <form onSubmit={this.createNewAd} id="createAdForm">
                     <div className="form-group">
@@ -415,7 +415,7 @@ class CreateNewAd extends React.Component {
                         <label htmlFor="fuel">Fuel type</label>
                         <Select
                             className="selectoptions"
-                            style={{ width: "70%", marginBottom: "10px" }}
+                            style={{ width: "40%", marginBottom: "10px" }}
                             onChange={this.handleSelectFuel}
                             value={this.state.fuel.value}
                             options={

@@ -5,6 +5,7 @@
     color: rgb(57, 153, 177);
 }
 
+
 .carMegaphoneIcon {
     width: 30px;
     margin-left: 10px;
@@ -140,4 +141,9 @@ option {
 
 #moredatesdiv {
     display: none;
+}
+
+.mainDiv {
+    background-color: rgb(241, 236, 241);
+    margin: 5% 10% 10% 10%;
 }
