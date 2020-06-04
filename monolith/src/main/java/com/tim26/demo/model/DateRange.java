@@ -11,17 +11,17 @@ public class DateRange {
     private long id;
 
     @Column
-    private LocalDate startDate;
+    private LocalDate startDateA;
 
     @Column
-    private LocalDate endDate;
+    private LocalDate endDateA;
 
     public DateRange() {
     }
 
-    public DateRange(LocalDate startDate, LocalDate endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public DateRange(LocalDate startDateA, LocalDate endDateA) {
+        this.startDateA = startDateA;
+        this.endDateA = endDateA;
     }
 
     public long getId() {
@@ -32,19 +32,19 @@ public class DateRange {
         this.id = id;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public LocalDate getStartDateA() {
+        return startDateA;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStartDateA(LocalDate startDateA) {
+        this.startDateA = startDateA;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public LocalDate getEndDateA() {
+        return endDateA;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void setEndDateA(LocalDate endDateA) {
+        this.endDateA = endDateA;
     }
 }
