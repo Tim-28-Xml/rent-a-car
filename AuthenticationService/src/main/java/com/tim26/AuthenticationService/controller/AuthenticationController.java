@@ -93,6 +93,18 @@ public class AuthenticationController {
         return ResponseEntity.ok(auth);
     }
 
+    @GetMapping(value="/one/{id}")
+    public ResponseEntity<?> getUser(@PathVariable String id){
+        User user = userService.findById(Long.parseLong(id));
+
+        if(user != null){
+            return ResponseEntity.ok(user);
+        }else {
+            return  ResponseEntity.status(500).build();
+        }
+
+    }
+
     @PostMapping(consumes = "application/json", path = "/register/user")
     public ResponseEntity<?> createRegisterUser(@RequestBody EndUser user) {
 
