@@ -36,6 +36,9 @@ public class Ad {
     @OneToMany
     private List<Review> reviews = new ArrayList<>();
 
+    @Column(nullable = false)
+    private String city;
+
     public Ad() {
     }
 
@@ -101,5 +104,13 @@ public class Ad {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
