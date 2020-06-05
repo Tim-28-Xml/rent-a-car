@@ -1,11 +1,15 @@
 package com.tim26.AuthenticationService.controller;
 
 import com.netflix.discovery.converters.Auto;
+import com.tim26.AuthenticationService.model.Agent;
+import com.tim26.AuthenticationService.model.EndUser;
 import com.tim26.AuthenticationService.model.PersonTokenState;
 import com.tim26.AuthenticationService.model.User;
 import com.tim26.AuthenticationService.security.TokenUtils;
 import com.tim26.AuthenticationService.security.auth.JwtAuthenticationRequest;
 import com.tim26.AuthenticationService.service.CustomUserDetailsService;
+import com.tim26.AuthenticationService.service.interfaces.AgentService;
+import com.tim26.AuthenticationService.service.interfaces.EndUserService;
 import com.tim26.AuthenticationService.service.interfaces.UService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -32,6 +36,12 @@ public class AuthenticationController {
 
     @Autowired
     CustomUserDetailsService userDetailsService;
+
+    @Autowired
+    EndUserService endUserService;
+
+    @Autowired
+    AgentService agentService;
 
     @Autowired
     private TokenUtils tokenUtils;
@@ -95,4 +105,31 @@ public class AuthenticationController {
 
     }
 
+    @PostMapping(consumes = "application/json", path = "/register/user")
+    public ResponseEntity<?> createRegisterUser(@RequestBody EndUser user) {
+
+        if(userService.findByUsername(user.getUsername()) != null ||
+                userService.findByEmail(user.getEmail()) != null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        user.setEnabled(false);
+        user.setActivated(false);
+        endUserService.save(user);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(consumes = "application/json", path = "/register/agent")
+    public ResponseEntity<?> createRegisterAgent(@RequestBody Agent user) {
+
+        if(userService.findByUsername(user.getUsername()) != null ||
+                userService.findByEmail(user.getEmail()) != null ||
+                agentService.findByMbr(user.getMbr()) != null){
+            return ResponseEntity.badRequest().build();
+        }
+        user.setEnabled(true);
+        user.setActivated(true);
+        agentService.save(user);
+        return ResponseEntity.ok().build();
+    }
 }

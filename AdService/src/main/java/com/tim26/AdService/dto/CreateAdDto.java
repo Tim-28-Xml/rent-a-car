@@ -1,9 +1,7 @@
-package com.tim26.demo.dto;
+package com.tim26.AdService.dto;
 
-import com.tim26.demo.model.DateRange;
+import com.tim26.AdService.model.DateRange;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CreateAdDto {
@@ -19,6 +17,8 @@ public class CreateAdDto {
     private String childSeats;
     private List<String> files;
     private String city;
+    private String role;
+    private Long userId;
 
     public CreateAdDto() {
 
@@ -133,5 +133,21 @@ public class CreateAdDto {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

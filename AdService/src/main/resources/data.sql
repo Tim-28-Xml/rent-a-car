@@ -1,5 +1,6 @@
 --Users
 insert into user(id) values (-4);
+insert into user(id) values (-2);
 
 --Cars and ads
 /*insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-5,'AUDI','sedan',false,1,'diesel',50000,1000,'A6','automatic');
@@ -118,4 +119,3 @@ insert into codebook_transmission_types(codebook_id, transmission_types) values 
 insert into codebook_car_classes(codebook_id, car_classes) values (-1, 'Sedan');
 insert into codebook_car_classes(codebook_id, car_classes) values (-1, 'SUV');
 insert into codebook_car_classes(codebook_id, car_classes) values (-1, 'Hatchback');
-

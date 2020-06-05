@@ -1,6 +1,7 @@
 package com.tim26.AdService.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,7 +39,7 @@ public class Car {
     private int childSeats;
 
     @ElementCollection
-    private List<byte[]> files;
+    private List<byte[]> files = new ArrayList<byte[]>();
 
     public Car() {
     }
