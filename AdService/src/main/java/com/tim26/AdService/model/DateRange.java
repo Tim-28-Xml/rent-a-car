@@ -26,9 +26,10 @@ public class DateRange {
     public DateRange() {
     }
 
-    public DateRange(LocalDate startDate, LocalDate endDate) {
+    public DateRange(LocalDate startDate, LocalDate endDate,List<Date> dates) {
         this.startDate = startDate;
         this.endDate = endDate;
+        this.setDates(dates);
     }
 
     public long getId() {
