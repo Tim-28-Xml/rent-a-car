@@ -170,7 +170,7 @@ public class AdServiceImpl implements AdService {
     @Override
     public boolean rentByCreator(RentAdDTO rentAdDTO) {
         Optional<Ad> ad = adRepository.findById(rentAdDTO.getId());
-        if (!ad.isPresent()){
+        if (!ad.isPresent()) {
             return false;
         }
 
@@ -179,10 +179,10 @@ public class AdServiceImpl implements AdService {
 
         List<RentRequest> goodRequests = new ArrayList<>();
 
-        for(RentRequest rentRequest: ad.get().getRentRequests()){
-            if(rentRequest.getReqStartDate().isAfter(startDate) && rentRequest.getReqStartDate().isBefore(endDate)){
+        for (RentRequest rentRequest : ad.get().getRentRequests()) {
+            if (rentRequest.getReqStartDate().isAfter(startDate) && rentRequest.getReqStartDate().isBefore(endDate)) {
                 break;
-            } else if(rentRequest.getReqEndDate().isAfter(startDate) && rentRequest.getReqEndDate().isBefore(endDate)){
+            } else if (rentRequest.getReqEndDate().isAfter(startDate) && rentRequest.getReqEndDate().isBefore(endDate)) {
                 break;
             } else {
                 goodRequests.add(rentRequest);
@@ -197,6 +197,8 @@ public class AdServiceImpl implements AdService {
         adRepository.save(ad.get());
 
         return true;
+
+    }
 
     @Override
     public Ad findAdById(Long id){
