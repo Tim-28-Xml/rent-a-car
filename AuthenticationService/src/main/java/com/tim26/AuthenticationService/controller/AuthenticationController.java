@@ -84,6 +84,10 @@ public class AuthenticationController {
 
         User user = userService.findByUsername(p.getName());
 
+        if(user == null){
+            return ResponseEntity.notFound().build();
+        }
+
         Collection<?> auth = user.getAuthorities();
 
         if(auth.size() == 0){

@@ -19,6 +19,8 @@ public class User {
 
     public User() {
     }
+    @OneToMany
+    private List<Ad> shoppingCart = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -42,5 +44,13 @@ public class User {
 
     public void setPriceLists(List<PriceList> priceLists) {
         this.priceLists = priceLists;
+    }
+
+    public List<Ad> getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(List<Ad> shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 }
