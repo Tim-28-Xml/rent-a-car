@@ -1,4 +1,5 @@
 insert into user(id) values (-4);
+insert into user(id) values (-2);
 
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-5,'AUDI','sedan',false,1,'diesel',50000,1000,'A6','automatic');
 insert into ad(id,city,car_id,price_list_id,rent_request_id,user_id) values (-1,'Novi Sad',-5,null,null,-4);

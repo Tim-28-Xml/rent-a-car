@@ -132,7 +132,4 @@ public class AuthenticationController {
         agentService.save(user);
         return ResponseEntity.ok().build();
     }
-
-
-
 }

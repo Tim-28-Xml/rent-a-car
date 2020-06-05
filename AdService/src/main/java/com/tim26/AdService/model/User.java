@@ -1,6 +1,7 @@
 package com.tim26.AdService.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,11 +12,13 @@ public class User {
     private Long id;
 
     @OneToMany(mappedBy = "user")
-    private List<Ad> ad;
+    private List<Ad> ad = new ArrayList<Ad>();
 
     @OneToMany(mappedBy = "user")
-    private List<PriceList> priceLists;
+    private List<PriceList> priceLists = new ArrayList<PriceList>();
 
+    public User() {
+    }
 
     public Long getId() {
         return id;
