@@ -3,9 +3,7 @@ package com.tim26.AdService.service;
 import com.tim26.AdService.dto.AdDTO;
 import com.tim26.AdService.dto.CarDTO;
 import com.tim26.AdService.dto.CreateAdDto;
-import com.tim26.AdService.model.Ad;
-import com.tim26.AdService.model.Car;
-import com.tim26.AdService.model.User;
+import com.tim26.AdService.model.*;
 import com.tim26.AdService.repository.AdRepository;
 import com.tim26.AdService.repository.UserRepository;
 import com.tim26.AdService.service.interfaces.AdService;
@@ -16,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -77,7 +76,28 @@ public class AdServiceImpl implements AdService {
 
             advertisment.setCar(car);
             advertisment.setCity(ad.getCity());
-            advertisment.setRentDates(ad.getDates());
+            //advertisment.setRentDates(ad.getDates());
+
+            //looping trough each date range and setting its start & end date and list of dates inbetween
+            //setting list of dates between start and end
+
+            for(DateRange dt : ad.getDates()){
+
+
+                LocalDate start = dt.getStartDate();
+                LocalDate end = dt.getEndDate();
+                List<Date> totalDates = new ArrayList<>();
+                while (!start.isAfter(end)) {
+
+                    totalDates.add(new Date(start));
+                    start = start.plusDays(1);
+                }
+
+                DateRange helper = new DateRange(dt.getStartDate(),dt.getEndDate(),totalDates);
+                advertisment.getRentDates().add(helper);
+
+            }
+
             user.getAd().add(advertisment);
 
             advertisment.setUser(user);
@@ -99,7 +119,8 @@ public class AdServiceImpl implements AdService {
         List<AdDTO> adDTOS = new ArrayList<>();
 
         for (Ad ad: allAds) {
-            AdDTO adDTO = new AdDTO(new CarDTO(ad.getCar()),ad.getUser().getId(),ad.getId());
+            //AdDTO adDTO = new AdDTO(new CarDTO(ad.getCar()),ad.getUser().getId(),ad.getId());
+            AdDTO adDTO = new AdDTO(ad);
             adDTOS.add(adDTO);
         }
         return adDTOS;

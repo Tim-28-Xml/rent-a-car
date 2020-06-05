@@ -2,6 +2,8 @@ package com.tim26.AdService.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class DateRange {
@@ -16,12 +18,18 @@ public class DateRange {
     @Column
     private LocalDate endDate;
 
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(joinColumns=@JoinColumn(referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(referencedColumnName = "id"))
+    private List<Date> dates = new ArrayList<>();
+
     public DateRange() {
     }
 
-    public DateRange(LocalDate startDate, LocalDate endDate) {
+    public DateRange(LocalDate startDate, LocalDate endDate,List<Date> dates) {
         this.startDate = startDate;
         this.endDate = endDate;
+        this.setDates(dates);
     }
 
     public long getId() {
@@ -46,5 +54,13 @@ public class DateRange {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public List<Date> getDates() {
+        return dates;
+    }
+
+    public void setDates(List<Date> dates) {
+        this.dates = dates;
     }
 }
