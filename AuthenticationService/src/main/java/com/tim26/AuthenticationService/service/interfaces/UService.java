@@ -4,6 +4,7 @@ import com.tim26.AuthenticationService.dto.PermissionsDTO;
 import com.tim26.AuthenticationService.model.User;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface UService {
@@ -21,4 +22,5 @@ public interface UService {
     boolean acceptAccount(String username);
     boolean declineAccount(String username);
     User findById(Long id);
+    Long getUserId(Principal p);
 }
