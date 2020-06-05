@@ -1,6 +1,7 @@
 package com.tim26.AdService.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,18 @@ public class RentRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "rentRequest")
+    @ManyToMany(mappedBy = "rentRequests")
     private List<Ad> ads = new ArrayList<>();
 
+    @Column
+    private LocalDate reqStartDate;
+
+    @Column
+    private LocalDate reqEndDate;
+
+    RentRequest() {
+
+    }
 
     public Long getId() {
         return id;
@@ -29,5 +39,21 @@ public class RentRequest {
 
     public void setAds(List<Ad> ads) {
         this.ads = ads;
+    }
+
+    public LocalDate getReqStartDate() {
+        return reqStartDate;
+    }
+
+    public void setReqStartDate(LocalDate reqStartDate) {
+        this.reqStartDate = reqStartDate;
+    }
+
+    public LocalDate getReqEndDate() {
+        return reqEndDate;
+    }
+
+    public void setReqEndDate(LocalDate reqEndDate) {
+        this.reqEndDate = reqEndDate;
     }
 }

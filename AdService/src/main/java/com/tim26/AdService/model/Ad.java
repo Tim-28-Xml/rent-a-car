@@ -29,8 +29,11 @@ public class Ad {
     @ManyToOne
     private User user;
 
-    @ManyToOne
-    private RentRequest rentRequest;
+    @ManyToMany
+    @JoinTable(name = "ad_rent_requests",
+            joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
+    private List<RentRequest> rentRequests = new ArrayList<>();
 
 
     @OneToMany
@@ -82,12 +85,12 @@ public class Ad {
         this.user = user;
     }
 
-    public RentRequest getRentRequest() {
-        return rentRequest;
+    public List<RentRequest> getRentRequests() {
+        return rentRequests;
     }
 
-    public void setRentRequest(RentRequest rentRequest) {
-        this.rentRequest = rentRequest;
+    public void setRentRequests(List<RentRequest> rentRequests) {
+        this.rentRequests = rentRequests;
     }
 
     public List<Review> getReviews() {

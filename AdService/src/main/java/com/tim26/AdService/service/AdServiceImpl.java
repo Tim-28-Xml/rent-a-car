@@ -3,9 +3,8 @@ package com.tim26.AdService.service;
 import com.tim26.AdService.dto.AdDTO;
 import com.tim26.AdService.dto.CarDTO;
 import com.tim26.AdService.dto.CreateAdDto;
-import com.tim26.AdService.model.Ad;
-import com.tim26.AdService.model.Car;
-import com.tim26.AdService.model.User;
+import com.tim26.AdService.dto.RentAdDTO;
+import com.tim26.AdService.model.*;
 import com.tim26.AdService.repository.AdRepository;
 import com.tim26.AdService.repository.UserRepository;
 import com.tim26.AdService.service.interfaces.AdService;
@@ -16,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -128,8 +128,14 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public List<AdDTO> findMyAds(Long id) {
-        Optional<User> user = userRepository.findById(id);
+
         List<AdDTO> adDTOS = new ArrayList<>();
+
+        if(!userRepository.findById(id).isPresent()) {
+            return adDTOS;
+        }
+
+        Optional<User> user = userRepository.findById(id);
         List<Ad> ads = user.get().getAd();
 
         for (Ad a : ads) {
@@ -137,5 +143,39 @@ public class AdServiceImpl implements AdService {
         }
 
         return adDTOS;
+    }
+
+    @Override
+    public boolean rentByCreator(RentAdDTO rentAdDTO) {
+
+        Optional<Ad> ad = adRepository.findById(rentAdDTO.getId());
+        if (!ad.isPresent()){
+            return false;
+        }
+
+        LocalDate startDate = rentAdDTO.getStartDate();
+        LocalDate endDate = rentAdDTO.getEndDate();
+
+        List<RentRequest> goodRequests = new ArrayList<>();
+
+        for(RentRequest rentRequest: ad.get().getRentRequests()){
+            if(rentRequest.getReqStartDate().isAfter(startDate) && rentRequest.getReqStartDate().isBefore(endDate)){
+                break;
+            } else if(rentRequest.getReqEndDate().isAfter(startDate) && rentRequest.getReqEndDate().isBefore(endDate)){
+                break;
+            } else {
+                goodRequests.add(rentRequest);
+            }
+        }
+
+        ad.get().getRentRequests().clear();
+        ad.get().setRentRequests(goodRequests);
+
+        DateRange dateRange = new DateRange(startDate, endDate);
+        ad.get().getRentDates().add(dateRange);
+        adRepository.save(ad.get());
+
+        return true;
+
     }
 }

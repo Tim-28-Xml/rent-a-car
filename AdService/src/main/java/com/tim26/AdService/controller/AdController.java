@@ -3,6 +3,7 @@ package com.tim26.AdService.controller;
 import com.tim26.AdService.dto.AdDTO;
 import com.tim26.AdService.dto.CarDTO;
 import com.tim26.AdService.dto.CreateAdDto;
+import com.tim26.AdService.dto.RentAdDTO;
 import com.tim26.AdService.service.interfaces.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,6 +64,17 @@ public class AdController {
 
         List<AdDTO> ads = adService.findMyAds(id);
         return new ResponseEntity<>(ads, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "rent/creator")
+    public ResponseEntity<String> rentAdByCreator(RentAdDTO rentAdDTO){
+
+        if(adService.rentByCreator(rentAdDTO)){
+            return new ResponseEntity<>("Car is successfully rented!",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Car cannot be rented!",HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 
