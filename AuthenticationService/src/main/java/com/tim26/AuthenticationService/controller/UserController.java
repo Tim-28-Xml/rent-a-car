@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -136,5 +137,9 @@ public class UserController {
         }
     }
 
+    @GetMapping(value = "/get-id")
+    public ResponseEntity<Long> getUserId(Principal p){
 
+        return new ResponseEntity<>(uService.getUserId(p), HttpStatus.OK);
+    }
 }

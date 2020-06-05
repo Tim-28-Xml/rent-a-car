@@ -84,6 +84,10 @@ public class AuthenticationController {
 
         User user = userService.findByUsername(p.getName());
 
+        if(user == null){
+            return ResponseEntity.notFound().build();
+        }
+
         Collection<?> auth = user.getAuthorities();
 
         if(auth.size() == 0){
@@ -91,6 +95,18 @@ public class AuthenticationController {
         }
 
         return ResponseEntity.ok(auth);
+    }
+
+    @GetMapping(value="/one/{id}")
+    public ResponseEntity<?> getUser(@PathVariable String id){
+        User user = userService.findById(Long.parseLong(id));
+
+        if(user != null){
+            return ResponseEntity.ok(user);
+        }else {
+            return  ResponseEntity.status(500).build();
+        }
+
     }
 
     @PostMapping(consumes = "application/json", path = "/register/user")
@@ -120,18 +136,4 @@ public class AuthenticationController {
         agentService.save(user);
         return ResponseEntity.ok().build();
     }
-
-
-    @GetMapping(value="/one/{id}")
-    public ResponseEntity<?> getUser(@PathVariable String id){
-        User user = userService.findById(Long.parseLong(id));
-
-        if(user != null){
-            return ResponseEntity.ok(user);
-        }else {
-            return  ResponseEntity.status(500).build();
-        }
-
-    }
-
 }

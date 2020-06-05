@@ -8,14 +8,17 @@ import java.util.List;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "user")
-    private List<Ad> ad;
+    private List<Ad> ad = new ArrayList<Ad>();
 
     @OneToMany(mappedBy = "user")
-    private List<PriceList> priceLists;
+    private List<PriceList> priceLists = new ArrayList<PriceList>();
 
+    public User() {
+    }
     @OneToMany
     private List<Ad> shoppingCart = new ArrayList<>();
 

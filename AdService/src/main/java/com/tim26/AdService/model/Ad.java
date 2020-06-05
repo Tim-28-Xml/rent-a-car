@@ -18,7 +18,7 @@ public class Ad {
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(joinColumns=@JoinColumn(referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(referencedColumnName = "id"))
-    private List<DateRange> rentDates;
+    private List<DateRange> rentDates = new ArrayList<DateRange>();
 
     @ManyToOne
     private PriceList priceList;

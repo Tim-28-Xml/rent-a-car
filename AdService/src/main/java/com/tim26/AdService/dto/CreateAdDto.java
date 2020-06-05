@@ -1,52 +1,42 @@
 package com.tim26.AdService.dto;
 
-import com.tim26.AdService.model.Car;
+import com.tim26.AdService.model.DateRange;
 
 import java.util.List;
 
-public class CarDTO {
-
-    private Long id;
+public class CreateAdDto {
     private String brand;
     private String model;
     private String fuel;
     private String transmission;
     private String carClass;
+    private List<DateRange> dates;
     private double km;
     private double kmLimit;
-    private boolean cdw;
-    private byte childSeats;
-    private List<byte[]> files;
+    private boolean collision;
+    private String childSeats;
+    private List<String> files;
     private String city;
+    private String role;
+    private Long userId;
 
-    public CarDTO(){
+    public CreateAdDto() {
 
     }
 
-    public CarDTO(Long id, String brand, String model, String fuel, String transmission, String carClass, double km, double kmLimit, boolean cdw, byte childSeats, List<byte[]> files) {
-        this.id = id;
+    public CreateAdDto(String brand, String model, String fuel, String transmission, String carClass, List<DateRange> dates, double km, double kmLimit, boolean collision, String childSeats, List<String> files, String city) {
         this.brand = brand;
         this.model = model;
         this.fuel = fuel;
         this.transmission = transmission;
         this.carClass = carClass;
+        this.dates = dates;
         this.km = km;
         this.kmLimit = kmLimit;
-        this.cdw = cdw;
+        this.collision = collision;
         this.childSeats = childSeats;
         this.files = files;
-    }
-
-    public CarDTO(Car car){
-        this(car.getId(),car.getBrand(),car.getModel(),car.getFuel(),car.getTransmission(),car.getCarClass(),car.getKm(),car.getKmLimit(),car.isCdw(), (byte) car.getChildSeats(), car.getFiles());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.city = city;
     }
 
     public String getBrand() {
@@ -105,27 +95,59 @@ public class CarDTO {
         this.kmLimit = kmLimit;
     }
 
-    public boolean isCdw() {
-        return cdw;
-    }
-
-    public void setCdw(boolean cdw) {
-        this.cdw = cdw;
-    }
-
-    public byte getChildSeats() {
+    public String getChildSeats() {
         return childSeats;
     }
 
-    public void setChildSeats(byte childSeats) {
+    public void setChildSeats(String childSeats) {
         this.childSeats = childSeats;
     }
 
-    public List<byte[]> getFiles() {
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
+
+    public List<String> getFiles() {
         return files;
     }
 
-    public void setFiles(List<byte[]> files) {
+    public void setFiles(List<String> files) {
         this.files = files;
+    }
+
+    public List<DateRange> getDates() {
+        return dates;
+    }
+
+    public void setDates(List<DateRange> dates) {
+        this.dates = dates;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
