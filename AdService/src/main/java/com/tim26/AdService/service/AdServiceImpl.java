@@ -84,7 +84,8 @@ public class AdServiceImpl implements AdService {
         List<AdDTO> adDTOS = new ArrayList<>();
 
         for (Ad ad: allAds) {
-            AdDTO adDTO = new AdDTO(new CarDTO(ad.getCar()),ad.getUser().getId(),ad.getId());
+            //AdDTO adDTO = new AdDTO(new CarDTO(ad.getCar()),ad.getUser().getId(),ad.getId());
+            AdDTO adDTO = new AdDTO(ad);
             adDTOS.add(adDTO);
         }
         return adDTOS;
