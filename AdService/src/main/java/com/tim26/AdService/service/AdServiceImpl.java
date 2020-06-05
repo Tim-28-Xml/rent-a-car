@@ -7,6 +7,7 @@ import com.tim26.AdService.model.Ad;
 import com.tim26.AdService.model.Car;
 import com.tim26.AdService.model.User;
 import com.tim26.AdService.repository.AdRepository;
+import com.tim26.AdService.repository.UserRepository;
 import com.tim26.AdService.service.interfaces.AdService;
 import com.tim26.AdService.service.interfaces.CarService;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -28,6 +29,9 @@ public class AdServiceImpl implements AdService {
     private AdRepository adRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private CarService carService;
 
     private static final Logger LOGGER=LoggerFactory.getLogger(AdServiceImpl.class);
@@ -38,8 +42,11 @@ public class AdServiceImpl implements AdService {
         Ad advertisment = new Ad();
         Car car = new Car();
         User user = new User();
+        user.setId(ad.getUserId());
 
-        LOGGER.info("CreateAdDto brand: {}, model:{}" , ad.getBrand(), ad.getModel());
+        if(!userRepository.findById(ad.getUserId()).isPresent()) {
+            userRepository.save(ad.getUserId());
+        }
 
         if(ad.getRole().equals("ROLE_USER")) {
             if(user.getAd() != null) {
@@ -67,16 +74,17 @@ public class AdServiceImpl implements AdService {
             }
 
             car.setFiles(imgBytes);
-            
+
             advertisment.setCar(car);
             advertisment.setCity(ad.getCity());
             advertisment.setRentDates(ad.getDates());
             user.getAd().add(advertisment);
-            user.setId(ad.getUserId());
+
             advertisment.setUser(user);
 
             try {
                 advertisment = adRepository.save(advertisment);
+                ad.setId(advertisment.getId());
                 return  true;
             } catch (Exception e) {
                 return false;
