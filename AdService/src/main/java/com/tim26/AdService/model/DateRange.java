@@ -1,5 +1,7 @@
 package com.tim26.AdService.model;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,6 +32,25 @@ public class DateRange {
         this.startDate = startDate;
         this.endDate = endDate;
         this.setDates(dates);
+    }
+
+    public DateRange(LocalDate startDate, LocalDate endDate){
+
+        this.startDate = startDate;
+        this.endDate = endDate;
+
+        LocalDate start = startDate;
+        LocalDate end = endDate;
+        List<Date> totalDates = new ArrayList<>();
+
+        while (!start.isAfter(end)) {
+
+            totalDates.add(new Date(start));
+            start = start.plusDays(1);
+        }
+
+
+        this.dates = totalDates;
     }
 
     public long getId() {
