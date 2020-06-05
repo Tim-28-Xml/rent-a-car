@@ -17,6 +17,7 @@ public class CarDTO {
     private boolean cdw;
     private byte childSeats;
     private List<byte[]> files;
+    private String city;
 
     public CarDTO(){
 
