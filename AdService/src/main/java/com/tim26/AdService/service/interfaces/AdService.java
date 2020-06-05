@@ -12,4 +12,5 @@ public interface AdService {
     List<AdDTO> findAll();
     AdDTO findById(long id);
     CarDTO findCarById(Long id);
+    List<AdDTO> findMyAds(Long id);
 }

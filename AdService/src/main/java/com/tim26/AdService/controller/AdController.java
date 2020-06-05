@@ -58,4 +58,12 @@ public class AdController {
         return new ResponseEntity<>(createAdDto, HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping(value = "/my-ads/{id}")
+    public ResponseEntity<List<AdDTO>> getMyAds(@PathVariable Long id){
+
+        List<AdDTO> ads = adService.findMyAds(id);
+        return new ResponseEntity<>(ads, HttpStatus.OK);
+    }
+
+
 }

@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -122,5 +124,18 @@ public class AdServiceImpl implements AdService {
         CarDTO dto = carService.findById(id);
         return  dto;
 
+    }
+
+    @Override
+    public List<AdDTO> findMyAds(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        List<AdDTO> adDTOS = new ArrayList<>();
+        List<Ad> ads = user.get().getAd();
+
+        for (Ad a : ads) {
+            adDTOS.add(new AdDTO(a));
+        }
+
+        return adDTOS;
     }
 }
