@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class AdServiceImpl implements AdService {
@@ -28,6 +30,8 @@ public class AdServiceImpl implements AdService {
     @Autowired
     private CarService carService;
 
+    private static final Logger LOGGER=LoggerFactory.getLogger(AdServiceImpl.class);
+
 
     @Override
     public boolean save(CreateAdDto ad) {
@@ -35,13 +39,15 @@ public class AdServiceImpl implements AdService {
         Car car = new Car();
         User user = new User();
 
-        /*if(ad.getRole().equals("ROLE_USER")) {
-            if(user.getAd().size() ==3) {
-                return false;
-            }
-        }*/
+        LOGGER.info("CreateAdDto brand: {}, model:{}" , ad.getBrand(), ad.getModel());
 
-        System.out.println(advertisment.getCity());
+        if(ad.getRole().equals("ROLE_USER")) {
+            if(user.getAd() != null) {
+                if(user.getAd().size() == 3) {
+                    return false;
+                }
+            }
+        }
 
         if(ad != null) {
             car.setBrand(ad.getBrand());
@@ -61,11 +67,13 @@ public class AdServiceImpl implements AdService {
             }
 
             car.setFiles(imgBytes);
+            
             advertisment.setCar(car);
             advertisment.setCity(ad.getCity());
             advertisment.setRentDates(ad.getDates());
-            //user.getAd().add(advertisment);
-            //advertisment.setUser(user);
+            user.getAd().add(advertisment);
+            user.setId(ad.getUserId());
+            advertisment.setUser(user);
 
             try {
                 advertisment = adRepository.save(advertisment);
