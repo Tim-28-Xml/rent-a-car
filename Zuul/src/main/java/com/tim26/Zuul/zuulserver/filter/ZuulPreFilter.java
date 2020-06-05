@@ -66,18 +66,17 @@ public class ZuulPreFilter extends ZuulFilter {
             token = authHeader.replace("Bearer ", "");
 
         LOGGER.info("This is token: " + token);
-        if(token.equals("")){
-            return null;
-        }
 
         try {
+            boolean verified;
+
+            if(!token.equals("")){
+                verified = authClient.verify(token);
+                if(!verified)
+                    setFailedRequest("User not verified", 403);
+            }
 
             ctx.addZuulRequestHeader("Authorization", authHeader);
-
-            boolean verified = authClient.verify();
-
-            if(!verified)
-                setFailedRequest("User not verified", 403);
 
         } catch (FeignException.NotFound e) {
             setFailedRequest("Consumer does not exist!", 403);

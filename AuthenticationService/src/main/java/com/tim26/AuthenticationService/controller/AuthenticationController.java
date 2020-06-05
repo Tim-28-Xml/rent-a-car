@@ -6,6 +6,8 @@ import com.tim26.AuthenticationService.security.TokenUtils;
 import com.tim26.AuthenticationService.security.auth.JwtAuthenticationRequest;
 import com.tim26.AuthenticationService.service.CustomUserDetailsService;
 import com.tim26.AuthenticationService.service.interfaces.UService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +18,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.Principal;
 import java.util.Collection;
 
 @RestController
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
+
+    private static final Logger LOGGER= LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -83,11 +90,16 @@ public class AuthenticationController {
         return ResponseEntity.ok(auth);
     }
 
-    @GetMapping(value = "/verify")
-    public boolean verify(Principal principal){
-        User user = userService.findByUsername(principal.getName());
+    @GetMapping(value = "/verify/{token:.+}")
+    public boolean verify(@PathVariable String token){
+        String username = tokenUtils.getUsernameFromToken(token);
+        User user = userService.findByUsername(username);
 
-        if(user != null){
+        LOGGER.info("Token in controller: " + token);
+        LOGGER.info("User: " + username);
+        LOGGER.info("Authorities: " + user.getAuthorities());
+
+        if(username != null){
             return true;
         } else {
             return false;
