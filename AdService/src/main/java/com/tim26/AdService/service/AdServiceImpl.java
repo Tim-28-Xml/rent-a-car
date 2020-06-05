@@ -147,7 +147,6 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public boolean rentByCreator(RentAdDTO rentAdDTO) {
-
         Optional<Ad> ad = adRepository.findById(rentAdDTO.getId());
         if (!ad.isPresent()){
             return false;

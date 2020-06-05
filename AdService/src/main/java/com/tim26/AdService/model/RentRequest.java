@@ -21,7 +21,7 @@ public class RentRequest {
     @Column
     private LocalDate reqEndDate;
 
-    RentRequest() {
+    public RentRequest() {
 
     }
 

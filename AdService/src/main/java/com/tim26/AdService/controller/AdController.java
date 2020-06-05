@@ -66,8 +66,8 @@ public class AdController {
         return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 
-    @PostMapping(value = "rent/creator")
-    public ResponseEntity<String> rentAdByCreator(RentAdDTO rentAdDTO){
+    @PostMapping(value = "rent-creator")
+    public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO){
 
         if(adService.rentByCreator(rentAdDTO)){
             return new ResponseEntity<>("Car is successfully rented!",HttpStatus.OK);
