@@ -16,6 +16,11 @@ public class BrandModels {
     public BrandModels() {
     }
 
+    public BrandModels(String brand, String model) {
+        this.brand = brand;
+        this.models.add(model);
+    }
+
     public String getBrand() {
         return brand;
     }

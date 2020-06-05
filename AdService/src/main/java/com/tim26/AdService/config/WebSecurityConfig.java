@@ -23,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web
                 .ignoring()
                 .antMatchers(HttpMethod.POST, "/**")
+                .antMatchers(HttpMethod.DELETE, "/**")
                 .antMatchers("/h2-console/**");
     }
 

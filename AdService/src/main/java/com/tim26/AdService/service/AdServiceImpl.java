@@ -144,4 +144,8 @@ public class AdServiceImpl implements AdService {
         return  dto;
 
     }
+    @Override
+    public Ad findAdById(Long id){
+        return adRepository.findById(id).orElse(null);
+    }
 }

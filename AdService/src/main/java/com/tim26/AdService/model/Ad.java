@@ -36,7 +36,7 @@ public class Ad {
     @OneToMany
     private List<Review> reviews = new ArrayList<>();
 
-    @Column(nullable = false)
+    @Column
     private String city;
 
     public Ad() {
