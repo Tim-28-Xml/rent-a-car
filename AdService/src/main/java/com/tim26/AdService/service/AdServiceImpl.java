@@ -84,7 +84,6 @@ public class AdServiceImpl implements AdService {
 
             try {
                 advertisment = adRepository.save(advertisment);
-                ad.setId(advertisment.getId());
                 return  true;
             } catch (Exception e) {
                 return false;
