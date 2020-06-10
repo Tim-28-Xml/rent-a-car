@@ -1,5 +1,6 @@
 package com.tim26.AuthenticationService.security.auth;
 
+import com.tim26.AuthenticationService.controller.AuthenticationController;
 import com.tim26.AuthenticationService.security.TokenUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
 
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 

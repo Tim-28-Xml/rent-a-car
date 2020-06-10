@@ -11,8 +11,14 @@ import org.springframework.stereotype.Component;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Collections;
+
 @Component
 public class ZuulPreFilter extends ZuulFilter {
+
 
     @Autowired
     private AuthClient authClient;
@@ -46,22 +52,28 @@ public class ZuulPreFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        String token = request.getHeader("Authorization");
 
-        if(token == null){
-            return null;
-        }
+        String authHeader = request.getHeader("Authorization");
+        String token = "";
+
+        if (authHeader != null && authHeader.contains("Bearer "))
+            token = authHeader.replace("Bearer ", "");
+
 
         try {
-           // authClient.verify(email);
+            boolean verified;
 
-           // ctx.addZuulRequestHeader("username", email);
+            if(!token.equals("")){
+                verified = authClient.verify(token);
+                if(!verified)
+                    setFailedRequest("User not verified", 403);
+            }
 
+            ctx.addZuulRequestHeader("Authorization", authHeader);
 
         } catch (FeignException.NotFound e) {
             setFailedRequest("Consumer does not exist!", 403);
         }
-
 
         return null;
     }
