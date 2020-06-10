@@ -1,13 +1,12 @@
 package com.tim26.demo.service;
 
 import com.tim26.demo.dto.CreateAdDto;
-import com.tim26.demo.model.Ad;
-import com.tim26.demo.model.Car;
-import com.tim26.demo.model.DateRange;
-import com.tim26.demo.model.EndUser;
+import com.tim26.demo.model.*;
 import com.tim26.demo.repository.AdRepository;
 import com.tim26.demo.service.interfaces.AdService;
+import com.tim26.demo.service.interfaces.AgentService;
 import com.tim26.demo.service.interfaces.EndUserService;
+import com.tim26.demo.service.interfaces.UService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,15 +23,15 @@ import java.util.Optional;
 public class AdServiceImpl implements AdService {
 
     @Autowired
-    private EndUserService endUserService;
+    private UService userService;
 
     @Autowired
     private AdRepository adRepository;
 
     @Override
     public boolean save(CreateAdDto ad, Principal p) {
-        EndUser endUser = endUserService.findByUsername(p.getName());
-        if(endUser != null) {
+        Agent agent = (Agent) userService.findByUsername(p.getName());
+        if(agent != null) {
 
             Ad advertisment = new Ad();
             Car car = new Car();
@@ -54,18 +53,11 @@ public class AdServiceImpl implements AdService {
                     imgBytes.add(imgByte);
                 }
                 car.setFiles(imgBytes);
-
                 advertisment.setCar(car);
-
-                DateRange dateRange = new DateRange();
-                dateRange.setStartDate(ad.getStartDate());
-                dateRange.setEndDate(ad.getEndDate());
-                List<DateRange> dateRanges = new ArrayList<DateRange>();
-                dateRanges.add(dateRange);
-                advertisment.setRentDates(dateRanges);
-
-                endUser.getAd().add(advertisment);
-                advertisment.setUser(endUser);
+                advertisment.setCity(ad.getCity());
+                advertisment.setRentDates(ad.getDates());
+                agent.getAd().add(advertisment);
+                advertisment.setUser(agent);
 
                 try {
                     advertisment = adRepository.save(advertisment);

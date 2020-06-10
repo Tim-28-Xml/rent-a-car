@@ -41,13 +41,14 @@ public class CarModelController {
         }
 
         if(brandModels == null)
-            return ResponseEntity.badRequest().build();
+            brandModels = new BrandModels(carModelDTO.brand, carModelDTO.brand);
 
         if(brandModels.getModels().contains(carModelDTO.model))
             return ResponseEntity.badRequest().build();
         else
             brandModels.getModels().add(carModelDTO.model);
 
+        codebookService.save(codebook);
         return ResponseEntity.ok().build();
     }
 }

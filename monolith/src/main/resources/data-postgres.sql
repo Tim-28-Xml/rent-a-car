@@ -69,7 +69,7 @@ insert into user_blocked_permissions(user_id,blocked_permissions) values (-3, 'O
 insert into users(dtype,id,email,enabled,is_activated,reset_pass,password,username,address,mbr,name,quota,firstname,lastname) values ('Agent',-4,'agent@gmail.com','true','true',null,'$2y$12$Q3xvElaABTnytfulcYp2MeSjhj6Ac/oOuOu1KJ/bX9WbWvorvJava','agent1','Ravanicka 12',12,null,1,null,null);
 insert into user_permissions(user_id,permission_id) values (-4,'ROLE_AGENT');
 insert into user_permissions(user_id,permission_id) values (-4,'CREATE_REVIEW');
-insert into user_blocked_permissions(user_id,blocked_permissions) values (-4, 'CREATE_AD');
+insert into user_permissions(user_id,permission_id) values (-4,'CREATE_AD');
 
 insert into users(dtype,id,email,enabled,is_activated,reset_pass,password,username,address,mbr,name,quota,firstname,lastname) values ('EndUser',-5,'tamaraa.jancic@gmail.com','false','false',null,'$2y$12$Q3xvElaABTnytfulcYp2MeSjhj6Ac/oOuOu1KJ/bX9WbWvorvJava','user5',null,null,null,null,'Maja','Jovic');
 insert into user_permissions(user_id,permission_id) values (-5,'ROLE_USER');
