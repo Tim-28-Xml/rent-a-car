@@ -16,13 +16,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 public class TokenAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
-    private static final Logger LOGGER= LoggerFactory.getLogger(TokenAuthenticationFilter.class);
 
     private TokenUtils tokenUtils;
 
@@ -39,9 +36,6 @@ public class TokenAuthenticationFilter extends UsernamePasswordAuthenticationFil
         if(authToken != null){
             String permString = tokenUtils.getPermissionsFromToken(authToken);
             username = tokenUtils.getUsernameFromToken(authToken);
-
-            LOGGER.info("Permissions string:" + permString);
-            LOGGER.info("Username:" + username);
 
             if (permString != null) {
                 Set<SimpleGrantedAuthority> authorities = new HashSet<>();
