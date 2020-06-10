@@ -18,7 +18,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -72,7 +71,7 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().build();
         }
 
-        String jwt = tokenUtils.generateToken(user.getUsername());
+        String jwt = tokenUtils.generateToken(user.getUsername(), user.getAuthorities());
         int expiresIn = tokenUtils.getExpiredIn();
 
         return ResponseEntity.ok(new PersonTokenState(jwt, expiresIn));
@@ -95,6 +94,18 @@ public class AuthenticationController {
         }
 
         return ResponseEntity.ok(auth);
+    }
+
+    @GetMapping(value = "/verify/{token:.+}")
+    public boolean verify(@PathVariable String token){
+        String username = tokenUtils.getUsernameFromToken(token);
+        User user = userService.findByUsername(username);
+
+        if(username != null){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @GetMapping(value="/one/{id}")
