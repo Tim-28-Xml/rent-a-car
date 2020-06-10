@@ -14,13 +14,11 @@ import com.netflix.zuul.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
 import java.util.Collections;
 
 @Component
 public class ZuulPreFilter extends ZuulFilter {
 
-    private static final Logger LOGGER=LoggerFactory.getLogger(ZuulPreFilter.class);
 
     @Autowired
     private AuthClient authClient;
@@ -54,18 +52,13 @@ public class ZuulPreFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        for (String header : Collections.list(request.getHeaderNames())){
-            LOGGER.info("This is header: " + header);
-        }
 
         String authHeader = request.getHeader("Authorization");
-        LOGGER.info("This is auth header: " + authHeader);
         String token = "";
 
         if (authHeader != null && authHeader.contains("Bearer "))
             token = authHeader.replace("Bearer ", "");
 
-        LOGGER.info("This is token: " + token);
 
         try {
             boolean verified;
