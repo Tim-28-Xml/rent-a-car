@@ -1,4 +1,4 @@
-package com.tim26.RentRequestService.config;
+/*package com.tim26.RentRequestService.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -12,4 +12,4 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "DELETE");
     }
-}
+}*/
