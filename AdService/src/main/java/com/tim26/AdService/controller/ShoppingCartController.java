@@ -13,7 +13,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/shoppingCart")
+@RequestMapping("/shoppingcart")
 @PreAuthorize("hasAuthority('ORDER')")
 public class ShoppingCartController {
 
