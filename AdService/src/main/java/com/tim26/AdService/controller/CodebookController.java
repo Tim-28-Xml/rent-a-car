@@ -22,7 +22,7 @@ public class CodebookController {
     CodebookService codebookService;
 
     @GetMapping
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Codebook> getCodebook(){
         return new ResponseEntity<>(codebookService.getFirstCodebook(), HttpStatus.OK);
     }

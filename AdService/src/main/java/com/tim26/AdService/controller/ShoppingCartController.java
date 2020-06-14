@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/shoppingCart")
+@PreAuthorize("hasAuthority('ORDER')")
 public class ShoppingCartController {
 
     @Autowired
@@ -27,21 +28,18 @@ public class ShoppingCartController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ORDER')")
     public List<Ad> getShoppingCart(Principal principal){
         User user = userService.findByUsername(principal.getName());
         return user.getShoppingCart();
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ORDER')")
     public ResponseEntity addToShoppingCart(@RequestBody AdCartDTO adCartDTO, Principal principal){
         shoppingCartService.addAd(principal.getName(), Long.parseLong(adCartDTO.adId));
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping
-    @PreAuthorize("hasAuthority('ORDER')")
     public ResponseEntity deleteFromShoppingCart(@RequestBody AdCartDTO adCartDTO, Principal principal){
         if(shoppingCartService.removeAd(principal.getName(), Long.parseLong(adCartDTO.adId)))
             return ResponseEntity.ok().build();
