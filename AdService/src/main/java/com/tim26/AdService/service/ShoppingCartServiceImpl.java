@@ -18,8 +18,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     AdService adService;
 
     @Override
-    public boolean removeAd(Long userId, Long adId) {
-        User user = userService.findById(userId);
+    public boolean removeAd(String username, Long adId) {
+        User user = userService.findByUsername(username);
 
         for(Ad ad : user.getShoppingCart()){
             if(ad.getId() == adId){
@@ -32,8 +32,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void addAd(Long userId, Long adId) {
-        User user = userService.findById(userId);
+    public void addAd(String username, Long adId) {
+        User user = userService.findByUsername(username);
         Ad ad = adService.findAdById(adId);
         user.getShoppingCart().add(ad);
         userService.save(user);

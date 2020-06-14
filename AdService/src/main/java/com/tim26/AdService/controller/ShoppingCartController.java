@@ -6,12 +6,15 @@ import com.tim26.AdService.service.interfaces.ShoppingCartService;
 import com.tim26.AdService.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/shoppingCart")
+@PreAuthorize("hasAuthority('ORDER')")
 public class ShoppingCartController {
 
     @Autowired
@@ -20,27 +23,25 @@ public class ShoppingCartController {
     @Autowired
     ShoppingCartService shoppingCartService;
 
-    public static class UserAd {
-        public String userId;
+    public static class AdCartDTO {
         public String adId;
     }
 
     @GetMapping
-    @RequestMapping("{userId}")
-    public List<Ad> getShoppingCart(@PathVariable String userId){
-        User user = userService.findById(Long.parseLong(userId));
+    public List<Ad> getShoppingCart(Principal principal){
+        User user = userService.findByUsername(principal.getName());
         return user.getShoppingCart();
     }
 
     @PostMapping
-    public ResponseEntity addToShoppingCart(@RequestBody UserAd userAd){
-        shoppingCartService.addAd(Long.parseLong(userAd.userId), Long.parseLong(userAd.adId));
+    public ResponseEntity addToShoppingCart(@RequestBody AdCartDTO adCartDTO, Principal principal){
+        shoppingCartService.addAd(principal.getName(), Long.parseLong(adCartDTO.adId));
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping
-    public ResponseEntity deleteFromShoppingCart(@RequestBody UserAd userAd){
-        if(shoppingCartService.removeAd(Long.parseLong(userAd.userId), Long.parseLong(userAd.adId)))
+    public ResponseEntity deleteFromShoppingCart(@RequestBody AdCartDTO adCartDTO, Principal principal){
+        if(shoppingCartService.removeAd(principal.getName(), Long.parseLong(adCartDTO.adId)))
             return ResponseEntity.ok().build();
         else
             return ResponseEntity.badRequest().build();
