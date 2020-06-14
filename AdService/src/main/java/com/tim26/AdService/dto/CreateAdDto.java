@@ -18,13 +18,13 @@ public class CreateAdDto {
     private List<String> files;
     private String city;
     private String role;
-    private Long userId;
+    private String currentUser;
 
     public CreateAdDto() {
 
     }
 
-    public CreateAdDto(String brand, String model, String fuel, String transmission, String carClass, List<DateRange> dates, double km, double kmLimit, boolean collision, String childSeats, List<String> files, String city) {
+    public CreateAdDto(String brand, String model, String fuel, String transmission, String carClass, List<DateRange> dates, double km, double kmLimit, boolean collision, String childSeats, List<String> files, String city, String currentUser) {
         this.brand = brand;
         this.model = model;
         this.fuel = fuel;
@@ -37,6 +37,7 @@ public class CreateAdDto {
         this.childSeats = childSeats;
         this.files = files;
         this.city = city;
+        this.currentUser = currentUser;
     }
 
     public String getBrand() {
@@ -143,11 +144,11 @@ public class CreateAdDto {
         this.role = role;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getCurrentUser() {
+        return currentUser;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
     }
 }

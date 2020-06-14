@@ -51,25 +51,28 @@ public class AdController {
 
     }
 
+    @PreAuthorize("hasAuthority('CREATE_AD')")
     @PostMapping(value = "/save")
-    public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto) {
-        if(adService.save(createAdDto))
+    public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto, Principal p) {
+        if(adService.save(createAdDto, p))
             return new ResponseEntity<>(createAdDto, HttpStatus.OK);
 
         return new ResponseEntity<>(createAdDto, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping(value = "/my-ads/{id}")
-    public ResponseEntity<List<AdDTO>> getMyAds(@PathVariable Long id){
+    @PreAuthorize("hasAuthority('VIEW_MY_ADS')")
+    @GetMapping(value = "/my-ads")
+    public ResponseEntity<List<AdDTO>> getMyAds(Principal p){
 
-        List<AdDTO> ads = adService.findMyAds(id);
+        List<AdDTO> ads = adService.findMyAds(p.getName());
         return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('RENT_BY_CREATOR')")
     @PostMapping(value = "rent-creator")
-    public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO){
+    public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO, Principal p){
 
-        if(adService.rentByCreator(rentAdDTO)){
+        if(adService.rentByCreator(rentAdDTO, p)){
             return new ResponseEntity<>("Car is successfully rented!",HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Car cannot be rented!",HttpStatus.BAD_REQUEST);

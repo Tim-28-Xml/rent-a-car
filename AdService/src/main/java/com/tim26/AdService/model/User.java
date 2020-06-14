@@ -7,9 +7,12 @@ import java.util.List;
 @Entity
 public class User {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Id
+    @Column
+    private String username;
 
     @OneToMany(mappedBy = "user")
     private List<Ad> ad = new ArrayList<Ad>();
@@ -52,5 +55,13 @@ public class User {
 
     public void setShoppingCart(List<Ad> shoppingCart) {
         this.shoppingCart = shoppingCart;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

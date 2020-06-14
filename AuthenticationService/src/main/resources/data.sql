@@ -7,6 +7,8 @@ insert into permission(name) values ('CREATE_AD');
 insert into permission(name) values ('CREATE_REVIEW');
 insert into permission(name) values ('ORDER');
 insert into permission(name) values ('USE_CART');
+insert into permission(name) values ('RENT_BY_CREATOR');
+insert into permission(name) values ('VIEW_MY_ADS');
 
 insert into user_permissions(user_id,permission_id) values (-1, 'ROLE_ADMIN');
 
@@ -15,6 +17,8 @@ insert into user_permissions(user_id,permission_id) values (-2,'ROLE_USER');
 insert into user_permissions(user_id,permission_id) values (-2,'CREATE_AD');
 insert into user_permissions(user_id,permission_id) values (-2,'USE_CART');
 insert into user_permissions(user_id,permission_id) values (-2,'ORDER');
+insert into user_permissions(user_id,permission_id) values (-2,'RENT_BY_CREATOR');
+insert into user_permissions(user_id,permission_id) values (-2,'VIEW_MY_ADS');
 insert into user_blocked_permissions(user_id,blocked_permissions) values (-2, 'CREATE_REVIEW');
 
 insert into users(dtype,id,email,enabled,is_activated,reset_pass,password,username,verification_code,address,mbr,name,quota,firstname,lastname) values ('EndUser',-3,'enduser2@gmail.com','true','true',null,'$2y$12$Q3xvElaABTnytfulcYp2MeSjhj6Ac/oOuOu1KJ/bX9WbWvorvJava','user2',null,null,null,null,null,'Marko','Milic');
