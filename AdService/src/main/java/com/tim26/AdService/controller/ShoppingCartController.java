@@ -13,7 +13,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/shoppingCart")
+@RequestMapping("/shoppingcart")
 @PreAuthorize("hasAuthority('ORDER')")
 public class ShoppingCartController {
 
@@ -35,14 +35,16 @@ public class ShoppingCartController {
 
     @PostMapping
     public ResponseEntity addToShoppingCart(@RequestBody AdCartDTO adCartDTO, Principal principal){
-        shoppingCartService.addAd(principal.getName(), Long.parseLong(adCartDTO.adId));
-        return ResponseEntity.ok().build();
+        if(shoppingCartService.addAd(principal.getName(), Long.parseLong(adCartDTO.adId)))
+            return ResponseEntity.ok().build();
+        else
+            return ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping
     public ResponseEntity deleteFromShoppingCart(@RequestBody AdCartDTO adCartDTO, Principal principal){
         if(shoppingCartService.removeAd(principal.getName(), Long.parseLong(adCartDTO.adId)))
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         else
             return ResponseEntity.badRequest().build();
     }
