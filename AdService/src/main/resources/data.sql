@@ -2,6 +2,7 @@
 insert into user(username,id) values ('agent1',-4);
 insert into user(username,id) values ('user1',-2);
 
+
 --Cars and ads
 /*insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-5,'AUDI','sedan',false,1,'diesel',50000,1000,'A6','automatic');
 insert into ad(id,car_id,price_list_id,rent_request_id,user_id,city) values (-1,-5,null,null,-4,'Novi Sad');
@@ -44,6 +45,7 @@ insert into date_range_dates(date_range_id,dates_id) values (-6,-10);
 
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-6,'RENAULT','hatchback',false,0,'diesel',50000,1000,'Clio','manual');
 insert into ad(id,car_id,price_list_id,user_username,city) values (-2,-6,null,'agent1','Beograd');
+
 
 insert into ad_rent_dates(ad_id,rent_dates_id) values (-2,-6);
 

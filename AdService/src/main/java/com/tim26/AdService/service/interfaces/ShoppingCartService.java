@@ -4,5 +4,5 @@ import com.tim26.AdService.model.Ad;
 
 public interface ShoppingCartService {
     boolean removeAd(String username, Long adId);
-    void addAd(String username, Long adId);
+    boolean addAd(String username, Long adId);
 }

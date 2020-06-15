@@ -20,10 +20,15 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<PriceList> priceLists = new ArrayList<PriceList>();
 
-    public User() {
-    }
     @OneToMany
     private List<Ad> shoppingCart = new ArrayList<>();
+
+    public User() {
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
 
     public Long getId() {
         return id;
