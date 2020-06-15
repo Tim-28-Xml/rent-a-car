@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ShoppingCartService {
     boolean removeAd(String username, Long adId);
-    void addAd(String username, Long adId);
+    boolean addAd(String username, Long adId);
     List<AdDTO> getCartData(Principal p);
 }
