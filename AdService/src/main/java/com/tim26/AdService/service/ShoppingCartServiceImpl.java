@@ -30,18 +30,29 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             if(ad.getId() == adId){
                 user.getShoppingCart().remove(ad);
                 userService.save(user);
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     @Override
-    public void addAd(String username, Long adId) {
+    public boolean addAd(String username, Long adId) {
         User user = userService.findByUsername(username);
+
+        if(user == null)
+            user = new User(username);
+
         Ad ad = adService.findAdById(adId);
+
+        if(ad == null)
+            return false;
+
         user.getShoppingCart().add(ad);
         userService.save(user);
+
+        return true;
     }
 
     @Override
