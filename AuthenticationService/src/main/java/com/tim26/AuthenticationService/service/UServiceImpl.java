@@ -20,6 +20,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 public class UServiceImpl implements UService, UserDetailsService {
@@ -37,6 +38,8 @@ public class UServiceImpl implements UService, UserDetailsService {
     @Autowired
     EndUserService endUserService;
 
+    public final Pattern textPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$");
+
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -52,6 +55,11 @@ public class UServiceImpl implements UService, UserDetailsService {
     public Long getUserId(Principal p) {
         User user = userRepository.findByUsername(p.getName());
         return user.getId();
+    }
+
+    @Override
+    public boolean isPasswordValid(String password) {
+        return textPattern.matcher(password).matches();
     }
 
     @Override
