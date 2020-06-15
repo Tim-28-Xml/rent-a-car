@@ -1,5 +1,6 @@
 package com.tim26.AdService.controller;
 
+import com.tim26.AdService.dto.AdDTO;
 import com.tim26.AdService.model.Ad;
 import com.tim26.AdService.model.User;
 import com.tim26.AdService.service.interfaces.ShoppingCartService;
@@ -28,9 +29,8 @@ public class ShoppingCartController {
     }
 
     @GetMapping
-    public List<Ad> getShoppingCart(Principal principal){
-        User user = userService.findByUsername(principal.getName());
-        return user.getShoppingCart();
+    public List<AdDTO> getShoppingCart(Principal principal){
+        return shoppingCartService.getCartData(principal);
     }
 
     @PostMapping
