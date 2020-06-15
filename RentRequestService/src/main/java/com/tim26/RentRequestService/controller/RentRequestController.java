@@ -1,5 +1,6 @@
 package com.tim26.RentRequestService.controller;
 
+import com.tim26.RentRequestService.RentRequestDTO;
 import com.tim26.RentRequestService.model.RentRequest;
 import com.tim26.RentRequestService.service.RentRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.security.Principal;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,7 +40,9 @@ public class RentRequestController {
     }
 
     @PostMapping
-    public ResponseEntity postRentRequest(RentRequest rentRequest){
+    public ResponseEntity postRentRequest(@RequestBody RentRequestDTO rentRequestDTO, Principal principal){
+        RentRequest rentRequest = new RentRequest(rentRequestDTO, principal.getName());
+
         if(rentRequestService.save(rentRequest) == null){
             return ResponseEntity.badRequest().build();
         } else {

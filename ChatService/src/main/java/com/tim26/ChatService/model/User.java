@@ -1,19 +1,19 @@
-package com.tim26.RentRequestService.model;
+package com.tim26.ChatService.model;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
 
 @Entity
 public class User {
+
     @Id
     private String username;
 
-    public User(String username) {
-        this.username = username;
-    }
-
     public User(){
 
+    }
+
+    public User(String username) {
+        this.username = username;
     }
 
     public String getUsername() {

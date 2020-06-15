@@ -7,9 +7,6 @@ import java.util.List;
 @Entity
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Id
     @Column
     private String username;
@@ -28,14 +25,6 @@ public class User {
 
     public User(String username) {
         this.username = username;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public List<Ad> getAd() {

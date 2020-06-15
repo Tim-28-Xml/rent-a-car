@@ -1,5 +1,7 @@
 package com.tim26.RentRequestService.model;
 
+import com.tim26.RentRequestService.RentRequestDTO;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,6 +34,14 @@ public class RentRequest {
 
     public RentRequest() {
         requestStatus = RequestStatus.PENDING;
+    }
+
+    public RentRequest(RentRequestDTO rentRequestDTO, String creator){
+        this.owner = new User(rentRequestDTO.getOwner());
+        this.creationTime = rentRequestDTO.getCreationTime();
+        this.ads = rentRequestDTO.getAds();
+        this.requestStatus = RequestStatus.PENDING;
+        this.creator = new User(creator);
     }
 
     public long getId() {
