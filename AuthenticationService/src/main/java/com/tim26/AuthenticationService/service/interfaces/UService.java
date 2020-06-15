@@ -24,4 +24,5 @@ public interface UService {
     boolean acceptAccount(String username);
     boolean declineAccount(String username);
     Long getUserId(Principal p);
+    boolean isPasswordValid(String password);
 }

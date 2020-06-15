@@ -129,6 +129,11 @@ public class AuthenticationController {
             return new ResponseEntity<>("Username or email is already taken!", HttpStatus.BAD_REQUEST);
         }
 
+        String pass = user.getPassword();
+        if(pass.length() < 10 || !userService.isPasswordValid(pass)){
+            return new ResponseEntity<>("Password is not strong enough!", HttpStatus.BAD_REQUEST);
+        }
+
         user.setEnabled(false);
         user.setActivated(false);
         endUserService.save(user);
@@ -143,6 +148,12 @@ public class AuthenticationController {
                 agentService.findByMbr(user.getMbr()) != null){
             return new ResponseEntity<>("Username, id or email is already taken!", HttpStatus.BAD_REQUEST);
         }
+
+        String pass = user.getPassword();
+        if(pass.length() < 10 || !userService.isPasswordValid(pass)){
+            return new ResponseEntity<>("Password is not strong enough!", HttpStatus.BAD_REQUEST);
+        }
+
         user.setEnabled(true);
         user.setActivated(true);
         agentService.save(user);
