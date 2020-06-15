@@ -10,7 +10,7 @@ import java.util.List;
 public class AdDTO {
 
     private CarDTO carDTO;
-    private Long userId;
+    private String username;
     private Long id;
     private ArrayList<DateRangeDTO>  rentDates = new ArrayList<>();
     private String city;
@@ -20,16 +20,16 @@ public class AdDTO {
 
     }
 
-    public AdDTO(CarDTO carDTO,Long userId,Long id,String city) {
+    public AdDTO(CarDTO carDTO,String username,Long id,String city) {
         this.carDTO = carDTO;
-        this.userId = userId;
+        this.username = username;
         this.id = id;
         this.rentDates = rentDates;
         this.city = city;
     }
 
     public AdDTO(Ad ad){
-        this(new CarDTO(ad.getCar()),ad.getUser().getId(),ad.getId(),ad.getCity());
+        this(new CarDTO(ad.getCar()),ad.getUser().getUsername(),ad.getId(),ad.getCity());
 
         for(DateRange dt : ad.getRentDates()){
 
@@ -53,12 +53,12 @@ public class AdDTO {
         this.carDTO = carDTO;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Long getId() {
