@@ -1,8 +1,12 @@
 package com.tim26.RentRequestService.controller;
 
-import com.tim26.RentRequestService.RentRequestDTO;
+import com.tim26.RentRequestService.dto.RentRequestDTO;
+import com.tim26.RentRequestService.dto.ViewRequestDTO;
 import com.tim26.RentRequestService.model.RentRequest;
+import com.tim26.RentRequestService.model.RequestStatus;
+import com.tim26.RentRequestService.model.User;
 import com.tim26.RentRequestService.service.RentRequestService;
+import com.tim26.RentRequestService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -21,6 +27,9 @@ public class RentRequestController {
 
     @Autowired
     RentRequestService rentRequestService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("{id}")
     public ResponseEntity getRentRequest(@PathVariable String id) {
@@ -59,5 +68,47 @@ public class RentRequestController {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/myCreated")
+    public List<ViewRequestDTO> getEndUserRequests(Principal principal){
+        List<ViewRequestDTO> viewRequestDTOS = new ArrayList<>();
+
+        User user = userService.findByUsername(principal.getName());
+
+        if(user == null)
+            return null;
+
+        List<RentRequest> rentRequests = rentRequestService.findByCreator(user);
+
+        if(rentRequests == null)
+            return null;
+
+        for(RentRequest rentRequest : rentRequests){
+            viewRequestDTOS.add(new ViewRequestDTO(rentRequest));
+        }
+
+        return viewRequestDTOS;
+    }
+
+    @GetMapping("/myReceived")
+    public List<ViewRequestDTO> getAgentRequests(Principal principal){
+        List<ViewRequestDTO> viewRequestDTOS = new ArrayList<>();
+
+        User user = userService.findByUsername(principal.getName());
+
+        if(user == null)
+            return null;
+
+        List<RentRequest> rentRequests = rentRequestService.findByOwner(user);
+
+        if(rentRequests == null)
+            return null;
+
+        for(RentRequest rentRequest : rentRequests){
+            viewRequestDTOS.add(new ViewRequestDTO(rentRequest));
+        }
+
+        return viewRequestDTOS;
     }
 }

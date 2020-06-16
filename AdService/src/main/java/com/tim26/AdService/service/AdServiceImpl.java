@@ -360,4 +360,9 @@ public class AdServiceImpl implements AdService {
 
         return true;
     }
+
+    @Override
+    public List<Ad> findByIds(List<Long> ids){
+        return adRepository.findByIds(ids);
+    }
 }

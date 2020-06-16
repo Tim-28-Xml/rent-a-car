@@ -65,7 +65,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         for (Ad ad: user.getShoppingCart()) {
             AdDTO adDTO = new AdDTO(ad);
-            adDTO.setAdId(ad.getId());
+            adDTO.setId(ad.getId());
             cartAds.add(adDTO);
         }
         return cartAds;

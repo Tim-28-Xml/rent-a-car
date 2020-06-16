@@ -1,8 +1,8 @@
-package com.tim26.AdService.service;
+package com.tim26.RentRequestService.service.impl;
 
-import com.tim26.AdService.model.User;
-import com.tim26.AdService.repository.UserRepository;
-import com.tim26.AdService.service.interfaces.UserService;
+import com.tim26.RentRequestService.model.User;
+import com.tim26.RentRequestService.repository.UserRepository;
+import com.tim26.RentRequestService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
-
     @Override
     public User save(User user) {
         return userRepository.save(user);
@@ -20,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+        return userRepository.findById(username).orElse(null);
     }
 
 
