@@ -4,6 +4,7 @@ import com.tim26.AdService.dto.AdDTO;
 import com.tim26.AdService.dto.CarDTO;
 import com.tim26.AdService.dto.CreateAdDto;
 import com.tim26.AdService.dto.RentAdDTO;
+import com.tim26.AdService.model.Ad;
 import com.tim26.AdService.service.interfaces.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -79,6 +81,20 @@ public class AdController {
             return new ResponseEntity<>("Car cannot be rented!",HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @PostMapping("/byIds")
+    public List<AdDTO> getAdsByIds(@RequestBody List<Long> ids){
+        List<AdDTO> adDTOS = new ArrayList<>();
+        List<Ad> ads = adService.findByIds(ids);
+
+        if(ads == null)
+            return null;
+
+        for (Ad ad : ads){
+            adDTOS.add(new AdDTO(ad));
+        }
+        return adDTOS;
     }
 
 

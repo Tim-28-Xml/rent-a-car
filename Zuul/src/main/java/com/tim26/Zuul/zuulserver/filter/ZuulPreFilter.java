@@ -2,7 +2,7 @@ package com.tim26.Zuul.zuulserver.filter;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.tim26.Zuul.zuulserver.AuthClient;
+import com.tim26.Zuul.zuulserver.client.AuthClient;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,11 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Collections;
 
 @Component
 public class ZuulPreFilter extends ZuulFilter {

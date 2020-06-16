@@ -14,7 +14,6 @@ public class AdDTO {
     private Long id;
     private ArrayList<DateRangeDTO>  rentDates = new ArrayList<>();
     private String city;
-    private long adId;
 
     public AdDTO(){
 
@@ -83,13 +82,5 @@ public class AdDTO {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public long getAdId() {
-        return adId;
-    }
-
-    public void setAdId(long adId) {
-        this.adId = adId;
     }
 }

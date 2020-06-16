@@ -1,6 +1,6 @@
 package com.tim26.RentRequestService.model;
 
-import com.tim26.RentRequestService.RentRequestDTO;
+import com.tim26.RentRequestService.dto.RentRequestDTO;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

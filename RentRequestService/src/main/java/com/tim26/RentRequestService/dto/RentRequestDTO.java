@@ -1,4 +1,4 @@
-package com.tim26.RentRequestService;
+package com.tim26.RentRequestService.dto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
