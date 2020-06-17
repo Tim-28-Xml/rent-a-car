@@ -2,6 +2,7 @@ package com.tim26.AdService.dto;
 
 import com.tim26.AdService.model.DateRange;
 
+
 import java.time.LocalDate;
 
 public class RentAdDTO {

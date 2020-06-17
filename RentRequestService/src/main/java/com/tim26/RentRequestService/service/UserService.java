@@ -1,6 +1,6 @@
-package com.tim26.AdService.service.interfaces;
+package com.tim26.RentRequestService.service;
 
-import com.tim26.AdService.model.User;
+import com.tim26.RentRequestService.model.User;
 
 public interface UserService {
     User save(User user);

@@ -7,9 +7,6 @@ import java.util.List;
 @Entity
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Id
     @Column
     private String username;
@@ -20,17 +17,14 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<PriceList> priceLists = new ArrayList<PriceList>();
 
-    public User() {
-    }
     @OneToMany
     private List<Ad> shoppingCart = new ArrayList<>();
 
-    public Long getId() {
-        return id;
+    public User() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public User(String username) {
+        this.username = username;
     }
 
     public List<Ad> getAd() {

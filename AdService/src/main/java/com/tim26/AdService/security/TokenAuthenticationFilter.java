@@ -23,6 +23,8 @@ public class TokenAuthenticationFilter extends UsernamePasswordAuthenticationFil
 
     private TokenUtils tokenUtils;
 
+    private static final Logger LOGGER=LoggerFactory.getLogger(TokenAuthenticationFilter.class);
+
     public TokenAuthenticationFilter(TokenUtils tokenUtils) {
         this.tokenUtils = tokenUtils;
     }
@@ -33,9 +35,15 @@ public class TokenAuthenticationFilter extends UsernamePasswordAuthenticationFil
         String username;
         String authToken = tokenUtils.getToken(httpRequest);
 
+        LOGGER.info("Token: " + authToken);
+
+
         if(authToken != null){
             String permString = tokenUtils.getPermissionsFromToken(authToken);
             username = tokenUtils.getUsernameFromToken(authToken);
+
+            LOGGER.info("Username: " + username);
+            LOGGER.info("Authorities: " + permString);
 
             if (permString != null) {
                 Set<SimpleGrantedAuthority> authorities = new HashSet<>();

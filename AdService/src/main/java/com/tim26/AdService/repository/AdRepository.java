@@ -10,6 +10,7 @@ public interface AdRepository extends JpaRepository<Ad, Long> {
     Ad save(Ad ad);
     List<Ad> findAll();
     Ad findById(long id);
+
     @Query("select ad from Ad ad where ad.id in :ids")
     List<Ad> findByIds(List<Long> ids);
 }
