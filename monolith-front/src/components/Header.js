@@ -97,6 +97,7 @@ class Header extends React.Component{
                     <a href="http://localhost:3000/" className="btnHeaderHome">Home</a>
                     <RegisterPageAgent />
                     <a href="http://localhost:3000/codebook" className="profileBtn">Codebook</a>
+                    <a href="http://localhost:3000/physicalrent" className="profileBtn">Physical Rent</a>
                     <a href="http://localhost:3000/profile/admin" className="profileBtn">Profile</a>          
                     <button className="logoutBtnAdmin" onClick={this.logout}>Log out</button>
                     </div>
