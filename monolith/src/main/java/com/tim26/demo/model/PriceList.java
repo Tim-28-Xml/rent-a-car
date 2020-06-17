@@ -14,6 +14,9 @@ public class PriceList {
     private double dailyPrice;
 
     @Column
+    private String name;
+
+    @Column
     private double cdwPrice;
 
     @Column
@@ -74,5 +77,13 @@ public class PriceList {
 
     public void setAds(List<Ad> ads) {
         this.ads = ads;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
