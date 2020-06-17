@@ -1,6 +1,7 @@
 package com.tim26.demo.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class RentRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy = "rentRequest")
+    @ManyToMany(mappedBy = "rentRequests")
     private List<Ad> ads = new ArrayList<>();
 
     @Column
@@ -22,10 +23,10 @@ public class RentRequest {
     private EndUser endUser;
 
     @Column
-    private LocalDateTime creationTime;
+    private LocalDate startDate;
 
     @Column
-    private LocalDateTime reservationTime;
+    private LocalDate endDate;
 
     public RentRequest() {
     }
@@ -67,19 +68,19 @@ public class RentRequest {
         this.endUser = endUser;
     }
 
-    public LocalDateTime getCreationTime() {
-        return creationTime;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setCreationTime(LocalDateTime creationTime) {
-        this.creationTime = creationTime;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDateTime getReservationTime() {
-        return reservationTime;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setReservationTime(LocalDateTime reservationTime) {
-        this.reservationTime = reservationTime;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 }

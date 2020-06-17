@@ -9,6 +9,7 @@ import Codebook from './components/Codebook'
 import ActivatedAccount from './components/ActivatedAccount'
 import SingleAd from './components/SingleAd'
 import CreateNewAd from './components/CreateNewAd';
+import PhysicalRent from './components/PhysicalRent';
 
 class Routes extends React.Component {
 
@@ -51,6 +52,12 @@ class Routes extends React.Component {
                     </div>
                     } />
                 <Route path='/ad/:id' component = {SingleAd}/>
+                <Route path='/physicalrent' render={props =>
+                    <div>
+                        <Header />
+                        <PhysicalRent />
+                    </div>
+                    } />
 
             </Switch>
         );
