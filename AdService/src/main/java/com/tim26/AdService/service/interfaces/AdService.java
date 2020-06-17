@@ -1,9 +1,6 @@
 package com.tim26.AdService.service.interfaces;
 
-import com.tim26.AdService.dto.AdDTO;
-import com.tim26.AdService.dto.CarDTO;
-import com.tim26.AdService.dto.CreateAdDto;
-import com.tim26.AdService.dto.RentAdDTO;
+import com.tim26.AdService.dto.*;
 import com.tim26.AdService.model.Ad;
 
 import java.security.Principal;
@@ -20,4 +17,5 @@ public interface AdService {
     Ad findAdById(Long id);
     boolean validateCreationData(CreateAdDto createAdDto);
     List<Ad> findByIds(List<Long> ids);
+    List<AdDTO> filterAds(FilterDTO filterDTO);
 }
