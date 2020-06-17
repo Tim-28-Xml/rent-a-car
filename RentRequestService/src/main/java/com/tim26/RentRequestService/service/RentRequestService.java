@@ -1,8 +1,11 @@
 package com.tim26.RentRequestService.service;
 
+import com.tim26.RentRequestService.controller.RentRequestController;
+import com.tim26.RentRequestService.dto.ViewRequestDTO;
 import com.tim26.RentRequestService.model.RentRequest;
 import com.tim26.RentRequestService.model.User;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface RentRequestService {
@@ -11,4 +14,5 @@ public interface RentRequestService {
     void deleteById(Long id);
     List<RentRequest> findByCreator(User user);
     List<RentRequest> findByOwner(User user);
+    boolean pay(RentRequestController.ReqIdDTO id, Principal p);
 }
