@@ -16,6 +16,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.Properties;
 
 
 @EnableDiscoveryClient
@@ -33,6 +34,9 @@ public class ZuulApplication {
 		System.setProperty("ZUUL_ROUTES_USERSERVICE_SERVICEID", "userservice");
 		System.setProperty("TRUST_STORE_CLASSPATH", "serverkeystore.jks");
 		System.setProperty("TRUST_STORE_PASSWORD", "classpath:password");*/
+
+		Properties props = System.getProperties();
+		props.setProperty("javax.net.debug","ssl,handshake");
 
 		SpringApplication.run(ZuulApplication.class, args);
 	}
