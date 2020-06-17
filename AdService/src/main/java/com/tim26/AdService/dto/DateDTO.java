@@ -18,6 +18,10 @@ public class DateDTO {
     public DateDTO() {
     }
 
+    public DateDTO(LocalDate date) {
+        this.date = date;
+    }
+
     public long getId() {
         return id;
     }
