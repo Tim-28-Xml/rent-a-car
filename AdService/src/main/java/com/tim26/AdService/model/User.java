@@ -8,8 +8,8 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column
+    private String username;
 
     @OneToMany(mappedBy = "user")
     private List<Ad> ad = new ArrayList<Ad>();
@@ -17,17 +17,14 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<PriceList> priceLists = new ArrayList<PriceList>();
 
-    public User() {
-    }
     @OneToMany
     private List<Ad> shoppingCart = new ArrayList<>();
 
-    public Long getId() {
-        return id;
+    public User() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public User(String username) {
+        this.username = username;
     }
 
     public List<Ad> getAd() {
@@ -52,5 +49,13 @@ public class User {
 
     public void setShoppingCart(List<Ad> shoppingCart) {
         this.shoppingCart = shoppingCart;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -4,6 +4,7 @@ import com.tim26.AdService.dto.AdDTO;
 import com.tim26.AdService.dto.CarDTO;
 import com.tim26.AdService.dto.CreateAdDto;
 import com.tim26.AdService.dto.RentAdDTO;
+import com.tim26.AdService.model.Ad;
 import com.tim26.AdService.service.interfaces.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -51,30 +54,47 @@ public class AdController {
 
     }
 
+    @PreAuthorize("hasAuthority('CREATE_AD')")
     @PostMapping(value = "/save")
-    public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto) {
-        if(adService.save(createAdDto))
+    public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto, Principal p) throws SQLException {
+        if(adService.save(createAdDto, p))
             return new ResponseEntity<>(createAdDto, HttpStatus.OK);
 
         return new ResponseEntity<>(createAdDto, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping(value = "/my-ads/{id}")
-    public ResponseEntity<List<AdDTO>> getMyAds(@PathVariable Long id){
+    @PreAuthorize("hasAuthority('VIEW_MY_ADS')")
+    @GetMapping(value = "/my-ads")
+    public ResponseEntity<List<AdDTO>> getMyAds(Principal p){
 
-        List<AdDTO> ads = adService.findMyAds(id);
+        List<AdDTO> ads = adService.findMyAds(p.getName());
         return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('RENT_BY_CREATOR')")
     @PostMapping(value = "rent-creator")
-    public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO){
+    public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO, Principal p){
 
-        if(adService.rentByCreator(rentAdDTO)){
+        if(adService.rentByCreator(rentAdDTO, p)){
             return new ResponseEntity<>("Car is successfully rented!",HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Car cannot be rented!",HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @PostMapping("/byIds")
+    public List<AdDTO> getAdsByIds(@RequestBody List<Long> ids){
+        List<AdDTO> adDTOS = new ArrayList<>();
+        List<Ad> ads = adService.findByIds(ids);
+
+        if(ads == null)
+            return null;
+
+        for (Ad ad : ads){
+            adDTOS.add(new AdDTO(ad));
+        }
+        return adDTOS;
     }
 
 

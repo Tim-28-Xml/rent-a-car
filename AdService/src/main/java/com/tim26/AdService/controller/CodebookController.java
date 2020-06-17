@@ -22,37 +22,37 @@ public class CodebookController {
     CodebookService codebookService;
 
     @GetMapping
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Codebook> getCodebook(){
         return new ResponseEntity<>(codebookService.getFirstCodebook(), HttpStatus.OK);
     }
 
- //   @PreAuthorize("hasAuthority('CREATE_AD')")
+    @PreAuthorize("hasAuthority('CREATE_AD')")
     @GetMapping(value = "/fuel-types")
     public ResponseEntity<List<String>> getFuelTypes(){
         return new ResponseEntity<List<String>>(codebookService.getFuelTypes(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/transmission-types")
-  //  @PreAuthorize("hasAuthority('CREATE_AD')")
+    @PreAuthorize("hasAuthority('CREATE_AD')")
     public ResponseEntity<List<String>> getTransmissionTypes(){
         return new ResponseEntity<List<String>>(codebookService.getTransmissionTypes(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/car-classes")
-    //@PreAuthorize("hasAuthority('CREATE_AD')")
+    @PreAuthorize("hasAuthority('CREATE_AD')")
     public ResponseEntity<List<String>> getCarClasses(){
         return new ResponseEntity<List<String>>(codebookService.getCarClasses(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/brands")
-    //@PreAuthorize("hasAuthority('CREATE_AD')")
+    @PreAuthorize("hasAuthority('CREATE_AD')")
     public ResponseEntity<List<BrandModels>> getBrands(){
         return new ResponseEntity<List<BrandModels>>(codebookService.getBrands(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/models-from-brand/{brand}")
-    //@PreAuthorize("hasAuthority('CREATE_AD')")
+    @PreAuthorize("hasAuthority('CREATE_AD')")
     public ResponseEntity<List<String>> getModels(@PathVariable String brand){
         return new ResponseEntity<List<String>>(codebookService.getModelsFromBrand(brand), HttpStatus.OK);
     }

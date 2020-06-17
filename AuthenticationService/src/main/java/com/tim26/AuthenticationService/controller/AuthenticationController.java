@@ -12,6 +12,7 @@ import com.tim26.AuthenticationService.service.interfaces.AgentService;
 import com.tim26.AuthenticationService.service.interfaces.EndUserService;
 import com.tim26.AuthenticationService.service.interfaces.UService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -55,7 +56,7 @@ public class AuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest){
 
         if(userService.findByUsername(authenticationRequest.getUsername()) == null){
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>("User with this username does not exist!", HttpStatus.NOT_FOUND);
         }
 
 
@@ -68,7 +69,7 @@ public class AuthenticationController {
         User user = (User)userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
         if(!user.isEnabled() || !user.isActivated()){
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<>("Profile is not activated or enabled!", HttpStatus.BAD_REQUEST);
         }
 
         String jwt = tokenUtils.generateToken(user.getUsername(), user.getAuthorities());
@@ -125,7 +126,12 @@ public class AuthenticationController {
 
         if(userService.findByUsername(user.getUsername()) != null ||
                 userService.findByEmail(user.getEmail()) != null){
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<>("Username or email is already taken!", HttpStatus.BAD_REQUEST);
+        }
+
+        String pass = user.getPassword();
+        if(pass.length() < 10 || !userService.isPasswordValid(pass)){
+            return new ResponseEntity<>("Password is not strong enough!", HttpStatus.BAD_REQUEST);
         }
 
         user.setEnabled(false);
@@ -140,8 +146,14 @@ public class AuthenticationController {
         if(userService.findByUsername(user.getUsername()) != null ||
                 userService.findByEmail(user.getEmail()) != null ||
                 agentService.findByMbr(user.getMbr()) != null){
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<>("Username, id or email is already taken!", HttpStatus.BAD_REQUEST);
         }
+
+        String pass = user.getPassword();
+        if(pass.length() < 10 || !userService.isPasswordValid(pass)){
+            return new ResponseEntity<>("Password is not strong enough!", HttpStatus.BAD_REQUEST);
+        }
+
         user.setEnabled(true);
         user.setActivated(true);
         agentService.save(user);

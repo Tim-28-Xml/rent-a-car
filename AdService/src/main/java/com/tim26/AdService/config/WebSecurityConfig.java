@@ -1,3 +1,4 @@
+
 package com.tim26.AdService.config;
 
 import com.tim26.AdService.security.TokenAuthenticationFilter;
@@ -40,6 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers("/api/ads/all").permitAll()
+                .antMatchers("/api/ads/one/{id}").permitAll()
+                .antMatchers("/api/ads/car/{id}").permitAll()
                 .antMatchers("/h2-console/**")
                 .permitAll()
                 .anyRequest().authenticated();
@@ -52,6 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/h2-console/**");
         web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
                 "/**/*.css", "/**/*.js");
+        web.ignoring().antMatchers(HttpMethod.GET,"/api/ads/all");
+        web.ignoring().antMatchers(HttpMethod.GET,"/api/ads/one/{id}");
+        web.ignoring().antMatchers(HttpMethod.GET,"/api/ads/car/{id}");
     }
 
 }

@@ -1,4 +1,4 @@
-package com.tim26.ChatService.config;
+/*package com.tim26.ChatService.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -13,3 +13,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "DELETE");
     }
 }
+*/
