@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -51,9 +52,8 @@ public class AdController {
 
     }
 
-    @PreAuthorize("hasAuthority('CREATE_AD')")
     @PostMapping(value = "/save")
-    public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto, Principal p) {
+    public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto, Principal p) throws SQLException {
         if(adService.save(createAdDto, p))
             return new ResponseEntity<>(createAdDto, HttpStatus.OK);
 
@@ -71,7 +71,6 @@ public class AdController {
     @PreAuthorize("hasAuthority('RENT_BY_CREATOR')")
     @PostMapping(value = "rent-creator")
     public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO, Principal p){
-
         if(adService.rentByCreator(rentAdDTO, p)){
             return new ResponseEntity<>("Car is successfully rented!",HttpStatus.OK);
         } else {

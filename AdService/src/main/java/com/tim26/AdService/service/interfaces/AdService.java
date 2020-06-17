@@ -19,4 +19,5 @@ public interface AdService {
     boolean rentByCreator(RentAdDTO rentAdDTO, Principal p);
     Ad findAdById(Long id);
     boolean validateCreationData(CreateAdDto createAdDto);
+    List<Ad> findByIds(List<Long> ids);
 }
