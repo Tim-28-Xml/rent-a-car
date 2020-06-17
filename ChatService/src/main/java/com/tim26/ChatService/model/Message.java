@@ -1,6 +1,7 @@
 package com.tim26.ChatService.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Message {
@@ -18,7 +19,17 @@ public class Message {
     @ManyToOne
     private User receiver;
 
+    @Column
+    private LocalDateTime time;
+
     public Message() {
+    }
+
+    public Message(String content, User sender, User receiver){
+        this.content = content;
+        this.sender = sender;
+        this.receiver = receiver;
+
     }
 
     public long getId() {
@@ -51,5 +62,13 @@ public class Message {
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 }
