@@ -46,6 +46,16 @@ public class ReviewController {
 
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping(value = "/all-unapproved")
+    public ResponseEntity<?> getAllUnapproved() {
+
+        List<ReviewDTO> reviews = reviewService.findAllUnapproved();
+
+        return  new ResponseEntity<>(reviews, HttpStatus.OK);
+
+    }
+
 
 
 }
