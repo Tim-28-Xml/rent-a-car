@@ -25,7 +25,7 @@ public class User implements UserDetails {
 
     @Column(name="username", unique = true)
     private String username;
-    
+
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_permissions",
