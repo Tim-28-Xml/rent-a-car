@@ -33,7 +33,7 @@ public class Review {
     private User creator;
 
     @Column
-    private boolean approved;
+    private boolean approved = false;
 
     public Review() {
     }
