@@ -72,4 +72,13 @@ public class ReviewServiceImpl implements ReviewService {
         }
     }
 
+
+    @Override
+    public boolean declineReview(Long id) {
+
+        Optional<Review> optional = reviewRepository.findById(id);
+        Review review = optional.get();
+       reviewRepository.delete(review);
+       return true;
+    }
 }
