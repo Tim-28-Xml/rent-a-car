@@ -27,6 +27,16 @@ public class ReviewController {
         return "Hello svet from review service";
     }
 
+    @GetMapping(value = "/by-ad-approved/{id}")
+    public ResponseEntity<?> getAllByAdApproved(@PathVariable String id) {
+
+        List<ReviewDTO> reviews = reviewService.getAllApprovedByAd(Long.parseLong(id));
+
+        return  new ResponseEntity<>(reviews, HttpStatus.OK);
+
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/by-ad/{id}")
     public ResponseEntity<?> getAllByAd(@PathVariable String id) {
 
