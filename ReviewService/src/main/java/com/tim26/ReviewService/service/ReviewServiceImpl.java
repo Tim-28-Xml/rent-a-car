@@ -81,4 +81,22 @@ public class ReviewServiceImpl implements ReviewService {
        reviewRepository.delete(review);
        return true;
     }
+
+    @Override
+    public List<ReviewDTO> findAllUnapproved() {
+
+        List<ReviewDTO> reviews = new ArrayList<>();
+
+        for(Review r : reviewRepository.findAll()){
+
+            if(r.isApproved() ==  false) {
+                ReviewDTO reviewDTO = new ReviewDTO(r);
+                reviews.add(reviewDTO);
+            }
+        }
+
+        return reviews;
+    }
+
+
 }
