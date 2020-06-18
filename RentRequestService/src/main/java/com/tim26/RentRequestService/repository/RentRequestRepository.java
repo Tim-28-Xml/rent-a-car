@@ -9,4 +9,5 @@ import java.util.List;
 public interface RentRequestRepository extends JpaRepository<RentRequest, Long> {
     List<RentRequest> findByCreator(User user);
     List<RentRequest> findByOwner(User user);
+
 }
