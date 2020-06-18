@@ -39,3 +39,6 @@ insert into user_permissions(user_id,permission_id) values (-5,'CREATE_AD');
 insert into user_permissions(user_id,permission_id) values (-5,'USE_CART');
 insert into user_permissions(user_id,permission_id) values (-5,'ORDER');
 insert into user_permissions(user_id,permission_id) values (-5,'CREATE_REVIEW');
+
+
+
