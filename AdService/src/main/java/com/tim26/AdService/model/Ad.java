@@ -29,6 +29,8 @@ public class Ad {
     @ManyToOne
     private User user;
 
+
+
     @ManyToMany
     @JoinTable(name = "ad_rent_requests",
             joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"),
@@ -44,6 +46,7 @@ public class Ad {
 
     public Ad() {
     }
+
 
     public Long getId() {
         return id;
