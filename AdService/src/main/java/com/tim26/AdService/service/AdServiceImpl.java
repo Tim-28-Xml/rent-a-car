@@ -49,16 +49,16 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public boolean save(CreateAdDto ad, Principal p) throws SQLException {
-        if(!validateCreationData(ad))
-            return false;
+        /*if(!validateCreationData(ad))
+            return false;*/
 
         Ad advertisment = new Ad();
         Car car = new Car();
         User user = new User();
-        user.setUsername(ad.getCurrentUser());
+        user.setUsername(p.getName());
 
-        if(!userRepository.findByUsername(ad.getCurrentUser()).isPresent()) {
-            userRepository.save(ad.getCurrentUser());
+        if(userRepository.findByUsername(user.getUsername()) == null) {
+            userRepository.save(user.getUsername());
         }
 
         if(ad.getRole().equals("ROLE_USER")) {
@@ -130,23 +130,19 @@ public class AdServiceImpl implements AdService {
         String dbUrl = "jdbc:h2:file:./src/main/resources/adsDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;AUTO_RECONNECT=TRUE;TRACE_LEVEL_FILE=0";
         String dbUsername = "sa";
         String dbPassword = "";
-
         PreparedStatement preparedStatementAd = null;
         PreparedStatement preparedStatementUser = null;
         PreparedStatement preparedStatementCar = null;
-
         try {
             connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
             Ad advertisment = new Ad();
             Car car = new Car();
             User user = new User();
             user.setUsername(p.getName());
-
             if(!userRepository.findByUsername(ad.getCurrentUser()).isPresent()) {
                 preparedStatementUser = connection.prepareStatement("INSERT INTO user (username) values (?)");
                 preparedStatementUser.executeUpdate();
             }
-
             if(ad.getRole().equals("ROLE_USER")) {
                 if(user.getAd() != null) {
                     if(user.getAd().size() == 3) {
@@ -154,7 +150,6 @@ public class AdServiceImpl implements AdService {
                     }
                 }
             }
-
             if(ad != null) {
                 car.setBrand(ad.getBrand());
                 car.setCarClass(ad.getCarClass());
@@ -166,36 +161,28 @@ public class AdServiceImpl implements AdService {
                 car.setChildSeats(Integer.parseInt(ad.getChildSeats()));
                 car.setCdw(ad.isCollision());
                 List<byte[]> imgBytes = new ArrayList<byte[]>();
-
                 for(String img : ad.getFiles()) {
                     byte[] imgByte = Base64.decodeBase64(img.getBytes());
                     imgBytes.add(imgByte);
                 }
-
                 car.setFiles(imgBytes);
-
                 advertisment.setCar(car);
                 advertisment.setCity(ad.getCity());
-
                 //looping trough each date range and setting its start & end date and list of dates inbetween
                 //setting list of dates between start and end
                 for(DateRange dt : ad.getDates()){
                     LocalDate start = dt.getStartDate();
                     LocalDate end = dt.getEndDate();
                     List<Date> totalDates = new ArrayList<>();
-
                     while (!start.isAfter(end)) {
                         totalDates.add(new Date(start));
                         start = start.plusDays(1);
                     }
-
                     DateRange helper = new DateRange(dt.getStartDate(),dt.getEndDate(),totalDates);
                     advertisment.getRentDates().add(helper);
                 }
-
                 user.getAd().add(advertisment);
                 advertisment.setUser(user);
-
                 try {
                     preparedStatementCar = connection.prepareStatement("INSERT INTO car (brand, car_class, model, fuel, transmission, km, km_limit, child_seats, cdw) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     preparedStatementCar.setString(1, car.getBrand());
@@ -208,7 +195,6 @@ public class AdServiceImpl implements AdService {
                     preparedStatementCar.setInt(8, car.getChildSeats());
                     preparedStatementCar.setBoolean(9, car.isCdw());
                     preparedStatementCar.executeUpdate();
-
                     preparedStatementAd = connection.prepareStatement("INSERT INTO ad (car_id, city, user_id) values (?, ?, ?)");
                     preparedStatementAd.setLong(1, car.getId());
                     preparedStatementAd.setString(2, advertisment.getCity());
@@ -359,8 +345,8 @@ public class AdServiceImpl implements AdService {
             }
         }
 
-        if(!userRepository.findByUsername(createAdDto.getCurrentUser()).isPresent())
-            return false;
+        /*if(!userRepository.findByUsername(createAdDto.getCurrentUser()).isPresent())
+            return false;*/
 
         String km = String.valueOf(createAdDto.getKm());
         String kmLimit = String.valueOf(createAdDto.getKmLimit());
