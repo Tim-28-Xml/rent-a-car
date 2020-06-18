@@ -1,6 +1,9 @@
 --Users
 insert into user(username) values ('agent1');
 insert into user(username) values ('user1');
+insert into user(username) values ('user5');
+insert into user(username) values ('user2');
+
 
 
 --Cars and ads
