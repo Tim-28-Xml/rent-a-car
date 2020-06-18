@@ -229,6 +229,14 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
+    public boolean save(Ad ad) {
+        if(adRepository.save(ad) != null)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
     public List<AdDTO> findAll() {
         List<Ad> allAds = adRepository.findAll();
         List<AdDTO> adDTOS = new ArrayList<>();
