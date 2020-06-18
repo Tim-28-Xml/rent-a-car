@@ -69,5 +69,19 @@ public class ReviewController {
 
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @DeleteMapping(value = "/decline/{id}")
+    public ResponseEntity<?> declineReview(@PathVariable String id) {
+
+        boolean isdone = reviewService.declineReview(Long.parseLong(id));
+        if(isdone){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+
 
 }
