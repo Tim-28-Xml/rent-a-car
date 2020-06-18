@@ -40,5 +40,21 @@ public class ReviewServiceImpl implements ReviewService {
 
     }
 
+    @Override
+    public List<ReviewDTO> getAllByAd(Long id) {
+
+        List<ReviewDTO> reviews = new ArrayList<>();
+        Ad ad = adRepository.findById(id).get();
+
+        for(Review r: reviewRepository.findAllByAd(ad)){
+
+            ReviewDTO reviewDTO = new ReviewDTO(r);
+            reviews.add(reviewDTO);
+
+
+        }
+
+        return  reviews;
+    }
 
 }
