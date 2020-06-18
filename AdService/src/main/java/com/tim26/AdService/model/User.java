@@ -20,8 +20,12 @@ public class User {
     @OneToMany
     private List<Ad> shoppingCart = new ArrayList<>();
 
+
+
+
     public User() {
     }
+
 
     public User(String username) {
         this.username = username;
@@ -30,6 +34,7 @@ public class User {
     public List<Ad> getAd() {
         return ad;
     }
+
 
     public void setAd(List<Ad> ad) {
         this.ad = ad;
