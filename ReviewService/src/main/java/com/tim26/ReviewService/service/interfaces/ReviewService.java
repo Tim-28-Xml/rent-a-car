@@ -7,5 +7,10 @@ import java.util.List;
 
 public interface ReviewService {
 
+    public List<ReviewDTO> getAllApprovedByAd(Long id);
     public List<ReviewDTO> getAllByAd(Long id);
+    public boolean approvetReview(ReviewDTO reviewDTO);
+    public boolean declineReview(Long id);
+    public List<ReviewDTO> findAllUnapproved();
+
 }
