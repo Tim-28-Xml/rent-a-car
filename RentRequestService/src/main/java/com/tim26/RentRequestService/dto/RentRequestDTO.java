@@ -1,5 +1,7 @@
 package com.tim26.RentRequestService.dto;
 
+import com.tim26.RentRequestService.model.RentRequest;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,13 @@ public class RentRequestDTO {
     private LocalDateTime creationTime;
 
     public RentRequestDTO() {
+    }
+
+    public RentRequestDTO(RentRequest r) {
+
+        this.owner = r.getOwner().getUsername();
+        this.creationTime = r.getCreationTime();
+        this.ads = r.getAds();
     }
 
     public List<Long> getAds() {
