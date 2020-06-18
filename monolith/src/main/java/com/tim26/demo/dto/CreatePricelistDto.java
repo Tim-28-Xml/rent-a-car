@@ -1,5 +1,11 @@
 package com.tim26.demo.dto;
 
+import com.tim26.demo.model.Ad;
+import com.tim26.demo.model.PriceList;
+import com.tim26.demo.model.User;
+
+import java.util.List;
+
 public class CreatePricelistDto {
     private String name;
     private double dailyPrice;
