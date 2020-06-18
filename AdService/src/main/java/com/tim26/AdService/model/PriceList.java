@@ -1,6 +1,7 @@
 package com.tim26.AdService.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,10 @@ public class PriceList {
     private User user;
 
     @OneToMany(mappedBy = "priceList")
-    private List<Ad> ads;
+    private List<Ad> ads = new ArrayList<>();
+
+    @Column
+    private String name;
 
     public PriceList() {
     }
@@ -74,5 +78,13 @@ public class PriceList {
 
     public void setAds(List<Ad> ads) {
         this.ads = ads;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
