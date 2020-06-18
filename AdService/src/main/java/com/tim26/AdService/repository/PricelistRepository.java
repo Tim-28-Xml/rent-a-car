@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PricelistRepository extends JpaRepository<PriceList, String> {
     PriceList save(PriceList priceList);
-    boolean findByName(String name);
+    PriceList findByName(String name);
 }
