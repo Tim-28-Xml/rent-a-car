@@ -57,4 +57,19 @@ public class ReviewServiceImpl implements ReviewService {
         return  reviews;
     }
 
+    @Override
+    public boolean approvetReview(ReviewDTO dto) {
+
+        Optional<Review> optional = reviewRepository.findById(dto.getId());
+        Review review = optional.get();
+        review.setApproved(true);
+        reviewRepository.save(review);
+
+        if(review.isApproved()){
+            return  true;
+        }else {
+            return false;
+        }
+    }
+
 }
