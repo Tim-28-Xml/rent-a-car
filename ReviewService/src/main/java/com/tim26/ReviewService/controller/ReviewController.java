@@ -56,6 +56,18 @@ public class ReviewController {
 
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PutMapping (value = "/approve")
+    public ResponseEntity<?> approveReview(@RequestBody ReviewDTO reviewDTO) {
+
+        boolean isdone = reviewService.approvetReview(reviewDTO);
+        if(isdone){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
 
 }
