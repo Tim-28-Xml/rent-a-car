@@ -4,10 +4,7 @@ import com.tim26.demo.dto.CreateAdDto;
 import com.tim26.demo.dto.RentAdDTO;
 import com.tim26.demo.model.*;
 import com.tim26.demo.repository.AdRepository;
-import com.tim26.demo.service.interfaces.AdService;
-import com.tim26.demo.service.interfaces.AgentService;
-import com.tim26.demo.service.interfaces.EndUserService;
-import com.tim26.demo.service.interfaces.UService;
+import com.tim26.demo.service.interfaces.*;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +26,9 @@ public class AdServiceImpl implements AdService {
 
     @Autowired
     private AdRepository adRepository;
+
+    @Autowired
+    private PricelistService pricelistService;
 
     @Override
     public boolean save(CreateAdDto ad, Principal p) {
@@ -60,6 +60,9 @@ public class AdServiceImpl implements AdService {
                 advertisment.setRentDates(ad.getDates());
                 agent.getAd().add(advertisment);
                 advertisment.setUser(agent);
+
+                PriceList priceList = pricelistService.findByName(ad.getPricelist());
+                advertisment.setPriceList(priceList);
 
                 try {
                     advertisment = adRepository.save(advertisment);
