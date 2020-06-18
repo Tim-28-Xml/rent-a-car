@@ -18,6 +18,7 @@ public class CreateAdDto {
     private List<String> files;
     private String city;
     private String role;
+    private String pricelist;
 
     public CreateAdDto() {
 
@@ -140,5 +141,13 @@ public class CreateAdDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPricelist() {
+        return pricelist;
+    }
+
+    public void setPricelist(String pricelist) {
+        this.pricelist = pricelist;
     }
 }

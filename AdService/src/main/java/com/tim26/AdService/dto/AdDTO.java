@@ -15,6 +15,7 @@ public class AdDTO {
     private Long id;
     private ArrayList<DateRangeDTO>  rentDates = new ArrayList<>();
     private String city;
+    private String pricelist;
     private List<CartAdDates> cartAdDates = new ArrayList<>();
 
     public AdDTO(){
@@ -88,6 +89,14 @@ public class AdDTO {
         this.city = city;
     }
 
+    public String getPricelist() {
+        return pricelist;
+    }
+
+    public void setPricelist(String pricelist) {
+        this.pricelist = pricelist;
+    }
+    
     public List<CartAdDates> getCartAdDates() {
         return cartAdDates;
     }

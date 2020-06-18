@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/pricelists", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -19,6 +17,14 @@ public class PricelistController {
 
     @Autowired
     private PricelistService pricelistService;
+
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<CreatePricelistDto>> getAll(){
+
+        List<CreatePricelistDto> pricelistDtos = pricelistService.findAll();
+        return new ResponseEntity<>(pricelistDtos,HttpStatus.OK);
+    }
+
 
     @PostMapping(value = "/save")
     public ResponseEntity<CreatePricelistDto> save(@RequestBody CreatePricelistDto createPricelistDto, Principal p) {
