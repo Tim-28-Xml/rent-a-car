@@ -2,6 +2,7 @@ package com.tim26.AdService.service;
 
 import com.tim26.AdService.dto.AdDTO;
 import com.tim26.AdService.model.Ad;
+import com.tim26.AdService.model.CartAdDates;
 import com.tim26.AdService.model.User;
 import com.tim26.AdService.service.interfaces.AdService;
 import com.tim26.AdService.service.interfaces.ShoppingCartService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             if(ad.getId() == adId){
                 user.getShoppingCart().remove(ad);
                 userService.save(user);
+
+                List<CartAdDates> temp  = new ArrayList<>(ad.getCartAdDates());
+
+                for(CartAdDates cartAdDate: temp) {
+                    if (cartAdDate.getUsername().equals(username))
+                        ad.getCartAdDates().remove(cartAdDate);
+                        adService.save(ad);
+                        break;
+                }
                 return true;
             }
         }
@@ -38,7 +49,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public boolean addAd(String username, Long adId) {
+    public boolean addAd(String username, Long adId, LocalDate startDate, LocalDate endDate) {
         User user = userService.findByUsername(username);
 
         if(user == null)
@@ -48,6 +59,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         if(ad == null)
             return false;
+
+        ad.getCartAdDates().add(new CartAdDates(username, startDate, endDate));
 
         user.getShoppingCart().add(ad);
         userService.save(user);
