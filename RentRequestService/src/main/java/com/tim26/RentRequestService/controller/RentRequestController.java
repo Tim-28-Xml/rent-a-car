@@ -9,6 +9,7 @@ import com.tim26.RentRequestService.service.RentRequestService;
 import com.tim26.RentRequestService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -128,4 +129,18 @@ public class RentRequestController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/my-paid-finished")
+    public ResponseEntity getUserPaidFinishedReq(Principal principal){
+
+        List<RentRequestDTO> dtos = rentRequestService.getPaidRequestFromUser(principal);
+
+        if(dtos.size() != 0){
+            return new ResponseEntity(dtos, HttpStatus.OK);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }
