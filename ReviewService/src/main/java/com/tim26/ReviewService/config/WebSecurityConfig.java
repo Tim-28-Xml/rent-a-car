@@ -36,8 +36,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers("/api/review/by-ad-approved/{id}").permitAll()
                 .antMatchers("/h2-console/**")
                 .permitAll()
+
                 .anyRequest().authenticated();
 
         http.addFilterAfter(new TokenAuthenticationFilter(tokenUtils), UsernamePasswordAuthenticationFilter.class);
@@ -46,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/h2-console/**");
+        web.ignoring().antMatchers(HttpMethod.GET,"/api/review/by-ad-approved/{id}");
         web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
                 "/**/*.css", "/**/*.js");
     }
