@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -23,12 +24,13 @@ public class ReviewServiceImpl implements ReviewService {
 
 
     @Override
-    public List<ReviewDTO> getAllByAd(Long id) {
+    public List<ReviewDTO> getAllApprovedByAd(Long id) {
 
         List<ReviewDTO> reviews = new ArrayList<>();
         Ad ad = adRepository.findById(id).get();
 
        for(Review r: reviewRepository.findAllByAd(ad)){
+
            if(r.isApproved()) {
                ReviewDTO reviewDTO = new ReviewDTO(r);
                reviews.add(reviewDTO);
