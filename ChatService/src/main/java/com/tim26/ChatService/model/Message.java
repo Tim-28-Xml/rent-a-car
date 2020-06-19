@@ -22,13 +22,17 @@ public class Message {
     @Column
     private LocalDateTime time;
 
+    @Column
+    private boolean read;
+
     public Message() {
     }
 
-    public Message(String content, User sender, User receiver){
+    public Message(String content, User sender, User receiver, boolean read){
         this.content = content;
         this.sender = sender;
         this.receiver = receiver;
+        this.read = read;
 
     }
 
@@ -70,5 +74,13 @@ public class Message {
 
     public void setTime(LocalDateTime time) {
         this.time = time;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 }
