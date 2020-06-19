@@ -1,14 +1,11 @@
-package com.tim26.demo.service;
+package com.tim26.AdService.service;
 
-import com.tim26.demo.dto.AdDTO;
-import com.tim26.demo.dto.CreatePricelistDto;
-import com.tim26.demo.model.Ad;
-import com.tim26.demo.model.PriceList;
-import com.tim26.demo.model.User;
-import com.tim26.demo.repository.PricelistRepository;
-import com.tim26.demo.service.interfaces.PricelistService;
-import com.tim26.demo.service.interfaces.UService;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.tim26.AdService.dto.CreatePricelistDto;
+import com.tim26.AdService.model.PriceList;
+import com.tim26.AdService.model.User;
+import com.tim26.AdService.repository.PricelistRepository;
+import com.tim26.AdService.service.interfaces.PricelistService;
+import com.tim26.AdService.service.interfaces.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +21,7 @@ public class PricelistServiceImpl implements PricelistService {
     private PricelistService pricelistService;
 
     @Autowired
-    private UService uService;
+    private UserService userService;
 
     @Autowired
     private PricelistRepository pricelistRepository;
@@ -34,7 +31,7 @@ public class PricelistServiceImpl implements PricelistService {
 
     @Override
     public boolean save(Principal p, CreatePricelistDto createPricelistDto) {
-        User user = uService.findByUsername(p.getName());
+        User user = userService.findByUsername(p.getName());
         if(user != null) {
             PriceList priceList = new PriceList();
             priceList.setCdwPrice(createPricelistDto.getCdwPrice());
@@ -42,6 +39,7 @@ public class PricelistServiceImpl implements PricelistService {
             priceList.setPricePerExtraKm(createPricelistDto.getPricePerExtraKm());
             priceList.setName(createPricelistDto.getName());
             priceList.setUser(user);
+            user.getPriceLists().add(priceList);
 
             priceList = pricelistRepository.save(priceList);
             return true;

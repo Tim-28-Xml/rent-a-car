@@ -1,10 +1,4 @@
-package com.tim26.demo.dto;
-
-import com.tim26.demo.model.Ad;
-import com.tim26.demo.model.PriceList;
-import com.tim26.demo.model.User;
-
-import java.util.List;
+package com.tim26.AdService.dto;
 
 public class CreatePricelistDto {
     private String name;

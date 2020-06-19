@@ -12,6 +12,7 @@ import java.util.List;
 
 public interface AdService {
     boolean save(CreateAdDto ad, Principal p) throws SQLException;
+    boolean save(Ad ad);
     List<AdDTO> findAll();
     AdDTO findById(long id);
     CarDTO findCarById(Long id);

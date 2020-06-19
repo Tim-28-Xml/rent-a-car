@@ -1,22 +1,18 @@
-package com.tim26.demo.controller;
+package com.tim26.AdService.controller;
 
-import com.tim26.demo.dto.AdDTO;
-import com.tim26.demo.dto.CreateAdDto;
-import com.tim26.demo.dto.CreatePricelistDto;
-import com.tim26.demo.service.interfaces.AdService;
-import com.tim26.demo.service.interfaces.PricelistService;
+import com.tim26.AdService.dto.CreatePricelistDto;
+import com.tim26.AdService.service.interfaces.PricelistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
 
-@CrossOrigin("http://localhost:3000")
 @RestController
-@RequestMapping("/pricelists")
+@RequestMapping(value = "/api/pricelists", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PricelistController {
 
     @Autowired
@@ -28,6 +24,7 @@ public class PricelistController {
         List<CreatePricelistDto> pricelistDtos = pricelistService.findAll();
         return new ResponseEntity<>(pricelistDtos,HttpStatus.OK);
     }
+
 
     @PostMapping(value = "/save")
     public ResponseEntity<CreatePricelistDto> save(@RequestBody CreatePricelistDto createPricelistDto, Principal p) {

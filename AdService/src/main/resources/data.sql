@@ -1,6 +1,8 @@
 --Users
 insert into user(username) values ('agent1');
 insert into user(username) values ('user1');
+insert into user(username) values ('marko');
+insert into user(username) values ('branko');
 
 
 --Cars and ads
@@ -21,7 +23,7 @@ insert into ad(id,car_id,price_list_id,rent_request_id,user_id,city) values (-5,
 
 --Date range objects
 
-insert into date_range(id,end_date,start_date) values (-5,'2020-08-05','2020-08-03');
+insert into date_range(id,end_date,start_date) values (-5,'2020-08-10','2020-08-01');
 insert into date(id,date,date_range_id) values (-5,'2020-08-03',-5);
 insert into date(id,date,date_range_id) values (-6,'2020-08-04',-5);
 insert into date(id,date,date_range_id) values (-7,'2020-08-05',-5);
@@ -35,7 +37,7 @@ insert into ad(id,car_id,price_list_id,user_username,city) values (-5,-9,null,'a
 insert into ad_rent_dates(ad_id,rent_dates_id) values (-5,-5);
 
 
-insert into date_range(id,end_date,start_date) values (-6,'2020-07-05','2020-07-03');
+insert into date_range(id,end_date,start_date) values (-6,'2020-07-10','2020-07-01');
 insert into date(id,date,date_range_id) values (-8,'2020-07-03',-6);
 insert into date(id,date,date_range_id) values (-9,'2020-07-04',-6);
 insert into date(id,date,date_range_id) values (-10,'2020-07-05',-6);
@@ -46,8 +48,16 @@ insert into date_range_dates(date_range_id,dates_id) values (-6,-10);
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-6,'RENAULT','hatchback',false,0,'diesel',50000,1000,'Clio','manual');
 insert into ad(id,car_id,price_list_id,user_username,city) values (-2,-6,null,'agent1','Beograd');
 
+insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-11,'MAZDA','coupe',true,0,'diesel',50000,1000,'6','manual');
+insert into ad(id,car_id,price_list_id,user_username,city) values (-11,-11,null,'marko','Nis');
+
+insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-13,'SKODA','coupe',true,0,'diesel',50000,1000,'Superb','automatic');
+insert into ad(id,car_id,price_list_id,user_username,city) values (-13,-13,null,'branko','Subotica');
+
 
 insert into ad_rent_dates(ad_id,rent_dates_id) values (-2,-6);
+insert into ad_rent_dates(ad_id,rent_dates_id) values (-11,-6);
+insert into ad_rent_dates(ad_id,rent_dates_id) values (-13,-6);
 
 insert into codebook(id) values (-1);
 

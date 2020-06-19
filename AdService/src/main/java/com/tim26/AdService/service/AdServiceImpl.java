@@ -10,6 +10,7 @@ import com.tim26.AdService.repository.UserRepository;
 import com.tim26.AdService.service.interfaces.AdService;
 import com.tim26.AdService.service.interfaces.CarService;
 import com.tim26.AdService.service.interfaces.CodebookService;
+import com.tim26.AdService.service.interfaces.PricelistService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,9 @@ public class AdServiceImpl implements AdService {
 
     @Autowired
     private CodebookService codebookService;
+
+    @Autowired
+    private PricelistService pricelistService;
 
     @Override
     public boolean save(CreateAdDto ad, Principal p) throws SQLException {
@@ -90,6 +94,8 @@ public class AdServiceImpl implements AdService {
 
             advertisment.setCar(car);
             advertisment.setCity(ad.getCity());
+            PriceList priceList = pricelistService.findByName(ad.getPricelist());
+            advertisment.setPriceList(priceList);
             //advertisment.setRentDates(ad.getDates());
 
             //looping trough each date range and setting its start & end date and list of dates inbetween
@@ -226,6 +232,14 @@ public class AdServiceImpl implements AdService {
                 return false;
             }
         }*/
+    }
+
+    @Override
+    public boolean save(Ad ad) {
+        if(adRepository.save(ad) != null)
+            return true;
+        else
+            return false;
     }
 
     @Override

@@ -1,7 +1,8 @@
-package com.tim26.demo.service.interfaces;
+package com.tim26.AdService.service.interfaces;
 
-import com.tim26.demo.dto.CreatePricelistDto;
-import com.tim26.demo.model.PriceList;
+
+import com.tim26.AdService.dto.CreatePricelistDto;
+import com.tim26.AdService.model.PriceList;
 
 import java.security.Principal;
 import java.util.List;

@@ -1,5 +1,7 @@
 package com.tim26.RentRequestService.service.impl;
 
+import com.tim26.RentRequestService.controller.RentRequestController;
+import com.tim26.RentRequestService.dto.ViewRequestDTO;
 import com.tim26.RentRequestService.model.RentRequest;
 import com.tim26.RentRequestService.model.RequestStatus;
 import com.tim26.RentRequestService.model.User;
@@ -68,6 +70,17 @@ public class RentRequestServiceImpl implements RentRequestService {
         }
 
         return peopleforMsgs;
+    public boolean pay(RentRequestController.ReqIdDTO id, Principal p) {
+        RentRequest rentRequest = findById(Long.parseLong(id.reqId));
+
+        if(rentRequest.getRequestStatus().equals(RequestStatus.RESERVED)){
+            rentRequest.setRequestStatus(RequestStatus.PAID);
+            save(rentRequest);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 
