@@ -11,4 +11,6 @@ public interface ChatService {
     boolean sendMessage(MessageDTO messageDTO, Principal p);
     List<MessageDTO> findAllReciever(Principal p);
     List<MessageDTO> findAllSender(Principal p);
+    List<String> findAllPeople(Principal p);
+    List<MessageDTO> findAllReceivedByUser(String username, Principal p);
 }

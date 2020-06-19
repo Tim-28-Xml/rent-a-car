@@ -35,7 +35,7 @@ public class ChatServiceImpl implements ChatService {
             return false;
         }
 
-        Message message = new Message(messageDTO.getContent(), sender, reciever);
+        Message message = new Message(messageDTO.getContent(), sender, reciever, false);
         message.setTime(LocalDateTime.now());
         save(message);
 
@@ -70,5 +70,45 @@ public class ChatServiceImpl implements ChatService {
         }
 
         return allSender;
+    }
+
+    @Override
+    public List<String> findAllPeople(Principal p) {
+        User user = userService.findByUsername(p.getName());
+
+        List<Message> allMessages = chatRepository.findAllByReceiver(user);
+        List<String> people = new ArrayList<>();
+
+        for(Message msg: allMessages){
+            if(!people.contains(msg.getSender().getUsername())) {
+                people.add(msg.getSender().getUsername());
+            }
+        }
+
+        return people;
+    }
+
+    @Override
+    public List<MessageDTO> findAllReceivedByUser(String username, Principal p) {
+        User user = userService.findByUsername(p.getName());
+        List<Message> allMyReceived = chatRepository.findAllByReceiver(user);
+        List<MessageDTO> userChatAll = new ArrayList<>();
+
+        for(Message message: allMyReceived){
+            if(message.getSender().getUsername().equals(username)){
+                MessageDTO messageDTO = new MessageDTO(message);
+                userChatAll.add(messageDTO);
+            }
+        }
+
+        List<Message> allMySent = chatRepository.findAllBySender(user);
+        for(Message message: allMySent){
+            if(message.getReceiver().getUsername().equals(username)){
+                MessageDTO messageDTO = new MessageDTO(message);
+                userChatAll.add(messageDTO);
+            }
+        }
+
+        return userChatAll;
     }
 }
