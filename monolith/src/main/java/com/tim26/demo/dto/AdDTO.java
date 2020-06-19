@@ -6,6 +6,8 @@ public class AdDTO {
 
     private CarDTO carDTO;
     private String username;
+    private double rating;
+    private int reviewNum;
 
     public AdDTO(){
 
@@ -14,6 +16,19 @@ public class AdDTO {
     public AdDTO(CarDTO carDTO, String username) {
         this.carDTO = carDTO;
         this.username = username;
+    }
+
+    public AdDTO(CarDTO carDTO, String username,double rating) {
+        this.carDTO = carDTO;
+        this.username = username;
+        this.rating = rating;
+    }
+
+    public AdDTO(CarDTO carDTO, String username,int reviewNum) {
+        this.carDTO = carDTO;
+        this.username = username;
+        this.rating = rating;
+        this.reviewNum = reviewNum;
     }
 
     public AdDTO(Ad ad){
@@ -34,5 +49,21 @@ public class AdDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public int getReviewNum() {
+        return reviewNum;
+    }
+
+    public void setReviewNum(int reviewNum) {
+        this.reviewNum = reviewNum;
     }
 }
