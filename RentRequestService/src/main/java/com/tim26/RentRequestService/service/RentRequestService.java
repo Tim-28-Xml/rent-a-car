@@ -18,5 +18,4 @@ public interface RentRequestService {
     List<RentRequest> findByOwner(User user);
     boolean pay(RentRequestController.ReqIdDTO id, Principal p);
     List<AdDateRangeDTO> getPaidRequestFromUser(Principal p);
-
 }

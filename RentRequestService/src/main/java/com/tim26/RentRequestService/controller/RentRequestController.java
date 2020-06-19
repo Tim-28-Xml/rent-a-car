@@ -131,6 +131,7 @@ public class RentRequestController {
         }
     }
 
+
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/my-paid-finished")
     public ResponseEntity<List<AdDateRangeDTO>> getUserPaidFinishedReq(Principal principal){
@@ -143,5 +144,6 @@ public class RentRequestController {
             return ResponseEntity.badRequest().build();
         }
     }
+
 
 }

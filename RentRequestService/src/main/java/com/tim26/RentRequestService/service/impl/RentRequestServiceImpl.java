@@ -5,6 +5,7 @@ import com.tim26.RentRequestService.dto.AdDateRangeDTO;
 import com.tim26.RentRequestService.dto.RentRequestDTO;
 import com.tim26.RentRequestService.dto.ViewRequestDTO;
 import com.tim26.RentRequestService.model.AdDateRange;
+import com.tim26.RentRequestService.dto.ViewRequestDTO;
 import com.tim26.RentRequestService.model.RentRequest;
 import com.tim26.RentRequestService.model.RequestStatus;
 import com.tim26.RentRequestService.model.User;
@@ -63,6 +64,7 @@ public class RentRequestServiceImpl implements RentRequestService {
 
     }
 
+
     @Override
     public List<AdDateRangeDTO> getPaidRequestFromUser(Principal p) {
 
@@ -83,6 +85,7 @@ public class RentRequestServiceImpl implements RentRequestService {
 
         return dtos;
     }
+
 
 
 }
