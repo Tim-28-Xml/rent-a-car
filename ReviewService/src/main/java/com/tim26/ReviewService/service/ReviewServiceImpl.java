@@ -7,6 +7,7 @@ import com.tim26.ReviewService.model.Review;
 import com.tim26.ReviewService.model.User;
 import com.tim26.ReviewService.repository.AdRepository;
 import com.tim26.ReviewService.repository.ReviewRepository;
+import com.tim26.ReviewService.service.interfaces.AdService;
 import com.tim26.ReviewService.service.interfaces.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,14 +24,14 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewRepository reviewRepository;
 
     @Autowired
-    private AdRepository adRepository;
+    private AdService adService;
 
 
     @Override
     public List<ReviewDTO> getAllApprovedByAd(Long id) {
 
         List<ReviewDTO> reviews = new ArrayList<>();
-        Ad ad = adRepository.findById(id).get();
+        Ad ad = adService.findById(id).get();
 
        for(Review r: reviewRepository.findAllByAd(ad)){
 
@@ -49,7 +50,7 @@ public class ReviewServiceImpl implements ReviewService {
     public List<ReviewDTO> getAllByAd(Long id) {
 
         List<ReviewDTO> reviews = new ArrayList<>();
-        Ad ad = adRepository.findById(id).get();
+        Ad ad = adService.findById(id).get();
 
         for(Review r: reviewRepository.findAllByAd(ad)){
 
