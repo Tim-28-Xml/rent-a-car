@@ -1,11 +1,13 @@
 package com.tim26.ReviewService.model;
 
+import com.tim26.ReviewService.dto.ReviewDTO;
 import com.tim26.ReviewService.model.Ad;
 import com.tim26.ReviewService.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Review {
@@ -36,6 +38,17 @@ public class Review {
     private boolean approved = false;
 
     public Review() {
+    }
+
+    public Review(ReviewDTO dto,Ad ad,User u){
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.rating = dto.getRating();
+        this.time = LocalDateTime.now();
+        this.ad = ad;
+        this.creator = u;
+        this.approved = false;
+
     }
 
     public long getId() {
