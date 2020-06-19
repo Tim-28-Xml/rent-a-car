@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -30,6 +31,10 @@ public class RentRequestController {
 
     @Autowired
     UserService userService;
+
+    public static class ReqIdDTO {
+        public String reqId;
+    }
 
     @GetMapping("{id}")
     public ResponseEntity getRentRequest(@PathVariable String id) {
@@ -110,5 +115,17 @@ public class RentRequestController {
         }
 
         return viewRequestDTOS;
+    }
+
+    @PreAuthorize("hasAuthority('ORDER')")
+    @PostMapping("/pay")
+    public ResponseEntity payRentRequest(@RequestBody ReqIdDTO reqIdDTO, Principal principal){
+        boolean paidReqs = rentRequestService.pay(reqIdDTO, principal);
+
+        if(paidReqs){
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
