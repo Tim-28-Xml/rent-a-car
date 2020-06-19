@@ -1,9 +1,7 @@
 package com.tim26.AdService.service;
 
 import com.tim26.AdService.dto.AdDTO;
-import com.tim26.AdService.model.Ad;
-import com.tim26.AdService.model.CartAdDates;
-import com.tim26.AdService.model.User;
+import com.tim26.AdService.model.*;
 import com.tim26.AdService.service.interfaces.AdService;
 import com.tim26.AdService.service.interfaces.ShoppingCartService;
 import com.tim26.AdService.service.interfaces.UserService;
@@ -59,6 +57,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         if(ad == null)
             return false;
+        if(!validateDates(startDate, endDate, ad))
+            return false;
 
         ad.getCartAdDates().add(new CartAdDates(username, startDate, endDate));
 
@@ -82,5 +82,25 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             cartAds.add(adDTO);
         }
         return cartAds;
+    }
+
+    private boolean validateDates(LocalDate startDate, LocalDate endDate, Ad ad){
+        //check rent dates - start end range and already reserved dates in that range
+        for (DateRange rng : ad.getRentDates()){
+            if(!startDate.isBefore(rng.getStartDate()) && !endDate.isAfter(rng.getEndDate())){
+                for(Date date : rng.getDates()){
+                    if(!date.getDate().isBefore(startDate) && !date.getDate().isAfter(endDate))
+                        return false;
+                }
+            }
+        }
+
+        //check basket for given ad and start end date range
+        for(CartAdDates c : ad.getCartAdDates()){
+            if(!startDate.isBefore(c.getDateRange().getStartDate()) && !endDate.isAfter(c.getDateRange().getEndDate()))
+                return false;
+        }
+
+        return true;
     }
 }

@@ -60,6 +60,12 @@ public class User implements UserDetails {
         this.username = username;
     }
 
+
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
     public Long getId() {
         return id;
     }

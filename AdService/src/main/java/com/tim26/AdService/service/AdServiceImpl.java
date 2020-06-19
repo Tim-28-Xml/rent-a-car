@@ -1,9 +1,6 @@
 package com.tim26.AdService.service;
 
-import com.tim26.AdService.dto.AdDTO;
-import com.tim26.AdService.dto.CarDTO;
-import com.tim26.AdService.dto.CreateAdDto;
-import com.tim26.AdService.dto.RentAdDTO;
+import com.tim26.AdService.dto.*;
 import com.tim26.AdService.model.*;
 import com.tim26.AdService.repository.AdRepository;
 import com.tim26.AdService.repository.UserRepository;
@@ -365,4 +362,69 @@ public class AdServiceImpl implements AdService {
     public List<Ad> findByIds(List<Long> ids){
         return adRepository.findByIds(ids);
     }
+
+    @Override
+    public List<AdDTO> filterAds(FilterDTO filterDTO) {
+
+        ArrayList<AdDTO> returnads = new ArrayList<>();
+
+        //creating an array of dates between start and end date
+        LocalDate start = filterDTO.getStartDate();
+        LocalDate end = filterDTO.getEndDate();
+        List<LocalDate> dateArray = new ArrayList<>();
+        while (!start.isAfter(end)) {
+            dateArray.add(start);
+            start = start.plusDays(1);
+        }
+
+       List<AdDTO> allAds = findAll();
+
+        for(AdDTO adDTO : allAds){
+
+            if(adDTO.getCity().equals(filterDTO.getCity())){
+
+
+                for(DateRangeDTO period: adDTO.getRentDates()){
+
+                    ArrayList<LocalDate> periodDateArray = new ArrayList<>();
+
+                    for (DateDTO date : period.getDates()){
+                        periodDateArray.add(date.getDate());
+                    }
+
+                    boolean isHere = true;
+                    if(periodDateArray.contains(filterDTO.getStartDate()) == true) {
+
+                        if (periodDateArray.contains(filterDTO.getEndDate()) == true) {
+
+                                    for(LocalDate date : dateArray){
+                                        if(periodDateArray.indexOf(date) == -1){
+                                            isHere = false;
+                                            break;
+                                        }
+                                    }
+
+                                    if(isHere) {
+                                        returnads.add(adDTO);
+                                    }
+                        }
+                    }
+
+                }
+
+
+
+
+
+
+            }
+
+
+        }
+
+        return  returnads;
+
+    }
+
+
 }

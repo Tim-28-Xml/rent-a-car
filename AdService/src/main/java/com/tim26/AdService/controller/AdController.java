@@ -1,9 +1,6 @@
 package com.tim26.AdService.controller;
 
-import com.tim26.AdService.dto.AdDTO;
-import com.tim26.AdService.dto.CarDTO;
-import com.tim26.AdService.dto.CreateAdDto;
-import com.tim26.AdService.dto.RentAdDTO;
+import com.tim26.AdService.dto.*;
 import com.tim26.AdService.model.Ad;
 import com.tim26.AdService.service.interfaces.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,5 +91,14 @@ public class AdController {
         }
         return adDTOS;
     }
+
+
+    @PostMapping(value = "/filter")
+    public ResponseEntity<List<AdDTO>> filterAds(@RequestBody FilterDTO filterDTO){
+
+        List<AdDTO> ads = adService.filterAds(filterDTO);
+        return new ResponseEntity<>(ads, HttpStatus.OK);
+    }
+
 
 }

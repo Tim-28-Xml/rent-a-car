@@ -1,19 +1,24 @@
 package com.tim26.RentRequestService.service.impl;
 
 import com.tim26.RentRequestService.controller.RentRequestController;
+import com.tim26.RentRequestService.dto.AdDateRangeDTO;
+import com.tim26.RentRequestService.dto.RentRequestDTO;
+import com.tim26.RentRequestService.dto.ViewRequestDTO;
+import com.tim26.RentRequestService.model.AdDateRange;
 import com.tim26.RentRequestService.dto.ViewRequestDTO;
 import com.tim26.RentRequestService.model.RentRequest;
 import com.tim26.RentRequestService.model.RequestStatus;
 import com.tim26.RentRequestService.model.User;
 import com.tim26.RentRequestService.repository.RentRequestRepository;
+import com.tim26.RentRequestService.repository.UserRepository;
 import com.tim26.RentRequestService.service.RentRequestService;
 import com.tim26.RentRequestService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +30,10 @@ public class RentRequestServiceImpl implements RentRequestService {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserRepository userRepository;
+
 
     @Override
     public RentRequest findById(Long id) {
@@ -91,6 +100,29 @@ public class RentRequestServiceImpl implements RentRequestService {
         }
 
     }
+
+
+    @Override
+    public List<AdDateRangeDTO> getPaidRequestFromUser(Principal p) {
+
+        List<RentRequest> requests = rentRequestRepository.findByCreator(userRepository.findById(p.getName()).get());
+        List<AdDateRangeDTO> dtos =  new ArrayList<>();
+        LocalDate now = LocalDate.now();
+
+        for(RentRequest r: requests){
+            if((r.getRequestStatus().equals(RequestStatus.PAID))) {
+                for(AdDateRange x : r.getAdsWithDates()) {
+                    if(now.isAfter(x.getEnd())) {
+                        AdDateRangeDTO dto = new AdDateRangeDTO(x);
+                        dtos.add(dto);
+                    }
+                }
+            }
+        }
+
+        return dtos;
+    }
+
 
 
 }

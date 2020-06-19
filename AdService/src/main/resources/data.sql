@@ -1,6 +1,8 @@
 --Users
 insert into user(username) values ('agent1');
 insert into user(username) values ('user1');
+insert into user(username) values ('user5');
+insert into user(username) values ('user2');
 insert into user(username) values ('marko');
 insert into user(username) values ('branko');
 
@@ -95,4 +97,3 @@ insert into codebook_transmission_types(codebook_id, transmission_types) values 
 insert into codebook_car_classes(codebook_id, car_classes) values (-1, 'Sedan');
 insert into codebook_car_classes(codebook_id, car_classes) values (-1, 'SUV');
 insert into codebook_car_classes(codebook_id, car_classes) values (-1, 'Hatchback');
-
