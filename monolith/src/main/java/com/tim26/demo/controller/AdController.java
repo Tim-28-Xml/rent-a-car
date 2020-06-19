@@ -57,6 +57,25 @@ public class AdController {
         return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/my-ads-mileage")
+    public ResponseEntity<List<AdDTO>> getMyAdsMileage(Principal p){
+        List<AdDTO> ads = adService.findHighestMileage(p);
+        return new ResponseEntity<>(ads, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/my-ads-rating")
+    public ResponseEntity<List<AdDTO>> getMyAdsRating(Principal p){
+        List<AdDTO> ads = adService.findHighestRating(p);
+        return new ResponseEntity<>(ads, HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "/my-ads-reviews")
+    public ResponseEntity<List<AdDTO>> getMyAdsReviews(Principal p){
+        List<AdDTO> ads = adService.findMostReviews(p);
+        return new ResponseEntity<>(ads, HttpStatus.OK);
+    }
+
     @PostMapping(value = "rent-creator")
     public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO, Principal p){
         if(adService.rentByCreator(rentAdDTO, p)){
@@ -66,4 +85,6 @@ public class AdController {
         }
 
     }
+
+
 }

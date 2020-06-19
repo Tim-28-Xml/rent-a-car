@@ -1,14 +1,13 @@
-package com.tim26.ReviewService.service;
+package com.tim26.demo.service;
 
-import com.sun.org.apache.regexp.internal.RE;
-import com.tim26.ReviewService.dto.ReviewDTO;
-import com.tim26.ReviewService.model.Ad;
-import com.tim26.ReviewService.model.Review;
-import com.tim26.ReviewService.model.User;
-import com.tim26.ReviewService.repository.AdRepository;
-import com.tim26.ReviewService.repository.ReviewRepository;
-import com.tim26.ReviewService.service.interfaces.AdService;
-import com.tim26.ReviewService.service.interfaces.ReviewService;
+import com.tim26.demo.dto.ReviewDTO;
+import com.tim26.demo.model.Ad;
+import com.tim26.demo.model.Review;
+import com.tim26.demo.model.User;
+import com.tim26.demo.repository.AdRepository;
+import com.tim26.demo.repository.ReviewRepository;
+import com.tim26.demo.service.interfaces.EndUserService;
+import com.tim26.demo.service.interfaces.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,25 +23,28 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewRepository reviewRepository;
 
     @Autowired
-    private AdService adService;
+    private AdRepository adRepository;
+
+    @Autowired
+    private EndUserService endUserService;
 
 
     @Override
     public List<ReviewDTO> getAllApprovedByAd(Long id) {
 
         List<ReviewDTO> reviews = new ArrayList<>();
-        Ad ad = adService.findById(id).get();
+        Ad ad = adRepository.findById(id).get();
 
-       for(Review r: reviewRepository.findAllByAd(ad)){
+        for(Review r: reviewRepository.findAllByAd(ad)){
 
-           if(r.isApproved()) {
-               ReviewDTO reviewDTO = new ReviewDTO(r);
-               reviews.add(reviewDTO);
-           }
+            if(r.isApproved()) {
+                ReviewDTO reviewDTO = new ReviewDTO(r);
+                reviews.add(reviewDTO);
+            }
 
-       }
+        }
 
-       return  reviews;
+        return  reviews;
 
     }
 
@@ -50,7 +52,7 @@ public class ReviewServiceImpl implements ReviewService {
     public List<ReviewDTO> getAllByAd(Long id) {
 
         List<ReviewDTO> reviews = new ArrayList<>();
-        Ad ad = adService.findById(id).get();
+        Ad ad = adRepository.findById(id).get();
 
         for(Review r: reviewRepository.findAllByAd(ad)){
 
@@ -84,8 +86,8 @@ public class ReviewServiceImpl implements ReviewService {
 
         Optional<Review> optional = reviewRepository.findById(id);
         Review review = optional.get();
-       reviewRepository.delete(review);
-       return true;
+        reviewRepository.delete(review);
+        return true;
     }
 
     @Override
@@ -127,7 +129,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<Long> getUserReviews(Principal p) {
 
-        List<Review> reviews = reviewRepository.findAllByCreator(new User(p.getName()));
+        List<Review> reviews = reviewRepository.findAllByCreator(endUserService.findByUsername(p.getName()));
         List<Long> list_ids = new ArrayList<>();
 
         for(Review r :  reviews){

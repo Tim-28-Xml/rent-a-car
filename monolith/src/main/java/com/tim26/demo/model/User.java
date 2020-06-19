@@ -33,6 +33,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Ad> ad;
 
+    @OneToMany(mappedBy = "creator")
+    private List<Review>  reviews = new ArrayList<>();
+
     @OneToMany(mappedBy = "sender")
     private List<Message> sentMessages;
 
@@ -198,5 +201,17 @@ public class User implements UserDetails {
 
     public void setActivated(boolean activated) {
         isActivated = activated;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
     }
 }

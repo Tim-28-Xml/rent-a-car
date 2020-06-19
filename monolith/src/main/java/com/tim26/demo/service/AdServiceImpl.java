@@ -1,7 +1,6 @@
 package com.tim26.demo.service;
 
-import com.tim26.demo.dto.CreateAdDto;
-import com.tim26.demo.dto.RentAdDTO;
+import com.tim26.demo.dto.*;
 import com.tim26.demo.model.*;
 import com.tim26.demo.repository.AdRepository;
 import com.tim26.demo.service.interfaces.*;
@@ -12,11 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import com.tim26.demo.dto.AdDTO;
-
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AdServiceImpl implements AdService {
@@ -29,6 +24,9 @@ public class AdServiceImpl implements AdService {
 
     @Autowired
     private PricelistService pricelistService;
+
+    @Autowired
+    private CarService carService;
 
     @Override
     public boolean save(CreateAdDto ad, Principal p) {
@@ -148,4 +146,103 @@ public class AdServiceImpl implements AdService {
         return true;
 
     }
+
+    @Override
+    public List<AdDTO> findHighestMileage(Principal p) {
+
+
+        User user = userService.findByUsername(p.getName());
+        List<Ad> ads =  user.getAd();
+
+        List<AdDTO> dtos = new ArrayList<>();
+
+        Collections.sort(ads, new Comparator<Ad>(){
+
+            public int compare(Ad ad1, Ad ad2) {
+                int value = (int) Math.round(ad2.getCar().getKm() - ad1.getCar().getKm());
+                return value;
+            }
+        });
+
+
+        for(Ad ad : ads){
+            AdDTO adDTO = new AdDTO(ad);
+            dtos.add(adDTO);
+        }
+
+    return dtos;
+    }
+
+    @Override
+    public List<AdDTO> findHighestRating(Principal p) {
+
+        User user = userService.findByUsername(p.getName());
+        List<Ad> ads =  user.getAd();
+        List<AdDTO> dtos = new ArrayList<>();
+        AdDTO dto = null;
+
+        double sum = 0;
+
+        for(Ad ad : ads){
+
+            if(ad.getReviews().size() != 0) {
+
+                for(Review review : ad.getReviews()){
+
+                sum = sum + review.getRating();
+            }
+
+             dto = new AdDTO(new CarDTO(ad.getCar()),p.getName(),sum/(ad.getReviews().size()));
+
+            }else{
+
+                dto = new AdDTO(new CarDTO(ad.getCar()),p.getName(),0);
+
+            }
+
+            dtos.add(dto);
+
+        }
+
+
+        Collections.sort(dtos, new Comparator<AdDTO>(){
+
+            public int compare(AdDTO ad1, AdDTO ad2) {
+                int value = (int) Math.round(ad2.getRating() - ad1.getRating());
+                return value;
+            }
+        });
+
+
+        return dtos;
+
+
+    }
+
+    @Override
+    public List<AdDTO> findMostReviews(Principal p) {
+
+        User user = userService.findByUsername(p.getName());
+        List<Ad> ads =  user.getAd();
+
+        List<AdDTO> dtos = new ArrayList<>();
+
+        Collections.sort(ads, new Comparator<Ad>(){
+
+            public int compare(Ad ad1, Ad ad2) {
+                int value = (int) Math.round(ad2.getReviews().size() - ad1.getReviews().size());
+                return value;
+            }
+        });
+
+
+        for(Ad ad : ads){
+            AdDTO adDTO = new AdDTO(new CarDTO(ad.getCar()),p.getName(),ad.getReviews().size());
+            dtos.add(adDTO);
+        }
+
+        return dtos;
+    }
+
+
 }

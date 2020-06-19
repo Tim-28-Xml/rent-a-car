@@ -1,5 +1,7 @@
 package com.tim26.demo.model;
 
+import com.tim26.demo.dto.ReviewDTO;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,7 +34,19 @@ public class Review {
     @Column
     private boolean approved;
 
+
     public Review() {
+    }
+
+    public Review(ReviewDTO dto, Ad ad, User u){
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.rating = dto.getRating();
+        this.time = LocalDateTime.now();
+        this.ad = ad;
+        this.creator = u;
+        this.approved = false;
+
     }
 
     public long getId() {
