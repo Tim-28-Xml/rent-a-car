@@ -16,6 +16,7 @@ public interface RentRequestService {
     void deleteById(Long id);
     List<RentRequest> findByCreator(User user);
     List<RentRequest> findByOwner(User user);
+    List<String> usersForMessages(Principal p);
     boolean pay(RentRequestController.ReqIdDTO id, Principal p);
     List<AdDateRangeDTO> getPaidRequestFromUser(Principal p);
 }

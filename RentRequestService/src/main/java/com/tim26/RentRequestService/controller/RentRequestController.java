@@ -119,6 +119,15 @@ public class RentRequestController {
         return viewRequestDTOS;
     }
 
+
+    @GetMapping("/peoplechat")
+    public ResponseEntity<List<String>> getUsersForChat(Principal principal) {
+        List<String> people = rentRequestService.usersForMessages(principal);
+        return new ResponseEntity(people, HttpStatus.OK);
+
+    }
+    
+
     @PreAuthorize("hasAuthority('ORDER')")
     @PostMapping("/pay")
     public ResponseEntity payRentRequest(@RequestBody ReqIdDTO reqIdDTO, Principal principal){
