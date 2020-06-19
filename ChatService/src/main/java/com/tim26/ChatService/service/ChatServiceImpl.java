@@ -129,7 +129,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public boolean readMessage(String username, Principal p) {
+    public String readMessage(String username, Principal p) {
         User user = userService.findByUsername(p.getName());
         List<Message> getMyRecieved = chatRepository.findAllByReceiver(user);
 
@@ -141,7 +141,8 @@ public class ChatServiceImpl implements ChatService {
                 }
             }
         }
-        return true;
+        String number = hasAnyNewMsgs(p);
+        return number;
     }
 
 

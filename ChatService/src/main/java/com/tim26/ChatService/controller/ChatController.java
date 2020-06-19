@@ -66,13 +66,11 @@ public class ChatController {
     }
 
     @GetMapping("/read/{username}")
-    public ResponseEntity<?> readMessage(@PathVariable String username, Principal p){
-        boolean isRead = chatService.readMessage(username,p);
-        if(isRead){
-           return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<String> readMessage(@PathVariable String username, Principal p){
+        String num = chatService.readMessage(username,p);
+
+        return new ResponseEntity<>(num, HttpStatus.OK);
+
     }
 
 }

@@ -14,5 +14,5 @@ public interface ChatService {
     List<String> findAllPeople(Principal p);
     List<MessageDTO> findAllReceivedByUser(String username, Principal p);
     String hasAnyNewMsgs(Principal p);
-    boolean readMessage(String username, Principal p);
+    String readMessage(String username, Principal p);
 }

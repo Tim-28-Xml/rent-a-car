@@ -50,6 +50,7 @@ public class RentRequestServiceImpl implements RentRequestService {
     @Override
     public List<String> usersForMessages(Principal p) {
         User user = userService.findByUsername(p.getName());
+
         List<RentRequest> allCreator = findByCreator(user);
         List<RentRequest> allOwner = findByOwner(user);
         Set<RentRequest> set = new LinkedHashSet<>(allCreator);
@@ -60,11 +61,17 @@ public class RentRequestServiceImpl implements RentRequestService {
 
         for (RentRequest rentRequest : allRequests) {
             if (rentRequest.getRequestStatus().equals(RequestStatus.RESERVED)) {
-                if (!peopleforMsgs.contains(rentRequest.getOwner().getUsername()) &&
-                        !peopleforMsgs.contains(rentRequest.getCreator().getUsername()) &&
-                        !rentRequest.getOwner().equals(user.getUsername()) &&
-                        !rentRequest.getCreator().equals(user.getUsername())) {
-                    peopleforMsgs.add(rentRequest.getOwner().getUsername());
+
+                String owner = rentRequest.getOwner().getUsername();
+                String creator = rentRequest.getCreator().getUsername();
+
+
+                if (!peopleforMsgs.contains(owner) && !owner.equals(user.getUsername())) {
+                    peopleforMsgs.add(owner);
+                }
+
+                if(!peopleforMsgs.contains(creator) && !creator.equals(user.getUsername())){
+                    peopleforMsgs.add(creator);
                 }
             }
         }
