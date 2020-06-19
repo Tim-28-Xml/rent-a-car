@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    DateRangeDTO {
+public class DateRangeDTO {
 
     private Long id;
 

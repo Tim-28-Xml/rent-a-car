@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 public class RentRequest {
@@ -18,7 +17,7 @@ public class RentRequest {
     @Column
     private RequestStatus requestStatus;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @MapKey(name = "id")
     private List<AdDateRange> adsWithDates = new ArrayList<>();
 
