@@ -25,11 +25,23 @@ public class RentRequestServiceImpl implements RentRequestService{
     }
 
     @Override
+    public ResponseEntity postRentRequest(ViewRequestDTO dto, String token){
+        List<Long> ad_ids = dto.getAdsWithDates().stream().map(AdDateRange::getAd_id).collect(Collectors.toList());
+
+        if(!adsClient.deleteMultipleFromShoppingCart(ad_ids, token))
+            return ResponseEntity.badRequest().build();
+
+        ResponseEntity resp = rentRequestClient.postRentRequest(dto, token);
+
+        return resp;
+    }
+
+    @Override
     public ResponseEntity getRequests(boolean isEndUser, String token){
         List<ViewRequestDTO> reqs;
         List<AdDTO> adDTOS;
-        List<Long> adIds = new ArrayList<>();
-        List<ReqAdDto> reqAdDTOS = new ArrayList<>();
+        List<Long> adIds;
+        List<ReqAdDto> reqAdDTOS;
 
         if(token == null)
             return ResponseEntity.status(403).build();

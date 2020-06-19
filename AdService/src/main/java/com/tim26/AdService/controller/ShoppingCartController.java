@@ -54,4 +54,13 @@ public class ShoppingCartController {
             return ResponseEntity.badRequest().build();
     }
 
+    @DeleteMapping
+    public Boolean deleteMultipleFromShoppingCart(@RequestParam List<Long> id, Principal principal){
+        for(Long x : id){
+            if(!shoppingCartService.removeAd(principal.getName(), x))
+                return false;
+        }
+        return true;
+    }
+
 }
