@@ -6,7 +6,7 @@ public class MessageDTO {
 
     private String content;
     private String sender;
-    private String reciever;
+    private String receiver;
     private String time;
     private boolean read;
 
@@ -17,7 +17,7 @@ public class MessageDTO {
     public MessageDTO(String content, String sender, String reciever, String time, boolean read){
         this.content = content;
         this.sender = sender;
-        this.reciever = reciever;
+        this.receiver = reciever;
         this.time = time;
         this.read = read;
     }
@@ -42,12 +42,12 @@ public class MessageDTO {
         this.sender = sender;
     }
 
-    public String getReciever() {
-        return reciever;
+    public String getReceiver() {
+        return receiver;
     }
 
-    public void setReciever(String reciever) {
-        this.reciever = reciever;
+    public void setReceiver(String reciever) {
+        this.receiver = reciever;
     }
 
     public String getTime() {

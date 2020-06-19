@@ -58,8 +58,8 @@ public class RentRequestServiceImpl implements RentRequestService {
 
         List<String> peopleforMsgs = new ArrayList<>();
 
-        for(RentRequest rentRequest: allRequests){
-            if(rentRequest.getRequestStatus().equals(RequestStatus.RESERVED)) {
+        for (RentRequest rentRequest : allRequests) {
+            if (rentRequest.getRequestStatus().equals(RequestStatus.RESERVED)) {
                 if (!peopleforMsgs.contains(rentRequest.getOwner().getUsername()) &&
                         !peopleforMsgs.contains(rentRequest.getCreator().getUsername()) &&
                         !rentRequest.getOwner().equals(user.getUsername()) &&
@@ -70,6 +70,8 @@ public class RentRequestServiceImpl implements RentRequestService {
         }
 
         return peopleforMsgs;
+    }
+
     public boolean pay(RentRequestController.ReqIdDTO id, Principal p) {
         RentRequest rentRequest = findById(Long.parseLong(id.reqId));
 

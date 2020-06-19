@@ -25,7 +25,7 @@ public class ChatController {
     }
 
     @PostMapping
-    public ResponseEntity sendMessage(MessageDTO messageDTO, Principal p){
+    public ResponseEntity sendMessage(@RequestBody MessageDTO messageDTO, Principal p){
         boolean isSent = chatService.sendMessage(messageDTO, p);
 
         if(isSent){
@@ -57,6 +57,22 @@ public class ChatController {
     public ResponseEntity<List<MessageDTO>> getAllPeople(@PathVariable String username, Principal p){
         List<MessageDTO> chat = chatService.findAllReceivedByUser(username, p);
         return new ResponseEntity(chat, HttpStatus.OK);
+    }
+
+    @GetMapping("/new")
+    public ResponseEntity<String> getNewNumber(Principal p){
+        String number  = chatService.hasAnyNewMsgs(p);
+        return new ResponseEntity(number, HttpStatus.OK);
+    }
+
+    @GetMapping("/read/{username}")
+    public ResponseEntity<?> readMessage(@PathVariable String username, Principal p){
+        boolean isRead = chatService.readMessage(username,p);
+        if(isRead){
+           return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }

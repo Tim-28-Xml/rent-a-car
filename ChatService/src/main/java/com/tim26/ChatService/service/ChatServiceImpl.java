@@ -6,6 +6,7 @@ import com.tim26.ChatService.model.User;
 import com.tim26.ChatService.repository.ChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -26,16 +27,16 @@ public class ChatServiceImpl implements ChatService {
         chatRepository.save(message);
     }
 
-    public boolean sendMessage(MessageDTO messageDTO, Principal p){
+    public boolean sendMessage( MessageDTO messageDTO, Principal p){
 
-        User reciever = userService.findByUsername(messageDTO.getSender());
+        User receiver = userService.findByUsername(messageDTO.getReceiver());
         User sender = userService.findByUsername(p.getName());
 
-        if(reciever == null || sender == null){
+        if(receiver == null || sender == null){
             return false;
         }
 
-        Message message = new Message(messageDTO.getContent(), sender, reciever, false);
+        Message message = new Message(messageDTO.getContent(), sender, receiver, false);
         message.setTime(LocalDateTime.now());
         save(message);
 
@@ -111,4 +112,37 @@ public class ChatServiceImpl implements ChatService {
 
         return userChatAll;
     }
+
+    @Override
+    public String hasAnyNewMsgs(Principal p) {
+        User user = userService.findByUsername(p.getName());
+        List<Message> allMyReceived = chatRepository.findAllByReceiver(user);
+        int num = 0;
+
+        for (Message message: allMyReceived){
+            if(!message.isRead()){
+                num += 1;
+            }
+        }
+        String number = Integer.toString(num);
+        return number;
+    }
+
+    @Override
+    public boolean readMessage(String username, Principal p) {
+        User user = userService.findByUsername(p.getName());
+        List<Message> getMyRecieved = chatRepository.findAllByReceiver(user);
+
+        for (Message message: getMyRecieved){
+            if(!message.isRead()){
+                if(message.getSender().getUsername().equals(username)){
+                    message.setRead(true);
+                    save(message);
+                }
+            }
+        }
+        return true;
+    }
+
+
 }

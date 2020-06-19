@@ -127,7 +127,6 @@ public class RentRequestController {
     }
     
 
-    }
     @PreAuthorize("hasAuthority('ORDER')")
     @PostMapping("/pay")
     public ResponseEntity payRentRequest(@RequestBody ReqIdDTO reqIdDTO, Principal principal){
