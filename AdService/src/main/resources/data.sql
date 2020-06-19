@@ -25,7 +25,7 @@ insert into ad(id,car_id,price_list_id,rent_request_id,user_id,city) values (-5,
 
 --Date range objects
 
-insert into date_range(id,end_date,start_date) values (-5,'2020-08-05','2020-08-03');
+insert into date_range(id,end_date,start_date) values (-5,'2020-08-10','2020-08-01');
 insert into date(id,date,date_range_id) values (-5,'2020-08-03',-5);
 insert into date(id,date,date_range_id) values (-6,'2020-08-04',-5);
 insert into date(id,date,date_range_id) values (-7,'2020-08-05',-5);
@@ -39,7 +39,7 @@ insert into ad(id,car_id,price_list_id,user_username,city) values (-5,-9,null,'a
 insert into ad_rent_dates(ad_id,rent_dates_id) values (-5,-5);
 
 
-insert into date_range(id,end_date,start_date) values (-6,'2020-07-05','2020-07-03');
+insert into date_range(id,end_date,start_date) values (-6,'2020-07-10','2020-07-01');
 insert into date(id,date,date_range_id) values (-8,'2020-07-03',-6);
 insert into date(id,date,date_range_id) values (-9,'2020-07-04',-6);
 insert into date(id,date,date_range_id) values (-10,'2020-07-05',-6);

@@ -19,6 +19,7 @@ public class CreateAdDto {
     private String childSeats;
     private List<String> files;
     private String city;
+    private String pricelist;
 
     public CreateAdDto() {
 
@@ -133,5 +134,13 @@ public class CreateAdDto {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getPricelist() {
+        return pricelist;
+    }
+
+    public void setPricelist(String pricelist) {
+        this.pricelist = pricelist;
     }
 }

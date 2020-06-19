@@ -1,33 +1,21 @@
-package com.tim26.AdService.dto;
+package com.tim26.demo.dto;
 
-import com.tim26.AdService.model.Date;
-
-import javax.persistence.Column;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-public class    DateRangeDTO {
-
+public class RentAdDTO {
     private Long id;
-
     private LocalDate startDate;
-
     private LocalDate endDate;
 
-    private List<DateDTO> dates = new ArrayList<>();
+    public RentAdDTO(){
 
-    public DateRangeDTO(Long id, LocalDate startDate, LocalDate endDate, List<DateDTO> dates) {
+    }
+
+    public RentAdDTO(Long id, LocalDate startDate, LocalDate endDate) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.dates = dates;
     }
-
-
-    public DateRangeDTO() {
-    }
-
 
     public Long getId() {
         return id;
@@ -51,13 +39,5 @@ public class    DateRangeDTO {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
-    }
-
-    public List<DateDTO> getDates() {
-        return dates;
-    }
-
-    public void setDates(List<DateDTO> dates) {
-        this.dates = dates;
     }
 }

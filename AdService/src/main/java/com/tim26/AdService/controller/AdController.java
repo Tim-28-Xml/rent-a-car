@@ -51,7 +51,6 @@ public class AdController {
 
     }
 
-    @PreAuthorize("hasAuthority('CREATE_AD')")
     @PostMapping(value = "/save")
     public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto, Principal p) throws SQLException {
         if(adService.save(createAdDto, p))
@@ -71,7 +70,6 @@ public class AdController {
     @PreAuthorize("hasAuthority('RENT_BY_CREATOR')")
     @PostMapping(value = "rent-creator")
     public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO, Principal p){
-
         if(adService.rentByCreator(rentAdDTO, p)){
             return new ResponseEntity<>("Car is successfully rented!",HttpStatus.OK);
         } else {

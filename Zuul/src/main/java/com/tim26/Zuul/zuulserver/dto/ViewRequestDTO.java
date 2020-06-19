@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ViewRequestDTO {
     private Long id;
     private String owner;
     private String creator;
     private LocalDateTime creationTime;
-    private List<Long> ads = new ArrayList<>();
+    private List<AdDateRange> adsWithDates = new ArrayList<>();
     private RequestStatus requestStatus;
 
     public ViewRequestDTO() {
@@ -47,12 +48,12 @@ public class ViewRequestDTO {
         this.creationTime = creationTime;
     }
 
-    public List<Long> getAds() {
-        return ads;
+    public List<AdDateRange> getAdsWithDates() {
+        return adsWithDates;
     }
 
-    public void setAds(List<Long> ads) {
-        this.ads = ads;
+    public void setAdsWithDates(List<AdDateRange> adsWithDates) {
+        this.adsWithDates = adsWithDates;
     }
 
     public RequestStatus getRequestStatus() {

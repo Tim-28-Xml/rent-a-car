@@ -1,13 +1,14 @@
 package com.tim26.RentRequestService.dto;
 
 import com.tim26.RentRequestService.model.RentRequest;
+import com.tim26.RentRequestService.model.AdDateRange;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RentRequestDTO {
-    private List<Long> ads = new ArrayList<>();
+    private List<AdDateRange> adsWithDates = new ArrayList<>();
     private String owner;
     private LocalDateTime creationTime;
 
@@ -23,10 +24,12 @@ public class RentRequestDTO {
 
     public List<Long> getAds() {
         return ads;
+    public List<AdDateRange> getAdsWithDates() {
+        return adsWithDates;
     }
 
-    public void setAds(List<Long> ads) {
-        this.ads = ads;
+    public void setAdsWithDates(List<AdDateRange> adsWithDates) {
+        this.adsWithDates = adsWithDates;
     }
 
     public String getOwner() {

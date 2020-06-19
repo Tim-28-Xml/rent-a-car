@@ -1,6 +1,7 @@
 package com.tim26.AdService.dto;
 
 import com.tim26.AdService.model.Ad;
+import com.tim26.AdService.model.CartAdDates;
 import com.tim26.AdService.model.Date;
 import com.tim26.AdService.model.DateRange;
 
@@ -14,6 +15,8 @@ public class AdDTO {
     private Long id;
     private ArrayList<DateRangeDTO>  rentDates = new ArrayList<>();
     private String city;
+    private String pricelist;
+    private List<CartAdDates> cartAdDates = new ArrayList<>();
 
     public AdDTO(){
 
@@ -42,6 +45,8 @@ public class AdDTO {
             DateRangeDTO dto = new DateRangeDTO(dt.getId(),dt.getStartDate(),dt.getEndDate(),datesdto);
             this.getRentDates().add(dto);
         }
+
+        this.cartAdDates = ad.getCartAdDates();
     }
 
     public CarDTO getCarDTO() {
@@ -82,5 +87,21 @@ public class AdDTO {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getPricelist() {
+        return pricelist;
+    }
+
+    public void setPricelist(String pricelist) {
+        this.pricelist = pricelist;
+    }
+    
+    public List<CartAdDates> getCartAdDates() {
+        return cartAdDates;
+    }
+
+    public void setCartAdDates(List<CartAdDates> cartAdDates) {
+        this.cartAdDates = cartAdDates;
     }
 }

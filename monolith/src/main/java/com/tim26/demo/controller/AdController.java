@@ -2,6 +2,7 @@ package com.tim26.demo.controller;
 
 import com.tim26.demo.dto.CreateAdDto;
 import com.tim26.demo.dto.AdDTO;
+import com.tim26.demo.dto.RentAdDTO;
 import com.tim26.demo.service.interfaces.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,22 @@ public class AdController {
 
         AdDTO ad = adService.findById(id);
         return new ResponseEntity<>(ad,HttpStatus.OK);
+
+    }
+
+    @GetMapping(value = "/my-ads")
+    public ResponseEntity<List<AdDTO>> getMyAds(Principal p){
+        List<AdDTO> ads = adService.findMyAds(p.getName());
+        return new ResponseEntity<>(ads, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "rent-creator")
+    public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO, Principal p){
+        if(adService.rentByCreator(rentAdDTO, p)){
+            return new ResponseEntity<>("Car is successfully rented!",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Car cannot be rented!",HttpStatus.BAD_REQUEST);
+        }
 
     }
 }

@@ -44,6 +44,9 @@ public class Ad {
     @Column
     private String city;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CartAdDates> cartAdDates = new ArrayList<>();
+
     public Ad() {
     }
 
@@ -118,5 +121,13 @@ public class Ad {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<CartAdDates> getCartAdDates() {
+        return cartAdDates;
+    }
+
+    public void setCartAdDates(List<CartAdDates> cartAdDates) {
+        this.cartAdDates = cartAdDates;
     }
 }
