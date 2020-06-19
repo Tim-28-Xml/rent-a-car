@@ -19,11 +19,10 @@ public class RentRequestDTO {
 
         this.owner = r.getOwner().getUsername();
         this.creationTime = r.getCreationTime();
-        this.ads = r.getAds();
+        this.adsWithDates = r.getAdsWithDates();
     }
 
-    public List<Long> getAds() {
-        return ads;
+
     public List<AdDateRange> getAdsWithDates() {
         return adsWithDates;
     }
