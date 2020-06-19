@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -80,6 +81,19 @@ public class ReviewController {
 
     }
 
+    @PreAuthorize("hasAuthority('CREATE_REVIEW')")
+    @PostMapping(value= "/submit-review")
+    public ResponseEntity<?> submitReview(@RequestBody ReviewDTO dto, Principal p){
 
+        reviewService.submitReview(p,dto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping(value= "/my-reviews")
+    public ResponseEntity<List<Long>> getUserReviews(Principal p){
+
+          return new ResponseEntity<>(reviewService.getUserReviews(p),HttpStatus.OK);
+    }
 
 }
