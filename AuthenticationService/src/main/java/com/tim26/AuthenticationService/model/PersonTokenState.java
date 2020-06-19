@@ -4,12 +4,14 @@ public class PersonTokenState {
 
     private String accessToken;
     private int expiresIn;
+    private String username;
 
     public  PersonTokenState(){}
 
-    public PersonTokenState(String accessToken, int expiresIn) {
+    public PersonTokenState(String accessToken, int expiresIn, String username) {
         this.accessToken = accessToken;
         this.expiresIn = expiresIn;
+        this.username = username;
     }
 
     public String getAccessToken() {
@@ -28,4 +30,11 @@ public class PersonTokenState {
         this.expiresIn = expiresIn;
         }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

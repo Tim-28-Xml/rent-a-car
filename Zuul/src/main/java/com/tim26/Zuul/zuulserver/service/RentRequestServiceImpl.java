@@ -3,6 +3,7 @@ package com.tim26.Zuul.zuulserver.service;
 import com.tim26.Zuul.zuulserver.client.AdsClient;
 import com.tim26.Zuul.zuulserver.client.RentRequestClient;
 import com.tim26.Zuul.zuulserver.dto.AdDTO;
+import com.tim26.Zuul.zuulserver.dto.AdDateRange;
 import com.tim26.Zuul.zuulserver.dto.ReqAdDto;
 import com.tim26.Zuul.zuulserver.dto.ViewRequestDTO;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +58,9 @@ public class RentRequestServiceImpl implements RentRequestService{
         List<Long> ids = new ArrayList<>();
 
         for(ViewRequestDTO v : viewRequestDTOS){
-            ids.addAll(v.getAds());
+            for(AdDateRange ad: v.getAdsWithDates()) {
+                ids.add(ad.getAd_id());
+            }
         }
 
         return ids.stream().distinct().collect(Collectors.toList());
@@ -68,9 +71,9 @@ public class RentRequestServiceImpl implements RentRequestService{
 
         for(ViewRequestDTO v : viewRequestDTOS){
             ReqAdDto req = new ReqAdDto(v);
-            for(Long adId : v.getAds()){
+            for(AdDateRange adDateRange : v.getAdsWithDates()){
                 for(AdDTO adDTO : adDTOS){
-                    if(adDTO.getId() == adId)
+                    if(adDTO.getId() == adDateRange.getAd_id())
                         req.getAds().add(adDTO);
                 }
             }

@@ -1,18 +1,20 @@
 package com.tim26.RentRequestService.dto;
 
+import com.tim26.RentRequestService.model.AdDateRange;
 import com.tim26.RentRequestService.model.RentRequest;
 import com.tim26.RentRequestService.model.RequestStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ViewRequestDTO {
     private Long id;
     private String owner;
     private String creator;
     private LocalDateTime creationTime;
-    private List<Long> ads = new ArrayList<>();
+    private List<AdDateRange> adsWithDates = new ArrayList<>();
     private RequestStatus requestStatus;
 
     public ViewRequestDTO() {
@@ -23,7 +25,7 @@ public class ViewRequestDTO {
         this.owner = rentRequest.getOwner().getUsername();
         this.creator = rentRequest.getCreator().getUsername();
         this.creationTime = rentRequest.getCreationTime();
-        this.ads = rentRequest.getAds();
+        this.adsWithDates = rentRequest.getAdsWithDates();
         this.requestStatus = rentRequest.getRequestStatus();
     }
 
@@ -59,12 +61,12 @@ public class ViewRequestDTO {
         this.creationTime = creationTime;
     }
 
-    public List<Long> getAds() {
-        return ads;
+    public List<AdDateRange> getAdsWithDates() {
+        return adsWithDates;
     }
 
-    public void setAds(List<Long> ads) {
-        this.ads = ads;
+    public void setAdsWithDates(List<AdDateRange> adsWithDates) {
+        this.adsWithDates = adsWithDates;
     }
 
     public RequestStatus getRequestStatus() {
