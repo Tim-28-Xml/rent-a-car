@@ -14,4 +14,9 @@ public interface AdService {
     AdDTO findById(long id);
     List<AdDTO> findMyAds(String username);
     boolean rentByCreator(RentAdDTO rentAdDTO, Principal p);
+    List<AdDTO> findHighestMileage(Principal p);
+    List<AdDTO> findHighestRating(Principal p);
+    List<AdDTO> findMostReviews(Principal p);
+
+
 }
