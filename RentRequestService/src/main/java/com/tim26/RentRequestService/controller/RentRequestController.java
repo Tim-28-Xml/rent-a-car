@@ -1,5 +1,6 @@
 package com.tim26.RentRequestService.controller;
 
+import com.tim26.RentRequestService.dto.AdDateRangeDTO;
 import com.tim26.RentRequestService.dto.RentRequestDTO;
 import com.tim26.RentRequestService.dto.ViewRequestDTO;
 import com.tim26.RentRequestService.model.RentRequest;
@@ -132,9 +133,9 @@ public class RentRequestController {
 
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/my-paid-finished")
-    public ResponseEntity getUserPaidFinishedReq(Principal principal){
+    public ResponseEntity<List<AdDateRangeDTO>> getUserPaidFinishedReq(Principal principal){
 
-        List<RentRequestDTO> dtos = rentRequestService.getPaidRequestFromUser(principal);
+        List<AdDateRangeDTO> dtos = rentRequestService.getPaidRequestFromUser(principal);
 
         if(dtos.size() != 0){
             return new ResponseEntity(dtos, HttpStatus.OK);
