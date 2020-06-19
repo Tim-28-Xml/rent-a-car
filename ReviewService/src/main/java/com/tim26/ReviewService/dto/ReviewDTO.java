@@ -18,10 +18,9 @@ public class ReviewDTO {
 
     private double rating;
 
-    private LocalDateTime time;
+    private String time;
 
-
-    //private Ad ad;
+    private Long ad_id;
 
     private String creator;
 
@@ -29,7 +28,7 @@ public class ReviewDTO {
     private boolean approved;
 
 
-    public ReviewDTO(long id, String title, String content, double rating, LocalDateTime time, String creator, boolean approved) {
+    public ReviewDTO(long id, String title, String content, double rating, String time, String creator, boolean approved) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -44,9 +43,10 @@ public class ReviewDTO {
         this.title =  review.getTitle();
         this.content = review.getContent();
         this.rating = review.getRating();
-        this.time = review.getTime();
+        this.time = review.getTime().toString();
         this.creator = review.getCreator().getUsername();
         this.approved = review.isApproved();
+        this.ad_id = review.getAd().getId();
     }
 
 
@@ -84,11 +84,11 @@ public class ReviewDTO {
         this.rating = rating;
     }
 
-    public LocalDateTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -106,5 +106,13 @@ public class ReviewDTO {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    public Long getAd_id() {
+        return ad_id;
+    }
+
+    public void setAd_id(Long ad_id) {
+        this.ad_id = ad_id;
     }
 }
