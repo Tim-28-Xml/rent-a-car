@@ -5,6 +5,8 @@ import { serviceConfig } from '../appSettings.js'
 import axios from 'axios'
 import CreateNewAd from './CreateNewAd'
 import megaphoneicon from '../icons/megaphone.svg'
+import personicon from '../icons/profession.png'
+import priceicon from '../icons/discount.svg'
 import '../css/HomePage.css'
 
 
@@ -126,37 +128,48 @@ class HomePage extends React.Component {
                     </div>
                 </div>
             )
-        } else if(this.state.roles[0] === 'ROLE_AGENT') {
+        } else if (this.state.roles[0] === 'ROLE_AGENT') {
             return (
                 <div>
                     <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Welcome to Rent a Car</h1>
-                    <Card className="adCard" >
-                        <Card.Body>
-                            <Card.Title>Create a new ad <img className="carMegaphoneIcon" src={megaphoneicon}></img> </Card.Title>
-                            <Card.Text style={{ color: 'rgb(110,120,130)' }}>
-                                You can click here and create your new ad so others can rent your car.
+                    <div className="renderCardsAds">
+                        <Card className="cardContainer" >
+                            <Card.Body>
+                                <Card.Title>Create a new ad <img className="carMegaphoneIcon" src={megaphoneicon}></img> </Card.Title>
+                                <Card.Text style={{ color: 'rgb(110,120,130)' }}>
+                                    You can click here and create your new ad so others can rent your car.
                             </Card.Text>
-                            <a href="http://localhost:3000/create-ad" className="createAdBtn">New ad</a>
-                        </Card.Body>
-                    </Card>
-                    <Card className="adCard" >
-                        <Card.Body>
-                            <Card.Title>Physical Rent<img className="carMegaphoneIcon" src={megaphoneicon}></img> </Card.Title>
-                            <Card.Text style={{ color: 'rgb(110,120,130)' }}>
-                                You can click here and register your physical rent which deletes all previous request made for this ad.
+                                <a href="http://localhost:3000/create-ad" className="createAdBtn">New ad</a>
+                            </Card.Body>
+                        </Card>
+                        <Card className="cardContainer">
+                            <Card.Body>
+                                <Card.Title>Physical Rent<img className="personIcon" src={personicon}></img> </Card.Title>
+                                <Card.Text style={{ color: 'rgb(110,120,130)' }}>
+                                    You can click here and register your physical rent which deletes all previous request made for this ad.
                             </Card.Text>
-                            <a href="http://localhost:3000/physicalrent" className="createAdBtn">Rent now</a>
-                        </Card.Body>
-                    </Card>
-                    <Card className="adCard" >
-                        <Card.Body>
-                            <Card.Title>Pricelist maker<img className="carMegaphoneIcon" src={megaphoneicon}></img> </Card.Title>
-                            <Card.Text style={{ color: 'rgb(110,120,130)' }}>
-                                Make your own pricelists and attach them to ads when creating them.
+                                <a href="http://localhost:3000/physicalrent" className="createAdBtn">Rent now</a>
+                            </Card.Body>
+                        </Card>
+                        <Card className="cardContainer" >
+                            <Card.Body>
+                                <Card.Title>Pricelist maker<img className="carMegaphoneIcon" src={priceicon}></img> </Card.Title>
+                                <Card.Text style={{ color: 'rgb(110,120,130)' }}>
+                                    Make your own pricelists and attach them to ads when creating them.
                             </Card.Text>
-                            <a href="http://localhost:3000/createpricelist" className="createAdBtn">Make it now</a>
-                        </Card.Body>
-                    </Card>
+                                <a href="http://localhost:3000/createpricelist" className="createAdBtn">Make it now</a>
+                            </Card.Body>
+                        </Card>
+                        <Card className="cardContainer" >
+                            <Card.Body>
+                                <Card.Title>Reports<img className="carMegaphoneIcon" src={priceicon}></img> </Card.Title>
+                                <Card.Text style={{ color: 'rgb(110,120,130)' }}>
+                                    View your reports and write new ones.
+                            </Card.Text>
+                                <a href="http://localhost:3000/rented-cars" className="createAdBtn">View</a>
+                            </Card.Body>
+                        </Card>
+                    </div>
                     <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Ads</h1>
                     <div className="renderCardsAds">
                         {this.renderAdCards()}
@@ -164,7 +177,7 @@ class HomePage extends React.Component {
                 </div>
             )
         }
-         else {
+        else {
             return (
                 <div>
                     <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Welcome to Rent a Car</h1>
