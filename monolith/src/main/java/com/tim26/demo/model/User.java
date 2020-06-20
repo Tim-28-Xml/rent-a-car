@@ -39,6 +39,12 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "receiver")
     private List<Message> receivedMessages;
 
+    @OneToMany(mappedBy = "creator")
+    private List<RentRequest> createdRentRequests;
+
+    @OneToMany(mappedBy = "owner")
+    private List<RentRequest> ownedRentRequests;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_permissions",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -198,5 +204,21 @@ public class User implements UserDetails {
 
     public void setActivated(boolean activated) {
         isActivated = activated;
+    }
+
+    public List<RentRequest> getCreatedRentRequests() {
+        return createdRentRequests;
+    }
+
+    public void setCreatedRentRequests(List<RentRequest> createdRentRequests) {
+        this.createdRentRequests = createdRentRequests;
+    }
+
+    public List<RentRequest> getOwnedRentRequests() {
+        return ownedRentRequests;
+    }
+
+    public void setOwnedRentRequests(List<RentRequest> ownedRentRequests) {
+        this.ownedRentRequests = ownedRentRequests;
     }
 }
