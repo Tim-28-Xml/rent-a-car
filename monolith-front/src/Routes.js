@@ -11,6 +11,7 @@ import SingleAd from './components/SingleAd'
 import CreateNewAd from './components/CreateNewAd';
 import PhysicalRent from './components/PhysicalRent';
 import CreatePricelist from './components/CreatePricelist';
+import MyRentedCars from './components/MyRentedCars';
 
 class Routes extends React.Component {
 
@@ -63,6 +64,12 @@ class Routes extends React.Component {
                     <div>
                         <Header />
                         <CreatePricelist />
+                    </div>
+                    } />
+                    <Route path='/rented-cars' render={props =>
+                    <div>
+                        <Header />
+                        <MyRentedCars/>
                     </div>
                     } />
 
