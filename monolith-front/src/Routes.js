@@ -12,6 +12,7 @@ import CreateNewAd from './components/CreateNewAd';
 import PhysicalRent from './components/PhysicalRent';
 import CreatePricelist from './components/CreatePricelist';
 import MyRentedCars from './components/MyRentedCars';
+import MyStatistics from './components/MyStatistics';
 
 class Routes extends React.Component {
 
@@ -64,7 +65,7 @@ class Routes extends React.Component {
                     <div>
                         <Header />
                         <CreatePricelist />
-                    </div>
+                    </div>                   
                     } />
                     <Route path='/rented-cars' render={props =>
                     <div>
@@ -72,6 +73,14 @@ class Routes extends React.Component {
                         <MyRentedCars/>
                     </div>
                     } />
+
+                <Route path='/statistics' render={props =>
+                    <div>
+                        <Header />
+                        <MyStatistics />
+                    </div>
+                } />
+
 
             </Switch>
         );

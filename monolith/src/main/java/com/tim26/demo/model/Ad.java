@@ -14,7 +14,7 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
@@ -29,7 +29,7 @@ public class Ad {
     @OneToMany
     private List<Report> reports = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @ManyToMany
@@ -38,7 +38,8 @@ public class Ad {
             inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
     private List<RentRequest> rentRequests = new ArrayList<>();
 
-    @OneToMany
+
+    @OneToMany(mappedBy = "ad")
     private List<Review> reviews = new ArrayList<>();
 
     @Column

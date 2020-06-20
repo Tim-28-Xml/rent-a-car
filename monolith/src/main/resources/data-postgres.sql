@@ -119,3 +119,16 @@ insert into ad_rent_requests(ad_id, request_id) values (-2, -2);
 insert into ad_rent_requests(ad_id, request_id) values (-3, -3);
 insert into ad_rent_requests(ad_id, request_id) values (-4, -4);
 insert into ad_rent_requests(ad_id, request_id) values (-5, -7);
+
+insert into review(id,title,content,rating,time,ad_id,creator_id,approved) values ( -4,'Odlicno',
+'Kola su super a pregovori sa firmom su odlicno prosli,moja preporuka!',5,'2020-03-06 20:41:05.0+00
+',-5,-2,true);
+
+insert into review(id,title,content,rating,time,ad_id,creator_id,approved) values ( -5,'Katastrofa',
+'Dali su mi kola bez punog rezervoara. Nikad vise necu iznajmiti kola od ove firme',1,'2020-01-01 11:11:05.0+00
+',-2,-3,false);
+
+
+insert into review(id,title,content,rating,time,ad_id,creator_id,approved) values ( -6,'Uredu',
+'Sve je bilo okej.',3,'2020-05-02 12:00:05.0+00
+',-5,-5,false);

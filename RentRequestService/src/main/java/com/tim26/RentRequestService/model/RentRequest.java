@@ -17,8 +17,9 @@ public class RentRequest {
     @Column
     private RequestStatus requestStatus;
 
-    @ElementCollection
-    private List<Long> ads = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @MapKey(name = "id")
+    private List<AdDateRange> adsWithDates = new ArrayList<>();
 
     @ManyToOne
     private User creator;
@@ -39,7 +40,7 @@ public class RentRequest {
     public RentRequest(RentRequestDTO rentRequestDTO, String creator){
         this.owner = new User(rentRequestDTO.getOwner());
         this.creationTime = rentRequestDTO.getCreationTime();
-        this.ads = rentRequestDTO.getAds();
+        this.adsWithDates = rentRequestDTO.getAdsWithDates();
         this.requestStatus = RequestStatus.PENDING;
         this.creator = new User(creator);
     }
@@ -58,14 +59,6 @@ public class RentRequest {
 
     public void setRequestStatus(RequestStatus requestStatus) {
         this.requestStatus = requestStatus;
-    }
-
-    public List<Long> getAds() {
-        return ads;
-    }
-
-    public void setAds(List<Long> ads) {
-        this.ads = ads;
     }
 
     public User getCreator() {
@@ -98,5 +91,13 @@ public class RentRequest {
 
     public void setReservationTime(LocalDateTime reservationTime) {
         this.reservationTime = reservationTime;
+    }
+
+    public List<AdDateRange> getAdsWithDates() {
+        return adsWithDates;
+    }
+
+    public void setAdsWithDates(List<AdDateRange> adsWithDates) {
+        this.adsWithDates = adsWithDates;
     }
 }

@@ -3,6 +3,7 @@ package com.tim26.Zuul.zuulserver.service;
 import com.tim26.Zuul.zuulserver.client.AdsClient;
 import com.tim26.Zuul.zuulserver.client.RentRequestClient;
 import com.tim26.Zuul.zuulserver.dto.AdDTO;
+import com.tim26.Zuul.zuulserver.dto.AdDateRange;
 import com.tim26.Zuul.zuulserver.dto.ReqAdDto;
 import com.tim26.Zuul.zuulserver.dto.ViewRequestDTO;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,23 @@ public class RentRequestServiceImpl implements RentRequestService{
     }
 
     @Override
+    public ResponseEntity postRentRequest(ViewRequestDTO dto, String token){
+        List<Long> ad_ids = dto.getAdsWithDates().stream().map(AdDateRange::getAd_id).collect(Collectors.toList());
+
+        if(!adsClient.deleteMultipleFromShoppingCart(ad_ids, token))
+            return ResponseEntity.badRequest().build();
+
+        ResponseEntity resp = rentRequestClient.postRentRequest(dto, token);
+
+        return resp;
+    }
+
+    @Override
     public ResponseEntity getRequests(boolean isEndUser, String token){
         List<ViewRequestDTO> reqs;
         List<AdDTO> adDTOS;
-        List<Long> adIds = new ArrayList<>();
-        List<ReqAdDto> reqAdDTOS = new ArrayList<>();
+        List<Long> adIds;
+        List<ReqAdDto> reqAdDTOS;
 
         if(token == null)
             return ResponseEntity.status(403).build();
@@ -57,7 +70,9 @@ public class RentRequestServiceImpl implements RentRequestService{
         List<Long> ids = new ArrayList<>();
 
         for(ViewRequestDTO v : viewRequestDTOS){
-            ids.addAll(v.getAds());
+            for(AdDateRange ad: v.getAdsWithDates()) {
+                ids.add(ad.getAd_id());
+            }
         }
 
         return ids.stream().distinct().collect(Collectors.toList());
@@ -68,9 +83,9 @@ public class RentRequestServiceImpl implements RentRequestService{
 
         for(ViewRequestDTO v : viewRequestDTOS){
             ReqAdDto req = new ReqAdDto(v);
-            for(Long adId : v.getAds()){
+            for(AdDateRange adDateRange : v.getAdsWithDates()){
                 for(AdDTO adDTO : adDTOS){
-                    if(adDTO.getId() == adId)
+                    if(adDTO.getId() == adDateRange.getAd_id())
                         req.getAds().add(adDTO);
                 }
             }

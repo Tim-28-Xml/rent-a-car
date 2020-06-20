@@ -1,5 +1,6 @@
 package com.tim26.RentRequestService.controller;
 
+import com.tim26.RentRequestService.dto.AdDateRangeDTO;
 import com.tim26.RentRequestService.dto.RentRequestDTO;
 import com.tim26.RentRequestService.dto.ViewRequestDTO;
 import com.tim26.RentRequestService.model.RentRequest;
@@ -9,8 +10,10 @@ import com.tim26.RentRequestService.service.RentRequestService;
 import com.tim26.RentRequestService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -30,6 +33,10 @@ public class RentRequestController {
 
     @Autowired
     UserService userService;
+
+    public static class ReqIdDTO {
+        public String reqId;
+    }
 
     @GetMapping("{id}")
     public ResponseEntity getRentRequest(@PathVariable String id) {
@@ -111,4 +118,41 @@ public class RentRequestController {
 
         return viewRequestDTOS;
     }
+
+
+    @GetMapping("/peoplechat")
+    public ResponseEntity<List<String>> getUsersForChat(Principal principal) {
+        List<String> people = rentRequestService.usersForMessages(principal);
+        return new ResponseEntity(people, HttpStatus.OK);
+
+    }
+    
+
+    @PreAuthorize("hasAuthority('ORDER')")
+    @PostMapping("/pay")
+    public ResponseEntity payRentRequest(@RequestBody ReqIdDTO reqIdDTO, Principal principal){
+        boolean paidReqs = rentRequestService.pay(reqIdDTO, principal);
+
+        if(paidReqs){
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @GetMapping("/my-paid-finished")
+    public ResponseEntity<List<AdDateRangeDTO>> getUserPaidFinishedReq(Principal principal){
+
+        List<AdDateRangeDTO> dtos = rentRequestService.getPaidRequestFromUser(principal);
+
+        if(dtos.size() != 0){
+            return new ResponseEntity(dtos, HttpStatus.OK);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
 }

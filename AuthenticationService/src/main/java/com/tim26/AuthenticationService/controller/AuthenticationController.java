@@ -75,7 +75,7 @@ public class AuthenticationController {
         String jwt = tokenUtils.generateToken(user.getUsername(), user.getAuthorities());
         int expiresIn = tokenUtils.getExpiredIn();
 
-        return ResponseEntity.ok(new PersonTokenState(jwt, expiresIn));
+        return ResponseEntity.ok(new PersonTokenState(jwt, expiresIn, user.getUsername()));
 
     }
 

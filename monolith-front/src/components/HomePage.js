@@ -166,25 +166,33 @@ class HomePage extends React.Component {
                                 <Card.Text style={{ color: 'rgb(110,120,130)' }}>
                                     View your reports and write new ones.
                             </Card.Text>
-                                <a href="http://localhost:3000/rented-cars" className="createAdBtn">View</a>
+                                <a href="http://localhost:3000/createpricelist" className="createAdBtn">Make it now</a>
                             </Card.Body>
                         </Card>
+                        <Card className="adCard" >
+                            <Card.Body>
+                                <Card.Title>Statistics<img className="carMegaphoneIcon" src={megaphoneicon}></img> </Card.Title>
+                                <Card.Text style={{ color: 'rgb(110,120,130)' }}>
+                                    Check statistics for your vehicles.
+                            </Card.Text>
+                                <a href="http://localhost:3000/statistics" className="createAdBtn">Check it now</a>
+                            </Card.Body>
+                        </Card>
+                        <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Ads</h1>
+                        <div className="renderCardsAds">
+                            {this.renderAdCards()}
+                        </div>
                     </div>
-                    <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Ads</h1>
-                    <div className="renderCardsAds">
-                        {this.renderAdCards()}
-                    </div>
-                </div>
             )
         }
         else {
             return (
-                <div>
-                    <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Welcome to Rent a Car</h1>
-                    <div className="renderCardsAds">
-                        {this.renderAdCards()}
+                    <div>
+                        <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Welcome to Rent a Car</h1>
+                        <div className="renderCardsAds">
+                            {this.renderAdCards()}
+                        </div>
                     </div>
-                </div>
             )
         }
     }
