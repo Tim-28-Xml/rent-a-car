@@ -1,6 +1,7 @@
 package com.tim26.demo.model;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 public class Report {
@@ -17,6 +18,8 @@ public class Report {
 
     @Column
     private double endKM;
+
+
 
     @ManyToOne
     private Ad ad;
