@@ -223,6 +223,8 @@ public class User implements UserDetails {
 
     public void setOwnedRentRequests(List<RentRequest> ownedRentRequests) {
         this.ownedRentRequests = ownedRentRequests;
+    }
+    
     public List<Review> getReviews() {
         return reviews;
     }
