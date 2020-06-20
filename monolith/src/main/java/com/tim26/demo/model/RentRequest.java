@@ -13,27 +13,27 @@ public class RentRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToMany(mappedBy = "rentRequests")
-    private List<Ad> ads = new ArrayList<>();
-
     @Column
     private RequestStatus requestStatus;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @MapKey(name = "id")
+    private List<AdDateRange> adsWithDates = new ArrayList<>();
+
     @ManyToOne
-    private EndUser endUser;
+    private User creator;
+
+    @ManyToOne
+    private User owner;
 
     @Column
-    private LocalDate startDate;
+    private LocalDateTime creationTime;
 
     @Column
-    private LocalDate endDate;
+    private LocalDateTime reservationTime;
 
     public RentRequest() {
-    }
-
-    public RentRequest(List<Ad> ads, RequestStatus requestStatus){
-        this.ads = ads;
-        this.requestStatus = requestStatus;
+        requestStatus = RequestStatus.PENDING;
     }
 
     public long getId() {
@@ -44,14 +44,6 @@ public class RentRequest {
         this.id = id;
     }
 
-    public List<Ad> getAds() {
-        return ads;
-    }
-
-    public void setAds(List<Ad> ads) {
-        this.ads = ads;
-    }
-
     public RequestStatus getRequestStatus() {
         return requestStatus;
     }
@@ -60,27 +52,43 @@ public class RentRequest {
         this.requestStatus = requestStatus;
     }
 
-    public EndUser getEndUser() {
-        return endUser;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setEndUser(EndUser endUser) {
-        this.endUser = endUser;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public LocalDateTime getCreationTime() {
+        return creationTime;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void setCreationTime(LocalDateTime creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public LocalDateTime getReservationTime() {
+        return reservationTime;
+    }
+
+    public void setReservationTime(LocalDateTime reservationTime) {
+        this.reservationTime = reservationTime;
+    }
+
+    public List<AdDateRange> getAdsWithDates() {
+        return adsWithDates;
+    }
+
+    public void setAdsWithDates(List<AdDateRange> adsWithDates) {
+        this.adsWithDates = adsWithDates;
     }
 }

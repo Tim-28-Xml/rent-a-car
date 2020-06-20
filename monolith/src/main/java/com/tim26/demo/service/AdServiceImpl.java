@@ -127,12 +127,15 @@ public class AdServiceImpl implements AdService {
         List<RentRequest> goodRequests = new ArrayList<>();
 
         for (RentRequest rentRequest : ad.get().getRentRequests()) {
-            if (rentRequest.getStartDate().isAfter(startDate) && rentRequest.getStartDate().isBefore(endDate)) {
-                break;
-            } else if (rentRequest.getEndDate().isAfter(startDate) && rentRequest.getEndDate().isBefore(endDate)) {
-                break;
-            } else {
-                goodRequests.add(rentRequest);
+            for(AdDateRange dr : rentRequest.getAdsWithDates()) {
+
+                if (dr.getStart().isAfter(startDate) && dr.getStart().isBefore(endDate)) {
+                    break;
+                } else if (dr.getEnd_Date().isAfter(startDate) && dr.getEnd_Date().isBefore(endDate)) {
+                    break;
+                } else {
+                    goodRequests.add(rentRequest);
+                }
             }
         }
 

@@ -1,11 +1,8 @@
 package com.tim26.demo.dto;
 
-import com.tim26.demo.model.Car;
-
 import java.util.List;
 
-public class CarDTO {
-
+public class RentedCarDto {
     private Long id;
     private String brand;
     private String model;
@@ -18,26 +15,8 @@ public class CarDTO {
     private int childSeats;
     private List<byte[]> files;
 
-    public CarDTO(){
+    public RentedCarDto() {
 
-    }
-
-    public CarDTO(Long id, String brand, String model, String fuel, String transmission, String carClass, double km, double kmLimit, boolean cdw, int childSeats, List<byte[]> files) {
-        this.id = id;
-        this.brand = brand;
-        this.model = model;
-        this.fuel = fuel;
-        this.transmission = transmission;
-        this.carClass = carClass;
-        this.km = km;
-        this.kmLimit = kmLimit;
-        this.cdw = cdw;
-        this.childSeats = childSeats;
-        this.files = files;
-    }
-
-    public CarDTO(Car car){
-        this(car.getId(),car.getBrand(),car.getModel(),car.getFuel(),car.getTransmission(),car.getCarClass(),car.getKm(),car.getKmLimit(),car.isCdw(), (byte) car.getChildSeats(), car.getFiles());
     }
 
     public Long getId() {

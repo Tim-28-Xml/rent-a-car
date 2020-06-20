@@ -21,9 +21,6 @@ public class EndUser extends User {
     @OneToMany(mappedBy = "creator")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "endUser")
-    private List<RentRequest> rentRequests;
-
     public EndUser() {
         super();
     }
@@ -64,13 +61,5 @@ public class EndUser extends User {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
-    }
-
-    public List<RentRequest> getRentRequests() {
-        return rentRequests;
-    }
-
-    public void setRentRequests(List<RentRequest> rentRequests) {
-        this.rentRequests = rentRequests;
     }
 }
