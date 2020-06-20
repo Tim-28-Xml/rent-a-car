@@ -15,14 +15,14 @@ public class CarDTO {
     private double km;
     private double kmLimit;
     private boolean cdw;
-    private byte childSeats;
+    private int childSeats;
     private List<byte[]> files;
 
     public CarDTO(){
 
     }
 
-    public CarDTO(Long id, String brand, String model, String fuel, String transmission, String carClass, double km, double kmLimit, boolean cdw, byte childSeats, List<byte[]> files) {
+    public CarDTO(Long id, String brand, String model, String fuel, String transmission, String carClass, double km, double kmLimit, boolean cdw, int childSeats, List<byte[]> files) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -112,11 +112,11 @@ public class CarDTO {
         this.cdw = cdw;
     }
 
-    public byte getChildSeats() {
+    public int getChildSeats() {
         return childSeats;
     }
 
-    public void setChildSeats(byte childSeats) {
+    public void setChildSeats(int childSeats) {
         this.childSeats = childSeats;
     }
 
