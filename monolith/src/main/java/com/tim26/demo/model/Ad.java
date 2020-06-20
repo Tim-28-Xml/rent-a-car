@@ -1,9 +1,12 @@
 package com.tim26.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Ad {
 
@@ -11,7 +14,7 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
@@ -23,8 +26,8 @@ public class Ad {
     @ManyToOne
     private PriceList priceList;
 
-    @OneToMany(mappedBy = "ad")
-    private List<Report> reports;
+    @OneToMany
+    private List<Report> reports = new ArrayList<>();
 
     @ManyToOne
     private User user;
