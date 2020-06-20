@@ -80,16 +80,42 @@ insert into user_permissions(user_id,permission_id) values (-5,'CREATE_REVIEW');
 
 --car
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-1,'AUDI','sedan',false,1,'diesel',50000,1000,'A6','automatic');
-insert into ad(id,car_id,price_list_id,rent_request_id,user_id) values (-1,-1,null,null,-4);
+insert into ad(id,car_id,price_list_id,user_id) values (-1,-1,null,-4);
 
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-2,'RENAULT','hatchback',false,0,'diesel',50000,1000,'Clio','manual');
-insert into ad(id,car_id,price_list_id,rent_request_id,user_id) values (-2,-2,null,null,-4);
+insert into ad(id,car_id,price_list_id,user_id) values (-2,-2,null,-4);
 
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-3,'BMW','sedan',false,1,'diesel',66000,5000,'3','manual');
-insert into ad(id,car_id,price_list_id,rent_request_id,user_id) values (-3,-3,null,null,-4);
+insert into ad(id,car_id,price_list_id,user_id) values (-3,-3,null,-4);
 
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-4,'Volkswagen','hatchback',true,2,'diesel',30000,2000,'Golf 7','automatic');
-insert into ad(id,car_id,price_list_id,rent_request_id,user_id) values (-4,-4,null,null,-4);
+insert into ad(id,car_id,price_list_id,user_id) values (-4,-4,null,-4);
 
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-5,'BMW','coupe',true,0,'diesel',50000,1000,'3','automatic');
-insert into ad(id,car_id,price_list_id,rent_request_id,user_id) values (-5,-5,null,null,-4);
+insert into ad(id,car_id,price_list_id,user_id) values (-5,-5,null,-4);
+
+insert into rent_request(id, creation_time, request_status, reservation_time, creator_id, owner_id) values (-1, '2020-06-08 15:14:14', 0, null , -2, -4);
+insert into rent_request(id, creation_time, request_status, reservation_time, creator_id, owner_id) values (-2, '2020-06-08 15:14:14', 1, null , -2, -4);
+insert into rent_request(id, creation_time, request_status, reservation_time, creator_id, owner_id) values (-3, '2020-06-08 15:14:14', 2, null , -2, -4);
+insert into rent_request(id, creation_time, request_status, reservation_time, creator_id, owner_id) values (-4, '2020-06-08 15:14:14', 3, null , -2, -4);
+insert into rent_request(id, creation_time, request_status, reservation_time, creator_id, owner_id) values (-7, '2020-06-08 15:14:14', 2, null , -2, -4);
+
+insert into ad_date_range(id, ad_id, start, end_date) values (-1, -2, '2020-03-08', '2020-05-08');
+insert into ad_date_range(id, ad_id, start, end_date) values (-2, -5, '2020-06-08', '2020-06-18');
+insert into ad_date_range(id, ad_id, start, end_date) values (-3, -2, '2020-06-08', '2020-06-19');
+insert into ad_date_range(id, ad_id, start, end_date) values (-4, -3, '2020-03-03', '2020-06-08');
+insert into ad_date_range(id, ad_id, start, end_date) values (-5, -4, '2020-09-08', '2020-09-08');
+insert into ad_date_range(id, ad_id, start, end_date) values (-6, -5, '2020-01-08', '2020-02-08');
+
+insert into rent_request_ads_with_dates(rent_request_id, ads_with_dates_id) values (-1, -1);
+insert into rent_request_ads_with_dates(rent_request_id, ads_with_dates_id) values (-1, -2);
+insert into rent_request_ads_with_dates(rent_request_id, ads_with_dates_id) values (-2, -3);
+insert into rent_request_ads_with_dates(rent_request_id, ads_with_dates_id) values (-3, -4);
+insert into rent_request_ads_with_dates(rent_request_id, ads_with_dates_id) values (-4, -5);
+insert into rent_request_ads_with_dates(rent_request_id, ads_with_dates_id) values (-7, -6);
+
+insert into ad_rent_requests(ad_id, request_id) values (-1, -1);
+insert into ad_rent_requests(ad_id, request_id) values (-2, -2);
+insert into ad_rent_requests(ad_id, request_id) values (-3, -3);
+insert into ad_rent_requests(ad_id, request_id) values (-4, -4);
+insert into ad_rent_requests(ad_id, request_id) values (-5, -7);
