@@ -1,27 +1,32 @@
 package com.tim26.AdService.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "User", namespace = "http://localhost:8084/adservice-schema")
+@XmlRootElement(name = "userClass")
 public class User {
 
     @Id
     @Column
+    @XmlElement
     private String username;
 
     @OneToMany(mappedBy = "user")
+    @XmlElement
     private List<Ad> ad = new ArrayList<Ad>();
 
     @OneToMany(mappedBy = "user")
+    @XmlElement
     private List<PriceList> priceLists = new ArrayList<PriceList>();
 
     @OneToMany
+    @XmlElement
     private List<Ad> shoppingCart = new ArrayList<>();
-
-
-
 
     public User() {
     }
