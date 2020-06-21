@@ -21,6 +21,7 @@ public class PricelistClient extends WebServiceGatewaySupport {
         request.setDailyPrice(pricelist.getDailyPrice());
         request.setPricePerExtraKm(pricelist.getPricePerExtraKm());
         request.setUsername(username);
+        request.setName(pricelist.getName());
 
         PricelistResponse response = (PricelistResponse) getWebServiceTemplate()
                 .marshalSendAndReceive("http://localhost:8084/ws/adservice-schema", request,
