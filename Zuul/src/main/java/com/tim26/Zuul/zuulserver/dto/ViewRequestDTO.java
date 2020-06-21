@@ -10,6 +10,7 @@ public class ViewRequestDTO {
     private String owner;
     private String creator;
     private LocalDateTime creationTime;
+    private LocalDateTime reservationTime;
     private List<AdDateRange> adsWithDates = new ArrayList<>();
     private RequestStatus requestStatus;
 
@@ -62,6 +63,14 @@ public class ViewRequestDTO {
 
     public void setRequestStatus(RequestStatus requestStatus) {
         this.requestStatus = requestStatus;
+    }
+
+    public LocalDateTime getReservationTime() {
+        return reservationTime;
+    }
+
+    public void setReservationTime(LocalDateTime reservationTime) {
+        this.reservationTime = reservationTime;
     }
 }
 

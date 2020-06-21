@@ -21,10 +21,10 @@ public class RentRequest {
     @MapKey(name = "id")
     private List<AdDateRange> adsWithDates = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User creator;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User owner;
 
     @Column

@@ -17,6 +17,11 @@ public interface RentRequestService {
     List<RentRequest> findByCreator(User user);
     List<RentRequest> findByOwner(User user);
     List<String> usersForMessages(Principal p);
-    boolean pay(RentRequestController.ReqIdDTO id, Principal p);
+    RentRequest pay(RentRequestController.ReqIdDTO id, Principal p);
     List<AdDateRangeDTO> getPaidRequestFromUser(Principal p);
+    boolean approveRequest(String id);
+    boolean declineRequest(String id);
+    List<RentRequest> getAvailableRequests(User user);
+    boolean cancelOtherPendingRequests(RentRequest paidRequest);
+    List<ViewRequestDTO> getAllForEndUser(Principal principal);
 }

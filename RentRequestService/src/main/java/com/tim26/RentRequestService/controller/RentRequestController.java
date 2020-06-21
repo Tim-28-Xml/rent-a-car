@@ -23,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-public class RentRequestController {
+public class  RentRequestController {
 
     @Value("${zuul-uri}")
     private String gatewayUri;
@@ -79,23 +79,8 @@ public class RentRequestController {
 
     @GetMapping("/myCreated")
     public List<ViewRequestDTO> getEndUserRequests(Principal principal){
-        List<ViewRequestDTO> viewRequestDTOS = new ArrayList<>();
 
-        User user = userService.findByUsername(principal.getName());
-
-        if(user == null)
-            return null;
-
-        List<RentRequest> rentRequests = rentRequestService.findByCreator(user);
-
-        if(rentRequests == null)
-            return null;
-
-        for(RentRequest rentRequest : rentRequests){
-            viewRequestDTOS.add(new ViewRequestDTO(rentRequest));
-        }
-
-        return viewRequestDTOS;
+        return rentRequestService.getAllForEndUser(principal);
     }
 
     @GetMapping("/myReceived")
@@ -107,10 +92,9 @@ public class RentRequestController {
         if(user == null)
             return null;
 
-        List<RentRequest> rentRequests = rentRequestService.findByOwner(user);
+        List<RentRequest> rentRequests = new ArrayList<>();
 
-        if(rentRequests == null)
-            return null;
+        rentRequests = rentRequestService.getAvailableRequests(user);
 
         for(RentRequest rentRequest : rentRequests){
             viewRequestDTOS.add(new ViewRequestDTO(rentRequest));
@@ -130,18 +114,18 @@ public class RentRequestController {
 
     @PreAuthorize("hasAuthority('ORDER')")
     @PostMapping("/pay")
-    public ResponseEntity payRentRequest(@RequestBody ReqIdDTO reqIdDTO, Principal principal){
-        boolean paidReqs = rentRequestService.pay(reqIdDTO, principal);
+    public ViewRequestDTO payRentRequest(@RequestBody ReqIdDTO reqIdDTO, Principal principal){
+        RentRequest rentRequest = rentRequestService.pay(reqIdDTO, principal);
 
-        if(paidReqs){
-            return ResponseEntity.ok().build();
+        if(rentRequest != null){
+            return new ViewRequestDTO(rentRequest);
         } else {
-            return ResponseEntity.badRequest().build();
+            return null;
         }
     }
 
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/my-paid-finished")
     public ResponseEntity<List<AdDateRangeDTO>> getUserPaidFinishedReq(Principal principal){
 
@@ -153,6 +137,30 @@ public class RentRequestController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PreAuthorize("hasAuthority('AGENT')")
+    @PostMapping("/approve")
+    public ResponseEntity<?> approveRequest(@RequestBody ReqIdDTO reqId){
+        boolean isApproved = rentRequestService.approveRequest(reqId.reqId);
+        if(isApproved){
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PreAuthorize("hasAnyAuthority('AGENT','USER')")
+    @PostMapping("/decline")
+    public ResponseEntity<?> declineRequest(@RequestBody ReqIdDTO reqId){
+        boolean isDeclined = rentRequestService.declineRequest(reqId.reqId);
+        if(isDeclined){
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
 
 
 }

@@ -25,7 +25,7 @@ insert into ad(id,car_id,price_list_id,rent_request_id,user_id,city) values (-5,
 
 --Date range objects
 
-insert into date_range(id,end_date,start_date) values (-5,'2020-08-10','2020-08-01');
+insert into date_range(id,end_date,start_date) values (-5,'2020-01-01','2020-12-12');
 insert into date(id,date,date_range_id) values (-5,'2020-08-03',-5);
 insert into date(id,date,date_range_id) values (-6,'2020-08-04',-5);
 insert into date(id,date,date_range_id) values (-7,'2020-08-05',-5);
@@ -51,7 +51,7 @@ insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transm
 insert into ad(id,car_id,price_list_id,user_username,city) values (-2,-6,null,'agent1','Beograd');
 
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-11,'MAZDA','coupe',true,0,'diesel',50000,1000,'6','manual');
-insert into ad(id,car_id,price_list_id,user_username,city) values (-11,-11,null,'marko','Nis');
+insert into ad(id,car_id,price_list_id,user_username,city) values (-11,-11,null,'agent1','Nis');
 
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-13,'SKODA','coupe',true,0,'diesel',50000,1000,'Superb','automatic');
 insert into ad(id,car_id,price_list_id,user_username,city) values (-13,-13,null,'branko','Subotica');

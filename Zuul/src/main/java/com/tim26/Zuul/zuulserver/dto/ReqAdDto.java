@@ -9,6 +9,7 @@ public class ReqAdDto {
     private String owner;
     private String creator;
     private LocalDateTime creationTime;
+    private LocalDateTime reservationTime;
     private RequestStatus requestStatus;
     private List<AdDTO> ads = new ArrayList<>();
 
@@ -20,6 +21,7 @@ public class ReqAdDto {
         this.owner = viewRequestDTO.getOwner();
         this.creator = viewRequestDTO.getCreator();
         this.creationTime = viewRequestDTO.getCreationTime();
+        this.reservationTime = viewRequestDTO.getReservationTime();
         this.requestStatus = viewRequestDTO.getRequestStatus();
     }
 
@@ -70,5 +72,13 @@ public class ReqAdDto {
 
     public void setAds(List<AdDTO> ads) {
         this.ads = ads;
+    }
+
+    public LocalDateTime getReservationTime() {
+        return reservationTime;
+    }
+
+    public void setReservationTime(LocalDateTime reservationTime) {
+        this.reservationTime = reservationTime;
     }
 }
