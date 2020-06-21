@@ -1,24 +1,33 @@
 package com.tim26.AdService.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Report", namespace = "http://localhost:8084/adservice-schema")
+@XmlRootElement(name = "reportClass")
 public class Report {
 
     @Id
+    @XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
+    @XmlElement
     private String text;
 
     @Column
+    @XmlElement
     private double startKM;
 
     @Column
+    @XmlElement
     private double endKM;
 
     @ManyToOne
+    @XmlElement
     private Ad ad;
 
     public Report() {
