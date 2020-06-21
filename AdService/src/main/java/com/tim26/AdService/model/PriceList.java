@@ -1,32 +1,43 @@
 package com.tim26.AdService.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "PriceList", namespace = "http://localhost:8084/adservice-schema")
+@XmlRootElement(name = "pricelistClass")
 public class PriceList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @XmlElement
     private long id;
 
     @Column
+    @XmlElement
     private double dailyPrice;
 
     @Column
+    @XmlElement
     private double cdwPrice;
 
     @Column
+    @XmlElement
     private double pricePerExtraKm;
 
     @ManyToOne
+    @XmlElement
     private User user;
 
     @OneToMany(mappedBy = "priceList")
+    @XmlElement
     private List<Ad> ads = new ArrayList<>();
 
     @Column
+    @XmlElement
     private String name;
 
     public PriceList() {

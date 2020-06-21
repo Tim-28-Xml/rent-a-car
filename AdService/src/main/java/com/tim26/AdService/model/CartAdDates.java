@@ -1,19 +1,26 @@
 package com.tim26.AdService.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.time.LocalDate;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "CartAdDates", namespace = "http://localhost:8084/adservice-schema")
+@XmlRootElement(name = "cartAdDatesClass")
 public class CartAdDates {
 
     @Id
+    @XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
+    @XmlElement
     private String username;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @XmlElement
     private  DateRange dateRange;
 
     public CartAdDates() {

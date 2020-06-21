@@ -1,26 +1,35 @@
 package com.tim26.AdService.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Codebook", namespace = "http://localhost:8084/adservice-schema")
+@XmlRootElement(name = "codebookClass")
 public class Codebook {
 
     @Id
+    @XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToMany
+    @XmlElement
     private List<BrandModels> brandModels = new ArrayList<>();
 
     @ElementCollection
+    @XmlElement
     private List<String> fuelTypes;
 
     @ElementCollection
+    @XmlElement
     private List<String> transmissionTypes;
 
     @ElementCollection
+    @XmlElement
     private List<String> carClasses;
 
     public Codebook() {

@@ -12,6 +12,7 @@ public class CreatePricelistDto {
     private double cdwPrice;
     private double pricePerExtraKm;
 
+
     public CreatePricelistDto() {}
 
     public String getName() {

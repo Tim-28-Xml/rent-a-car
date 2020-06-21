@@ -30,8 +30,9 @@ public class PricelistServiceImpl implements PricelistService {
     private ModelMapper modelMapper;
 
     @Override
-    public boolean save(Principal p, CreatePricelistDto createPricelistDto) {
-        User user = userService.findByUsername(p.getName());
+    public PriceList save(String username, CreatePricelistDto createPricelistDto) {
+
+        User user = userService.findByUsername(username);
         if(user != null) {
             PriceList priceList = new PriceList();
             priceList.setCdwPrice(createPricelistDto.getCdwPrice());
@@ -42,9 +43,9 @@ public class PricelistServiceImpl implements PricelistService {
             user.getPriceLists().add(priceList);
 
             priceList = pricelistRepository.save(priceList);
-            return true;
+            return priceList;
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -63,4 +64,6 @@ public class PricelistServiceImpl implements PricelistService {
     public PriceList findByName(String name) {
         return pricelistRepository.findByName(name);
     }
+
+
 }
