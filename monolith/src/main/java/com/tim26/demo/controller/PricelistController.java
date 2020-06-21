@@ -3,6 +3,7 @@ package com.tim26.demo.controller;
 import com.tim26.demo.dto.AdDTO;
 import com.tim26.demo.dto.CreateAdDto;
 import com.tim26.demo.dto.CreatePricelistDto;
+import com.tim26.demo.dto.PricelistDto;
 import com.tim26.demo.service.interfaces.AdService;
 import com.tim26.demo.service.interfaces.PricelistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,12 @@ public class PricelistController {
     public ResponseEntity<List<CreatePricelistDto>> getAll(){
 
         List<CreatePricelistDto> pricelistDtos = pricelistService.findAll();
+        return new ResponseEntity<>(pricelistDtos,HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/all-mine")
+    public ResponseEntity<List<PricelistDto>> getAllMine(Principal p){
+        List<PricelistDto> pricelistDtos = pricelistService.findAllMine(p);
         return new ResponseEntity<>(pricelistDtos,HttpStatus.OK);
     }
 
