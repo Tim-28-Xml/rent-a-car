@@ -24,7 +24,7 @@ public class User {
     @XmlElement
     private List<PriceList> priceLists = new ArrayList<PriceList>();
 
-    @OneToMany
+    @OneToMany()
     @XmlElement
     private List<Ad> shoppingCart = new ArrayList<>();
 
