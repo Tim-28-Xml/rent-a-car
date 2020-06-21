@@ -1,14 +1,27 @@
 package com.tim26.Zuul.zuulserver.dto;
 
+import java.time.LocalDate;
+
 public class AdDTO {
 
     private CarDTO carDTO;
     private String username;
     private Long id;
     private String city;
+    private LocalDate start;
+    private LocalDate end;
 
     public AdDTO(){
 
+    }
+
+    public AdDTO(AdDTO adDTO, LocalDate startDate, LocalDate endDate){
+        this.carDTO = adDTO.carDTO;
+        this.username = adDTO.username;
+        this.id = adDTO.id;
+        this.city = adDTO.city;
+        this.start = startDate;
+        this.end = endDate;
     }
 
     public CarDTO getCarDTO() {
@@ -41,5 +54,21 @@ public class AdDTO {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public LocalDate getStart() {
+        return start;
+    }
+
+    public void setStart(LocalDate start) {
+        this.start = start;
+    }
+
+    public LocalDate getEnd() {
+        return end;
+    }
+
+    public void setEnd(LocalDate end) {
+        this.end = end;
     }
 }

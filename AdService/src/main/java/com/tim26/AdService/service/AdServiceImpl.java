@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -426,5 +427,36 @@ public class AdServiceImpl implements AdService {
 
     }
 
+    @Override
+    public boolean setRentDatesForAds(List<RentAdDTO> rentAdDTOS) {
+        List<Long> ids = rentAdDTOS.stream().map(RentAdDTO::getId).collect(Collectors.toList());
+        List<Ad> ads = findByIds(ids);
+        boolean save = false;
+        if(ads == null)
+            return false;
 
+        for(Ad ad : ads){
+            for(RentAdDTO rentAdDTO : rentAdDTOS){
+                if(ad.getId().equals(rentAdDTO.getId())) {
+                    for(DateRange dateRange : ad.getRentDates()) {
+                        if(!(rentAdDTO.getStartDate().isAfter(dateRange.getEndDate()) || rentAdDTO.getEndDate().isBefore(dateRange.getStartDate()))) {
+                            LocalDate tempStart = rentAdDTO.getStartDate();
+                            while (!tempStart.isAfter(rentAdDTO.getEndDate())) {
+                                dateRange.getDates().add(new Date(tempStart));
+                                tempStart = tempStart.plusDays(1);
+                                save = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(save){
+                save(ad);
+                save = false;
+            }
+        }
+
+        return true;
+    }
 }

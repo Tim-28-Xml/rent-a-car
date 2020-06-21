@@ -19,4 +19,5 @@ public interface AdService {
     boolean validateCreationData(CreateAdDto createAdDto);
     List<Ad> findByIds(List<Long> ids);
     List<AdDTO> filterAds(FilterDTO filterDTO);
+    boolean setRentDatesForAds(List<RentAdDTO> rentAdDTOS);
 }

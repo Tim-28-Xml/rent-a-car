@@ -16,11 +16,13 @@ import com.tim26.RentRequestService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class RentRequestServiceImpl implements RentRequestService {
@@ -88,16 +90,22 @@ public class RentRequestServiceImpl implements RentRequestService {
         return peopleforMsgs;
     }
 
-    public boolean pay(RentRequestController.ReqIdDTO id, Principal p) {
+    public RentRequest pay(RentRequestController.ReqIdDTO id, Principal p) {
         RentRequest rentRequest = findById(Long.parseLong(id.reqId));
+        User user = userService.findByUsername(p.getName());
+        if(user == null)
+            return null;
 
         if(rentRequest.getRequestStatus().equals(RequestStatus.RESERVED)){
             rentRequest.setRequestStatus(RequestStatus.PAID);
+            rentRequest.setReservationTime(LocalDateTime.now());
             save(rentRequest);
-            return true;
-        } else {
-            return false;
+
+            if(cancelOtherPendingRequests(rentRequest))
+                return rentRequest;
         }
+
+        return null;
 
     }
 
@@ -123,6 +131,129 @@ public class RentRequestServiceImpl implements RentRequestService {
         return dtos;
     }
 
+    @Override
+    public boolean approveRequest(String id) {
+        RentRequest rentRequest = findById(Long.parseLong(id));
+        if(rentRequest == null){
+            return false;
+        }
 
+        if(rentRequest.getRequestStatus().equals(RequestStatus.PENDING)){
+            rentRequest.setRequestStatus(RequestStatus.RESERVED);
+            save(rentRequest);
+        }
+        return true;
+    }
 
+    @Override
+    public boolean declineRequest(String id) {
+        RentRequest rentRequest = findById(Long.parseLong(id));
+        if(rentRequest == null){
+            return false;
+        }
+
+        rentRequest.setRequestStatus(RequestStatus.CANCELED);
+        save(rentRequest);
+
+        return true;
+    }
+
+    public List<RentRequest> getAvailableRequests(User user) {
+
+        List<RentRequest> allRequests = findByOwner(user);
+
+        if (allRequests == null)
+            return null;
+
+        List<RentRequest> pendingRequests = allRequests.stream().filter(r -> r.getRequestStatus() == RequestStatus.PENDING).collect(Collectors.toList());
+        List<RentRequest> reservedRequests = allRequests.stream().filter(r -> r.getRequestStatus() == RequestStatus.RESERVED).collect(Collectors.toList());
+
+        List<RentRequest> freshPending = new ArrayList<>(pendingRequests);
+        for(RentRequest pending : pendingRequests){
+            if(pending.getCreationTime().isBefore(LocalDateTime.now().minusHours(24))){
+                pending.setRequestStatus(RequestStatus.CANCELED);
+                save(pending);
+                freshPending.remove(pending);
+            }
+        }
+
+        for(RentRequest pRequest: freshPending){
+            for(RentRequest rRequest: reservedRequests){
+                for(AdDateRange pRange: pRequest.getAdsWithDates()){
+                    for(AdDateRange rRange: rRequest.getAdsWithDates()){
+                        if(pRange.getAd_id() == rRange.getAd_id()){
+                            if(!(pRange.getStart().isAfter(rRange.getEnd()) || pRange.getEnd().isBefore(rRange.getStart()))){
+                                if(allRequests.contains(pRequest))
+                                    allRequests.remove(pRequest);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return allRequests;
+    }
+
+    @Override
+    public boolean cancelOtherPendingRequests(RentRequest paidRequest) {
+
+        List<RentRequest> allRequests = rentRequestRepository.findAll();
+
+        if (allRequests == null)
+            return false;
+
+        List<RentRequest> pendingRequests = allRequests.stream().filter(r -> r.getRequestStatus() == RequestStatus.PENDING).collect(Collectors.toList());
+        List<RentRequest> cancelledReqs = new ArrayList<>();
+
+        for(RentRequest pRequest: pendingRequests){
+                for(AdDateRange pRange: pRequest.getAdsWithDates()) {
+                    for (AdDateRange range : paidRequest.getAdsWithDates()) {
+                        if (pRange.getAd_id() == range.getAd_id()) {
+                            if (!(pRange.getStart().isAfter(range.getEnd()) || pRange.getEnd().isBefore(range.getStart()))) {
+                                if(!cancelledReqs.contains(pRequest))
+                                    cancelledReqs.add(pRequest);
+                            }
+                        }
+                    }
+                }
+        }
+
+        cancelledReqs.forEach(req -> req.setRequestStatus(RequestStatus.CANCELED));
+        rentRequestRepository.saveAll(cancelledReqs);
+
+        return true;
+    }
+
+    @Override
+    public List<ViewRequestDTO> getAllForEndUser(Principal principal) {
+        List<ViewRequestDTO> viewRequestDTOS = new ArrayList<>();
+
+        User user = userService.findByUsername(principal.getName());
+
+        if(user == null)
+            return null;
+
+        List<RentRequest> rentRequests = findByCreator(user);
+
+        for(RentRequest rentRequest: rentRequests){
+            if(rentRequest.getRequestStatus().equals(RequestStatus.PENDING)){
+                    if(rentRequest.getCreationTime().isBefore(LocalDateTime.now().minusHours(24))){
+                        rentRequest.setRequestStatus(RequestStatus.CANCELED);
+                        save(rentRequest);
+                    }
+                } else if(rentRequest.getRequestStatus().equals(RequestStatus.RESERVED)){
+                    if(rentRequest.getReservationTime().isBefore(LocalDateTime.now().minusHours(12))){
+                        rentRequest.setRequestStatus(RequestStatus.CANCELED);
+                        save(rentRequest);
+                    }
+            }
+        }
+
+        for(RentRequest rentRequest : rentRequests){
+            viewRequestDTOS.add(new ViewRequestDTO(rentRequest));
+        }
+
+        return viewRequestDTOS;
+    }
 }

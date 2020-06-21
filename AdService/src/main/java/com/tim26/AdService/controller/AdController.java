@@ -100,5 +100,8 @@ public class AdController {
         return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 
-
+    @PostMapping("/reserveDates")
+    public Boolean reserveDateForAds(@RequestBody List<RentAdDTO> rentAdDTOS){
+        return adService.setRentDatesForAds(rentAdDTOS);
+    }
 }
