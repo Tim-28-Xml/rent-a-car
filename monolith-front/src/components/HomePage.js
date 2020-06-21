@@ -131,12 +131,13 @@ class HomePage extends React.Component {
             return (
                 <div>
                     <h1 style={{ color: 'rgb(110,120,130)', textAlign: 'center', margin: "2% 0 0 0" }}>Welcome to Rent a Car</h1>
-                    <div className="renderCardsAds">
-                        <Card className="cardContainer" >
-                            <Card.Body>
-                                <Card.Title>Create a new ad <img className="carMegaphoneIcon" src={megaphoneicon}></img> </Card.Title>
-                                <Card.Text style={{ color: 'rgb(110,120,130)' }}>
-                                    You can click here and create your new ad so others can rent your car.
+
+                    <div style={{display:'flex'}}>
+                    <Card className="adCard" >
+                        <Card.Body>
+                            <Card.Title>Create a new ad <img className="carMegaphoneIcon" src={megaphoneicon}></img> </Card.Title>
+                            <Card.Text style={{ color: 'rgb(110,120,130)' }}>
+                                You can click here and create your new ad so others can rent your car.
                             </Card.Text>
                                 <a href="http://localhost:3000/create-ad" className="createAdBtn">New ad</a>
                             </Card.Body>
@@ -165,6 +166,7 @@ class HomePage extends React.Component {
                                 <Card.Text style={{ color: 'rgb(110,120,130)' }}>
                                     View your reports and write new ones.
                             </Card.Text>
+
                                 <a href="http://localhost:3000/createpricelist" className="createAdBtn">Make it now</a>
                             </Card.Body>
                         </Card>
@@ -182,6 +184,7 @@ class HomePage extends React.Component {
                             {this.renderAdCards()}
                         </div>
                     </div>
+
                     </div>
             )
         }

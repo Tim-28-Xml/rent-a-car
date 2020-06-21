@@ -88,6 +88,14 @@ public class ReviewController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_AGENT')")
+    @PostMapping(value= "/submit-response")
+    public ResponseEntity<?> submitResponse(@RequestBody ReviewDTO dto, Principal p){
+
+        reviewService.submitResponse(p,dto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping(value= "/my-reviews")
     public ResponseEntity<List<Long>> getUserReviews(Principal p){

@@ -17,6 +17,7 @@ public interface AdService {
     List<AdDTO> findHighestMileage(Principal p);
     List<AdDTO> findHighestRating(Principal p);
     List<AdDTO> findMostReviews(Principal p);
+    boolean isMyAd(Principal p,Long id );
 
 
 }

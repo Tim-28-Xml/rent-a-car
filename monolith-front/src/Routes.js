@@ -65,7 +65,7 @@ class Routes extends React.Component {
                     <div>
                         <Header />
                         <CreatePricelist />
-                    </div>                   
+                    </div>
                     } />
                     <Route path='/rented-cars' render={props =>
                     <div>

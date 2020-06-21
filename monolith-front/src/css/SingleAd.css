@@ -48,7 +48,7 @@
 .reviewsDiv{
     display: flex;
     justify-content: center;
-    margin: 2% 15%;
+    margin: 1% 15%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(117, 120, 143);
 }

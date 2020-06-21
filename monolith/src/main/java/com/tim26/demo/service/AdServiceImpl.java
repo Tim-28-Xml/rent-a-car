@@ -247,5 +247,19 @@ public class AdServiceImpl implements AdService {
         return dtos;
     }
 
+    @Override
+    public boolean isMyAd(Principal p,Long id) {
+        List<Ad> ads = userService.findByUsername(p.getName()).getAd();
+        boolean is = false;
+
+        for(Ad ad : ads){
+            if (ad.getId() == id){
+                is=true;
+            }
+        }
+
+        return  is;
+    }
+
 
 }
