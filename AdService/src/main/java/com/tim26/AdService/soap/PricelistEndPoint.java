@@ -37,6 +37,7 @@ public class PricelistEndPoint {
         dto.setCdwPrice(request.getCdwPrice());
         dto.setDailyPrice(request.getDailyPrice());
         dto.setPricePerExtraKm(request.getPricePerExtraKm());
+        dto.setName(request.getName());
         PriceList priceList =pricelistService.save(request.getUsername(),dto);
         userService.findByUsername(request.getUsername()).getPriceLists().add(priceList);
 
