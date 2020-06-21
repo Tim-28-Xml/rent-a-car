@@ -57,6 +57,12 @@ public class AdController {
         return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/is-my-ads/{id}")
+    public ResponseEntity<?> checkIsMyAd(@PathVariable String id ,Principal p){
+        boolean is = adService.isMyAd(p,Long.parseLong(id));
+        return new ResponseEntity<>(is, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/my-ads-mileage")
     public ResponseEntity<List<AdDTO>> getMyAdsMileage(Principal p){
         List<AdDTO> ads = adService.findHighestMileage(p);

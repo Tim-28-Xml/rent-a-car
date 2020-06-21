@@ -140,5 +140,22 @@ public class ReviewServiceImpl implements ReviewService {
         return list_ids;
     }
 
+    @Override
+    public boolean submitResponse(Principal p,ReviewDTO dto) {
+
+        if(reviewRepository.findById(dto.getId()) ==  null){
+            return false;
+        }
+
+        Optional<Review> review = reviewRepository.findById(dto.getId());
+
+        Review review1 = review.get();
+        review1.setResponse(dto.getResponse());
+
+        reviewRepository.save(review1);
+
+        return true;
+    }
+
 
 }

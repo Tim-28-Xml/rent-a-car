@@ -15,5 +15,6 @@ public interface ReviewService {
     public List<ReviewDTO> findAllUnapproved();
     public boolean submitReview(Principal p,ReviewDTO  reviewDTO);
     public List<Long> getUserReviews(Principal p);
+    public boolean submitResponse(Principal p,ReviewDTO dto);
 
 }

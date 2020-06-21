@@ -34,6 +34,9 @@ public class Review {
     @Column
     private boolean approved;
 
+    @Column
+    private String response;
+
 
     public Review() {
     }
@@ -111,5 +114,13 @@ public class Review {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
     }
 }

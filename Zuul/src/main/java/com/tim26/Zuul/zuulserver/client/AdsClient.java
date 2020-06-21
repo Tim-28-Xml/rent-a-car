@@ -1,6 +1,8 @@
 package com.tim26.Zuul.zuulserver.client;
 
 import com.tim26.Zuul.zuulserver.dto.AdDTO;
+import com.tim26.Zuul.zuulserver.dto.AdDateRange;
+import com.tim26.Zuul.zuulserver.dto.RentAdDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,4 +16,7 @@ public interface AdsClient {
 
     @DeleteMapping("shoppingcart")
     Boolean deleteMultipleFromShoppingCart(@RequestParam List<Long> id, @RequestHeader("Authorization") String token);
+
+    @PostMapping("api/ads/reserveDates")
+    Boolean reserveDateForAd(@RequestBody List<RentAdDTO> rentAdDTOS, @RequestHeader("Authorization") String token);
 }

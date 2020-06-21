@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios'
+import AllMyPricelists from './AllMyPricelists';
 
 class CreatePricelist extends React.Component {
     constructor(props) {
@@ -40,7 +41,8 @@ class CreatePricelist extends React.Component {
     render() {
         console.log(this.state);
         return (
-            <div style={{ width: "25%", marginLeft: "35%", height: "50%", padding: "50px" }}> 
+            <div>
+                <div style={{ width: "25%", marginLeft: "1%", height: "50%", padding: "50px" }}> 
                  <form onSubmit={this.createPricelist} id="createAdForm">
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
@@ -89,6 +91,8 @@ class CreatePricelist extends React.Component {
                     <button type="submit" className="submitAd">Create</button>
                     <button className="closeModal" onClick={this.handleClose}>Close</button>
                 </form>
+            </div>
+            <AllMyPricelists/>
             </div>
         )
     }

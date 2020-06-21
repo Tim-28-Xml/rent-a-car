@@ -37,6 +37,9 @@ public class Review {
     @Column
     private boolean approved = false;
 
+    @Column
+    private String response;
+
     public Review() {
     }
 
@@ -48,6 +51,7 @@ public class Review {
         this.ad = ad;
         this.creator = u;
         this.approved = false;
+        this.response =  dto.getResponse();
 
     }
 
@@ -113,5 +117,14 @@ public class Review {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
     }
 }

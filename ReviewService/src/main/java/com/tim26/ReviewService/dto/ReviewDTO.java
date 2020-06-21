@@ -27,8 +27,10 @@ public class ReviewDTO {
 
     private boolean approved;
 
+    private String response;
 
-    public ReviewDTO(long id, String title, String content, double rating, String time, String creator, boolean approved) {
+
+    public ReviewDTO(String response,long id, String title, String content, double rating, String time, String creator, boolean approved) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -36,6 +38,7 @@ public class ReviewDTO {
         this.time = time;
         this.creator = creator;
         this.approved = approved;
+        this.response = response;
     }
 
     public ReviewDTO(Review review){
@@ -47,6 +50,7 @@ public class ReviewDTO {
         this.creator = review.getCreator().getUsername();
         this.approved = review.isApproved();
         this.ad_id = review.getAd().getId();
+        this.response = review.getResponse();
     }
 
 
@@ -114,5 +118,13 @@ public class ReviewDTO {
 
     public void setAd_id(Long ad_id) {
         this.ad_id = ad_id;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
     }
 }

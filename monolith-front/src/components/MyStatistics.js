@@ -13,13 +13,13 @@ class MyStatistics extends React.Component{
     constructor(props){
         super(props);
 
-      
+
         this.state = {
-            
+
             ads_mileage:[],
             ads_rating:[],
             ads_reviews:[],
-                     
+
         }
     }
 
@@ -29,7 +29,7 @@ class MyStatistics extends React.Component{
         let self = this;
 
         if(token !== null){
-  
+
             const options = {
                 headers: { 'Authorization': 'Bearer ' + token}
             };
@@ -59,10 +59,10 @@ class MyStatistics extends React.Component{
 
         return top5.map((ad, index) => {
             var actualIndex = index + 1;
-                        
+
             return (
                 <Card key={ad.id} style={{marginTop:'5%'}} >
-                    
+
                     <Card.Body >
 
             <Card.Title className="cardTitle" style={{textAlign:"left"}}><Badge variant="primary">{actualIndex}</Badge>
@@ -76,7 +76,7 @@ class MyStatistics extends React.Component{
                                 class: &nbsp; {ad.carDTO.carClass}
                                 <br/>
                                 transmission: &nbsp; {ad.carDTO.transmission}
-                        </Card.Text>       
+                        </Card.Text>
                     </Card.Body>
                 </Card>
             )
@@ -91,10 +91,10 @@ class MyStatistics extends React.Component{
 
         return top5.map((ad, index) => {
             var actualIndex = index + 1;
-                        
+
             return (
                 <Card key={ad.id} style={{marginTop:'5%'}} >
-                    
+
                     <Card.Body >
 
             <Card.Title className="cardTitle" style={{textAlign:"left"}}><Badge variant="warning">{actualIndex}</Badge>
@@ -113,13 +113,13 @@ class MyStatistics extends React.Component{
                                 color2={"#ffd700"}
                                 edit={false}
                                 value={ad.rating}
-                            />  
-                               
+                            />
+
                                <br/>
                                 class: &nbsp; {ad.carDTO.carClass}
                                 <br/>
                                 transmission: &nbsp; {ad.carDTO.transmission}
-                        </Card.Text>       
+                        </Card.Text>
                     </Card.Body>
                 </Card>
             )
@@ -134,10 +134,10 @@ class MyStatistics extends React.Component{
 
         return top5.map((ad, index) => {
             var actualIndex = index + 1;
-                        
+
             return (
                 <Card key={ad.id} style={{marginTop:'5%'}} >
-                    
+
                     <Card.Body >
 
             <Card.Title className="cardTitle" style={{textAlign:"left"}}><Badge variant="success">{actualIndex}</Badge>
@@ -145,12 +145,12 @@ class MyStatistics extends React.Component{
             {ad.carDTO.brand} {ad.carDTO.model} </Card.Title>
 
                         <Card.Text style={{textAlign:'left'}}>
-                                number of reviews : {ad.reviewNum }            
+                                number of reviews : {ad.reviewNum }
                                <br/>
                                 class: &nbsp; {ad.carDTO.carClass}
                                 <br/>
                                 transmission: &nbsp; {ad.carDTO.transmission}
-                        </Card.Text>       
+                        </Card.Text>
                     </Card.Body>
                 </Card>
             )
@@ -161,10 +161,10 @@ class MyStatistics extends React.Component{
 
 
     render() {
-        
+
         return (
             <div style={{display:'flex'}}>
-                
+
                 <h1 style={{color:'black',marginTop:'4%',marginLeft:'2%'}}><img src={stats} style={{height:'40px',height:'40px',marginTop:'-2%'}}></img>Statistics</h1>
 
                 <Card style={{marginTop:'10%',width:'30%',marginLeft:'-12%'}}>
@@ -176,7 +176,7 @@ class MyStatistics extends React.Component{
                             Top 5 cars with the highest mileage</Card.Title>
 
                         {this.renderHighestMileage()}
-                        
+
                     </Card.Body>
                 </Card>
 
@@ -190,7 +190,7 @@ class MyStatistics extends React.Component{
                             Top 5 cars with the highest rating</Card.Title>
 
                         {this.renderHighestRating()}
-                        
+
                     </Card.Body>
                 </Card>
 
@@ -200,10 +200,10 @@ class MyStatistics extends React.Component{
                         <Card.Title style={{ textAlign: "left" }}>
                             <img src={comment} style={{height:'35px',width:'35px'}}></img>
                             &nbsp;
-                            Top 5 cars with the highest reviews</Card.Title>
+                            Top 5 cars with the most reviews</Card.Title>
 
                         {this.renderHighestReview()}
-                        
+
                     </Card.Body>
                 </Card>
 

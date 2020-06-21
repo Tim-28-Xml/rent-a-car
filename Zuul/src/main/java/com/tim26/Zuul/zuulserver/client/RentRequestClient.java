@@ -1,5 +1,7 @@
 package com.tim26.Zuul.zuulserver.client;
 
+import com.tim26.Zuul.zuulserver.controller.AggregationController;
+import com.tim26.Zuul.zuulserver.dto.ReqIdDTO;
 import com.tim26.Zuul.zuulserver.dto.ViewRequestDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -20,4 +22,7 @@ public interface RentRequestClient {
 
     @PostMapping("/api")
     ResponseEntity postRentRequest(@RequestBody ViewRequestDTO dto, @RequestHeader("Authorization") String token);
+
+    @PostMapping("/api/pay")
+    ViewRequestDTO pay(@RequestBody ReqIdDTO reqIdDTO, @RequestHeader("Authorization") String token);
 }

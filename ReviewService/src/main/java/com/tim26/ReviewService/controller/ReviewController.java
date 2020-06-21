@@ -68,6 +68,15 @@ public class ReviewController {
 
     }
 
+    @PreAuthorize("hasAuthority('ROLE_AGENT')")
+    @PutMapping(value= "/submit-response")
+    public ResponseEntity<?> submitResponse(@RequestBody ReviewDTO dto, Principal p){
+
+        reviewService.submitResponse(p,dto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping(value = "/decline/{id}")
     public ResponseEntity<?> declineReview(@PathVariable String id) {
