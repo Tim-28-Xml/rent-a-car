@@ -3,24 +3,32 @@ package com.tim26.AdService.model;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "DateRange", namespace = "http://localhost:8084/adservice-schema")
+@XmlRootElement(name = "dateRangeClass")
 public class DateRange {
 
     @Id
+    @XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
+    @XmlElement
     private LocalDate startDate;
 
     @Column
+    @XmlElement
     private LocalDate endDate;
 
     @OneToMany(cascade=CascadeType.ALL)
+    @XmlElement
     @JoinTable(joinColumns=@JoinColumn(referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(referencedColumnName = "id"))
     private List<Date> dates = new ArrayList<>();
