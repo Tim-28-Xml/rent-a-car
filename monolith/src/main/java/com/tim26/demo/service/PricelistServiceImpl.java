@@ -2,6 +2,7 @@ package com.tim26.demo.service;
 
 import com.tim26.demo.dto.AdDTO;
 import com.tim26.demo.dto.CreatePricelistDto;
+import com.tim26.demo.dto.PricelistDto;
 import com.tim26.demo.model.Ad;
 import com.tim26.demo.model.PriceList;
 import com.tim26.demo.model.User;
@@ -64,5 +65,21 @@ public class PricelistServiceImpl implements PricelistService {
     @Override
     public PriceList findByName(String name) {
         return pricelistRepository.findByName(name);
+    }
+
+    @Override
+    public List<PricelistDto> findAllMine(Principal p) {
+       User user = uService.findByUsername(p.getName());
+       List<PricelistDto> pricelistDtos = new ArrayList<>();
+
+       if(user != null) {
+
+           for(PriceList priceList : user.getPriceLists()) {
+               PricelistDto dto = modelMapper.map(priceList, PricelistDto.class);
+               pricelistDtos.add(dto);
+           }
+       }
+
+       return pricelistDtos;
     }
 }
