@@ -69,7 +69,7 @@ public class ReviewController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_AGENT')")
-    @PutMapping(value= "/submit-response")
+    @PostMapping(value= "/submit-response")
     public ResponseEntity<?> submitResponse(@RequestBody ReviewDTO dto, Principal p){
 
         reviewService.submitResponse(p,dto);
