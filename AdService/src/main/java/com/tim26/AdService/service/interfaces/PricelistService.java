@@ -8,7 +8,8 @@ import java.security.Principal;
 import java.util.List;
 
 public interface PricelistService {
-    boolean save(Principal p, CreatePricelistDto createPricelistDto);
+    PriceList save(String username, CreatePricelistDto createPricelistDto);
     List<CreatePricelistDto> findAll();
     PriceList findByName(String name);
+
 }

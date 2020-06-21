@@ -138,6 +138,7 @@
 					</sources>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 

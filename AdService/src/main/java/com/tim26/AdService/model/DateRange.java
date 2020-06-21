@@ -1,9 +1,11 @@
 package com.tim26.AdService.model;
 
+import com.tim26.AdService.adapter.LocalDateAdapter;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +23,12 @@ public class DateRange {
 
     @Column
     @XmlElement
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Column
     @XmlElement
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate endDate;
 
     @OneToMany(cascade=CascadeType.ALL)

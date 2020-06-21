@@ -2,6 +2,7 @@ package com.tim26.demo.service;
 
 import com.tim26.demo.dto.*;
 import com.tim26.demo.model.*;
+import com.tim26.demo.model.Date;
 import com.tim26.demo.repository.AdRepository;
 import com.tim26.demo.service.interfaces.*;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -55,7 +56,26 @@ public class AdServiceImpl implements AdService {
                 car.setFiles(imgBytes);
                 advertisment.setCar(car);
                 advertisment.setCity(ad.getCity());
-                advertisment.setRentDates(ad.getDates());
+
+
+
+                for(DateRange dt : ad.getDates()){
+
+                    LocalDate start = dt.getStartDateA();
+                    LocalDate end = dt.getEndDateA();
+                    List<Date> totalDates = new ArrayList<>();
+                    while (!start.isAfter(end)) {
+
+                        totalDates.add(new Date(start));
+                        start = start.plusDays(1);
+                    }
+
+                    DateRange helper = new DateRange(dt.getStartDateA(),dt.getEndDateA(),totalDates);
+                    advertisment.getRentDates().add(helper);
+
+                }
+
+
                 agent.getAd().add(advertisment);
                 advertisment.setUser(agent);
 

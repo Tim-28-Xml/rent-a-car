@@ -20,7 +20,7 @@ public class User {
     @XmlElement
     private List<Ad> ad = new ArrayList<Ad>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     @XmlElement
     private List<PriceList> priceLists = new ArrayList<PriceList>();
 

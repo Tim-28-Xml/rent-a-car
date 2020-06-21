@@ -1,6 +1,137 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:ad="http://localhost:8084/adservice-schema"
-           version="1.0"
-           targetNamespace="http://localhost:8084/adservice-schema">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0"
+           targetNamespace="http://localhost:8084/adservice-schema"
+           xmlns:tns="http://localhost:8084/adservice-schema"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+
+    <xs:complexType name="User">
+        <xs:sequence>
+            <xs:element name="username" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Ad">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="car" type="tns:Car" minOccurs="0"/>
+            <xs:element name="rentDates" type="tns:DateRange" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="priceList" type="tns:PriceList" minOccurs="0"/>
+            <xs:element name="reports" type="tns:Report" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="user" type="tns:User" minOccurs="0"/>
+            <xs:element name="rentRequests" type="tns:RentRequest" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="reviews" type="tns:Review" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="city" type="xs:string" minOccurs="0"/>
+            <xs:element name="cartAdDates" type="tns:CartAdDates" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Car">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="brand" type="xs:string" minOccurs="0"/>
+            <xs:element name="model" type="xs:string" minOccurs="0"/>
+            <xs:element name="fuel" type="xs:string" minOccurs="0"/>
+            <xs:element name="transmission" type="xs:string" minOccurs="0"/>
+            <xs:element name="carClass" type="xs:string" minOccurs="0"/>
+            <xs:element name="km" type="xs:double"/>
+            <xs:element name="kmLimit" type="xs:double"/>
+            <xs:element name="cdw" type="xs:boolean"/>
+            <xs:element name="childSeats" type="xs:int"/>
+            <xs:element name="files" type="xs:base64Binary" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="DateRange">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="startDate" type="xs:string" minOccurs="0"/>
+            <xs:element name="endDate" type="xs:string" minOccurs="0"/>
+            <xs:element name="dates" type="tns:Date" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Date">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="date" type="xs:string" minOccurs="0"/>
+            <xs:element name="dateRange" type="tns:DateRange" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PriceList">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="dailyPrice" type="xs:double"/>
+            <xs:element name="cdwPrice" type="xs:double"/>
+            <xs:element name="pricePerExtraKm" type="xs:double"/>
+            <xs:element name="user" type="tns:User" minOccurs="0"/>
+            <xs:element name="ads" type="tns:Ad" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="name" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Report">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="text" type="xs:string" minOccurs="0"/>
+            <xs:element name="startKM" type="xs:double"/>
+            <xs:element name="endKM" type="xs:double"/>
+            <xs:element name="ad" type="tns:Ad" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RentRequest">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="ads" type="tns:Ad" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="reqStartDate" type="xs:string" minOccurs="0"/>
+            <xs:element name="reqEndDate" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Review">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="ad" type="tns:Ad" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CartAdDates">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="username" type="xs:string" minOccurs="0"/>
+            <xs:element name="dateRange" type="tns:DateRange" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:element name="pricelistRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="dailyPrice" type="xs:double"/>
+                    <xs:element name="cdwPrice" type="xs:double"/>
+                    <xs:element name="pricePerExtraKm" type="xs:double"/>
+                    <xs:element name="username" type="xs:string" minOccurs="0"/>
+                    <xs:element name="ads" type="tns:Ad" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="name" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="pricelistResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
 </xs:schema>
+

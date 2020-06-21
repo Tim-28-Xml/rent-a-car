@@ -5,6 +5,11 @@ import com.tim26.demo.dto.CreateAdDto;
 import com.tim26.demo.dto.CreatePricelistDto;
 import com.tim26.demo.service.interfaces.AdService;
 import com.tim26.demo.service.interfaces.PricelistService;
+import com.tim26.demo.service.interfaces.UService;
+import com.tim26.demo.soap.PricelistClient;
+import com.xml.RentCar.wsdl.Ad;
+import com.xml.RentCar.wsdl.PricelistResponse;
+import com.xml.RentCar.wsdl.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +27,12 @@ public class PricelistController {
     @Autowired
     private PricelistService pricelistService;
 
+    @Autowired
+    private UService uService;
+
+    @Autowired
+    private PricelistClient client;
+
     @GetMapping(value = "/all")
     public ResponseEntity<List<CreatePricelistDto>> getAll(){
 
@@ -31,8 +42,13 @@ public class PricelistController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<CreatePricelistDto> save(@RequestBody CreatePricelistDto createPricelistDto, Principal p) {
-        if(pricelistService.save(p, createPricelistDto))
+
+
+        if(pricelistService.save(p, createPricelistDto)) {
+            PricelistResponse response = client.postPricelist(createPricelistDto,p.getName());
             return new ResponseEntity<>(createPricelistDto, HttpStatus.OK);
-        return new ResponseEntity<>(createPricelistDto, HttpStatus.BAD_REQUEST);
+        }else {
+            return new ResponseEntity<>(createPricelistDto, HttpStatus.BAD_REQUEST);
+        }
     }
 }
