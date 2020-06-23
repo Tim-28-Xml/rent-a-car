@@ -71,7 +71,7 @@ public class RentRequestServiceImpl implements RentRequestService {
         List<String> peopleforMsgs = new ArrayList<>();
 
         for (RentRequest rentRequest : allRequests) {
-            if (rentRequest.getRequestStatus().equals(RequestStatus.RESERVED)) {
+            if (rentRequest.getRequestStatus().equals(RequestStatus.RESERVED) || rentRequest.getRequestStatus().equals(RequestStatus.PAID)) {
 
                 String owner = rentRequest.getOwner().getUsername();
                 String creator = rentRequest.getCreator().getUsername();
@@ -98,7 +98,6 @@ public class RentRequestServiceImpl implements RentRequestService {
 
         if(rentRequest.getRequestStatus().equals(RequestStatus.RESERVED)){
             rentRequest.setRequestStatus(RequestStatus.PAID);
-            rentRequest.setReservationTime(LocalDateTime.now());
             save(rentRequest);
 
             if(cancelOtherPendingRequests(rentRequest))
@@ -140,6 +139,7 @@ public class RentRequestServiceImpl implements RentRequestService {
 
         if(rentRequest.getRequestStatus().equals(RequestStatus.PENDING)){
             rentRequest.setRequestStatus(RequestStatus.RESERVED);
+            rentRequest.setReservationTime(LocalDateTime.now());
             save(rentRequest);
         }
         return true;
@@ -243,9 +243,11 @@ public class RentRequestServiceImpl implements RentRequestService {
                         save(rentRequest);
                     }
                 } else if(rentRequest.getRequestStatus().equals(RequestStatus.RESERVED)){
-                    if(rentRequest.getReservationTime().isBefore(LocalDateTime.now().minusHours(12))){
-                        rentRequest.setRequestStatus(RequestStatus.CANCELED);
-                        save(rentRequest);
+                    if(rentRequest.getReservationTime() != null) {
+                        if (rentRequest.getReservationTime().isBefore(LocalDateTime.now().minusHours(12))) {
+                            rentRequest.setRequestStatus(RequestStatus.CANCELED);
+                            save(rentRequest);
+                        }
                     }
             }
         }

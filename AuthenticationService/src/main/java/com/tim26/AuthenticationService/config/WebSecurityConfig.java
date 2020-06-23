@@ -67,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // svim korisnicima dopusti da pristupe putanjama /auth/login, /auth/register, /activate
                 .authorizeRequests()
-                .antMatchers("/users/confirm-account/**").permitAll()
+                .antMatchers("/api/users/confirm-account/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/users/get-id").permitAll()

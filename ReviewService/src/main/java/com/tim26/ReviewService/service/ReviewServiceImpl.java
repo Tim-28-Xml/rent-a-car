@@ -31,16 +31,22 @@ public class ReviewServiceImpl implements ReviewService {
     public List<ReviewDTO> getAllApprovedByAd(Long id) {
 
         List<ReviewDTO> reviews = new ArrayList<>();
-        Ad ad = adService.findById(id).get();
 
-       for(Review r: reviewRepository.findAllByAd(ad)){
+        if(adService.findById(id).isPresent()) {
+            Ad ad = adService.findById(id).get();
 
-           if(r.isApproved()) {
-               ReviewDTO reviewDTO = new ReviewDTO(r);
-               reviews.add(reviewDTO);
-           }
 
-       }
+            if (reviewRepository.findAllByAd(ad) != null) {
+                for (Review r : reviewRepository.findAllByAd(ad)) {
+
+                    if (r.isApproved()) {
+                        ReviewDTO reviewDTO = new ReviewDTO(r);
+                        reviews.add(reviewDTO);
+                    }
+                }
+
+            }
+        }
 
        return  reviews;
 
