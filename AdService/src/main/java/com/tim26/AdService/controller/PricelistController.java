@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -36,13 +37,13 @@ public class PricelistController {
 
     @PreAuthorize("hasAuthority('CREATE_PRICELIST')")
     @PostMapping(value = "/save")
-    public ResponseEntity<CreatePricelistDto> save(@RequestBody CreatePricelistDto createPricelistDto, Principal p) {
+    public ResponseEntity<CreatePricelistDto> save(@RequestBody CreatePricelistDto createPricelistDto, Principal p) throws SQLException {
         //if(pricelistService.save(p.getName(), createPricelistDto) != null)
         if(pricelistService.save(p, createPricelistDto)) {
             LOGGER.info("Creating Pricelist - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
             return new ResponseEntity<>(createPricelistDto, HttpStatus.OK);
         }
-        LOGGER.error("Creating Pricelist Failed - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
+        LOGGER.error("Failed to create Pricelist  - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
         return new ResponseEntity<>(createPricelistDto, HttpStatus.BAD_REQUEST);
     }
 }
