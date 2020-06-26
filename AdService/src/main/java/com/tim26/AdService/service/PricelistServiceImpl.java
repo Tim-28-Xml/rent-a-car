@@ -140,6 +140,11 @@ public class PricelistServiceImpl implements PricelistService {
             return false;
         }
 
+        if(dto.getName().contains("<") || dto.getName().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
         LOGGER.info("Validation creation data for adding pricelist: SUCCESS");
 
         return true;

@@ -273,6 +273,41 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public boolean validateCreationData(CreateAdDto createAdDto) {
+        if(createAdDto.getBrand().contains("<") || createAdDto.getBrand().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getModel().contains("<") || createAdDto.getModel().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getCarClass().contains("<") || createAdDto.getCarClass().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getFuel().contains("<") || createAdDto.getFuel().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getTransmission().contains("<") || createAdDto.getTransmission().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getCity().contains("<") || createAdDto.getCity().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getPricelist().contains("<") || createAdDto.getPricelist().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
         if(createAdDto.isCollision() != true && createAdDto.isCollision() != false) {
             LOGGER.error("Validate creation data for adding advertisment: FAILED, Boolean field is neither true nor false");
             return false;
