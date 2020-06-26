@@ -17,7 +17,8 @@ import java.util.List;
 @Service
 public class EndUserServiceImpl implements EndUserService {
 
-    private final List<String> userPermissions = Arrays.asList("ROLE_USER", "CREATE_AD", "CREATE_REVIEW", "USE_CART", "ORDER");
+    private final List<String> userPermissions = Arrays.asList("ROLE_USER", "CREATE_AD", "CREATE_REVIEW", "USE_CART", "RENT",
+            "ORDER", "SEND_MESSAGE", "CREATE_CODEBOOK", "CREATE_PRICELIST","RENT_BY_CREATOR", "VIEW_MY_ADS", "PAY");
 
     @Autowired
     private EndUserRepository userRepository;
