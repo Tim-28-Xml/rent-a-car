@@ -13,6 +13,8 @@ import com.tim26.RentRequestService.repository.RentRequestRepository;
 import com.tim26.RentRequestService.repository.UserRepository;
 import com.tim26.RentRequestService.service.RentRequestService;
 import com.tim26.RentRequestService.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.security.Principal;
@@ -26,6 +28,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class RentRequestServiceImpl implements RentRequestService {
+
+    private static final Logger LOGGER= LoggerFactory.getLogger(RentRequestServiceImpl.class);
 
     @Autowired
     RentRequestRepository rentRequestRepository;
@@ -141,8 +145,15 @@ public class RentRequestServiceImpl implements RentRequestService {
             rentRequest.setRequestStatus(RequestStatus.RESERVED);
             rentRequest.setReservationTime(LocalDateTime.now());
             save(rentRequest);
+            LOGGER.info("Rent request with id {}, creator: {}, is approved by its owner: {}.", rentRequest.getId(),
+                    rentRequest.getCreator().getUsername(), rentRequest.getOwner().getUsername());
+            return true;
+        } else {
+            LOGGER.error("Rent request with id {}, creator: {}, cannot be approved by its owner: {} because its status is not pending.",
+                    rentRequest.getId(), rentRequest.getCreator().getUsername(), rentRequest.getOwner().getUsername());
+            return false;
         }
-        return true;
+
     }
 
     @Override
@@ -154,6 +165,8 @@ public class RentRequestServiceImpl implements RentRequestService {
 
         rentRequest.setRequestStatus(RequestStatus.CANCELED);
         save(rentRequest);
+        LOGGER.info("Rent request with id {}, creator: {}, is cancelled.", rentRequest.getId(),
+                rentRequest.getCreator().getUsername());
 
         return true;
     }
@@ -221,6 +234,8 @@ public class RentRequestServiceImpl implements RentRequestService {
 
         cancelledReqs.forEach(req -> req.setRequestStatus(RequestStatus.CANCELED));
         rentRequestRepository.saveAll(cancelledReqs);
+        LOGGER.info("Rent request with id {} is paid by {} and all other overlapping requests are cancelled.",
+                paidRequest.getId(), paidRequest.getCreator().getUsername());
 
         return true;
     }
@@ -241,12 +256,16 @@ public class RentRequestServiceImpl implements RentRequestService {
                     if(rentRequest.getCreationTime().isBefore(LocalDateTime.now().minusHours(24))){
                         rentRequest.setRequestStatus(RequestStatus.CANCELED);
                         save(rentRequest);
+                        LOGGER.info("Rent request with id {} is cancelled because it was created more than 24h ago. Creator: {}. Owner: {}.",
+                                rentRequest.getId(), rentRequest.getCreator().getUsername(), rentRequest.getOwner().getUsername());
                     }
                 } else if(rentRequest.getRequestStatus().equals(RequestStatus.RESERVED)){
                     if(rentRequest.getReservationTime() != null) {
                         if (rentRequest.getReservationTime().isBefore(LocalDateTime.now().minusHours(12))) {
                             rentRequest.setRequestStatus(RequestStatus.CANCELED);
                             save(rentRequest);
+                            LOGGER.info("Rent request with id {} is cancelled because it was reserved and not paid for more than 12h. Creator: {}. Owner: {}.",
+                                    rentRequest.getId(), rentRequest.getCreator().getUsername(), rentRequest.getOwner().getUsername());
                         }
                     }
             }

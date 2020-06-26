@@ -4,6 +4,8 @@ import com.tim26.ChatService.dto.MessageDTO;
 import com.tim26.ChatService.model.Message;
 import com.tim26.ChatService.model.User;
 import com.tim26.ChatService.repository.ChatRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Service
 public class ChatServiceImpl implements ChatService {
+
+    private static final Logger LOGGER= LoggerFactory.getLogger(ChatService.class);
 
     @Autowired
     ChatRepository chatRepository;
@@ -33,6 +37,7 @@ public class ChatServiceImpl implements ChatService {
         User sender = userService.findByUsername(p.getName());
 
         if(receiver == null || sender == null){
+            LOGGER.error("Reciever or sender is null.");
             return false;
         }
 

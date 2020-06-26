@@ -8,6 +8,8 @@ import com.tim26.RentRequestService.model.RequestStatus;
 import com.tim26.RentRequestService.model.User;
 import com.tim26.RentRequestService.service.RentRequestService;
 import com.tim26.RentRequestService.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,8 @@ public class  RentRequestController {
 
     @Value("${zuul-uri}")
     private String gatewayUri;
+
+    private static final Logger LOGGER= LoggerFactory.getLogger(RentRequestController.class);
 
     @Autowired
     RentRequestService rentRequestService;
@@ -61,8 +65,10 @@ public class  RentRequestController {
         RentRequest rentRequest = new RentRequest(rentRequestDTO, principal.getName());
 
         if(rentRequestService.save(rentRequest) == null){
+            LOGGER.error("Failed creating rent request with id: {} by {}.", rentRequest.getId(), rentRequest.getCreator().getUsername());
             return ResponseEntity.badRequest().build();
         } else {
+            LOGGER.info("Created rent request by {}. Owner: {}. Id: {}.", rentRequest.getCreator().getUsername(), rentRequest.getOwner().getUsername(), rentRequest.getId());
             URI uri = URI.create(gatewayUri + "/api/" + rentRequest.getId());
             return ResponseEntity.created(uri).build();
         }
@@ -73,6 +79,7 @@ public class  RentRequestController {
     public ResponseEntity deleteRentRequest(@PathVariable String id){
         try{
              rentRequestService.deleteById(Long.parseLong(id));
+            LOGGER.info("Deleted rent request with id: {}", id);
         }catch (NumberFormatException e){
             return ResponseEntity.badRequest().build();
         }
@@ -103,6 +110,7 @@ public class  RentRequestController {
         for(RentRequest rentRequest : rentRequests){
             viewRequestDTOS.add(new ViewRequestDTO(rentRequest));
         }
+        LOGGER.info("User {} has {} received and available rent requests.", principal.getName(), viewRequestDTOS.size());
 
         return viewRequestDTOS;
     }
@@ -111,6 +119,7 @@ public class  RentRequestController {
     @GetMapping("/peoplechat")
     public ResponseEntity<List<String>> getUsersForChat(Principal principal) {
         List<String> people = rentRequestService.usersForMessages(principal);
+        LOGGER.info("User {} has {} people to send message to.", principal.getName(), people.size());
         return new ResponseEntity(people, HttpStatus.OK);
 
     }
@@ -122,8 +131,10 @@ public class  RentRequestController {
         RentRequest rentRequest = rentRequestService.pay(reqIdDTO, principal);
 
         if(rentRequest != null){
+            LOGGER.info("User {} has paid for rent request with id: {}.", principal.getName(), rentRequest.getId());
             return new ViewRequestDTO(rentRequest);
         } else {
+            LOGGER.info("Failed to pay for rent request: {} by user: {}.", reqIdDTO.reqId, principal.getName());
             return null;
         }
     }

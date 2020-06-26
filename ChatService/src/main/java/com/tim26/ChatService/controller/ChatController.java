@@ -2,6 +2,8 @@ package com.tim26.ChatService.controller;
 
 import com.tim26.ChatService.dto.MessageDTO;
 import com.tim26.ChatService.service.ChatService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ChatController {
+
+    private static final Logger LOGGER= LoggerFactory.getLogger(ChatController.class);
 
     @Autowired
     ChatService chatService;
@@ -31,8 +35,10 @@ public class ChatController {
         boolean isSent = chatService.sendMessage(messageDTO, p);
 
         if(isSent){
+            LOGGER.info("Message is successfully sent to {} from {}.", messageDTO.getReceiver(), p.getName());
             return ResponseEntity.ok().build();
         } else {
+            LOGGER.error("Failed to send a message. Sender: {}", p.getName());
             return ResponseEntity.badRequest().build();
         }
     }
@@ -60,7 +66,7 @@ public class ChatController {
 
     @PreAuthorize("hasAnyRole('USER','AGENT')")
     @GetMapping("/{username}")
-    public ResponseEntity<List<MessageDTO>> getAllPeople(@PathVariable String username, Principal p){
+    public ResponseEntity<List<MessageDTO>> getAllChatMessages(@PathVariable String username, Principal p){
         List<MessageDTO> chat = chatService.findAllReceivedByUser(username, p);
         return new ResponseEntity(chat, HttpStatus.OK);
     }
