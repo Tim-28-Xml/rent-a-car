@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class ChatServiceImpl implements ChatService {
 
-    private static final Logger LOGGER= LoggerFactory.getLogger(ChatService.class);
+    private static final Logger LOGGER= LoggerFactory.getLogger(ChatServiceImpl.class);
 
     @Autowired
     ChatRepository chatRepository;
@@ -32,6 +32,11 @@ public class ChatServiceImpl implements ChatService {
     }
 
     public boolean sendMessage( MessageDTO messageDTO, Principal p){
+
+        if(messageDTO.getContent().contains("<") || messageDTO.getContent().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
 
         User receiver = userService.findByUsername(messageDTO.getReceiver());
         User sender = userService.findByUsername(p.getName());

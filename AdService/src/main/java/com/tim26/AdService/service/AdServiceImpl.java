@@ -9,6 +9,7 @@ import com.tim26.AdService.service.interfaces.CarService;
 import com.tim26.AdService.service.interfaces.CodebookService;
 import com.tim26.AdService.service.interfaces.PricelistService;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.hibernate.annotations.LazyToOneOption;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ import org.springframework.util.NumberUtils;
 @Service
 public class AdServiceImpl implements AdService {
 
-    private static final Logger LOGGER=LoggerFactory.getLogger(AdServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdServiceImpl.class);
 
     @Autowired
     private AdRepository adRepository;
@@ -51,86 +52,10 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public boolean save(CreateAdDto ad, Principal p) throws SQLException {
-        /*if(!validateCreationData(ad))
-            return false;*/
-
-        Ad advertisment = new Ad();
-        Car car = new Car();
-        User user = new User();
-        user.setUsername(p.getName());
-
-        if(userRepository.findByUsername(user.getUsername()) == null) {
-            userRepository.save(user.getUsername());
-        }
-
-        if(ad.getRole().equals("ROLE_USER")) {
-            if(user.getAd() != null) {
-                if(user.getAd().size() == 3) {
-                    return false;
-                }
-            }
-        }
-
-        if(ad != null) {
-            car.setBrand(ad.getBrand());
-            car.setCarClass(ad.getCarClass());
-            car.setModel(ad.getModel());
-            car.setTransmission(ad.getTransmission());
-            car.setFuel(ad.getFuel());
-            car.setKm(ad.getKm());
-            car.setKmLimit(ad.getKmLimit());
-            car.setChildSeats(Integer.parseInt(ad.getChildSeats()));
-            car.setCdw(ad.isCollision());
-            List<byte[]> imgBytes = new ArrayList<byte[]>();
-
-            for(String img : ad.getFiles()) {
-                byte[] imgByte = Base64.decodeBase64(img.getBytes());
-                imgBytes.add(imgByte);
-            }
-
-            car.setFiles(imgBytes);
-
-            advertisment.setCar(car);
-            advertisment.setCity(ad.getCity());
-            PriceList priceList = pricelistService.findByName(ad.getPricelist());
-            advertisment.setPriceList(priceList);
-            //advertisment.setRentDates(ad.getDates());
-
-            //looping trough each date range and setting its start & end date and list of dates inbetween
-            //setting list of dates between start and end
-
-            for(DateRange dt : ad.getDates()){
-
-
-                LocalDate start = dt.getStartDate();
-                LocalDate end = dt.getEndDate();
-                List<Date> totalDates = new ArrayList<>();
-                while (!start.isAfter(end)) {
-
-                    totalDates.add(new Date(start));
-                    start = start.plusDays(1);
-                }
-
-                DateRange helper = new DateRange(dt.getStartDate(),dt.getEndDate(),totalDates);
-                advertisment.getRentDates().add(helper);
-
-            }
-
-            user.getAd().add(advertisment);
-
-            advertisment.setUser(user);
-
-            try {
-                advertisment = adRepository.save(advertisment);
-                return  true;
-            } catch (Exception e) {
-                return false;
-            }
-        } else {
+        if (!validateCreationData(ad))
             return false;
-        }
 
-        /*Connection connection = null;
+        Connection connection = null;
         String dbUrl = "jdbc:h2:file:./src/main/resources/adsDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;AUTO_RECONNECT=TRUE;TRACE_LEVEL_FILE=0";
         String dbUsername = "sa";
         String dbPassword = "";
@@ -143,7 +68,8 @@ public class AdServiceImpl implements AdService {
             Car car = new Car();
             User user = new User();
             user.setUsername(p.getName());
-            if(!userRepository.findByUsername(ad.getCurrentUser()).isPresent()) {
+            if(!userRepository.findByUsername(p.getName()).isPresent()) {
+                LOGGER.info("Adding user: {} to the Ad Service Database", p.getName());
                 preparedStatementUser = connection.prepareStatement("INSERT INTO user (username) values (?)");
                 preparedStatementUser.executeUpdate();
             }
@@ -187,8 +113,13 @@ public class AdServiceImpl implements AdService {
                 }
                 user.getAd().add(advertisment);
                 advertisment.setUser(user);
+                PriceList priceList = pricelistService.findByName(ad.getPricelist());
+                advertisment.setPriceList(priceList);
                 try {
-                    preparedStatementCar = connection.prepareStatement("INSERT INTO car (brand, car_class, model, fuel, transmission, km, km_limit, child_seats, cdw) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    int cars = carService.findAll().size();
+                    Long carId = Long.valueOf(++cars);
+                    car.setId(carId);
+                    preparedStatementCar = connection.prepareStatement("INSERT INTO car (brand, car_class, model, fuel, transmission, km, km_limit, child_seats, cdw, id) values (?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     preparedStatementCar.setString(1, car.getBrand());
                     preparedStatementCar.setString(2, car.getCarClass());
                     preparedStatementCar.setString(3, car.getModel());
@@ -198,13 +129,16 @@ public class AdServiceImpl implements AdService {
                     preparedStatementCar.setDouble(7, car.getKmLimit());
                     preparedStatementCar.setInt(8, car.getChildSeats());
                     preparedStatementCar.setBoolean(9, car.isCdw());
+                    preparedStatementCar.setLong(10, car.getId());
                     preparedStatementCar.executeUpdate();
-                    preparedStatementAd = connection.prepareStatement("INSERT INTO ad (car_id, city, user_id) values (?, ?, ?)");
+                    preparedStatementAd = connection.prepareStatement("INSERT INTO ad (car_id, city, user_username, price_list_id) values (?, ?, ?, ?)");
                     preparedStatementAd.setLong(1, car.getId());
                     preparedStatementAd.setString(2, advertisment.getCity());
                     preparedStatementAd.setString(3, user.getUsername());
+                    preparedStatementAd.setLong(4, advertisment.getPriceList().getId());
                     preparedStatementAd.executeUpdate();
                 } catch (Exception e) {
+                    LOGGER.error("Failed to save car or ad to the database, Exception: ", e.getMessage());
                     return false;
                 }
             } else {
@@ -213,9 +147,19 @@ public class AdServiceImpl implements AdService {
         } finally {
             try {
                 if (preparedStatementUser != null || preparedStatementAd != null || preparedStatementCar != null) {
-                    preparedStatementUser.close();
+
                     preparedStatementAd.close();
                     preparedStatementCar.close();
+
+                    if(preparedStatementUser != null) {
+                        preparedStatementUser.close();
+                    }
+
+                    if (connection != null) {
+                        connection.close();
+                        return true;
+                    }
+
                     return true;
                 }
             } catch (Exception e) {
@@ -229,7 +173,8 @@ public class AdServiceImpl implements AdService {
             } catch (Exception e) {
                 return false;
             }
-        }*/
+        }
+        return false;
     }
 
     @Override
@@ -328,34 +273,81 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public boolean validateCreationData(CreateAdDto createAdDto) {
-        if(createAdDto.isCollision() != true && createAdDto.isCollision() != false)
+        if(createAdDto.getBrand().contains("<") || createAdDto.getBrand().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
             return false;
-
-        if(!codebookService.getCarClasses().contains(createAdDto.getCarClass()))
-            return false;
-
-        if(!codebookService.getFuelTypes().contains(createAdDto.getFuel()))
-            return false;
-
-        if(!codebookService.getTransmissionTypes().contains(createAdDto.getTransmission()))
-            return false;
-
-        if(!codebookService.getModelsFromBrand(createAdDto.getBrand()).contains(createAdDto.getModel()))
-            return false;
-
-        for(BrandModels b : codebookService.getBrands()) {
-            if(!b.getBrand().equals(createAdDto)) {
-                return false;
-            }
         }
 
-        /*if(!userRepository.findByUsername(createAdDto.getCurrentUser()).isPresent())
-            return false;*/
+        if(createAdDto.getModel().contains("<") || createAdDto.getModel().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getCarClass().contains("<") || createAdDto.getCarClass().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getFuel().contains("<") || createAdDto.getFuel().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getTransmission().contains("<") || createAdDto.getTransmission().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getCity().contains("<") || createAdDto.getCity().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.getPricelist().contains("<") || createAdDto.getPricelist().contains(">")) {
+            LOGGER.error("Prevented XSS Attack");
+            return false;
+        }
+
+        if(createAdDto.isCollision() != true && createAdDto.isCollision() != false) {
+            LOGGER.error("Validate creation data for adding advertisment: FAILED, Boolean field is neither true nor false");
+            return false;
+        }
+
+        if(!codebookService.getCarClasses().contains(createAdDto.getCarClass())) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Provied {} car class doesn't exist.", createAdDto.getCarClass());
+            return false;
+        }
+
+        if(!codebookService.getFuelTypes().contains(createAdDto.getFuel())) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Provied {} fuel type doesn't exist.", createAdDto.getFuel());
+            return false;
+        }
+
+        if(!codebookService.getTransmissionTypes().contains(createAdDto.getTransmission())) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Provied {} transmission type doesn't exist.", createAdDto.getTransmission());
+            return false;
+        }
+
+        if(!codebookService.getModelsFromBrand(createAdDto.getBrand()).contains(createAdDto.getModel())) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Provied {} car model doesn't exist.", createAdDto.getModel());
+            return false;
+        }
 
         String km = String.valueOf(createAdDto.getKm());
         String kmLimit = String.valueOf(createAdDto.getKmLimit());
         String childSeats = String.valueOf(createAdDto.getChildSeats());
 
+        if(createAdDto.getKm() > createAdDto.getKmLimit()) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Km cannot be greater than Km Limit");
+            return false;
+        }
+
+        if(createAdDto.getChildSeats().contains("-")) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Number of child seats cannot be a negative number");
+            return false;
+        }
+
+        LOGGER.info("Validation creation data for adding advertisment: SUCCESS");
         return true;
     }
 

@@ -8,6 +8,8 @@ import com.tim26.AdService.service.interfaces.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarServiceImpl implements CarService {
 
@@ -20,5 +22,10 @@ public class CarServiceImpl implements CarService {
         Car car = carRepository.findById(id).get();
         CarDTO dto = new CarDTO(car);
         return dto;
+    }
+
+    @Override
+    public List<Car> findAll() {
+        return carRepository.findAll();
     }
 }
