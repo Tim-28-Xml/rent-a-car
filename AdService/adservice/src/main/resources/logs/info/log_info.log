@@ -1,0 +1,73 @@
+26-06-2020 16:56:41.976 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.tim26.AdService.AdServiceApplicationTests], using SpringBootContextLoader
+26-06-2020 16:56:41.982 INFO  [main] o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.tim26.AdService.AdServiceApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+26-06-2020 16:56:41.982 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.tim26.AdService.AdServiceApplicationTests]: AdServiceApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+26-06-2020 16:56:42.072 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.tim26.AdService.AdServiceApplication for test class com.tim26.AdService.AdServiceApplicationTests
+26-06-2020 16:56:42.168 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener]
+26-06-2020 16:56:42.186 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@10c626be, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2fc0cc3, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@328cf0e1, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@63b1d4fa, org.springframework.test.context.support.DirtiesContextTestExecutionListener@42e3ede4, org.springframework.test.context.transaction.TransactionalTestExecutionListener@201b6b6f, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@75459c75, org.springframework.test.context.event.EventPublishingTestExecutionListener@183e8023, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@45efc20d, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@3e5499cc, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@67ab1c47, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@b78a709, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@30bcf3c1, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2a3c96e3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@15cafec7, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@5b444398]
+26-06-2020 16:56:43.417 INFO  [main] c.t.A.AdServiceApplicationTests - No active profile set, falling back to default profiles: default
+26-06-2020 16:56:44.180 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+26-06-2020 16:56:44.370 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 182ms. Found 6 JPA repository interfaces.
+26-06-2020 16:56:44.700 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=4277d018-30b7-3f93-b6ef-7571b47ae063
+26-06-2020 16:56:44.913 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$d9c1ee74] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-06-2020 16:56:44.955 INFO  [main] o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+26-06-2020 16:56:45.190 INFO  [main] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+26-06-2020 16:56:45.250 INFO  [task-1] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+26-06-2020 16:56:45.308 INFO  [task-1] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.15.Final
+26-06-2020 16:56:45.457 INFO  [task-1] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+26-06-2020 16:56:45.832 INFO  [task-1] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+26-06-2020 16:56:46.042 INFO  [task-1] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+26-06-2020 16:56:46.058 INFO  [task-1] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+26-06-2020 16:56:46.897 INFO  [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+26-06-2020 16:56:46.906 INFO  [task-1] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+26-06-2020 16:56:47.414 INFO  [main] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: dd673cd5-e0f4-456f-931c-7b528a93fbb7
+
+26-06-2020 16:56:47.472 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/h2-console/**'], []
+26-06-2020 16:56:47.472 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+26-06-2020 16:56:47.472 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+26-06-2020 16:56:47.472 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+26-06-2020 16:56:47.472 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+26-06-2020 16:56:47.473 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+26-06-2020 16:56:47.473 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+26-06-2020 16:56:47.473 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+26-06-2020 16:56:47.473 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/all', GET], []
+26-06-2020 16:56:47.473 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/filter', GET], []
+26-06-2020 16:56:47.473 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/one/{id}', GET], []
+26-06-2020 16:56:47.473 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/car/{id}', GET], []
+26-06-2020 16:56:47.547 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56e8a8a0, org.springframework.security.web.context.SecurityContextPersistenceFilter@7323c38c, org.springframework.security.web.header.HeaderWriterFilter@3a69014e, org.springframework.security.web.authentication.logout.LogoutFilter@51468039, com.tim26.AdService.security.TokenAuthenticationFilter@6071631f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@61bd0845, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3c62be3c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2ca132ad, org.springframework.security.web.session.SessionManagementFilter@2270f58d, org.springframework.security.web.access.ExceptionTranslationFilter@cfb94fd, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@505a8582]
+26-06-2020 16:56:47.684 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+26-06-2020 16:56:47.690 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+26-06-2020 16:56:48.166 INFO  [main] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./src/main/resources/adsDB'
+26-06-2020 16:56:49.160 INFO  [main] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+26-06-2020 16:56:49.228 INFO  [main] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+26-06-2020 16:56:49.384 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+26-06-2020 16:56:49.384 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+26-06-2020 16:56:49.516 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+26-06-2020 16:56:49.516 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+26-06-2020 16:56:49.668 INFO  [main] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+26-06-2020 16:56:49.911 INFO  [main] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+26-06-2020 16:56:49.912 INFO  [main] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+26-06-2020 16:56:49.912 INFO  [main] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+26-06-2020 16:56:49.912 INFO  [main] c.netflix.discovery.DiscoveryClient - Application is null : false
+26-06-2020 16:56:49.912 INFO  [main] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+26-06-2020 16:56:49.912 INFO  [main] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+26-06-2020 16:56:49.912 INFO  [main] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+26-06-2020 16:56:53.991 INFO  [main] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+26-06-2020 16:56:53.994 INFO  [main] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+26-06-2020 16:56:53.997 INFO  [main] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1593183413996 with initial instances count: 0
+26-06-2020 16:56:54.002 INFO  [main] o.s.c.n.e.s.EurekaServiceRegistry - Registering application ADSERVICE with eureka with status UP
+26-06-2020 16:56:54.003 INFO  [main] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1593183414003, current=UP, previous=STARTING]
+26-06-2020 16:56:54.005 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ADSERVICE/DESKTOP-KGG0L3Q:adservice:8084: registering service...
+26-06-2020 16:56:54.007 INFO  [main] o.s.d.r.c.DeferredRepositoryInitializationListener - Triggering deferred initialization of Spring Data repositories…
+26-06-2020 16:56:54.287 INFO  [main] o.s.d.r.c.DeferredRepositoryInitializationListener - Spring Data repositories initialized!
+26-06-2020 16:56:54.297 INFO  [main] c.t.A.AdServiceApplicationTests - Started AdServiceApplicationTests in 12.074 seconds (JVM running for 13.025)
+26-06-2020 16:56:54.426 INFO  [SpringContextShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application ADSERVICE with eureka with status DOWN
+26-06-2020 16:56:54.432 INFO  [SpringContextShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+26-06-2020 16:56:54.432 INFO  [SpringContextShutdownHook] o.h.t.s.i.SchemaDropperImpl$DelayedDropActionImpl - HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+26-06-2020 16:56:54.455 INFO  [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+26-06-2020 16:56:54.455 INFO  [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+26-06-2020 16:56:54.458 INFO  [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+26-06-2020 16:56:54.459 INFO  [SpringContextShutdownHook] c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
+26-06-2020 16:56:57.460 INFO  [SpringContextShutdownHook] c.netflix.discovery.DiscoveryClient - Unregistering ...
+26-06-2020 16:57:01.500 INFO  [SpringContextShutdownHook] c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient

@@ -13,31 +13,31 @@ public class PriceList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement
+    //@XmlElement
     private long id;
 
     @Column
-    @XmlElement
+   // @XmlElement
     private double dailyPrice;
 
     @Column
-    @XmlElement
+    //@XmlElement
     private double cdwPrice;
 
     @Column
-    @XmlElement
+    //@XmlElement
     private double pricePerExtraKm;
 
     @ManyToOne
-    @XmlElement
+    //@XmlElement
     private User user;
 
     @OneToMany(mappedBy = "priceList")
-    @XmlElement
+    //@XmlElement
     private List<Ad> ads = new ArrayList<>();
 
     @Column
-    @XmlElement
+    //@XmlElement
     private String name;
 
     public PriceList() {

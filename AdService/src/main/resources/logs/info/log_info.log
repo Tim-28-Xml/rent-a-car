@@ -1,0 +1,198 @@
+26-06-2020 17:02:48.107 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+26-06-2020 17:02:48.635 INFO  [restartedMain] c.t.AdService.AdServiceApplication - No active profile set, falling back to default profiles: default
+26-06-2020 17:02:49.335 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+26-06-2020 17:02:49.439 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 98ms. Found 6 JPA repository interfaces.
+26-06-2020 17:02:49.668 INFO  [restartedMain] o.s.cloud.context.scope.GenericScope - BeanFactory id=76e04f1d-3a6a-37e7-9c80-dc0aed4c2a13
+26-06-2020 17:02:49.747 INFO  [restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$86bfac58] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-06-2020 17:02:49.768 INFO  [restartedMain] o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+26-06-2020 17:02:50.121 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8084 (http)
+26-06-2020 17:02:50.126 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8084"]
+26-06-2020 17:02:50.127 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+26-06-2020 17:02:50.127 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+26-06-2020 17:02:50.249 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+26-06-2020 17:02:50.249 INFO  [restartedMain] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1604 ms
+26-06-2020 17:02:50.295 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+26-06-2020 17:02:50.421 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+26-06-2020 17:02:50.426 INFO  [restartedMain] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./src/main/resources/adsDB'
+26-06-2020 17:02:50.596 INFO  [restartedMain] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+26-06-2020 17:02:50.637 INFO  [task-1] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+26-06-2020 17:02:50.673 INFO  [task-1] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.15.Final
+26-06-2020 17:02:50.765 INFO  [task-1] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+26-06-2020 17:02:50.849 INFO  [task-1] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+26-06-2020 17:02:51.506 INFO  [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+26-06-2020 17:02:51.512 INFO  [task-1] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+26-06-2020 17:02:51.765 INFO  [task-2] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+26-06-2020 17:02:51.861 INFO  [restartedMain] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: cada8ead-bcde-4621-a806-95e27cb6aa11
+
+26-06-2020 17:02:51.897 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/h2-console/**'], []
+26-06-2020 17:02:51.897 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+26-06-2020 17:02:51.897 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+26-06-2020 17:02:51.897 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+26-06-2020 17:02:51.898 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+26-06-2020 17:02:51.898 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+26-06-2020 17:02:51.898 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+26-06-2020 17:02:51.898 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+26-06-2020 17:02:51.898 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/all', GET], []
+26-06-2020 17:02:51.898 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/filter', GET], []
+26-06-2020 17:02:51.898 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/one/{id}', GET], []
+26-06-2020 17:02:51.898 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/car/{id}', GET], []
+26-06-2020 17:02:51.955 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1a532d5a, org.springframework.security.web.context.SecurityContextPersistenceFilter@4cc23afe, org.springframework.security.web.header.HeaderWriterFilter@294aca08, org.springframework.security.web.authentication.logout.LogoutFilter@6c54ac2f, com.tim26.AdService.security.TokenAuthenticationFilter@4019a2c9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5d21b605, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2cdcc820, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@60d89a36, org.springframework.security.web.session.SessionManagementFilter@29e26c56, org.springframework.security.web.access.ExceptionTranslationFilter@3fd70532, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3883ab04]
+26-06-2020 17:02:51.975 INFO  [restartedMain] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+26-06-2020 17:02:51.978 INFO  [restartedMain] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+26-06-2020 17:02:53.270 INFO  [restartedMain] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+26-06-2020 17:02:53.292 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+26-06-2020 17:02:53.378 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+26-06-2020 17:02:53.378 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+26-06-2020 17:02:53.456 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+26-06-2020 17:02:53.456 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+26-06-2020 17:02:53.566 INFO  [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+26-06-2020 17:02:53.785 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+26-06-2020 17:02:53.785 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+26-06-2020 17:02:53.786 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+26-06-2020 17:02:53.786 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Application is null : false
+26-06-2020 17:02:53.786 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+26-06-2020 17:02:53.786 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+26-06-2020 17:02:53.786 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+26-06-2020 17:02:53.845 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - The response status is 200
+26-06-2020 17:02:53.846 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+26-06-2020 17:02:53.847 INFO  [restartedMain] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+26-06-2020 17:02:53.850 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1593183773849 with initial instances count: 0
+26-06-2020 17:02:53.853 INFO  [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry - Registering application ADSERVICE with eureka with status UP
+26-06-2020 17:02:53.853 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1593183773853, current=UP, previous=STARTING]
+26-06-2020 17:02:53.855 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ADSERVICE/DESKTOP-KGG0L3Q:adservice:8084: registering service...
+26-06-2020 17:02:53.855 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8084"]
+26-06-2020 17:02:53.872 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8084 (http) with context path ''
+26-06-2020 17:02:53.873 INFO  [restartedMain] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8084
+26-06-2020 17:02:53.904 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ADSERVICE/DESKTOP-KGG0L3Q:adservice:8084 - registration status: 204
+26-06-2020 17:02:54.208 INFO  [restartedMain] o.s.d.r.c.DeferredRepositoryInitializationListener - Triggering deferred initialization of Spring Data repositories…
+26-06-2020 17:02:54.385 INFO  [restartedMain] o.s.d.r.c.DeferredRepositoryInitializationListener - Spring Data repositories initialized!
+26-06-2020 17:02:54.392 INFO  [restartedMain] c.t.AdService.AdServiceApplication - Started AdServiceApplication in 6.992 seconds (JVM running for 7.952)
+26-06-2020 17:03:23.848 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+26-06-2020 17:03:23.848 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+26-06-2020 17:03:23.848 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+26-06-2020 17:03:23.848 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application is null : false
+26-06-2020 17:03:23.848 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+26-06-2020 17:03:23.849 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application version is -1: false
+26-06-2020 17:03:23.849 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+26-06-2020 17:03:23.876 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - The response status is 200
+26-06-2020 17:04:00.606 INFO  [http-nio-8084-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+26-06-2020 17:04:00.606 INFO  [http-nio-8084-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+26-06-2020 17:04:00.620 INFO  [http-nio-8084-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 14 ms
+26-06-2020 17:04:00.721 INFO  [http-nio-8084-exec-1] c.t.A.controller.AdController - Gettings all ads 4
+26-06-2020 17:09:18.766 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+26-06-2020 17:09:19.283 INFO  [restartedMain] c.t.AdService.AdServiceApplication - No active profile set, falling back to default profiles: default
+26-06-2020 17:09:19.984 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+26-06-2020 17:09:20.073 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 84ms. Found 6 JPA repository interfaces.
+26-06-2020 17:09:20.312 INFO  [restartedMain] o.s.cloud.context.scope.GenericScope - BeanFactory id=76e04f1d-3a6a-37e7-9c80-dc0aed4c2a13
+26-06-2020 17:09:20.390 INFO  [restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$46483215] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-06-2020 17:09:20.412 INFO  [restartedMain] o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+26-06-2020 17:09:20.778 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8084 (http)
+26-06-2020 17:09:20.784 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8084"]
+26-06-2020 17:09:20.784 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+26-06-2020 17:09:20.784 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+26-06-2020 17:09:20.921 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+26-06-2020 17:09:20.922 INFO  [restartedMain] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1628 ms
+26-06-2020 17:09:20.969 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+26-06-2020 17:09:21.091 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+26-06-2020 17:09:21.096 INFO  [restartedMain] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./src/main/resources/adsDB'
+26-06-2020 17:09:21.271 INFO  [restartedMain] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+26-06-2020 17:09:21.316 INFO  [task-1] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+26-06-2020 17:09:21.353 INFO  [task-1] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.15.Final
+26-06-2020 17:09:21.447 INFO  [task-1] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+26-06-2020 17:09:21.533 INFO  [task-1] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+26-06-2020 17:09:22.209 INFO  [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+26-06-2020 17:09:22.215 INFO  [task-1] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+26-06-2020 17:09:22.514 INFO  [restartedMain] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 4df23293-efd4-4b41-9401-a5a3503f2a02
+
+26-06-2020 17:09:22.551 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/h2-console/**'], []
+26-06-2020 17:09:22.551 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+26-06-2020 17:09:22.551 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+26-06-2020 17:09:22.551 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+26-06-2020 17:09:22.551 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+26-06-2020 17:09:22.552 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+26-06-2020 17:09:22.552 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+26-06-2020 17:09:22.552 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+26-06-2020 17:09:22.552 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/all', GET], []
+26-06-2020 17:09:22.552 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/filter', GET], []
+26-06-2020 17:09:22.552 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/one/{id}', GET], []
+26-06-2020 17:09:22.552 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/api/ads/car/{id}', GET], []
+26-06-2020 17:09:22.609 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2aecf5ac, org.springframework.security.web.context.SecurityContextPersistenceFilter@78fd1d07, org.springframework.security.web.header.HeaderWriterFilter@1ff1ca36, org.springframework.security.web.authentication.logout.LogoutFilter@6206bd2c, com.tim26.AdService.security.TokenAuthenticationFilter@414e6dd9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@bc57c52, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7db36c6a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6828b8e9, org.springframework.security.web.session.SessionManagementFilter@5a314403, org.springframework.security.web.access.ExceptionTranslationFilter@3cf38c08, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@754fd6cb]
+26-06-2020 17:09:22.629 INFO  [restartedMain] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+26-06-2020 17:09:22.632 INFO  [restartedMain] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+26-06-2020 17:09:22.864 INFO  [task-2] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+26-06-2020 17:09:24.050 INFO  [restartedMain] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+26-06-2020 17:09:24.073 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+26-06-2020 17:09:24.164 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+26-06-2020 17:09:24.164 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+26-06-2020 17:09:24.235 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+26-06-2020 17:09:24.236 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+26-06-2020 17:09:24.334 INFO  [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+26-06-2020 17:09:24.549 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+26-06-2020 17:09:24.549 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+26-06-2020 17:09:24.549 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+26-06-2020 17:09:24.550 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Application is null : false
+26-06-2020 17:09:24.550 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+26-06-2020 17:09:24.550 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+26-06-2020 17:09:24.550 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+26-06-2020 17:09:24.609 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - The response status is 200
+26-06-2020 17:09:24.610 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+26-06-2020 17:09:24.612 INFO  [restartedMain] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+26-06-2020 17:09:24.614 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1593184164614 with initial instances count: 0
+26-06-2020 17:09:24.617 INFO  [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry - Registering application ADSERVICE with eureka with status UP
+26-06-2020 17:09:24.618 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1593184164618, current=UP, previous=STARTING]
+26-06-2020 17:09:24.619 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ADSERVICE/DESKTOP-KGG0L3Q:adservice:8084: registering service...
+26-06-2020 17:09:24.619 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8084"]
+26-06-2020 17:09:24.637 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8084 (http) with context path ''
+26-06-2020 17:09:24.638 INFO  [restartedMain] o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8084
+26-06-2020 17:09:24.668 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_ADSERVICE/DESKTOP-KGG0L3Q:adservice:8084 - registration status: 204
+26-06-2020 17:09:24.954 INFO  [restartedMain] o.s.d.r.c.DeferredRepositoryInitializationListener - Triggering deferred initialization of Spring Data repositories…
+26-06-2020 17:09:25.133 INFO  [restartedMain] o.s.d.r.c.DeferredRepositoryInitializationListener - Spring Data repositories initialized!
+26-06-2020 17:09:25.140 INFO  [restartedMain] c.t.AdService.AdServiceApplication - Started AdServiceApplication in 7.081 seconds (JVM running for 8.06)
+26-06-2020 17:09:54.612 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+26-06-2020 17:09:54.612 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+26-06-2020 17:09:54.612 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+26-06-2020 17:09:54.612 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application is null : false
+26-06-2020 17:09:54.612 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+26-06-2020 17:09:54.613 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Application version is -1: false
+26-06-2020 17:09:54.613 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+26-06-2020 17:09:54.639 INFO  [DiscoveryClient-CacheRefreshExecutor-0] c.netflix.discovery.DiscoveryClient - The response status is 200
+26-06-2020 17:10:38.736 INFO  [http-nio-8084-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+26-06-2020 17:10:38.737 INFO  [http-nio-8084-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+26-06-2020 17:10:38.752 INFO  [http-nio-8084-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 15 ms
+26-06-2020 17:10:38.835 INFO  [http-nio-8084-exec-1] c.t.A.controller.AdController - Gettings all ads 4
+26-06-2020 17:14:24.551 INFO  [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+26-06-2020 17:14:57.672 INFO  [http-nio-8084-exec-3] c.t.A.controller.AdController - Gettings all ads 4
+26-06-2020 17:15:29.481 INFO  [http-nio-8084-exec-5] c.t.A.controller.AdController - Gettings all ads 4
+26-06-2020 17:15:53.961 INFO  [http-nio-8084-exec-6] c.t.A.s.TokenAuthenticationFilter - Token: eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJyZW50LWEtY2FyIiwic3ViIjoiYWdlbnQxIiwiYXVkIjoid2ViIiwiaWF0IjoxNTkzMTg0NTI5LCJleHAiOjE1OTMyMTQ1MjksInBlcm1pc3Npb25zIjoiUk9MRV9BR0VOVCxDUkVBVEVfUkVWSUVXIn0.Ah3Qi4yODKz1g8jhXIHukdZY7TNGYNlav8VCMZlaqqkrySvAHF0pQM9vGAcHd-qlb3CpZJp-tf3Wi-VSeNhO7Q
+26-06-2020 17:15:54.162 INFO  [http-nio-8084-exec-6] c.t.A.s.TokenAuthenticationFilter - Username: agent1
+26-06-2020 17:15:54.162 INFO  [http-nio-8084-exec-6] c.t.A.s.TokenAuthenticationFilter - Authorities: ROLE_AGENT,CREATE_REVIEW
+26-06-2020 17:15:54.206 INFO  [http-nio-8084-exec-6] c.t.A.controller.PricelistController - Create Pricelist - Name: Maras, 
+ Daily price: 32.0, 
+ Price with cdw: 3443.0, 
+ Price if the km limit is passed: 3223.0 
+
+26-06-2020 17:15:57.627 INFO  [http-nio-8084-exec-4] c.t.A.controller.AdController - Gettings all ads 4
+26-06-2020 17:18:08.883 INFO  [http-nio-8084-exec-8] c.t.A.s.TokenAuthenticationFilter - Token: eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJyZW50LWEtY2FyIiwic3ViIjoiYWdlbnQxIiwiYXVkIjoid2ViIiwiaWF0IjoxNTkzMTg0NTI5LCJleHAiOjE1OTMyMTQ1MjksInBlcm1pc3Npb25zIjoiUk9MRV9BR0VOVCxDUkVBVEVfUkVWSUVXIn0.Ah3Qi4yODKz1g8jhXIHukdZY7TNGYNlav8VCMZlaqqkrySvAHF0pQM9vGAcHd-qlb3CpZJp-tf3Wi-VSeNhO7Q
+26-06-2020 17:18:08.883 INFO  [http-nio-8084-exec-9] c.t.A.s.TokenAuthenticationFilter - Token: eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJyZW50LWEtY2FyIiwic3ViIjoiYWdlbnQxIiwiYXVkIjoid2ViIiwiaWF0IjoxNTkzMTg0NTI5LCJleHAiOjE1OTMyMTQ1MjksInBlcm1pc3Npb25zIjoiUk9MRV9BR0VOVCxDUkVBVEVfUkVWSUVXIn0.Ah3Qi4yODKz1g8jhXIHukdZY7TNGYNlav8VCMZlaqqkrySvAHF0pQM9vGAcHd-qlb3CpZJp-tf3Wi-VSeNhO7Q
+26-06-2020 17:18:08.884 INFO  [http-nio-8084-exec-9] c.t.A.s.TokenAuthenticationFilter - Username: agent1
+26-06-2020 17:18:08.885 INFO  [http-nio-8084-exec-9] c.t.A.s.TokenAuthenticationFilter - Authorities: ROLE_AGENT,CREATE_REVIEW
+26-06-2020 17:18:08.885 INFO  [http-nio-8084-exec-8] c.t.A.s.TokenAuthenticationFilter - Username: agent1
+26-06-2020 17:18:08.885 INFO  [http-nio-8084-exec-8] c.t.A.s.TokenAuthenticationFilter - Authorities: ROLE_AGENT,CREATE_REVIEW
+26-06-2020 17:18:08.888 INFO  [http-nio-8084-exec-10] c.t.A.s.TokenAuthenticationFilter - Token: eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJyZW50LWEtY2FyIiwic3ViIjoiYWdlbnQxIiwiYXVkIjoid2ViIiwiaWF0IjoxNTkzMTg0NTI5LCJleHAiOjE1OTMyMTQ1MjksInBlcm1pc3Npb25zIjoiUk9MRV9BR0VOVCxDUkVBVEVfUkVWSUVXIn0.Ah3Qi4yODKz1g8jhXIHukdZY7TNGYNlav8VCMZlaqqkrySvAHF0pQM9vGAcHd-qlb3CpZJp-tf3Wi-VSeNhO7Q
+26-06-2020 17:18:08.890 INFO  [http-nio-8084-exec-8] c.t.A.controller.CodebookController - Getting all3 Car Classes: [Sedan, SUV, Hatchback] 
+26-06-2020 17:18:08.891 INFO  [http-nio-8084-exec-9] c.t.A.controller.CodebookController - Getting all 3 Brands: [Mercedes, BMW, Audi] 
+26-06-2020 17:18:08.891 INFO  [http-nio-8084-exec-10] c.t.A.s.TokenAuthenticationFilter - Username: agent1
+26-06-2020 17:18:08.891 INFO  [http-nio-8084-exec-10] c.t.A.s.TokenAuthenticationFilter - Authorities: ROLE_AGENT,CREATE_REVIEW
+26-06-2020 17:18:08.906 INFO  [http-nio-8084-exec-1] c.t.A.s.TokenAuthenticationFilter - Token: eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJyZW50LWEtY2FyIiwic3ViIjoiYWdlbnQxIiwiYXVkIjoid2ViIiwiaWF0IjoxNTkzMTg0NTI5LCJleHAiOjE1OTMyMTQ1MjksInBlcm1pc3Npb25zIjoiUk9MRV9BR0VOVCxDUkVBVEVfUkVWSUVXIn0.Ah3Qi4yODKz1g8jhXIHukdZY7TNGYNlav8VCMZlaqqkrySvAHF0pQM9vGAcHd-qlb3CpZJp-tf3Wi-VSeNhO7Q
+26-06-2020 17:18:08.906 INFO  [http-nio-8084-exec-2] c.t.A.s.TokenAuthenticationFilter - Token: eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJyZW50LWEtY2FyIiwic3ViIjoiYWdlbnQxIiwiYXVkIjoid2ViIiwiaWF0IjoxNTkzMTg0NTI5LCJleHAiOjE1OTMyMTQ1MjksInBlcm1pc3Npb25zIjoiUk9MRV9BR0VOVCxDUkVBVEVfUkVWSUVXIn0.Ah3Qi4yODKz1g8jhXIHukdZY7TNGYNlav8VCMZlaqqkrySvAHF0pQM9vGAcHd-qlb3CpZJp-tf3Wi-VSeNhO7Q
+26-06-2020 17:18:08.907 INFO  [http-nio-8084-exec-2] c.t.A.s.TokenAuthenticationFilter - Username: agent1
+26-06-2020 17:18:08.907 INFO  [http-nio-8084-exec-1] c.t.A.s.TokenAuthenticationFilter - Username: agent1
+26-06-2020 17:18:08.907 INFO  [http-nio-8084-exec-2] c.t.A.s.TokenAuthenticationFilter - Authorities: ROLE_AGENT,CREATE_REVIEW
+26-06-2020 17:18:08.907 INFO  [http-nio-8084-exec-1] c.t.A.s.TokenAuthenticationFilter - Authorities: ROLE_AGENT,CREATE_REVIEW
+26-06-2020 17:18:08.909 INFO  [http-nio-8084-exec-2] c.t.A.controller.CodebookController - Getting all 2 Transmission Types: [Manual 5 Gear, Automatic 8 Gear] 
+26-06-2020 17:18:08.909 INFO  [http-nio-8084-exec-1] c.t.A.controller.CodebookController - Getting all 2 Fuel Types: [Diesel, Petrol] 
+26-06-2020 17:18:08.921 INFO  [http-nio-8084-exec-10] c.t.A.controller.PricelistController - Getting all pricelists: [com.tim26.AdService.dto.CreatePricelistDto@39b4a9bd]

@@ -1,4 +1,4 @@
-package com.tim26.demo.config;
+/*package com.tim26.demo.config;
 
 import com.tim26.demo.soap.PricelistClient;
 import org.springframework.context.annotation.Bean;
@@ -27,4 +27,4 @@ public class SoapConfig {
         client.setUnmarshaller(marshaller);
         return client;
     }
-}
+}*/

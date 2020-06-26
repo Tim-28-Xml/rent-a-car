@@ -1,4 +1,4 @@
-package com.tim26.demo.soap;
+/*package com.tim26.demo.soap;
 
 import com.tim26.demo.dto.CreatePricelistDto;
 import com.tim26.demo.service.interfaces.PricelistService;
@@ -29,4 +29,4 @@ public class PricelistClient extends WebServiceGatewaySupport {
 
         return response;
     }
-}
+}*/

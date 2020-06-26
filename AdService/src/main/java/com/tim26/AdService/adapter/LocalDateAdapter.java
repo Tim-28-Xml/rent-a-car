@@ -1,4 +1,4 @@
-package com.tim26.AdService.adapter;
+/*package com.tim26.AdService.adapter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDate;
@@ -15,4 +15,4 @@ public class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
     public String marshal(LocalDate localDateTime) throws Exception {
         return localDateTime.toString();
     }
-}
+}*/

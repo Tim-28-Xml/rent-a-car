@@ -6,54 +6,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Car", namespace = "http://localhost:8084/adservice-schema")
-@XmlRootElement(name = "carClass")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "Car", namespace = "http://localhost:8084/adservice-schema")
+//@XmlRootElement(name = "carClass")
 public class Car {
 
     @Id
-    @XmlElement
+    //@XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    @XmlElement
+    //@XmlElement
     private String brand;
 
     @Column(nullable = false)
-    @XmlElement
+    //@XmlElement
     private String model;
 
     @Column(nullable = false)
-    @XmlElement
+    //@XmlElement
     private String fuel;
 
     @Column(nullable = false)
-    @XmlElement
+    //@XmlElement
     private String transmission;
 
     @Column(nullable = false)
-    @XmlElement
+    //@XmlElement
     private String carClass;
 
     @Column(nullable = false)
-    @XmlElement
+    //@XmlElement
     private double km;
 
     @Column(nullable = false)
-    @XmlElement
+    //@XmlElement
     private double kmLimit;
 
     @Column(nullable = false)
-    @XmlElement
+    //@XmlElement
     private boolean cdw;
 
     @Column(nullable = false)
-    @XmlElement
+    //@XmlElement
     private int childSeats;
 
     @ElementCollection
-    @XmlElement
+    //@XmlElement
     private List<byte[]> files = new ArrayList<byte[]>();
 
     public Car() {

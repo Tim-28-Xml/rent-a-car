@@ -1,4 +1,4 @@
-package com.tim26.AdService.config;
+/*package com.tim26.AdService.config;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -38,4 +38,4 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public XsdSchema priceSchema() {
         return new SimpleXsdSchema(new ClassPathResource("pricelistSchema.xsd"));
     }
-}
+}*/

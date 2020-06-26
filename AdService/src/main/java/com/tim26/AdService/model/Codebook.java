@@ -6,30 +6,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Codebook", namespace = "http://localhost:8084/adservice-schema")
-@XmlRootElement(name = "codebookClass")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "Codebook", namespace = "http://localhost:8084/adservice-schema")
+//@XmlRootElement(name = "codebookClass")
 public class Codebook {
 
     @Id
-    @XmlElement
+    //@XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToMany
-    @XmlElement
+    //@XmlElement
     private List<BrandModels> brandModels = new ArrayList<>();
 
     @ElementCollection
-    @XmlElement
+    //@XmlElement
     private List<String> fuelTypes;
 
     @ElementCollection
-    @XmlElement
+    //@XmlElement
     private List<String> transmissionTypes;
 
     @ElementCollection
-    @XmlElement
+    //@XmlElement
     private List<String> carClasses;
 
     public Codebook() {
