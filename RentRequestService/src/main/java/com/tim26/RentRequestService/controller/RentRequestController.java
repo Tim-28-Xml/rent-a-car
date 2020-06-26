@@ -107,8 +107,7 @@ public class  RentRequestController {
         return viewRequestDTOS;
     }
 
-
-    @PreAuthorize("hasAuthority('SEND_MESSAGE')")
+    
     @GetMapping("/peoplechat")
     public ResponseEntity<List<String>> getUsersForChat(Principal principal) {
         List<String> people = rentRequestService.usersForMessages(principal);
