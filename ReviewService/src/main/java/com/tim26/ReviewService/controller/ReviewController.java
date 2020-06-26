@@ -35,7 +35,7 @@ public class ReviewController {
 
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/by-ad/{id}")
     public ResponseEntity<?> getAllByAd(@PathVariable String id) {
 
@@ -45,7 +45,7 @@ public class ReviewController {
 
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/all-unapproved")
     public ResponseEntity<?> getAllUnapproved() {
 
@@ -55,7 +55,7 @@ public class ReviewController {
 
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping (value = "/approve")
     public ResponseEntity<?> approveReview(@RequestBody ReviewDTO reviewDTO) {
 
@@ -68,7 +68,7 @@ public class ReviewController {
 
     }
 
-    @PreAuthorize("hasAuthority('ROLE_AGENT')")
+    @PreAuthorize("hasAuthority('CREATE_REVIEW')")
     @PostMapping(value= "/submit-response")
     public ResponseEntity<?> submitResponse(@RequestBody ReviewDTO dto, Principal p){
 
@@ -77,7 +77,7 @@ public class ReviewController {
     }
 
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "/decline/{id}")
     public ResponseEntity<?> declineReview(@PathVariable String id) {
 
@@ -98,7 +98,7 @@ public class ReviewController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value= "/my-reviews")
     public ResponseEntity<List<Long>> getUserReviews(Principal p){
 

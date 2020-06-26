@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/shoppingcart")
-@PreAuthorize("hasAuthority('ORDER')")
+@PreAuthorize("hasAnyAuthority('ORDER','USE_CART')")
 public class ShoppingCartController {
 
     @Autowired

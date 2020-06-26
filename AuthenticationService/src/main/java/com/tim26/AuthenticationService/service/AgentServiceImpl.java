@@ -17,7 +17,8 @@ import java.util.List;
 @Service
 public class AgentServiceImpl implements AgentService {
 
-    private final List<String> agentPermissions = Arrays.asList("ROLE_AGENT", "CREATE_AD", "CREATE_REVIEW");
+    private final List<String> agentPermissions = Arrays.asList("ROLE_AGENT", "CREATE_AD", "CREATE_REVIEW", "RENT",
+            "SEND_MESSAGE", "CREATE_CODEBOOK", "CREATE_PRICELIST", "RENT_BY_CREATOR", "VIEW_MY_ADS");
 
     @Autowired
     private AgentRepository agentRepository;
