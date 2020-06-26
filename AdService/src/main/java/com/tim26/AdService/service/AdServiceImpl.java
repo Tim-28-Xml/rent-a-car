@@ -32,7 +32,7 @@ import org.springframework.util.NumberUtils;
 @Service
 public class AdServiceImpl implements AdService {
 
-    private static final Logger LOGGER=LoggerFactory.getLogger(AdServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdServiceImpl.class);
 
     @Autowired
     private AdRepository adRepository;
@@ -51,10 +51,10 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public boolean save(CreateAdDto ad, Principal p) throws SQLException {
-        /*if(!validateCreationData(ad))
-            return false;*/
+        if (!validateCreationData(ad))
+            return false;
 
-        Ad advertisment = new Ad();
+        /*Ad advertisment = new Ad();
         Car car = new Car();
         User user = new User();
         user.setUsername(p.getName());
@@ -128,9 +128,9 @@ public class AdServiceImpl implements AdService {
             }
         } else {
             return false;
-        }
+        }*/
 
-        /*Connection connection = null;
+        Connection connection = null;
         String dbUrl = "jdbc:h2:file:./src/main/resources/adsDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;AUTO_RECONNECT=TRUE;TRACE_LEVEL_FILE=0";
         String dbUsername = "sa";
         String dbPassword = "";
@@ -143,7 +143,7 @@ public class AdServiceImpl implements AdService {
             Car car = new Car();
             User user = new User();
             user.setUsername(p.getName());
-            if(!userRepository.findByUsername(ad.getCurrentUser()).isPresent()) {
+            if(!userRepository.findByUsername(p.getName()).isPresent()) {
                 preparedStatementUser = connection.prepareStatement("INSERT INTO user (username) values (?)");
                 preparedStatementUser.executeUpdate();
             }
@@ -187,8 +187,13 @@ public class AdServiceImpl implements AdService {
                 }
                 user.getAd().add(advertisment);
                 advertisment.setUser(user);
+                PriceList priceList = pricelistService.findByName(ad.getPricelist());
+                advertisment.setPriceList(priceList);
                 try {
-                    preparedStatementCar = connection.prepareStatement("INSERT INTO car (brand, car_class, model, fuel, transmission, km, km_limit, child_seats, cdw) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    int cars = carService.findAll().size();
+                    Long carId = Long.valueOf(++cars);
+                    car.setId(carId);
+                    preparedStatementCar = connection.prepareStatement("INSERT INTO car (brand, car_class, model, fuel, transmission, km, km_limit, child_seats, cdw, id) values (?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     preparedStatementCar.setString(1, car.getBrand());
                     preparedStatementCar.setString(2, car.getCarClass());
                     preparedStatementCar.setString(3, car.getModel());
@@ -198,11 +203,13 @@ public class AdServiceImpl implements AdService {
                     preparedStatementCar.setDouble(7, car.getKmLimit());
                     preparedStatementCar.setInt(8, car.getChildSeats());
                     preparedStatementCar.setBoolean(9, car.isCdw());
+                    preparedStatementCar.setLong(10, car.getId());
                     preparedStatementCar.executeUpdate();
-                    preparedStatementAd = connection.prepareStatement("INSERT INTO ad (car_id, city, user_id) values (?, ?, ?)");
+                    preparedStatementAd = connection.prepareStatement("INSERT INTO ad (car_id, city, user_username, price_list_id) values (?, ?, ?, ?)");
                     preparedStatementAd.setLong(1, car.getId());
                     preparedStatementAd.setString(2, advertisment.getCity());
                     preparedStatementAd.setString(3, user.getUsername());
+                    preparedStatementAd.setLong(4, advertisment.getPriceList().getId());
                     preparedStatementAd.executeUpdate();
                 } catch (Exception e) {
                     return false;
@@ -213,9 +220,19 @@ public class AdServiceImpl implements AdService {
         } finally {
             try {
                 if (preparedStatementUser != null || preparedStatementAd != null || preparedStatementCar != null) {
-                    preparedStatementUser.close();
+
                     preparedStatementAd.close();
                     preparedStatementCar.close();
+
+                    if(preparedStatementUser != null) {
+                        preparedStatementUser.close();
+                    }
+
+                    if (connection != null) {
+                        connection.close();
+                        return true;
+                    }
+
                     return true;
                 }
             } catch (Exception e) {
@@ -229,7 +246,8 @@ public class AdServiceImpl implements AdService {
             } catch (Exception e) {
                 return false;
             }
-        }*/
+        }
+        return false;
     }
 
     @Override
@@ -343,18 +361,17 @@ public class AdServiceImpl implements AdService {
         if(!codebookService.getModelsFromBrand(createAdDto.getBrand()).contains(createAdDto.getModel()))
             return false;
 
-        for(BrandModels b : codebookService.getBrands()) {
-            if(!b.getBrand().equals(createAdDto)) {
-                return false;
-            }
-        }
-
-        /*if(!userRepository.findByUsername(createAdDto.getCurrentUser()).isPresent())
-            return false;*/
-
         String km = String.valueOf(createAdDto.getKm());
         String kmLimit = String.valueOf(createAdDto.getKmLimit());
         String childSeats = String.valueOf(createAdDto.getChildSeats());
+
+        if(createAdDto.getKm() > createAdDto.getKmLimit()) {
+            return false;
+        }
+
+        if(createAdDto.getChildSeats().contains("-")) {
+            return false;
+        }
 
         return true;
     }
