@@ -28,7 +28,8 @@ public class PricelistController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<CreatePricelistDto> save(@RequestBody CreatePricelistDto createPricelistDto, Principal p) {
-        if(pricelistService.save(p.getName(), createPricelistDto) != null)
+        //if(pricelistService.save(p.getName(), createPricelistDto) != null)
+        if(pricelistService.save(p, createPricelistDto))
             return new ResponseEntity<>(createPricelistDto, HttpStatus.OK);
         return new ResponseEntity<>(createPricelistDto, HttpStatus.BAD_REQUEST);
     }

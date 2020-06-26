@@ -4,18 +4,18 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Review", namespace = "http://localhost:8084/adservice-schema")
-@XmlRootElement(name = "reviewClass")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "Review", namespace = "http://localhost:8084/adservice-schema")
+//@XmlRootElement(name = "reviewClass")
 public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement
+    //@XmlElement
     private Long id;
 
     @ManyToOne
-    @XmlElement
+    //@XmlElement
     private Ad ad;
 
 

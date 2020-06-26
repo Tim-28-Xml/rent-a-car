@@ -1,6 +1,6 @@
 package com.tim26.AdService.model;
 
-import com.tim26.AdService.adapter.LocalDateAdapter;
+//import com.tim26.AdService.adapter.LocalDateAdapter;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
@@ -11,28 +11,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "DateRange", namespace = "http://localhost:8084/adservice-schema")
-@XmlRootElement(name = "dateRangeClass")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "DateRange", namespace = "http://localhost:8084/adservice-schema")
+//@XmlRootElement(name = "dateRangeClass")
 public class DateRange {
 
     @Id
-    @XmlElement
+    //@XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
-    @XmlElement
-    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    //@XmlElement
+   // @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Column
-    @XmlElement
-    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+   // @XmlElement
+    //@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate endDate;
 
     @OneToMany(cascade=CascadeType.ALL)
-    @XmlElement
+    //@XmlElement
     @JoinTable(joinColumns=@JoinColumn(referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(referencedColumnName = "id"))
     private List<Date> dates = new ArrayList<>();

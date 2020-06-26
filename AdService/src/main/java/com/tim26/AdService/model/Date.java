@@ -2,7 +2,7 @@ package com.tim26.AdService.model;
 
 
 
-import com.tim26.AdService.adapter.LocalDateAdapter;
+//import com.tim26.AdService.adapter.LocalDateAdapter;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
@@ -11,23 +11,23 @@ import java.time.LocalDate;
 
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Date", namespace = "http://localhost:8084/adservice-schema")
-@XmlRootElement(name = "dateClass")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "Date", namespace = "http://localhost:8084/adservice-schema")
+//@XmlRootElement(name = "dateClass")
 public class Date {
 
     @Id
-    @XmlElement
+    //@XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
-    @XmlElement
-    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    //@XmlElement
+    //@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate date;
 
     @ManyToOne
-    @XmlElement
+    //@XmlElement
     private DateRange dateRange;
 
     public Date() {

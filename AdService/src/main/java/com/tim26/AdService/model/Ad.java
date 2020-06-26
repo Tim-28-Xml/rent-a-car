@@ -6,43 +6,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
+/*@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Ad", namespace = "http://localhost:8084/adservice-schema")
-@XmlRootElement(name = "adClass")
+@XmlRootElement(name = "adClass")*/
 public class Ad {
 
     @Id
-    @XmlElement
+    //@XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @XmlElement
+    //@XmlElement
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(joinColumns=@JoinColumn(referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(referencedColumnName = "id"))
-    @XmlElement
+    //@XmlElement
     private List<DateRange> rentDates = new ArrayList<DateRange>();
 
     @ManyToOne
-    @XmlElement
+    //@XmlElement
     private PriceList priceList;
 
     @OneToMany(mappedBy = "ad")
-    @XmlElement
+    //@XmlElement
     private List<Report> reports;
 
     @ManyToOne
-    @XmlElement
+    //@XmlElement
     private User user;
 
 
 
     @ManyToMany
-    @XmlElement
+   // @XmlElement
     @JoinTable(name = "ad_rent_requests",
             joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
@@ -50,15 +50,15 @@ public class Ad {
 
 
     @OneToMany
-    @XmlElement
+    //@XmlElement
     private List<Review> reviews = new ArrayList<>();
 
     @Column
-    @XmlElement
+    //@XmlElement
     private String city;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @XmlElement
+    //@XmlElement
     private List<CartAdDates> cartAdDates = new ArrayList<>();
 
     public Ad() {

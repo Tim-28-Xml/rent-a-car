@@ -4,30 +4,30 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Report", namespace = "http://localhost:8084/adservice-schema")
-@XmlRootElement(name = "reportClass")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "Report", namespace = "http://localhost:8084/adservice-schema")
+//@XmlRootElement(name = "reportClass")
 public class Report {
 
     @Id
     @XmlElement
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
-    @XmlElement
+    //@XmlElement
     private String text;
 
     @Column
-    @XmlElement
+    //@XmlElement
     private double startKM;
 
     @Column
-    @XmlElement
+    //@XmlElement
     private double endKM;
 
     @ManyToOne
-    @XmlElement
+    //@XmlElement
     private Ad ad;
 
     public Report() {

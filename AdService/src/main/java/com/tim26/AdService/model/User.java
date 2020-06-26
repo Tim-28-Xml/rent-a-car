@@ -6,26 +6,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "User", namespace = "http://localhost:8084/adservice-schema")
-@XmlRootElement(name = "userClass")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "User", namespace = "http://localhost:8084/adservice-schema")
+//@XmlRootElement(name = "userClass")
 public class User {
 
     @Id
     @Column
-    @XmlElement
+    //@XmlElement
     private String username;
 
     @OneToMany(mappedBy = "user")
-    @XmlElement
+    //@XmlElement
     private List<Ad> ad = new ArrayList<Ad>();
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    @XmlElement
+    //@XmlElement
     private List<PriceList> priceLists = new ArrayList<PriceList>();
 
     @OneToMany()
-    @XmlElement
+    //@XmlElement
     private List<Ad> shoppingCart = new ArrayList<>();
 
     public User() {

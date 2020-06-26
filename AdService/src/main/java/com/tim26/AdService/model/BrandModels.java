@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "brands")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "BrandModels", namespace = "http://localhost:8084/adservice-schema")
-@XmlRootElement(name = "brandModelsClass")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "BrandModels", namespace = "http://localhost:8084/adservice-schema")
+//@XmlRootElement(name = "brandModelsClass")
 public class BrandModels {
 
     @Id
-    @XmlElement
+    //@XmlElement
     private String brand;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @XmlElement
+    //@XmlElement
     private List<String> models = new ArrayList<>();
 
     public BrandModels() {

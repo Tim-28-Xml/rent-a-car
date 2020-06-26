@@ -1,4 +1,4 @@
-package com.tim26.AdService.soap;
+/*package com.tim26.AdService.soap;
 
 
 import com.tim26.AdService.dto.CreatePricelistDto;
@@ -46,4 +46,4 @@ public class PricelistEndPoint {
         }
         return response;
     }
-}
+}*/

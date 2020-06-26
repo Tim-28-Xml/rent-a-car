@@ -5,22 +5,22 @@ import javax.xml.bind.annotation.*;
 import java.time.LocalDate;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "CartAdDates", namespace = "http://localhost:8084/adservice-schema")
-@XmlRootElement(name = "cartAdDatesClass")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "CartAdDates", namespace = "http://localhost:8084/adservice-schema")
+//@XmlRootElement(name = "cartAdDatesClass")
 public class CartAdDates {
 
     @Id
-    @XmlElement
+    //@XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    @XmlElement
+    //@XmlElement
     private String username;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @XmlElement
+    //@XmlElement
     private  DateRange dateRange;
 
     public CartAdDates() {

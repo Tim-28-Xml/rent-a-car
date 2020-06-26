@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class Date {
 
     @Id
-    @XmlElement
+    //@XmlElement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
