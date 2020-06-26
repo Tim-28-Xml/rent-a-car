@@ -131,12 +131,16 @@ public class PricelistServiceImpl implements PricelistService {
     @Override
     public boolean validateCreationData(CreatePricelistDto dto) {
         if(dto.getCdwPrice() < 0 || dto.getDailyPrice() < 0 || dto.getPricePerExtraKm() < 0) {
+            LOGGER.error("Validation creation data for adding pricelist: FAILED, Any of the prices fields cannot be negative");
             return false;
         }
 
         if(dto.getName().isEmpty()) {
+            LOGGER.error("Validation creation data for adding pricelist: FAILED, Name of the pricelist cannot be empty");
             return false;
         }
+
+        LOGGER.info("Validation creation data for adding pricelist: SUCCESS");
 
         return true;
     }

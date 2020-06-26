@@ -312,6 +312,7 @@ public class AdServiceImpl implements AdService {
             return false;
         }
 
+        LOGGER.info("Validation creation data for adding advertisment: SUCCESS");
         return true;
     }
 
