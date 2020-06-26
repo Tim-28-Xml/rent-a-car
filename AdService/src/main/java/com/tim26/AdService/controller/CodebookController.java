@@ -30,7 +30,7 @@ public class CodebookController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Codebook> getCodebook(){
         if(codebookService.getFirstCodebook() != null) {
-            LOGGER.info("Getting the codebook with id: ", codebookService.getFirstCodebook().getId());
+            LOGGER.info("Getting the codebook with id: {}", codebookService.getFirstCodebook().getId());
             return new ResponseEntity<>(codebookService.getFirstCodebook(), HttpStatus.OK);
         } else {
             LOGGER.warn("There is no present codebook.");
