@@ -7,6 +7,8 @@ import com.tim26.AuthenticationService.model.User;
 import com.tim26.AuthenticationService.service.interfaces.AgentService;
 import com.tim26.AuthenticationService.service.interfaces.EndUserService;
 import com.tim26.AuthenticationService.service.interfaces.UService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
+
+    private static final Logger LOGGER= LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     EndUserService endUserService;
@@ -56,7 +60,14 @@ public class UserController {
     @GetMapping(value = "/remove/permission/{username}/{permission}")
     public ResponseEntity<PermissionsDTO> removeEndUserPermission(@PathVariable String username, @PathVariable String permission){
 
+        if(permission == null){
+            LOGGER.error("Failed to remove permission: Permission is null.");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         PermissionsDTO permissions = uService.removePermission(username,permission);
+
+        LOGGER.info("Removed permission: user: {}, permission: {}.", username, permission);
         return new ResponseEntity<>(permissions, HttpStatus.OK);
     }
 
@@ -64,7 +75,14 @@ public class UserController {
     @GetMapping(value = "/add/permission/{username}/{permission}")
     public ResponseEntity<PermissionsDTO> addEndUserPermission(@PathVariable String username, @PathVariable String permission){
 
+        if(permission == null){
+            LOGGER.error("Failed to enable permission: Permission is null.");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         PermissionsDTO permissions = uService.addPermission(username,permission);
+
+        LOGGER.info("Enabled permission: user: {}, permission: {}.", username, permission);
         return new ResponseEntity<>(permissions, HttpStatus.OK);
     }
 
@@ -81,8 +99,10 @@ public class UserController {
     public ResponseEntity removeUser(@PathVariable String username){
 
         if(uService.removeUser(username)){
+            LOGGER.info("User: {} is removed by admin.", username);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
+            LOGGER.error("Failed to remove user: {} by admin.", username);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -95,6 +115,8 @@ public class UserController {
         user.setEnabled(true);
         user.setActivated(true);
         uService.save(user);
+
+        LOGGER.info("User: {} has confirmed his/hers account.", user.getUsername());
 
         URI newUri = new URI("https://localhost:3000/activated-account");
         HttpHeaders headers = new HttpHeaders();
@@ -118,8 +140,10 @@ public class UserController {
 
         boolean accepted = uService.acceptAccount(username);
         if(accepted){
+            LOGGER.info("Account with username: {} is accepted by admin.", username);
             return new ResponseEntity(HttpStatus.ACCEPTED);
         } else {
+            LOGGER.error("Account with username: {} is not accepted by admin successfully.", username);
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
@@ -131,8 +155,10 @@ public class UserController {
 
         boolean declined = uService.declineAccount(username);
         if(declined){
+            LOGGER.info("Account with username: {} is declined by admin.", username);
             return new ResponseEntity(HttpStatus.ACCEPTED);
         } else {
+            LOGGER.error("Account with username: {} is not declined by admin successfully.", username);
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
