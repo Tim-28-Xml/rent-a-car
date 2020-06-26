@@ -37,10 +37,10 @@ public class PricelistController {
     public ResponseEntity<CreatePricelistDto> save(@RequestBody CreatePricelistDto createPricelistDto, Principal p) {
         //if(pricelistService.save(p.getName(), createPricelistDto) != null)
         if(pricelistService.save(p, createPricelistDto)) {
-            LOGGER.info("Creating new pricelist - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
+            LOGGER.info("Create Pricelist - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
             return new ResponseEntity<>(createPricelistDto, HttpStatus.OK);
         }
-        LOGGER.error("Failed to create new pricelist - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
+        LOGGER.error("Create Pricelist Failed - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
         return new ResponseEntity<>(createPricelistDto, HttpStatus.BAD_REQUEST);
     }
 }
