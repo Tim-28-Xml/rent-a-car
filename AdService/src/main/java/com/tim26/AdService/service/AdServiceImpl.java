@@ -9,6 +9,7 @@ import com.tim26.AdService.service.interfaces.CarService;
 import com.tim26.AdService.service.interfaces.CodebookService;
 import com.tim26.AdService.service.interfaces.PricelistService;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.hibernate.annotations.LazyToOneOption;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +69,7 @@ public class AdServiceImpl implements AdService {
             User user = new User();
             user.setUsername(p.getName());
             if(!userRepository.findByUsername(p.getName()).isPresent()) {
+                LOGGER.info("Adding user: {} to the Ad Service Database", p.getName());
                 preparedStatementUser = connection.prepareStatement("INSERT INTO user (username) values (?)");
                 preparedStatementUser.executeUpdate();
             }
@@ -136,6 +138,7 @@ public class AdServiceImpl implements AdService {
                     preparedStatementAd.setLong(4, advertisment.getPriceList().getId());
                     preparedStatementAd.executeUpdate();
                 } catch (Exception e) {
+                    LOGGER.error("Failed to save car or ad to the database, Exception: ", e.getMessage());
                     return false;
                 }
             } else {
@@ -270,30 +273,42 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public boolean validateCreationData(CreateAdDto createAdDto) {
-        if(createAdDto.isCollision() != true && createAdDto.isCollision() != false)
+        if(createAdDto.isCollision() != true && createAdDto.isCollision() != false) {
+            LOGGER.error("Validate creation data for adding advertisment: FAILED, Boolean field is neither true nor false");
             return false;
+        }
 
-        if(!codebookService.getCarClasses().contains(createAdDto.getCarClass()))
+        if(!codebookService.getCarClasses().contains(createAdDto.getCarClass())) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Provied {} car class doesn't exist.", createAdDto.getCarClass());
             return false;
+        }
 
-        if(!codebookService.getFuelTypes().contains(createAdDto.getFuel()))
+        if(!codebookService.getFuelTypes().contains(createAdDto.getFuel())) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Provied {} fuel type doesn't exist.", createAdDto.getFuel());
             return false;
+        }
 
-        if(!codebookService.getTransmissionTypes().contains(createAdDto.getTransmission()))
+        if(!codebookService.getTransmissionTypes().contains(createAdDto.getTransmission())) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Provied {} transmission type doesn't exist.", createAdDto.getTransmission());
             return false;
+        }
 
-        if(!codebookService.getModelsFromBrand(createAdDto.getBrand()).contains(createAdDto.getModel()))
+        if(!codebookService.getModelsFromBrand(createAdDto.getBrand()).contains(createAdDto.getModel())) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Provied {} car model doesn't exist.", createAdDto.getModel());
             return false;
+        }
 
         String km = String.valueOf(createAdDto.getKm());
         String kmLimit = String.valueOf(createAdDto.getKmLimit());
         String childSeats = String.valueOf(createAdDto.getChildSeats());
 
         if(createAdDto.getKm() > createAdDto.getKmLimit()) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Km cannot be greater than Km Limit");
             return false;
         }
 
         if(createAdDto.getChildSeats().contains("-")) {
+            LOGGER.error("Validation creation data for adding advertisment: FAILED, Number of child seats cannot be a negative number");
             return false;
         }
 
