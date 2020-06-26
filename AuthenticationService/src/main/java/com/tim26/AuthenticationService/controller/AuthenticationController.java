@@ -11,6 +11,8 @@ import com.tim26.AuthenticationService.service.CustomUserDetailsService;
 import com.tim26.AuthenticationService.service.interfaces.AgentService;
 import com.tim26.AuthenticationService.service.interfaces.EndUserService;
 import com.tim26.AuthenticationService.service.interfaces.UService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +29,8 @@ import java.util.Collection;
 @RestController
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
+
+    private static final Logger LOGGER= LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -56,6 +60,7 @@ public class AuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest){
 
         if(userService.findByUsername(authenticationRequest.getUsername()) == null){
+            LOGGER.error("Failed to log in: User with username: {} does not exist.", authenticationRequest.getUsername());
             return new ResponseEntity<>("User with this username does not exist!", HttpStatus.NOT_FOUND);
         }
 
@@ -69,12 +74,14 @@ public class AuthenticationController {
         User user = (User)userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
         if(!user.isEnabled() || !user.isActivated()){
+            LOGGER.warn("Failed to log in: Profile with this username: {} is not activated or enabled.", user.getUsername());
             return new ResponseEntity<>("Profile is not activated or enabled!", HttpStatus.BAD_REQUEST);
         }
 
         String jwt = tokenUtils.generateToken(user.getUsername(), user.getAuthorities());
         int expiresIn = tokenUtils.getExpiredIn();
 
+        LOGGER.info("Successfully logged in user with username: {}", user.getUsername());
         return ResponseEntity.ok(new PersonTokenState(jwt, expiresIn, user.getUsername()));
 
     }
@@ -137,6 +144,7 @@ public class AuthenticationController {
         user.setEnabled(false);
         user.setActivated(false);
         endUserService.save(user);
+        LOGGER.info("Created registration request for user with username: {}", user.getUsername());
         return ResponseEntity.ok().build();
     }
 
@@ -157,6 +165,7 @@ public class AuthenticationController {
         user.setEnabled(true);
         user.setActivated(true);
         agentService.save(user);
+        LOGGER.info("Registered agent with username: {}", user.getUsername());
         return ResponseEntity.ok().build();
     }
 }
