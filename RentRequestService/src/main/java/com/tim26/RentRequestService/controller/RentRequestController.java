@@ -55,6 +55,7 @@ public class  RentRequestController {
             return ResponseEntity.ok(rentRequest);
     }
 
+    @PreAuthorize("hasAuthority('ORDER')")
     @PostMapping
     public ResponseEntity postRentRequest(@RequestBody RentRequestDTO rentRequestDTO, Principal principal){
         RentRequest rentRequest = new RentRequest(rentRequestDTO, principal.getName());
@@ -67,6 +68,7 @@ public class  RentRequestController {
         }
     }
 
+    @PreAuthorize("hasAuthority('RENT')")
     @DeleteMapping("{id}")
     public ResponseEntity deleteRentRequest(@PathVariable String id){
         try{
@@ -77,12 +79,14 @@ public class  RentRequestController {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('USER','AGENT')")
     @GetMapping("/myCreated")
     public List<ViewRequestDTO> getEndUserRequests(Principal principal){
 
         return rentRequestService.getAllForEndUser(principal);
     }
 
+    @PreAuthorize("hasAnyRole('USER','AGENT')")
     @GetMapping("/myReceived")
     public List<ViewRequestDTO> getAgentRequests(Principal principal){
         List<ViewRequestDTO> viewRequestDTOS = new ArrayList<>();
@@ -103,7 +107,7 @@ public class  RentRequestController {
         return viewRequestDTOS;
     }
 
-
+    
     @GetMapping("/peoplechat")
     public ResponseEntity<List<String>> getUsersForChat(Principal principal) {
         List<String> people = rentRequestService.usersForMessages(principal);
@@ -112,7 +116,7 @@ public class  RentRequestController {
     }
     
 
-    @PreAuthorize("hasAuthority('ORDER')")
+    @PreAuthorize("hasAuthority('PAY')")
     @PostMapping("/pay")
     public ViewRequestDTO payRentRequest(@RequestBody ReqIdDTO reqIdDTO, Principal principal){
         RentRequest rentRequest = rentRequestService.pay(reqIdDTO, principal);
@@ -125,7 +129,7 @@ public class  RentRequestController {
     }
 
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/my-paid-finished")
     public ResponseEntity<List<AdDateRangeDTO>> getUserPaidFinishedReq(Principal principal){
 
@@ -138,7 +142,7 @@ public class  RentRequestController {
         }
     }
 
-    @PreAuthorize("hasAuthority('AGENT')")
+    @PreAuthorize("hasAuthority('RENT')")
     @PostMapping("/approve")
     public ResponseEntity<?> approveRequest(@RequestBody ReqIdDTO reqId){
         boolean isApproved = rentRequestService.approveRequest(reqId.reqId);
@@ -149,7 +153,7 @@ public class  RentRequestController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('AGENT','USER')")
+    @PreAuthorize("hasAnyAuthority('RENT','ORDER')")
     @PostMapping("/decline")
     public ResponseEntity<?> declineRequest(@RequestBody ReqIdDTO reqId){
         boolean isDeclined = rentRequestService.declineRequest(reqId.reqId);
