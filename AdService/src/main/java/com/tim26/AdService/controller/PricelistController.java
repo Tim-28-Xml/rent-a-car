@@ -40,10 +40,10 @@ public class PricelistController {
     public ResponseEntity<CreatePricelistDto> save(@RequestBody CreatePricelistDto createPricelistDto, Principal p) throws SQLException {
         //if(pricelistService.save(p.getName(), createPricelistDto) != null)
         if(pricelistService.save(p, createPricelistDto)) {
-            LOGGER.info("Creating Pricelist - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
+            LOGGER.info("Response is 200 OK, CREATE PRICELIST - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
             return new ResponseEntity<>(createPricelistDto, HttpStatus.OK);
         }
-        LOGGER.error("Failed to create Pricelist  - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
+        LOGGER.error("Response is 400 BAD REQUEST, Failed to CREATE PRICELIST  - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
         return new ResponseEntity<>(createPricelistDto, HttpStatus.BAD_REQUEST);
     }
 }
