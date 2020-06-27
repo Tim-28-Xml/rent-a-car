@@ -9,6 +9,8 @@ import com.tim26.ReviewService.repository.AdRepository;
 import com.tim26.ReviewService.repository.ReviewRepository;
 import com.tim26.ReviewService.service.interfaces.AdService;
 import com.tim26.ReviewService.service.interfaces.ReviewService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReviewServiceImpl.class);
 
     @Autowired
     private ReviewRepository reviewRepository;
@@ -35,11 +39,11 @@ public class ReviewServiceImpl implements ReviewService {
         if(adService.findById(id).isPresent()) {
             Ad ad = adService.findById(id).get();
 
-
             if (reviewRepository.findAllByAd(ad) != null) {
                 for (Review r : reviewRepository.findAllByAd(ad)) {
 
                     if (r.isApproved()) {
+                        LOGGER.info("Approved review with id:{}", r.getId());
                         ReviewDTO reviewDTO = new ReviewDTO(r);
                         reviews.add(reviewDTO);
                     }
@@ -102,6 +106,7 @@ public class ReviewServiceImpl implements ReviewService {
         for(Review r : reviewRepository.findAll()){
 
             if(r.isApproved() ==  false) {
+                LOGGER.info("Unapproved review with id:{}", r.getId());
                 ReviewDTO reviewDTO = new ReviewDTO(r);
                 reviews.add(reviewDTO);
             }

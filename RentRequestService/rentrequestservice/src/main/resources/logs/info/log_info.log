@@ -1,0 +1,150 @@
+27-06-2020 07:37:35.718 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.tim26.RentRequestService.RentRequestServiceApplicationTests], using SpringBootContextLoader
+27-06-2020 07:37:35.734 INFO  [main] o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.tim26.RentRequestService.RentRequestServiceApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+27-06-2020 07:37:35.734 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.tim26.RentRequestService.RentRequestServiceApplicationTests]: RentRequestServiceApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+27-06-2020 07:37:35.874 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.tim26.RentRequestService.RentRequestServiceApplication for test class com.tim26.RentRequestService.RentRequestServiceApplicationTests
+27-06-2020 07:37:36.046 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener]
+27-06-2020 07:37:36.077 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@13d4992d, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@302f7971, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@332729ad, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@75d2da2d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@4278284b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@9573584, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3370f42, org.springframework.test.context.event.EventPublishingTestExecutionListener@6057aebb, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@63eef88a, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@53251a66, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6853425f, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@352c1b98, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@21129f1f, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5a9f4771, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@282cb7c7, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@7d898981]
+27-06-2020 07:37:37.802 INFO  [main] c.t.R.RentRequestServiceApplicationTests - No active profile set, falling back to default profiles: default
+27-06-2020 07:37:39.009 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+27-06-2020 07:37:39.227 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 220ms. Found 2 JPA repository interfaces.
+27-06-2020 07:37:39.792 INFO  [main] o.s.cloud.context.scope.GenericScope - BeanFactory id=259b9607-1e86-356d-b884-9f4c6ec1d171
+27-06-2020 07:37:40.199 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$fde6bc1e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+27-06-2020 07:37:40.262 INFO  [main] o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+27-06-2020 07:37:40.375 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@6fa2448b' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+27-06-2020 07:37:40.397 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+27-06-2020 07:37:40.686 INFO  [main] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+27-06-2020 07:37:40.796 INFO  [task-1] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+27-06-2020 07:37:40.937 INFO  [task-1] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.15.Final
+27-06-2020 07:37:41.281 INFO  [task-1] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+27-06-2020 07:37:41.893 INFO  [task-1] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+27-06-2020 07:37:42.207 INFO  [task-1] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+27-06-2020 07:37:42.238 INFO  [task-1] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+27-06-2020 07:37:43.492 INFO  [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+27-06-2020 07:37:43.508 INFO  [task-1] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+27-06-2020 07:37:44.355 INFO  [main] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 2fddbe1a-e556-49f1-94ec-6afa7aeecd0f
+
+27-06-2020 07:37:44.465 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/h2-console/**'], []
+27-06-2020 07:37:44.465 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+27-06-2020 07:37:44.465 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+27-06-2020 07:37:44.465 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+27-06-2020 07:37:44.465 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+27-06-2020 07:37:44.465 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+27-06-2020 07:37:44.465 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+27-06-2020 07:37:44.480 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+27-06-2020 07:37:44.590 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@203b953c, org.springframework.security.web.context.SecurityContextPersistenceFilter@166b11e, org.springframework.security.web.header.HeaderWriterFilter@26874f2c, org.springframework.security.web.authentication.logout.LogoutFilter@53cddaf8, com.tim26.RentRequestService.security.TokenAuthenticationFilter@730bea0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5323999f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@45eab322, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@41a16eb3, org.springframework.security.web.session.SessionManagementFilter@1e734eee, org.springframework.security.web.access.ExceptionTranslationFilter@13ca16bf, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5b44318]
+27-06-2020 07:37:44.888 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+27-06-2020 07:37:44.904 INFO  [main] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+27-06-2020 07:37:45.814 INFO  [main] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./src/main/resources/rrsDB'
+27-06-2020 07:37:47.413 INFO  [main] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+27-06-2020 07:37:47.522 INFO  [main] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+27-06-2020 07:37:48.165 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+27-06-2020 07:37:48.165 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+27-06-2020 07:37:48.386 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+27-06-2020 07:37:48.386 INFO  [main] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+27-06-2020 07:37:48.605 INFO  [main] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+27-06-2020 07:37:48.903 INFO  [main] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+27-06-2020 07:37:48.903 INFO  [main] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+27-06-2020 07:37:48.903 INFO  [main] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+27-06-2020 07:37:48.903 INFO  [main] c.netflix.discovery.DiscoveryClient - Application is null : false
+27-06-2020 07:37:48.903 INFO  [main] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+27-06-2020 07:37:48.903 INFO  [main] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+27-06-2020 07:37:48.903 INFO  [main] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+27-06-2020 07:37:53.041 INFO  [main] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+27-06-2020 07:37:53.041 INFO  [main] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+27-06-2020 07:37:53.056 INFO  [main] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1593236273041 with initial instances count: 0
+27-06-2020 07:37:53.056 INFO  [main] o.s.c.n.e.s.EurekaServiceRegistry - Registering application RENTREQUESTSERVICE with eureka with status UP
+27-06-2020 07:37:53.056 INFO  [main] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1593236273056, current=UP, previous=STARTING]
+27-06-2020 07:37:53.056 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_RENTREQUESTSERVICE/ASUS-LALE:rentrequestservice:8090: registering service...
+27-06-2020 07:37:53.072 INFO  [main] o.s.d.r.c.DeferredRepositoryInitializationListener - Triggering deferred initialization of Spring Data repositories…
+27-06-2020 07:37:53.293 INFO  [main] o.s.d.r.c.DeferredRepositoryInitializationListener - Spring Data repositories initialized!
+27-06-2020 07:37:53.309 INFO  [main] c.t.R.RentRequestServiceApplicationTests - Started RentRequestServiceApplicationTests in 17.151 seconds (JVM running for 18.697)
+27-06-2020 07:37:53.449 INFO  [SpringContextShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application RENTREQUESTSERVICE with eureka with status DOWN
+27-06-2020 07:37:53.449 INFO  [SpringContextShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+27-06-2020 07:37:53.449 INFO  [SpringContextShutdownHook] o.h.t.s.i.SchemaDropperImpl$DelayedDropActionImpl - HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+27-06-2020 07:37:53.465 INFO  [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+27-06-2020 07:37:53.465 INFO  [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+27-06-2020 07:37:53.480 INFO  [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+27-06-2020 07:37:53.480 INFO  [SpringContextShutdownHook] c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
+27-06-2020 07:37:56.492 INFO  [SpringContextShutdownHook] c.netflix.discovery.DiscoveryClient - Unregistering ...
+27-06-2020 07:38:00.554 INFO  [SpringContextShutdownHook] c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
+27-06-2020 08:04:29.139 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+27-06-2020 08:04:31.528 INFO  [restartedMain] c.t.R.RentRequestServiceApplication - No active profile set, falling back to default profiles: default
+27-06-2020 08:04:34.379 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+27-06-2020 08:04:34.505 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 110ms. Found 2 JPA repository interfaces.
+27-06-2020 08:04:35.328 INFO  [restartedMain] o.s.cloud.context.scope.GenericScope - BeanFactory id=9285bf58-95ef-38e2-be00-1ad8f25183cb
+27-06-2020 08:04:35.627 INFO  [restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$1f9c7131] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+27-06-2020 08:04:35.671 INFO  [restartedMain] o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+27-06-2020 08:04:35.769 INFO  [restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4649064b' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+27-06-2020 08:04:35.780 INFO  [restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+27-06-2020 08:04:37.295 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8090 (http)
+27-06-2020 08:04:37.313 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8090"]
+27-06-2020 08:04:37.314 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+27-06-2020 08:04:37.315 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.35]
+27-06-2020 08:04:37.572 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+27-06-2020 08:04:37.573 INFO  [restartedMain] o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 6013 ms
+27-06-2020 08:04:37.708 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+27-06-2020 08:04:38.567 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+27-06-2020 08:04:38.590 INFO  [restartedMain] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./src/main/resources/rrsDB'
+27-06-2020 08:04:39.663 INFO  [restartedMain] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+27-06-2020 08:04:39.941 INFO  [task-1] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+27-06-2020 08:04:40.368 INFO  [task-1] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.15.Final
+27-06-2020 08:04:41.004 INFO  [task-1] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+27-06-2020 08:04:41.590 INFO  [task-1] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+27-06-2020 08:04:45.252 INFO  [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+27-06-2020 08:04:45.292 INFO  [task-1] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+27-06-2020 08:04:47.648 INFO  [restartedMain] o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 62558bfd-33af-46db-a781-d1f19274f8ea
+
+27-06-2020 08:04:47.983 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/h2-console/**'], []
+27-06-2020 08:04:47.984 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/', GET], []
+27-06-2020 08:04:47.985 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**', GET], []
+27-06-2020 08:04:47.985 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/*.html', GET], []
+27-06-2020 08:04:47.985 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/favicon.ico', GET], []
+27-06-2020 08:04:47.985 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.html', GET], []
+27-06-2020 08:04:47.986 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.css', GET], []
+27-06-2020 08:04:47.986 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/**/*.js', GET], []
+27-06-2020 08:04:48.600 INFO  [restartedMain] o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@44eaadfc, org.springframework.security.web.context.SecurityContextPersistenceFilter@6b17584c, org.springframework.security.web.header.HeaderWriterFilter@179cf121, org.springframework.security.web.authentication.logout.LogoutFilter@475bbda, com.tim26.RentRequestService.security.TokenAuthenticationFilter@2cefead6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@635a0913, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@56644924, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1133a6ab, org.springframework.security.web.session.SessionManagementFilter@4821e640, org.springframework.security.web.access.ExceptionTranslationFilter@5dea6544, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@20b91a85]
+27-06-2020 08:04:48.779 INFO  [restartedMain] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+27-06-2020 08:04:48.852 INFO  [restartedMain] c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+27-06-2020 08:04:56.732 INFO  [restartedMain] o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+27-06-2020 08:04:56.825 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+27-06-2020 08:04:57.855 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+27-06-2020 08:04:57.856 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+27-06-2020 08:04:58.197 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+27-06-2020 08:04:58.198 INFO  [restartedMain] c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+27-06-2020 08:04:58.627 INFO  [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+27-06-2020 08:04:59.635 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Disable delta property : false
+27-06-2020 08:04:59.635 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+27-06-2020 08:04:59.636 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+27-06-2020 08:04:59.636 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Application is null : false
+27-06-2020 08:04:59.637 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+27-06-2020 08:04:59.637 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Application version is -1: true
+27-06-2020 08:04:59.637 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+27-06-2020 08:05:00.124 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - The response status is 200
+27-06-2020 08:05:00.130 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+27-06-2020 08:05:00.136 INFO  [restartedMain] c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+27-06-2020 08:05:00.174 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1593237900172 with initial instances count: 2
+27-06-2020 08:05:00.209 INFO  [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry - Registering application RENTREQUESTSERVICE with eureka with status UP
+27-06-2020 08:05:00.213 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1593237900213, current=UP, previous=STARTING]
+27-06-2020 08:05:00.217 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_RENTREQUESTSERVICE/host.docker.internal:rentrequestservice:8090: registering service...
+27-06-2020 08:05:00.218 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8090"]
+27-06-2020 08:05:00.257 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+27-06-2020 08:05:00.257 INFO  [restartedMain] o.h.t.s.i.SchemaDropperImpl$DelayedDropActionImpl - HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+27-06-2020 08:05:00.283 INFO  [restartedMain] o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+27-06-2020 08:05:00.287 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+27-06-2020 08:05:00.293 INFO  [DiscoveryClient-InstanceInfoReplicator-0] c.netflix.discovery.DiscoveryClient - DiscoveryClient_RENTREQUESTSERVICE/host.docker.internal:rentrequestservice:8090 - registration status: 204
+27-06-2020 08:05:00.314 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+27-06-2020 08:05:00.316 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
+27-06-2020 08:05:03.331 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Unregistering ...
+27-06-2020 08:05:03.341 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - DiscoveryClient_RENTREQUESTSERVICE/host.docker.internal:rentrequestservice:8090 - deregister  status: 200
+27-06-2020 08:05:03.359 INFO  [restartedMain] c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
+27-06-2020 08:05:03.363 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8090"]
+27-06-2020 08:05:03.363 INFO  [restartedMain] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+27-06-2020 08:05:03.414 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8090"]
+27-06-2020 08:05:03.414 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8090"]
+27-06-2020 08:05:03.430 INFO  [restartedMain] o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
