@@ -43,10 +43,10 @@ public class AdController {
     public ResponseEntity<AdDTO> getAd(@PathVariable String id){
         AdDTO ad = adService.findById(Long.parseLong(id));
         if(ad != null) {
-            LOGGER.info("Get Ad with id: {} from owner: ", ad.getId(), ad.getUsername());
+            LOGGER.info("Response is 200 OK, GET AD with id: {} from owner: ", ad.getId(), ad.getUsername());
             return new ResponseEntity<>(ad,HttpStatus.OK);
         } else {
-            LOGGER.error("Failed getting Ad with id: {} from owner: ", ad.getId(), ad.getUsername());
+            LOGGER.error("Response is 400 BAD REQUEST, Failed GETTING AD with id: {} from owner: ", ad.getId(), ad.getUsername());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -63,10 +63,10 @@ public class AdController {
             } else {
                 cdw = "No";
             }
-            LOGGER.info("Get Car with id: {}, brand: {}, model: {}, fuel type: {}, transmission type: {}, car class: {}, with collision damage waiver: {}, number of child seats: {}" , dto.getId(), dto.getBrand(), dto.getModel(), dto.getFuel(), dto.getTransmission(), dto.getCarClass(), cdw, dto.getChildSeats());
+            LOGGER.info("Response is 200 OK, GET CAR with provided id: {} - brand: {}, model: {}, fuel type: {}, transmission type: {}, car class: {}, with collision damage waiver: {}, number of child seats: {}" , dto.getId(), dto.getBrand(), dto.getModel(), dto.getFuel(), dto.getTransmission(), dto.getCarClass(), cdw, dto.getChildSeats());
             return new ResponseEntity<>(dto, HttpStatus.OK);
         } else {
-            LOGGER.error("Failed getting Car with id: {}", dto.getId());
+            LOGGER.error("Response is 400 BAD REQUEST, Failed GETTING CAR with id: {}", dto.getId());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -82,7 +82,7 @@ public class AdController {
             } else {
                 cdw = "No";
             }
-            LOGGER.info("Create new advertisment with car brand: {}, model: {}, fuel type: {}, transmission type: {}, car class: {}, number of child seats: {}, with collision damage waiver: {}, pricelist name: {} and owner: {}", createAdDto.getBrand(), createAdDto.getModel(), createAdDto.getFuel(), createAdDto.getTransmission(), createAdDto.getCarClass(), createAdDto.getChildSeats(), cdw, createAdDto.getPricelist(), p.getName());
+            LOGGER.info("Response is 200 OK, User {} executed the action CREATE NEW ADVERTISMENT with car brand: {}, model: {}, fuel type: {}, transmission type: {}, car class: {}, number of child seats: {}, with collision damage waiver: {}, pricelist name: {}", p.getName(), createAdDto.getBrand(), createAdDto.getModel(), createAdDto.getFuel(), createAdDto.getTransmission(), createAdDto.getCarClass(), createAdDto.getChildSeats(), cdw, createAdDto.getPricelist());
             return new ResponseEntity<>(createAdDto, HttpStatus.OK);
         }
 
@@ -92,7 +92,7 @@ public class AdController {
         } else {
             cdw = "No";
         }
-        LOGGER.error("Failed to create new advertismentwith car brand: {}, model: {}, fuel type: {}, transmission type: {}, car class: {}, number of child seats: {}, with collision damage waiver: {}, pricelist name: {} and owner: {}", createAdDto.getBrand(), createAdDto.getModel(), createAdDto.getFuel(), createAdDto.getTransmission(), createAdDto.getCarClass(), createAdDto.getChildSeats(), cdw, createAdDto.getPricelist(), p.getName());
+        LOGGER.error("Response is 400 BAD REQUEST, Failed to CREATE NEW AD with car brand: {}, model: {}, fuel type: {}, transmission type: {}, car class: {}, number of child seats: {}, with collision damage waiver: {}, pricelist name: {} and owner: {}", createAdDto.getBrand(), createAdDto.getModel(), createAdDto.getFuel(), createAdDto.getTransmission(), createAdDto.getCarClass(), createAdDto.getChildSeats(), cdw, createAdDto.getPricelist(), p.getName());
         return new ResponseEntity<>(createAdDto, HttpStatus.BAD_REQUEST);
     }
 
@@ -101,22 +101,22 @@ public class AdController {
     public ResponseEntity<List<AdDTO>> getMyAds(Principal p){
         List<AdDTO> ads = adService.findMyAds(p.getName());
         if(ads != null) {
-            LOGGER.info("Getting all {} ads from user", ads.size(), p.getName());
+            LOGGER.info("Response is 200 OK, GET ALL {} ads from user", ads.size(), p.getName());
             return new ResponseEntity<>(ads, HttpStatus.OK);
         }
 
         LOGGER.warn("User {} doesn't have any ads", p.getName());
-        return new ResponseEntity<>(ads, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('RENT_BY_CREATOR')")
     @PostMapping(value = "rent-creator")
     public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO, Principal p){
         if(adService.rentByCreator(rentAdDTO, p)){
-            LOGGER.info("Physical rent by user {} for ad with id: {} from {} till {}", p.getName(), rentAdDTO.getId(), rentAdDTO.getStartDate(), rentAdDTO.getEndDate());
+            LOGGER.info("Response is 200 OK, PHYISICAL RENT by user {} for ad with id: {} from {} till {}", p.getName(), rentAdDTO.getId(), rentAdDTO.getStartDate(), rentAdDTO.getEndDate());
             return new ResponseEntity<>("Car is successfully rented!",HttpStatus.OK);
         } else {
-            LOGGER.error("Failed to physically rent by user {} for ad with id: {} from {} till {}", p.getName(), rentAdDTO.getId(), rentAdDTO.getStartDate(), rentAdDTO.getEndDate());
+            LOGGER.error("Response is 400 BAD REQUEST, Failed to PHYSICALLY RENT by user {} for ad with id: {} from {} till {}", p.getName(), rentAdDTO.getId(), rentAdDTO.getStartDate(), rentAdDTO.getEndDate());
             return new ResponseEntity<>("Car cannot be rented!",HttpStatus.BAD_REQUEST);
         }
 
