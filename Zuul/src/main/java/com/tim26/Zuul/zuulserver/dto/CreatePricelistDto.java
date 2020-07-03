@@ -1,6 +1,4 @@
-package com.tim26.AdService.dto;
-
-import com.tim26.AdService.model.PriceList;
+package com.tim26.Zuul.zuulserver.dto;
 
 public class CreatePricelistDto {
     private String name;
@@ -9,17 +7,6 @@ public class CreatePricelistDto {
     private double pricePerExtraKm;
 
     public CreatePricelistDto() {}
-
-    public CreatePricelistDto(String name,double dailyPrice, double cdwPrice, double pricePerExtraKm){
-        this.name = name;
-        this.dailyPrice = dailyPrice;
-        this.cdwPrice = cdwPrice;
-        this.pricePerExtraKm = pricePerExtraKm;
-    }
-
-    public CreatePricelistDto(PriceList priceList){
-        this(priceList.getName(),priceList.getDailyPrice(),priceList.getCdwPrice(),priceList.getPricePerExtraKm());
-    }
 
     public String getName() {
         return name;

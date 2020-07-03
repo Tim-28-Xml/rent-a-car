@@ -10,6 +10,7 @@ public class AdDTO {
     private String city;
     private LocalDate start;
     private LocalDate end;
+    private CreatePricelistDto pricelistDto;
 
     public AdDTO(){
 
@@ -70,5 +71,13 @@ public class AdDTO {
 
     public void setEnd(LocalDate end) {
         this.end = end;
+    }
+
+    public CreatePricelistDto getPricelistDto() {
+        return pricelistDto;
+    }
+
+    public void setPricelistDto(CreatePricelistDto pricelistDto) {
+        this.pricelistDto = pricelistDto;
     }
 }

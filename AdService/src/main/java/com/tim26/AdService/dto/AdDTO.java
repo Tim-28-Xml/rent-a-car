@@ -16,6 +16,7 @@ public class AdDTO {
     private ArrayList<DateRangeDTO>  rentDates = new ArrayList<>();
     private String city;
     private String pricelist;
+    private CreatePricelistDto pricelistDto;
     private List<CartAdDates> cartAdDates = new ArrayList<>();
 
     public AdDTO(){
@@ -41,6 +42,10 @@ public class AdDTO {
                 datesdto.add(new DateDTO(d.getId(),d.getDate()));
             }
 
+            if(ad.getPriceList() != null) {
+                CreatePricelistDto pricelistDto = new CreatePricelistDto(ad.getPriceList());
+                this.pricelistDto = pricelistDto;
+            }
 
             DateRangeDTO dto = new DateRangeDTO(dt.getId(),dt.getStartDate(),dt.getEndDate(),datesdto);
             this.getRentDates().add(dto);
@@ -103,5 +108,13 @@ public class AdDTO {
 
     public void setCartAdDates(List<CartAdDates> cartAdDates) {
         this.cartAdDates = cartAdDates;
+    }
+
+    public CreatePricelistDto getPricelistDto() {
+        return pricelistDto;
+    }
+
+    public void setPricelistDto(CreatePricelistDto pricelistDto) {
+        this.pricelistDto = pricelistDto;
     }
 }
