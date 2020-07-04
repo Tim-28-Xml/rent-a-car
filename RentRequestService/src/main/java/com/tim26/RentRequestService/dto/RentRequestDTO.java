@@ -11,6 +11,7 @@ public class RentRequestDTO {
     private List<AdDateRange> adsWithDates = new ArrayList<>();
     private String owner;
     private LocalDateTime creationTime;
+    private int price;
 
     public RentRequestDTO() {
     }
@@ -20,6 +21,7 @@ public class RentRequestDTO {
         this.owner = r.getOwner().getUsername();
         this.creationTime = r.getCreationTime();
         this.adsWithDates = r.getAdsWithDates();
+        this.price = r.getPrice();
     }
 
 
@@ -45,5 +47,13 @@ public class RentRequestDTO {
 
     public void setCreationTime(LocalDateTime creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

@@ -33,6 +33,9 @@ public class RentRequest {
     @Column
     private LocalDateTime reservationTime;
 
+    @Column
+    private int price;
+
     public RentRequest() {
         requestStatus = RequestStatus.PENDING;
     }
@@ -43,6 +46,7 @@ public class RentRequest {
         this.adsWithDates = rentRequestDTO.getAdsWithDates();
         this.requestStatus = RequestStatus.PENDING;
         this.creator = new User(creator);
+        this.price = rentRequestDTO.getPrice();
     }
 
     public long getId() {
@@ -99,5 +103,13 @@ public class RentRequest {
 
     public void setAdsWithDates(List<AdDateRange> adsWithDates) {
         this.adsWithDates = adsWithDates;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
