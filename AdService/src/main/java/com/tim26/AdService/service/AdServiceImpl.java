@@ -12,6 +12,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.hibernate.annotations.LazyToOneOption;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -197,6 +198,69 @@ public class AdServiceImpl implements AdService {
 
         return adDTOS;
     }
+
+
+    @Override
+    public Page<AdDTO> findAllPageable(int page) {
+
+        Pageable pageable = PageRequest.of(page, 3, Sort.by("id"));
+        List<Ad> allAds = adRepository.findAll();
+        List<AdDTO> adDTOS = new ArrayList<>();
+
+        for (Ad ad: allAds) {
+            AdDTO adDTO = new AdDTO(ad);
+            adDTOS.add(adDTO);
+        }
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), adDTOS.size());
+
+
+        return new PageImpl<>(adDTOS.subList(start, end), pageable, adDTOS.size());
+    }
+
+    @Override
+    public FilterParametersDTO getFilterParamteres() {
+        List<Ad> ads = adRepository.findAll();
+
+        FilterParametersDTO filterParametersDTO = new FilterParametersDTO();
+
+        for(Ad ad : ads){
+            if(!filterParametersDTO.getCities().contains(ad.getCity()))
+                filterParametersDTO.getCities().add(ad.getCity());
+
+            if(!filterParametersDTO.getModels().contains(ad.getCar().getModel()))
+                filterParametersDTO.getModels().add(ad.getCar().getModel());
+
+            if(!filterParametersDTO.getBrands().contains(ad.getCar().getBrand()))
+                filterParametersDTO.getBrands().add(ad.getCar().getBrand());
+
+            if(!filterParametersDTO.getFuel().contains(ad.getCar().getFuel()))
+                filterParametersDTO.getFuel().add(ad.getCar().getFuel());
+
+            if(!filterParametersDTO.getTransmission().contains(ad.getCar().getTransmission()))
+                filterParametersDTO.getTransmission().add(ad.getCar().getTransmission());
+
+            if(!filterParametersDTO.getCarClass().contains(ad.getCar().getCarClass()))
+                filterParametersDTO.getCarClass().add(ad.getCar().getCarClass());
+
+            if(!filterParametersDTO.getChildSeats().contains(ad.getCar().getChildSeats()))
+                filterParametersDTO.getChildSeats().add(ad.getCar().getChildSeats());
+        }
+
+        double minPrice = ads.stream().map(ad -> ad.getPriceList().getDailyPrice()).min(Double::compare).get();
+        double maxPrice =  ads.stream().map(ad -> ad.getPriceList().getDailyPrice()).max(Double::compare).get();
+        double minKm =  ads.stream().map(ad -> ad.getCar().getKm()).min(Double::compare).get();
+        double maxKm =  ads.stream().map(ad -> ad.getCar().getKm()).max(Double::compare).get();
+
+        filterParametersDTO.setMinPrice(minPrice);
+        filterParametersDTO.setMaxPrice(maxPrice);
+        filterParametersDTO.setMinKm(minKm);
+        filterParametersDTO.setMaxKm(maxKm);
+
+        return filterParametersDTO;
+    }
+
 
     @Override
     public AdDTO findById(long id) {
@@ -405,11 +469,6 @@ public class AdServiceImpl implements AdService {
 
                 }
 
-
-
-
-
-
             }
 
 
@@ -418,6 +477,8 @@ public class AdServiceImpl implements AdService {
         return  returnads;
 
     }
+
+
 
     @Override
     public boolean setRentDatesForAds(List<RentAdDTO> rentAdDTOS) {
@@ -451,4 +512,6 @@ public class AdServiceImpl implements AdService {
 
         return true;
     }
+
+
 }
