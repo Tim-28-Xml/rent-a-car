@@ -12,6 +12,7 @@ public class ReqAdDto {
     private LocalDateTime reservationTime;
     private RequestStatus requestStatus;
     private List<AdDTO> ads = new ArrayList<>();
+    private double price;
 
     public ReqAdDto() {
     }
@@ -23,6 +24,7 @@ public class ReqAdDto {
         this.creationTime = viewRequestDTO.getCreationTime();
         this.reservationTime = viewRequestDTO.getReservationTime();
         this.requestStatus = viewRequestDTO.getRequestStatus();
+        this.price = viewRequestDTO.getPrice();
     }
 
 
@@ -80,5 +82,13 @@ public class ReqAdDto {
 
     public void setReservationTime(LocalDateTime reservationTime) {
         this.reservationTime = reservationTime;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
