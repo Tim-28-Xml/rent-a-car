@@ -2,6 +2,7 @@ package com.tim26.AdService.service;
 
 import com.tim26.AdService.dto.*;
 import com.tim26.AdService.model.*;
+import com.tim26.AdService.model.Date;
 import com.tim26.AdService.repository.AdRepository;
 import com.tim26.AdService.repository.UserRepository;
 import com.tim26.AdService.service.interfaces.AdService;
@@ -9,9 +10,8 @@ import com.tim26.AdService.service.interfaces.CarService;
 import com.tim26.AdService.service.interfaces.CodebookService;
 import com.tim26.AdService.service.interfaces.PricelistService;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.hibernate.annotations.LazyToOneOption;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -20,15 +20,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ui.Model;
-import org.springframework.util.NumberUtils;
 
 @Service
 public class AdServiceImpl implements AdService {
@@ -49,6 +45,8 @@ public class AdServiceImpl implements AdService {
 
     @Autowired
     private PricelistService pricelistService;
+
+    private static int DEFAULT_PAGE_SIZE = 8;
 
     @Override
     public boolean save(CreateAdDto ad, Principal p) throws SQLException {
@@ -197,6 +195,69 @@ public class AdServiceImpl implements AdService {
 
         return adDTOS;
     }
+
+
+    @Override
+    public Page<AdDTO> findAllPageable(int page) {
+
+        Pageable pageable = PageRequest.of(page, DEFAULT_PAGE_SIZE, Sort.by("id"));
+        List<Ad> allAds = adRepository.findAll();
+        List<AdDTO> adDTOS = new ArrayList<>();
+
+        for (Ad ad: allAds) {
+            AdDTO adDTO = new AdDTO(ad);
+            adDTOS.add(adDTO);
+        }
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), adDTOS.size());
+
+
+        return new PageImpl<>(adDTOS.subList(start, end), pageable, adDTOS.size());
+    }
+
+    @Override
+    public FilterParametersDTO getFilterParamteres() {
+        List<Ad> ads = adRepository.findAll();
+
+        FilterParametersDTO filterParametersDTO = new FilterParametersDTO();
+
+        for(Ad ad : ads){
+            if(!filterParametersDTO.getCities().contains(ad.getCity()))
+                filterParametersDTO.getCities().add(ad.getCity());
+
+            if(!filterParametersDTO.getModels().contains(ad.getCar().getModel()))
+                filterParametersDTO.getModels().add(ad.getCar().getModel());
+
+            if(!filterParametersDTO.getBrands().contains(ad.getCar().getBrand()))
+                filterParametersDTO.getBrands().add(ad.getCar().getBrand());
+
+            if(!filterParametersDTO.getFuel().contains(ad.getCar().getFuel()))
+                filterParametersDTO.getFuel().add(ad.getCar().getFuel());
+
+            if(!filterParametersDTO.getTransmission().contains(ad.getCar().getTransmission()))
+                filterParametersDTO.getTransmission().add(ad.getCar().getTransmission());
+
+            if(!filterParametersDTO.getCarClass().contains(ad.getCar().getCarClass()))
+                filterParametersDTO.getCarClass().add(ad.getCar().getCarClass());
+
+            if(!filterParametersDTO.getChildSeats().contains(ad.getCar().getChildSeats()))
+                filterParametersDTO.getChildSeats().add(ad.getCar().getChildSeats());
+        }
+
+        double minPrice = ads.stream().map(ad -> ad.getPriceList().getDailyPrice()).min(Double::compare).get();
+        double maxPrice =  ads.stream().map(ad -> ad.getPriceList().getDailyPrice()).max(Double::compare).get();
+        double minKm =  ads.stream().map(ad -> ad.getCar().getKm()).min(Double::compare).get();
+        double maxKm =  ads.stream().map(ad -> ad.getCar().getKm()).max(Double::compare).get();
+
+        filterParametersDTO.setMinPrice(minPrice);
+        filterParametersDTO.setMaxPrice(maxPrice);
+        filterParametersDTO.setMinKm(minKm);
+        filterParametersDTO.setMaxKm(maxKm);
+
+        return filterParametersDTO;
+    }
+
 
     @Override
     public AdDTO findById(long id) {
@@ -357,7 +418,7 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public List<AdDTO> filterAds(FilterDTO filterDTO) {
+    public Page<AdDTO> filterAds(FilterDTO filterDTO) {
 
         ArrayList<AdDTO> returnads = new ArrayList<>();
 
@@ -381,8 +442,16 @@ public class AdServiceImpl implements AdService {
 
                     ArrayList<LocalDate> periodDateArray = new ArrayList<>();
 
+                    LocalDate startAd = period.getStartDate();
+                    LocalDate endAd = period.getEndDate();
+
+                    while (!startAd.isAfter(endAd)) {
+                        periodDateArray.add(startAd);
+                        startAd = startAd.plusDays(1);
+                    }
+
                     for (DateDTO date : period.getDates()){
-                        periodDateArray.add(date.getDate());
+                        periodDateArray.remove(date.getDate());
                     }
 
                     boolean isHere = true;
@@ -405,19 +474,88 @@ public class AdServiceImpl implements AdService {
 
                 }
 
-
-
-
-
-
             }
 
 
         }
 
-        return  returnads;
+        List<Optional<Ad>> filteredAds = new ArrayList<>();
+        List<AdDTO> filteredAdsDtos = new ArrayList<>();
 
+        for(AdDTO adDTO : returnads){
+            Optional<Ad> ad = adRepository.findById(adDTO.getId());
+            filteredAds.add(ad);
+        }
+
+        for(Optional<Ad> ad: filteredAds) {
+            if (filterDTO.getBrand() != "") {
+                if (!filterDTO.getBrand().equals(ad.get().getCar().getBrand())) {
+                    continue;
+                }
+            }
+            if (filterDTO.getModel() != "") {
+                if (!filterDTO.getModel().equals(ad.get().getCar().getModel())) {
+                    continue;
+                }
+            }
+            if (filterDTO.getFuel() != "") {
+                if (!filterDTO.getFuel().equals(ad.get().getCar().getFuel())) {
+                    continue;
+                }
+            }
+            if (filterDTO.getTransmission() != "") {
+                if (!filterDTO.getTransmission().equals(ad.get().getCar().getTransmission())) {
+                    continue;
+                }
+            }
+            if (filterDTO.getCarClass() != "") {
+                if (!filterDTO.getCarClass().equals(ad.get().getCar().getCarClass())) {
+                    continue;
+                }
+            }
+            if (filterDTO.getChildSeats() != 0) {
+                if (filterDTO.getChildSeats() != (ad.get().getCar().getChildSeats())) {
+                    continue;
+                }
+            }
+            if (ad.get().getPriceList().getDailyPrice() > filterDTO.getMaxPrice() ||
+                    ad.get().getPriceList().getDailyPrice() < filterDTO.getMinPrice()) {
+                continue;
+            }
+            if (ad.get().getCar().getKm() > filterDTO.getMaxKm() ||
+                    ad.get().getCar().getKm() < filterDTO.getMinKm()) {
+                continue;
+            }
+            if (filterDTO.getPlannedKm() > ad.get().getCar().getKmLimit()) {
+                continue;
+            }
+            if (filterDTO.isCdw() && !ad.get().getCar().isCdw()) {
+                continue;
+            }
+
+            AdDTO adDTO = new AdDTO(ad.get());
+            filteredAdsDtos.add(adDTO);
+
+        }
+
+        if(filteredAdsDtos.size() == 0)
+            return new PageImpl<>(filteredAdsDtos);
+
+        if(filterDTO.getSort().equals("km"))
+            filteredAdsDtos.sort(Comparator.comparingDouble(AdDTO::getKm));
+
+        filteredAdsDtos.sort(Comparator.comparingDouble(AdDTO::getPrice));
+
+        Pageable pageable = PageRequest.of(filterDTO.getPage(), DEFAULT_PAGE_SIZE);
+
+        int startPage = (int) pageable.getOffset();
+        int endPage = Math.min((startPage + pageable.getPageSize()), filteredAdsDtos.size());
+
+
+        return new PageImpl<>(filteredAdsDtos.subList(startPage, endPage), pageable, filteredAdsDtos.size());
     }
+
+
 
     @Override
     public boolean setRentDatesForAds(List<RentAdDTO> rentAdDTOS) {
@@ -451,4 +589,6 @@ public class AdServiceImpl implements AdService {
 
         return true;
     }
+
+
 }

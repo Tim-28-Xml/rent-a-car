@@ -2,6 +2,7 @@ package com.tim26.AdService.service.interfaces;
 
 import com.tim26.AdService.dto.*;
 import com.tim26.AdService.model.Ad;
+import org.springframework.data.domain.Page;
 
 import java.security.Principal;
 import java.sql.SQLException;
@@ -18,6 +19,8 @@ public interface AdService {
     Ad findAdById(Long id);
     boolean validateCreationData(CreateAdDto createAdDto);
     List<Ad> findByIds(List<Long> ids);
-    List<AdDTO> filterAds(FilterDTO filterDTO);
+    Page<AdDTO> filterAds(FilterDTO filterDTO);
     boolean setRentDatesForAds(List<RentAdDTO> rentAdDTOS);
+    Page<AdDTO> findAllPageable(int page);
+    FilterParametersDTO getFilterParamteres();
 }

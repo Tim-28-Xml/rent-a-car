@@ -18,6 +18,8 @@ public class AdDTO {
     private String pricelist;
     private CreatePricelistDto pricelistDto;
     private List<CartAdDates> cartAdDates = new ArrayList<>();
+    private double price;
+    private double km;
 
     public AdDTO(){
 
@@ -52,6 +54,8 @@ public class AdDTO {
         }
 
         this.cartAdDates = ad.getCartAdDates();
+        this.price = ad.getPriceList().getDailyPrice();
+        this.km = ad.getCar().getKm();
     }
 
     public CarDTO getCarDTO() {
@@ -116,5 +120,21 @@ public class AdDTO {
 
     public void setPricelistDto(CreatePricelistDto pricelistDto) {
         this.pricelistDto = pricelistDto;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getKm() {
+        return km;
+    }
+
+    public void setKm(double km) {
+        this.km = km;
     }
 }

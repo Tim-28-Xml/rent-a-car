@@ -6,6 +6,7 @@ import com.tim26.AdService.service.interfaces.AdService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,13 @@ public class AdController {
 
         List<AdDTO> ads = adService.findAll();
         LOGGER.info("Gettings all ads {}", ads.size());
+        return new ResponseEntity<>(ads, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/all/pageable", params = {"page"})
+    public ResponseEntity<Page<AdDTO>> getAllAdsPageable(@RequestParam("page") int page){
+
+        Page<AdDTO> ads = adService.findAllPageable(page);
         return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 
@@ -138,10 +146,17 @@ public class AdController {
 
 
     @PostMapping(value = "/filter")
-    public ResponseEntity<List<AdDTO>> filterAds(@RequestBody FilterDTO filterDTO){
+    public ResponseEntity<Page<AdDTO>> filterAds(@RequestBody FilterDTO filterDTO){
 
-        List<AdDTO> ads = adService.filterAds(filterDTO);
+        Page<AdDTO> ads = adService.filterAds(filterDTO);
         return new ResponseEntity<>(ads, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/filter/parameters")
+    public ResponseEntity<FilterParametersDTO> getFilterParameters(){
+
+        FilterParametersDTO parameters = adService.getFilterParamteres();
+        return new ResponseEntity<>(parameters, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyAuthority('RENT_BY_CREATOR','RENT')")
@@ -149,4 +164,7 @@ public class AdController {
     public Boolean reserveDateForAds(@RequestBody List<RentAdDTO> rentAdDTOS){
         return adService.setRentDatesForAds(rentAdDTOS);
     }
+
+
+
 }
