@@ -17,6 +17,7 @@ public class ViewRequestDTO {
     private LocalDateTime reservationTime;
     private List<AdDateRange> adsWithDates = new ArrayList<>();
     private RequestStatus requestStatus;
+    private double price;
 
     public ViewRequestDTO() {
     }
@@ -29,6 +30,7 @@ public class ViewRequestDTO {
         this.adsWithDates = rentRequest.getAdsWithDates();
         this.requestStatus = rentRequest.getRequestStatus();
         this.reservationTime = rentRequest.getReservationTime();
+        this.price = rentRequest.getPrice();
     }
 
     public Long getId() {
@@ -85,6 +87,14 @@ public class ViewRequestDTO {
 
     public void setReservationTime(LocalDateTime reservationTime) {
         this.reservationTime = reservationTime;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
 
