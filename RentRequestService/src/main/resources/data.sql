@@ -5,13 +5,13 @@ insert into user(username) values ('admin1');
 insert into user(username) values ('agent1');
 
 
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_username, owner_username) values (-1, '2020-06-21 15:14:14', 0, null , 'user1', 'agent1');
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_username, owner_username) values (-2, '2020-06-20 15:14:14', 1, '2020-06-21 15:14:14' , 'user1', 'agent1');
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_username, owner_username) values (-3, '2020-06-08 15:14:14', 2, null , 'user1', 'agent1');
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_username, owner_username) values (-4, '2020-06-08 15:14:14', 3, null , 'user1', 'agent1');
+insert into rent_request(id, creation_time, price, request_status, reservation_time, creator_username, owner_username) values (-1, '2020-07-07 15:14:14',120, 0, null , 'user1', 'agent1');
+insert into rent_request(id, creation_time, price, request_status, reservation_time, creator_username, owner_username) values (-2, '2020-06-20 15:14:14',100, 1, '2020-07-25 15:14:14' , 'user1', 'agent1');
+insert into rent_request(id, creation_time, price, request_status, reservation_time, creator_username, owner_username) values (-3, '2020-06-08 15:14:14',200, 2, null , 'user1', 'agent1');
+insert into rent_request(id, creation_time, price, request_status, reservation_time, creator_username, owner_username) values (-4, '2020-06-08 15:14:14',230, 3, null , 'user1', 'agent1');
 
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_username, owner_username) values (-5, '2020-06-08 15:14:14', 0, null , 'user1', 'agent1');
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_username, owner_username) values (-6, '2020-06-08 15:14:14', 1, '2020-06-09 15:14:14' , 'user1', 'agent1');
+insert into rent_request(id, creation_time, price, request_status, reservation_time, creator_username, owner_username) values (-5, '2020-06-06 22:14:14',90, 0, null , 'user1', 'agent1');
+insert into rent_request(id, creation_time, price, request_status, reservation_time, creator_username, owner_username) values (-6, '2020-06-08 15:14:14', 180, 1, '2020-07-07 15:14:14' , 'user1', 'agent1');
 
 
 insert into ad_date_range(id, ad_id, start, end) values (-1, -2, '2020-03-08', '2020-05-08');
