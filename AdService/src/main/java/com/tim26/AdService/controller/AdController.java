@@ -146,9 +146,9 @@ public class AdController {
 
 
     @PostMapping(value = "/filter")
-    public ResponseEntity<List<AdDTO>> filterAds(@RequestBody FilterDTO filterDTO){
+    public ResponseEntity<Page<AdDTO>> filterAds(@RequestBody FilterDTO filterDTO){
 
-        List<AdDTO> ads = adService.filterAds(filterDTO);
+        Page<AdDTO> ads = adService.filterAds(filterDTO);
         return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 

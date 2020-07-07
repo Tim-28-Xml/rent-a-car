@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 public class FilterDTO {
 
+    private String sort;
+    private int page;
     private LocalDate startDate;
     private LocalDate endDate;
     private String city;
@@ -146,5 +148,21 @@ public class FilterDTO {
 
     public void setCdw(boolean cdw) {
         this.cdw = cdw;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
     }
 }

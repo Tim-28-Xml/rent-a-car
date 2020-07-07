@@ -59,10 +59,14 @@ insert into ad(id,car_id,price_list_id,user_username,city) values (-11,-11,-2,'a
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-13,'SKODA','coupe',true,0,'diesel',44000,3000,'Superb','automatic');
 insert into ad(id,car_id,price_list_id,user_username,city) values (-13,-13,-2,'branko','Subotica');
 
+insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-14,'VW','coupe',true,0,'diesel',10000,3000,'Polo','automatic');
+insert into ad(id,car_id,price_list_id,user_username,city) values (-14,-14,-3,'branko','Subotica');
+
 
 insert into ad_rent_dates(ad_id,rent_dates_id) values (-2,-6);
 insert into ad_rent_dates(ad_id,rent_dates_id) values (-11,-6);
 insert into ad_rent_dates(ad_id,rent_dates_id) values (-13,-6);
+insert into ad_rent_dates(ad_id,rent_dates_id) values (-14,-6);
 
 insert into codebook(id) values (-1);
 
