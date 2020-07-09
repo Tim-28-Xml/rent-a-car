@@ -104,3 +104,14 @@ insert into codebook_transmission_types(codebook_id, transmission_types) values 
 insert into codebook_car_classes(codebook_id, car_classes) values (-1, 'Sedan');
 insert into codebook_car_classes(codebook_id, car_classes) values (-1, 'SUV');
 insert into codebook_car_classes(codebook_id, car_classes) values (-1, 'Hatchback');
+
+
+--Reports
+insert into report(id, endkm, startkm, text, paid, ad_id, user_username) values (-1, 100000, 1000, 'Auto vracen u dobrom stanju. Presao limit.', false, -2, 'user1');
+insert into user_reports(user_username, reports_id) values ('user1', -1);
+
+insert into report(id, endkm, startkm, text, paid, ad_id, user_username) values (-3, 122000, 100000, 'Preko limita.', false, -11, 'user1');
+insert into user_reports(user_username, reports_id) values ('user1', -3);
+
+insert into report(id, endkm, startkm, text, paid, ad_id, user_username) values (-2, 100100, 100000, 'Sve je ok.', true, -11, 'user1');
+insert into user_reports(user_username, reports_id) values ('user1', -2);
