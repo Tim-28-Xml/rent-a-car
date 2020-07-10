@@ -20,7 +20,9 @@ class MyRentedCars extends React.Component {
             km: '',
             text: '',
             show: false,
-            adId: 0
+            adId: 0,
+            username: '',
+            requestId: 0,
 
         }
     }
@@ -56,9 +58,10 @@ class MyRentedCars extends React.Component {
             headers: { 'Authorization': 'Bearer ' + token }
         };
 
-        var obj = {km : this.state.km, text: this.state.text, adId: this.state.adId}
+        var obj = {km : this.state.km, text: this.state.text, adId: this.state.adId, username: this.state.username, requestId: this.state.requestId}
 
         this.showHide();
+        //console.log(obj)
 
         axios.post(`http://localhost:8082/reports/save`, obj, options).then(
             (resp) => this.onSuccessHandler(resp),
@@ -70,7 +73,7 @@ class MyRentedCars extends React.Component {
     onSuccessHandler(resp) {
         alert("success")
 
-        console.log(resp.data);
+       // console.log(resp.data);
 
         this.setState({ redirect: this.state.redirect === false });
         window.location.reload();
@@ -101,8 +104,9 @@ class MyRentedCars extends React.Component {
 
     renderAdCards() {
         return this.state.ads.map((ad, index) => {
-            console.log(ad);
             this.state.adId = ad.id;
+            this.state.username = ad.username;
+            this.state.requestId = ad.requestId;
             return (
                 <Card key={ad.id} className="cardContainer">
                     <Card.Body className="cardBody">
@@ -166,7 +170,7 @@ class MyRentedCars extends React.Component {
     }
 
     render() {
-        console.log(this.state)
+        //console.log(this.state)
         return (
             <div>
                 <div className="renderMyAds">
