@@ -4,6 +4,7 @@ import com.tim26.demo.dto.CreateReportDto;
 import com.tim26.demo.dto.RentedCarDto;
 import com.tim26.demo.model.*;
 import com.tim26.demo.repository.AdRepository;
+import com.tim26.demo.repository.RentRequestRepository;
 import com.tim26.demo.repository.ReportRepository;
 import com.tim26.demo.repository.UserRepository;
 import com.tim26.demo.service.interfaces.ReportService;
@@ -28,19 +29,35 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RentRequestRepository rentRequestRepository;
+
     @Override
     public boolean save(CreateReportDto dto, Principal p) {
 
+        User user = userRepository.findByUsername(dto.getUsername());
+        Optional<RentRequest> rentRequest = rentRequestRepository.findById(dto.getRequestId());
+        if(user == null || rentRequest.get() == null)
+            return false;
+
+        rentRequest.get().setHasReport(true);
+
         if(dto != null) {
             Report r = new Report();
-            r.setStartKM(dto.getKm());
             r.setText(dto.getText());
+            r.setUser(user);
+            r.setPaid(false);
 
            if(adRepository.findById(dto.getAdId()).isPresent()) {
                Ad ad = adRepository.findById(dto.getAdId()).get();
                    r.setAd(ad);
+                   r.setStartKM(ad.getCar().getKm());
+                   r.setEndKM(dto.getKm());
                    ad.getReports().add(r);
+                   ad.getCar().setKm(dto.getKm());
                    reportRepository.save(r);
+                   adRepository.save(ad);
+                   rentRequestRepository.save(rentRequest.get());
                    return true;
             }
         }
@@ -64,7 +81,7 @@ public class ReportServiceImpl implements ReportService {
 
                             LocalDate today = LocalDate.now();
 
-                            if(dr.getEnd_Date().isBefore(today)) {
+                            if(dr.getEnd_Date().isBefore(today) && !rentRequest.isHasReport()) {
                                 Ad ad = adRepository.findById(dr.getAd_id());
                                 RentedCarDto dto = new RentedCarDto();
                                 dto.setBrand(ad.getCar().getBrand());
@@ -77,6 +94,8 @@ public class ReportServiceImpl implements ReportService {
                                 dto.setChildSeats(ad.getCar().getChildSeats());
                                 dto.setCdw(ad.getCar().isCdw());
                                 dto.setId(ad.getId());
+                                dto.setUsername(rentRequest.getCreator().getUsername());
+                                dto.setRequestId(rentRequest.getId());
                                 ads.add(dto);
                             }
                         }

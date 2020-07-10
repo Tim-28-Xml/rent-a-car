@@ -5,6 +5,8 @@ public class CreateReportDto {
     private double km;
     private String text;
     private Long adId;
+    private String username;
+    private Long requestId;
 
     public CreateReportDto() {
 
@@ -40,5 +42,21 @@ public class CreateReportDto {
 
     public void setAdId(Long adId) {
         this.adId = adId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Long getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
     }
 }
