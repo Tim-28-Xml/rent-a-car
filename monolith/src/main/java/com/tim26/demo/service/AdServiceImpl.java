@@ -6,7 +6,9 @@ import com.tim26.demo.model.Date;
 import com.tim26.demo.repository.AdRepository;
 import com.tim26.demo.service.interfaces.*;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.DatatypeConverter;
@@ -27,7 +29,13 @@ public class AdServiceImpl implements AdService {
     private PricelistService pricelistService;
 
     @Autowired
-    private CarService carService;
+    private AmqpTemplate rabbitTemplate;
+
+    @Value("${exchange}")
+    String exchange;
+
+    @Value("${ad-service-key}")
+    private String adKey;
 
     @Override
     public boolean save(CreateAdDto ad, Principal p) {
@@ -84,6 +92,7 @@ public class AdServiceImpl implements AdService {
 
                 try {
                     advertisment = adRepository.save(advertisment);
+                    rabbitTemplate.convertAndSend(exchange, adKey, ad);
                     return  true;
                 } catch (Exception e) {
                     return false;

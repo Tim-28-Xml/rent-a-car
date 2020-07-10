@@ -1,11 +1,14 @@
 package com.tim26.demo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.tim26.demo.model.DateRange;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "brand")
 public class CreateAdDto {
     private String brand;
     private String model;

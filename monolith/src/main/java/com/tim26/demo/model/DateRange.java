@@ -1,5 +1,8 @@
 package com.tim26.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import java.time.LocalDate;
@@ -7,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "startDateA")
 public class DateRange {
 
     @Id
