@@ -14,6 +14,8 @@ public class RentedCarDto {
     private boolean cdw;
     private int childSeats;
     private List<byte[]> files;
+    private String username;
+    private Long requestId;
 
     public RentedCarDto() {
 
@@ -105,5 +107,21 @@ public class RentedCarDto {
 
     public void setFiles(List<byte[]> files) {
         this.files = files;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Long getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
     }
 }

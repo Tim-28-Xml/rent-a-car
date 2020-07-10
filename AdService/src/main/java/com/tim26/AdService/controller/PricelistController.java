@@ -46,4 +46,13 @@ public class PricelistController {
         LOGGER.error("Response is 400 BAD REQUEST, Failed to CREATE PRICELIST  - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
         return new ResponseEntity<>(createPricelistDto, HttpStatus.BAD_REQUEST);
     }
+
+    @PreAuthorize("hasAuthority('CREATE_PRICELIST')")
+    @PostMapping(value = "/delete")
+    public ResponseEntity<CreatePricelistDto> delete(@RequestBody CreatePricelistDto createPricelistDto) {
+        if(pricelistService.delete(createPricelistDto))
+            return new ResponseEntity<>(createPricelistDto, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(createPricelistDto, HttpStatus.BAD_REQUEST);
+    }
 }

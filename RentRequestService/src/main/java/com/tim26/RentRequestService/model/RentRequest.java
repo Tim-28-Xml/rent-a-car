@@ -34,7 +34,7 @@ public class RentRequest {
     private LocalDateTime reservationTime;
 
     @Column
-    private int price;
+    private double price;
 
     public RentRequest() {
         requestStatus = RequestStatus.PENDING;
@@ -105,11 +105,11 @@ public class RentRequest {
         this.adsWithDates = adsWithDates;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

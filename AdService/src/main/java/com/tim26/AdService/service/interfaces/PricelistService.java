@@ -14,5 +14,6 @@ public interface PricelistService {
     List<CreatePricelistDto> findAll();
     PriceList findByName(String name);
     boolean validateCreationData(CreatePricelistDto dto);
+    boolean delete(CreatePricelistDto priceList);
 
 }

@@ -94,11 +94,11 @@ insert into ad(id,car_id,price_list_id,user_id) values (-4,-4,null,-4);
 insert into car(id,brand,car_class,cdw,child_seats,fuel,km,km_limit,model,transmission) values (-5,'BMW','coupe',true,0,'diesel',50000,1000,'3','automatic');
 insert into ad(id,car_id,price_list_id,user_id) values (-5,-5,null,-4);
 
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_id, owner_id) values (-1, '2020-06-08 15:14:14', 0, null , -2, -4);
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_id, owner_id) values (-2, '2020-06-08 15:14:14', 1, null , -2, -4);
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_id, owner_id) values (-3, '2020-06-08 15:14:14', 2, null , -2, -4);
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_id, owner_id) values (-4, '2020-06-08 15:14:14', 3, null , -2, -4);
-insert into rent_request(id, creation_time, request_status, reservation_time, creator_id, owner_id) values (-7, '2020-06-08 15:14:14', 2, null , -2, -4);
+insert into rent_request(id, creation_time, has_report, request_status, reservation_time, creator_id, owner_id) values (-1, '2020-06-08 15:14:14', 'false', 0, null , -2, -4);
+insert into rent_request(id, creation_time, has_report, request_status, reservation_time, creator_id, owner_id) values (-2, '2020-06-08 15:14:14', 'false', 1, null , -2, -4);
+insert into rent_request(id, creation_time, has_report, request_status, reservation_time, creator_id, owner_id) values (-3, '2020-06-08 15:14:14', 'false', 2, null , -2, -4);
+insert into rent_request(id, creation_time, has_report, request_status, reservation_time, creator_id, owner_id) values (-4, '2020-06-08 15:14:14', 'false', 3, null , -2, -4);
+insert into rent_request(id, creation_time, has_report, request_status, reservation_time, creator_id, owner_id) values (-7, '2020-06-08 15:14:14', 'false', 2, null , -2, -4);
 
 insert into ad_date_range(id, ad_id, start, end_date) values (-1, -2, '2020-03-08', '2020-05-08');
 insert into ad_date_range(id, ad_id, start, end_date) values (-2, -5, '2020-06-08', '2020-06-18');

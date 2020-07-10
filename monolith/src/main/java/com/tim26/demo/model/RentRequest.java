@@ -11,7 +11,7 @@ public class RentRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column
     private RequestStatus requestStatus;
@@ -31,6 +31,9 @@ public class RentRequest {
 
     @Column
     private LocalDateTime reservationTime;
+
+    @Column
+    private boolean hasReport;
 
     public RentRequest() {
         requestStatus = RequestStatus.PENDING;
@@ -90,5 +93,13 @@ public class RentRequest {
 
     public void setAdsWithDates(List<AdDateRange> adsWithDates) {
         this.adsWithDates = adsWithDates;
+    }
+
+    public boolean isHasReport() {
+        return hasReport;
+    }
+
+    public void setHasReport(boolean hasReport) {
+        this.hasReport = hasReport;
     }
 }

@@ -14,6 +14,7 @@ import CreatePricelist from './components/CreatePricelist';
 import MyRentedCars from './components/MyRentedCars';
 import MyStatistics from './components/MyStatistics';
 
+
 class Routes extends React.Component {
 
     constructor(props){
@@ -65,6 +66,12 @@ class Routes extends React.Component {
                     <div>
                         <Header />
                         <CreatePricelist />
+                    </div>
+                    } />
+                    <Route path='/createreport' render={props =>
+                    <div>
+                        <Header />
+                        <MyRentedCars />
                     </div>
                     } />
                     <Route path='/rented-cars' render={props =>
