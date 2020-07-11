@@ -4,6 +4,7 @@ import com.tim26.AdService.dto.*;
 import com.tim26.AdService.model.*;
 import com.tim26.AdService.model.Date;
 import com.tim26.AdService.repository.AdRepository;
+import com.tim26.AdService.repository.PricelistRepository;
 import com.tim26.AdService.repository.UserRepository;
 import com.tim26.AdService.service.interfaces.AdService;
 import com.tim26.AdService.service.interfaces.CarService;
@@ -45,6 +46,9 @@ public class AdServiceImpl implements AdService {
 
     @Autowired
     private PricelistService pricelistService;
+
+    @Autowired
+    private PricelistRepository pricelistRepository;
 
     private static int DEFAULT_PAGE_SIZE = 8;
 
@@ -113,6 +117,8 @@ public class AdServiceImpl implements AdService {
                 advertisment.setUser(user);
                 PriceList priceList = pricelistService.findByName(ad.getPricelist());
                 advertisment.setPriceList(priceList);
+                priceList.getAds().add(advertisment);
+                pricelistRepository.save(priceList);
                 try {
                     int cars = carService.findAll().size();
                     Long carId = Long.valueOf(++cars);

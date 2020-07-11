@@ -44,13 +44,13 @@ public class AdDTO {
                 datesdto.add(new DateDTO(d.getId(),d.getDate()));
             }
 
-            if(ad.getPriceList() != null) {
-                CreatePricelistDto pricelistDto = new CreatePricelistDto(ad.getPriceList());
-                this.pricelistDto = pricelistDto;
-            }
-
             DateRangeDTO dto = new DateRangeDTO(dt.getId(),dt.getStartDate(),dt.getEndDate(),datesdto);
             this.getRentDates().add(dto);
+        }
+
+        if(ad.getPriceList() != null) {
+            CreatePricelistDto pricelistDto = new CreatePricelistDto(ad.getPriceList());
+            this.pricelistDto = pricelistDto;
         }
 
         this.cartAdDates = ad.getCartAdDates();
