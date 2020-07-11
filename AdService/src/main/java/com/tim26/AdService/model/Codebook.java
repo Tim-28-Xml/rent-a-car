@@ -26,15 +26,15 @@ public class Codebook {
 
     @ElementCollection
     //@XmlElement
-    private List<String> fuelTypes;
+    private List<String> fuelTypes = new ArrayList<>();
 
     @ElementCollection
     //@XmlElement
-    private List<String> transmissionTypes;
+    private List<String> transmissionTypes = new ArrayList<>();
 
     @ElementCollection
     //@XmlElement
-    private List<String> carClasses;
+    private List<String> carClasses = new ArrayList<>();
 
     public Codebook() {
     }

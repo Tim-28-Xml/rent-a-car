@@ -55,8 +55,6 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public boolean save(CreateAdDto ad) throws SQLException {
-        if (!validateCreationData(ad))
-            return false;
 
         Connection connection = null;
         String dbUrl = "jdbc:h2:file:./src/main/resources/adsDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;AUTO_RECONNECT=TRUE;TRACE_LEVEL_FILE=0";
