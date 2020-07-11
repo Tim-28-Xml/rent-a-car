@@ -158,15 +158,13 @@ public class PricelistServiceImpl implements PricelistService {
         if(!pricelist.getAds().isEmpty())
             return false;
 
-        User user = userService.findByUsername(pricelist.getUser().getUsername());
-        user.getPriceLists().forEach(pl -> {
-            if (pl.getName() == pricelist.getName()) {
-                user.getPriceLists().remove(pl);
-            }});
-
-        userRepository.save(user.getUsername());
         pricelistRepository.delete(pricelist);
         return true;
+    }
+
+    @Override
+    public PriceList findById(Long id) {
+        return pricelistRepository.findById(id);
     }
 
 
