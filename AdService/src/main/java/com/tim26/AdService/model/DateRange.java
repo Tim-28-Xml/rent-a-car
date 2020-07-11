@@ -35,7 +35,7 @@ public class DateRange {
     //@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate endDate;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     //@XmlElement
     @JoinTable(joinColumns=@JoinColumn(referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(referencedColumnName = "id"))
@@ -55,6 +55,7 @@ public class DateRange {
         this.startDate = startDate;
         this.endDate = endDate;
 
+        /*
         LocalDate start = startDate;
         LocalDate end = endDate;
         List<Date> totalDates = new ArrayList<>();
@@ -67,6 +68,8 @@ public class DateRange {
 
 
         this.dates = totalDates;
+
+         */
     }
 
     public long getId() {

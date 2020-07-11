@@ -3,10 +3,13 @@ package com.tim26.AuthenticationService.service;
 import com.tim26.AuthenticationService.dto.EndUserDTO;
 import com.tim26.AuthenticationService.model.EndUser;
 import com.tim26.AuthenticationService.model.Permission;
+import com.tim26.AuthenticationService.model.User;
 import com.tim26.AuthenticationService.repository.EndUserRepository;
 import com.tim26.AuthenticationService.repository.PermissionRepository;
 import com.tim26.AuthenticationService.service.interfaces.EndUserService;
+import com.tim26.AuthenticationService.service.interfaces.UService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +32,8 @@ public class EndUserServiceImpl implements EndUserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UService uService;
 
     public EndUser findByUsername(String username){
         return userRepository.findByUsername(username);
@@ -78,6 +83,31 @@ public class EndUserServiceImpl implements EndUserService {
         endUser.setPassword(passwordEncoder.encode(endUser.getPassword()));
 
         return userRepository.save(endUser);
+    }
+
+    @Override
+    public boolean checkPaidReports(String username, int num) {
+        User user = findByUsername(username);
+        List<String> newList = new ArrayList<>();
+
+        if(num == 0){
+            for (GrantedAuthority p : user.getAuthorities()) {
+                newList.add(p.getAuthority());
+            }
+            if(!newList.contains("ORDER")){
+                uService.addPermission(username,"ORDER");
+                return true;
+            }
+        } else {
+            for (GrantedAuthority p : user.getAuthorities()) {
+                newList.add(p.getAuthority());
+            }
+            if(newList.contains("ORDER")){
+                uService.removePermission(username,"ORDER");
+                return true;
+            }
+        }
+        return false;
     }
 
 }

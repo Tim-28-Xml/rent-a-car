@@ -9,12 +9,14 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AdServiceImpl implements AdService {
@@ -40,6 +42,15 @@ public class AdServiceImpl implements AdService {
     @Override
     public boolean save(CreateAdDto ad) {
         Agent agent = (Agent) userService.findByUsername(ad.getUsername());
+        User user = userService.findByUsername(ad.getUsername());
+
+        String role = user.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .filter(r -> r.contains("ROLE"))
+                .findFirst().get();
+
+        ad.setRole(role);
+
         if(agent != null) {
 
             Ad advertisment = new Ad();

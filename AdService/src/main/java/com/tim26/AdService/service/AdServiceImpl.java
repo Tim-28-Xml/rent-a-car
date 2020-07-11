@@ -12,15 +12,11 @@ import com.tim26.AdService.service.interfaces.CodebookService;
 import com.tim26.AdService.service.interfaces.PricelistService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -55,130 +51,86 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public boolean save(CreateAdDto ad) throws SQLException {
+        /*if(!validateCreationData(ad))
+            return false;*/
 
-        Connection connection = null;
-        String dbUrl = "jdbc:h2:file:./src/main/resources/adsDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;AUTO_RECONNECT=TRUE;TRACE_LEVEL_FILE=0";
-        String dbUsername = "sa";
-        String dbPassword = "";
-        PreparedStatement preparedStatementAd = null;
-        PreparedStatement preparedStatementUser = null;
-        PreparedStatement preparedStatementCar = null;
-        try {
-            connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-            Ad advertisment = new Ad();
-            Car car = new Car();
-            User user = new User();
-            user.setUsername(ad.getUsername());
-            if(!userRepository.findByUsername(ad.getUsername()).isPresent()) {
-                LOGGER.info("Adding user: {} to the Ad Service Database", ad.getUsername());
-                preparedStatementUser = connection.prepareStatement("INSERT INTO user (username) values (?)");
-                preparedStatementUser.executeUpdate();
-            }
-            if(ad.getRole().equals("ROLE_USER")) {
-                if(user.getAd() != null) {
-                    if(user.getAd().size() == 3) {
-                        return false;
-                    }
-                }
-            }
-            if(ad != null) {
-                car.setBrand(ad.getBrand());
-                car.setCarClass(ad.getCarClass());
-                car.setModel(ad.getModel());
-                car.setTransmission(ad.getTransmission());
-                car.setFuel(ad.getFuel());
-                car.setKm(ad.getKm());
-                car.setKmLimit(ad.getKmLimit());
-                car.setChildSeats(Integer.parseInt(ad.getChildSeats()));
-                car.setCdw(ad.isCollision());
-                List<byte[]> imgBytes = new ArrayList<byte[]>();
-                for(String img : ad.getFiles()) {
-                    byte[] imgByte = Base64.decodeBase64(img.getBytes());
-                    imgBytes.add(imgByte);
-                }
-                car.setFiles(imgBytes);
-                advertisment.setCar(car);
-                advertisment.setCity(ad.getCity());
-                //looping trough each date range and setting its start & end date and list of dates inbetween
-                //setting list of dates between start and end
-                for(DateRange dt : ad.getDates()){
-                    LocalDate start = dt.getStartDate();
-                    LocalDate end = dt.getEndDate();
-                    List<Date> totalDates = new ArrayList<>();
-                    while (!start.isAfter(end)) {
-                        totalDates.add(new Date(start));
-                        start = start.plusDays(1);
-                    }
-                    DateRange helper = new DateRange(dt.getStartDate(),dt.getEndDate(),totalDates);
-                    advertisment.getRentDates().add(helper);
-                }
-                user.getAd().add(advertisment);
-                advertisment.setUser(user);
-                PriceList priceList = pricelistService.findByName(ad.getPricelist());
-                advertisment.setPriceList(priceList);
-                priceList.getAds().add(advertisment);
-                pricelistRepository.save(priceList);
-                try {
-                    int cars = carService.findAll().size();
-                    Long carId = Long.valueOf(++cars);
-                    car.setId(carId);
-                    preparedStatementCar = connection.prepareStatement("INSERT INTO car (brand, car_class, model, fuel, transmission, km, km_limit, child_seats, cdw, id) values (?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    preparedStatementCar.setString(1, car.getBrand());
-                    preparedStatementCar.setString(2, car.getCarClass());
-                    preparedStatementCar.setString(3, car.getModel());
-                    preparedStatementCar.setString(4, car.getFuel());
-                    preparedStatementCar.setString(5, car.getTransmission());
-                    preparedStatementCar.setDouble(6, car.getKm());
-                    preparedStatementCar.setDouble(7, car.getKmLimit());
-                    preparedStatementCar.setInt(8, car.getChildSeats());
-                    preparedStatementCar.setBoolean(9, car.isCdw());
-                    preparedStatementCar.setLong(10, car.getId());
-                    preparedStatementCar.executeUpdate();
-                    preparedStatementAd = connection.prepareStatement("INSERT INTO ad (car_id, city, user_username, price_list_id) values (?, ?, ?, ?)");
-                    preparedStatementAd.setLong(1, car.getId());
-                    preparedStatementAd.setString(2, advertisment.getCity());
-                    preparedStatementAd.setString(3, user.getUsername());
-                    preparedStatementAd.setLong(4, advertisment.getPriceList().getId());
-                    preparedStatementAd.executeUpdate();
-                } catch (Exception e) {
-                    LOGGER.error("Failed to save car or ad to the database, Exception: ", e.getMessage());
+        Ad advertisment = new Ad();
+        Car car = new Car();
+        User user = new User();
+        user.setUsername(ad.getUsername());
+
+        if(userRepository.findByUsername(user.getUsername()) == null) {
+            userRepository.save(user.getUsername());
+        }
+
+        if(ad.getRole().equals("ROLE_USER")) {
+            if(user.getAd() != null) {
+                if(user.getAd().size() == 3) {
                     return false;
                 }
-            } else {
-                return false;
-            }
-        } finally {
-            try {
-                if (preparedStatementUser != null || preparedStatementAd != null || preparedStatementCar != null) {
-
-                    preparedStatementAd.close();
-                    preparedStatementCar.close();
-
-                    if(preparedStatementUser != null) {
-                        preparedStatementUser.close();
-                    }
-
-                    if (connection != null) {
-                        connection.close();
-                        return true;
-                    }
-
-                    return true;
-                }
-            } catch (Exception e) {
-                return false;
-            }
-            try {
-                if (connection != null) {
-                    connection.close();
-                    return true;
-                }
-            } catch (Exception e) {
-                return false;
             }
         }
-        return false;
+
+        if(ad != null) {
+            car.setBrand(ad.getBrand());
+            car.setCarClass(ad.getCarClass());
+            car.setModel(ad.getModel());
+            car.setTransmission(ad.getTransmission());
+            car.setFuel(ad.getFuel());
+            car.setKm(ad.getKm());
+            car.setKmLimit(ad.getKmLimit());
+            car.setChildSeats(Integer.parseInt(ad.getChildSeats()));
+            car.setCdw(ad.isCollision());
+            List<byte[]> imgBytes = new ArrayList<byte[]>();
+
+            for(String img : ad.getFiles()) {
+                byte[] imgByte = Base64.decodeBase64(img.getBytes());
+                imgBytes.add(imgByte);
+            }
+
+            car.setFiles(imgBytes);
+
+            advertisment.setCar(car);
+            advertisment.setCity(ad.getCity());
+            PriceList priceList = pricelistService.findByName(ad.getPricelist());
+            advertisment.setPriceList(priceList);
+            //advertisment.setRentDates(ad.getDates());
+
+            //looping trough each date range and setting its start & end date and list of dates inbetween
+            //setting list of dates between start and end
+
+            for(DateRange dt : ad.getDates()){
+
+
+                LocalDate start = dt.getStartDate();
+                LocalDate end = dt.getEndDate();
+                List<Date> totalDates = new ArrayList<>();
+                while (!start.isAfter(end)) {
+
+                    totalDates.add(new Date(start, dt));
+                    start = start.plusDays(1);
+                }
+
+                DateRange helper = new DateRange(dt.getStartDate(),dt.getEndDate());
+                advertisment.getRentDates().add(helper);
+
+            }
+
+            user.getAd().add(advertisment);
+
+            advertisment.setUser(user);
+
+            try {
+                adRepository.save(advertisment);
+                return  true;
+            } catch (Exception e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
+
 
     @Override
     public boolean save(Ad ad) {
@@ -261,6 +213,16 @@ public class AdServiceImpl implements AdService {
         filterParametersDTO.setMaxKm(maxKm);
 
         return filterParametersDTO;
+    }
+
+    @Override
+    public boolean delete(AdDTO adDTO) {
+        Ad ad = findAdById(adDTO.getId());
+        if(!ad.getRentRequests().isEmpty())
+            return false;
+
+        adRepository.delete(ad);
+        return true;
     }
 
 
@@ -572,7 +534,7 @@ public class AdServiceImpl implements AdService {
                         if(!(rentAdDTO.getStartDate().isAfter(dateRange.getEndDate()) || rentAdDTO.getEndDate().isBefore(dateRange.getStartDate()))) {
                             LocalDate tempStart = rentAdDTO.getStartDate();
                             while (!tempStart.isAfter(rentAdDTO.getEndDate())) {
-                                dateRange.getDates().add(new Date(tempStart));
+                                dateRange.getDates().add(new Date(tempStart, dateRange));
                                 tempStart = tempStart.plusDays(1);
                                 save = true;
                             }

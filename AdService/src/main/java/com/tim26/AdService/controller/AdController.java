@@ -84,25 +84,11 @@ public class AdController {
     @PostMapping(value = "/save")
     public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto, Principal p) throws SQLException {
         createAdDto.setUsername(p.getName());
-        if(adService.save(createAdDto)) {
-            String cdw = "";
-            if(createAdDto.isCollision()) {
-                cdw = "Yes";
-            } else {
-                cdw = "No";
-            }
-            LOGGER.info("Response is 200 OK, User {} executed the action CREATE NEW ADVERTISMENT \n with car brand: {}, model: {}, \n fuel type: {}, transmission type: {}, car class: {}, \n number of child seats: {}, with collision damage waiver: {}, pricelist name: {}\n", p.getName(), createAdDto.getBrand(), createAdDto.getModel(), createAdDto.getFuel(), createAdDto.getTransmission(), createAdDto.getCarClass(), createAdDto.getChildSeats(), cdw, createAdDto.getPricelist());
+        if(adService.save(createAdDto)){
             return new ResponseEntity<>(createAdDto, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
         }
-
-        String cdw = "";
-        if(createAdDto.isCollision()) {
-            cdw = "Yes";
-        } else {
-            cdw = "No";
-        }
-        LOGGER.error("Response is 400 BAD REQUEST, Failed to CREATE NEW AD \n with car brand: {}, model: {}, \n fuel type: {}, transmission type: {}, car class: {}, \n number of child seats: {}, with collision damage waiver: {}, pricelist name: {} and owner: {}\n", createAdDto.getBrand(), createAdDto.getModel(), createAdDto.getFuel(), createAdDto.getTransmission(), createAdDto.getCarClass(), createAdDto.getChildSeats(), cdw, createAdDto.getPricelist(), p.getName());
-        return new ResponseEntity<>(createAdDto, HttpStatus.BAD_REQUEST);
     }
 
     @PreAuthorize("hasAuthority('VIEW_MY_ADS')")
@@ -166,6 +152,16 @@ public class AdController {
         return adService.setRentDatesForAds(rentAdDTOS);
     }
 
+    @PreAuthorize("hasAuthority('CREATE_AD')")
+    @PostMapping(value = "delete")
+    public ResponseEntity delete(@RequestBody AdDTO adDTO, Principal p){
+        if(adService.delete(adDTO)){
+            return new ResponseEntity<>("Ad is successfully deleted!",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Ad cannot be deleted!",HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
 
 }

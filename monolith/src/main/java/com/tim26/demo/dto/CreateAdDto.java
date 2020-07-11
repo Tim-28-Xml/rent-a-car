@@ -24,6 +24,7 @@ public class CreateAdDto {
     private String city;
     private String pricelist;
     private String username;
+    private String role;
 
     public CreateAdDto() {
 
@@ -154,5 +155,13 @@ public class CreateAdDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
