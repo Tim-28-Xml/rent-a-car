@@ -31,7 +31,7 @@ public class DateRange {
     //@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate endDate;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     //@XmlElement
     @JoinTable(joinColumns=@JoinColumn(referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(referencedColumnName = "id"))

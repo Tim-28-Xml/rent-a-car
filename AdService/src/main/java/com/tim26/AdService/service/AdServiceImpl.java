@@ -107,7 +107,7 @@ public class AdServiceImpl implements AdService {
                 List<Date> totalDates = new ArrayList<>();
                 while (!start.isAfter(end)) {
 
-                    totalDates.add(new Date(start));
+                    totalDates.add(new Date(start, dt));
                     start = start.plusDays(1);
                 }
 
@@ -534,7 +534,7 @@ public class AdServiceImpl implements AdService {
                         if(!(rentAdDTO.getStartDate().isAfter(dateRange.getEndDate()) || rentAdDTO.getEndDate().isBefore(dateRange.getStartDate()))) {
                             LocalDate tempStart = rentAdDTO.getStartDate();
                             while (!tempStart.isAfter(rentAdDTO.getEndDate())) {
-                                dateRange.getDates().add(new Date(tempStart));
+                                dateRange.getDates().add(new Date(tempStart, dateRange));
                                 tempStart = tempStart.plusDays(1);
                                 save = true;
                             }
