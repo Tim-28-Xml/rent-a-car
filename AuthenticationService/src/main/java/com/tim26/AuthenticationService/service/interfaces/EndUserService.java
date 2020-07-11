@@ -12,5 +12,5 @@ public interface EndUserService {
     List<EndUserDTO> findAll();
     List<EndUserDTO> findAllRequests();
     EndUser save(EndUser endUser);
-    boolean updateEndUser(EndUserDTO endUser);
+    EndUserDTO updateEndUser(EndUserDTO endUser);
 }

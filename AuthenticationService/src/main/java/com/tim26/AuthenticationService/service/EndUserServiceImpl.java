@@ -81,7 +81,7 @@ public class EndUserServiceImpl implements EndUserService {
     }
 
     @Override
-    public boolean updateEndUser(EndUserDTO dto) {
+    public EndUserDTO updateEndUser(EndUserDTO dto) {
 
         EndUser original = findByUsername(dto.getUsername());
 
@@ -104,10 +104,12 @@ public class EndUserServiceImpl implements EndUserService {
             }
 
             save(original);
-            return true;
+            EndUserDTO endUserDTO = new EndUserDTO(original);
+
+            return endUserDTO;
         }
 
-        return false;
+        return null;
     }
 
 }

@@ -1,9 +1,6 @@
 package com.tim26.AuthenticationService.controller;
 
-import com.tim26.AuthenticationService.dto.AgentDTO;
-import com.tim26.AuthenticationService.dto.EndUserDTO;
-import com.tim26.AuthenticationService.dto.PermissionsDTO;
-import com.tim26.AuthenticationService.dto.UpdateUserDTO;
+import com.tim26.AuthenticationService.dto.*;
 import com.tim26.AuthenticationService.model.Permission;
 import com.tim26.AuthenticationService.model.User;
 import com.tim26.AuthenticationService.service.interfaces.AgentService;
@@ -47,22 +44,30 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','USER','AGENT')")
-    @PutMapping(value = "/update")
-    public boolean updateInfo(@RequestBody UpdateUserDTO dto){
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping(value = "/update-admin")
+    public ResponseEntity<AdminDTO> updateInfoAdmin(@RequestBody AdminDTO dto){
 
-        if(dto.getAgentDTO() != null){
-            return   agentService.updateAgent(dto.getAgentDTO());
-        }
+        AdminDTO updated = uService.update(dto);
+        return new ResponseEntity<>(updated,HttpStatus.OK);
 
-        if(dto.getEndUserDTO() != null){
-          return   endUserService.updateEndUser(dto.getEndUserDTO());
-        }
-        if(dto.getAdminDTO() != null){
-            return uService.update(dto.getAdminDTO());
-        }
+    }
 
-        return false;
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping(value = "/update-enduser")
+    public ResponseEntity<EndUserDTO> updateInfoEnduser(@RequestBody EndUserDTO dto){
+
+        EndUserDTO end = endUserService.updateEndUser(dto);
+        return new ResponseEntity<>(end,HttpStatus.OK);
+
+    }
+
+    @PreAuthorize("hasRole('AGENT')")
+    @PutMapping(value = "/update-agent")
+    public ResponseEntity<?> updateInfoAgent(@RequestBody AgentDTO dto){
+        AgentDTO agent = agentService.updateAgent(dto);
+        return new ResponseEntity<>(agent,HttpStatus.OK);
+
     }
 
     @PreAuthorize("hasRole('ADMIN')")

@@ -26,5 +26,5 @@ public interface UService {
     boolean declineAccount(String username);
     Long getUserId(Principal p);
     boolean isPasswordValid(String password);
-    boolean update(AdminDTO user);
+    AdminDTO update(AdminDTO user);
 }

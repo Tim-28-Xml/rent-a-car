@@ -65,7 +65,7 @@ public class UServiceImpl implements UService, UserDetailsService {
     }
 
     @Override
-    public boolean update(AdminDTO user) {
+    public AdminDTO  update(AdminDTO user) {
         User original = findByUsername(user.getUsername());
 
         if(user != null){
@@ -78,10 +78,11 @@ public class UServiceImpl implements UService, UserDetailsService {
                 original.setPassword(user.getPassword() );
             }
             save(original);
-            return true;
+            AdminDTO adminDTO = new AdminDTO(original.getEmail(),original.getPassword(),original.getUsername());
+            return adminDTO;
         }
 
-        return false;
+        return null;
     }
 
     @Override

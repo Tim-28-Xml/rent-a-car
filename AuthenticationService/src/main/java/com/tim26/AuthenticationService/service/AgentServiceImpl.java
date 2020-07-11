@@ -68,7 +68,7 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
-    public boolean updateAgent(AgentDTO agent) {
+    public AgentDTO updateAgent(AgentDTO agent) {
 
         Agent original = findByUsername(agent.getUsername());
 
@@ -95,9 +95,10 @@ public class AgentServiceImpl implements AgentService {
             }
 
             save(original);
-            return true;
+            AgentDTO agentDTO = new AgentDTO(original);
+            return agentDTO;
         }
 
-        return false;
+        return null;
     }
 }

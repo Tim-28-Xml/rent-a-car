@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -133,21 +134,26 @@ public class AuthenticationController {
         User user = userService.findByUsername(p.getName());
         UpdateUserDTO returndto = new UpdateUserDTO();
 
-        if(user.getPermissions().contains("ROLE_USER")){
+        for (GrantedAuthority permission : user.getAuthorities()) {
+
+
+                if (permission.equals("ROLE_USER")) {
             EndUserDTO endUserDTO = new EndUserDTO(endUserService.findByUsername(p.getName()));
             returndto.setEndUserDTO(endUserDTO);
             return returndto;
         }
-        if(user.getPermissions().contains("ROLE_AGENT")){
+                if (permission.equals("ROLE_AGENT")) {
             AgentDTO agentDTO = new AgentDTO(agentService.findByUsername(p.getName()));
             returndto.setAgentDTO(agentDTO);
             return  returndto;
         }
-        if(user.getPermissions().contains("ROLE_ADMIN")){
+                if (permission.equals("ROLE_ADMIN")) {
             AdminDTO adminDTO = new AdminDTO(user.getEmail(),user.getPassword(),user.getUsername());
             returndto.setAdminDTO(adminDTO);
             return  returndto;
         }
+
+            }
 
         return  returndto;
 

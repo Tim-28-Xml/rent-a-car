@@ -10,5 +10,5 @@ public interface AgentService {
     Agent findByMbr(int mbr);
     List<AgentDTO> findAllAgents();
     Agent findByUsername(String username);
-    boolean updateAgent(AgentDTO agent);
+    AgentDTO updateAgent(AgentDTO agent);
 }
