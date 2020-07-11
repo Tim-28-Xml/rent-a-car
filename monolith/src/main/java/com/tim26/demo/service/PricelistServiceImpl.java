@@ -7,6 +7,7 @@ import com.tim26.demo.model.Ad;
 import com.tim26.demo.model.PriceList;
 import com.tim26.demo.model.User;
 import com.tim26.demo.repository.PricelistRepository;
+import com.tim26.demo.repository.UserRepository;
 import com.tim26.demo.service.interfaces.PricelistService;
 import com.tim26.demo.service.interfaces.UService;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -26,6 +27,9 @@ public class PricelistServiceImpl implements PricelistService {
 
     @Autowired
     private UService uService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private PricelistRepository pricelistRepository;
@@ -81,5 +85,20 @@ public class PricelistServiceImpl implements PricelistService {
        }
 
        return pricelistDtos;
+    }
+
+    @Override
+    public boolean delete(PricelistDto pricelistDto, Principal p) {
+        PriceList priceList = pricelistRepository.findByName(pricelistDto.getName());
+
+        if(priceList != null && priceList.getAds().isEmpty()) {
+            User user = priceList.getUser();
+            user.getPriceLists().remove(priceList);
+
+            userRepository.save(user);
+            pricelistRepository.delete(priceList);
+            return true;
+        }
+        return false;
     }
 }

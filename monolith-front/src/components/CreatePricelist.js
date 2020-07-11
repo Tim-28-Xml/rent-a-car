@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import AllMyPricelists from './AllMyPricelists';
+import Pricelists from './Pricelists';
 
 class CreatePricelist extends React.Component {
     constructor(props) {

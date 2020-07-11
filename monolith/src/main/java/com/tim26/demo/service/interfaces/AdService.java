@@ -5,6 +5,7 @@ import com.tim26.demo.dto.CreateAdDto;
 import com.tim26.demo.dto.RentAdDTO;
 import com.tim26.demo.model.Ad;
 
+import java.awt.print.PrinterIOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public interface AdService {
     List<AdDTO> findHighestRating(Principal p);
     List<AdDTO> findMostReviews(Principal p);
     boolean isMyAd(Principal p,Long id );
+    boolean delete(AdDTO adDTO, Principal p);
 
 
 }

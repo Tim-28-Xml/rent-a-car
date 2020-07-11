@@ -56,4 +56,14 @@ public class PricelistController {
             return new ResponseEntity<>(createPricelistDto, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping(value = "/delete")
+    public ResponseEntity delete(@RequestBody PricelistDto pricelistDto, Principal p){
+        if(pricelistService.delete(pricelistDto, p)){
+            return new ResponseEntity<>("Pricelist is successfully deleted!",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Pricelist cannot be deleted!",HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }

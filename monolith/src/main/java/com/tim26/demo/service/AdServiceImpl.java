@@ -4,8 +4,10 @@ import com.tim26.demo.dto.*;
 import com.tim26.demo.model.*;
 import com.tim26.demo.model.Date;
 import com.tim26.demo.repository.AdRepository;
+import com.tim26.demo.repository.UserRepository;
 import com.tim26.demo.service.interfaces.*;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +23,16 @@ public class AdServiceImpl implements AdService {
     private UService userService;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private AdRepository adRepository;
 
     @Autowired
     private PricelistService pricelistService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
     private CarService carService;
@@ -128,7 +136,7 @@ public class AdServiceImpl implements AdService {
         List<Ad> ads = user.getAd();
 
         for (Ad a : ads) {
-            adDTOS.add(new AdDTO(a));
+            adDTOS.add(new AdDTO(modelMapper.map(a.getCar(),CarDTO.class), a.getUser().getUsername(), a.getId()));
         }
 
         return adDTOS;
@@ -281,5 +289,17 @@ public class AdServiceImpl implements AdService {
         return  is;
     }
 
+    @Override
+    public boolean delete(AdDTO adDTO, Principal p) {
+        Optional<Ad> ad = adRepository.findById(adDTO.getId());
+        if(ad.isPresent() && ad.get().getRentRequests().isEmpty()) {
+            User user = ad.get().getUser();
+            user.getAd().remove(ad);
+            userRepository.save(user);
 
+            adRepository.delete(ad.get());
+            return true;
+        }
+        return false;
+    }
 }
