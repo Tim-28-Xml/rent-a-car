@@ -170,6 +170,16 @@ public class AdController {
         return adService.setRentDatesForAds(rentAdDTOS);
     }
 
+    @PreAuthorize("hasAuthority('CREATE_AD')")
+    @PostMapping(value = "delete")
+    public ResponseEntity delete(@RequestBody AdDTO adDTO, Principal p){
+        if(adService.delete(adDTO)){
+            return new ResponseEntity<>("Ad is successfully deleted!",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Ad cannot be deleted!",HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
 
 }

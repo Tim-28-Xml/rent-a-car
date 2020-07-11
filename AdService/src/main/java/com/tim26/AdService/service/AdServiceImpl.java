@@ -16,10 +16,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -216,6 +213,16 @@ public class AdServiceImpl implements AdService {
         filterParametersDTO.setMaxKm(maxKm);
 
         return filterParametersDTO;
+    }
+
+    @Override
+    public boolean delete(AdDTO adDTO) {
+        Ad ad = findAdById(adDTO.getId());
+        if(!ad.getRentRequests().isEmpty())
+            return false;
+
+        adRepository.delete(ad);
+        return true;
     }
 
 
@@ -544,6 +551,8 @@ public class AdServiceImpl implements AdService {
 
         return true;
     }
+
+
 
 
 }
