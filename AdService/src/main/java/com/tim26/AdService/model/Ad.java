@@ -27,7 +27,7 @@ public class Ad {
     //@XmlElement
     private List<DateRange> rentDates = new ArrayList<DateRange>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     //@XmlElement
     private PriceList priceList;
 
