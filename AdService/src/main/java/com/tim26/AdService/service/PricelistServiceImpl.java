@@ -169,5 +169,10 @@ public class PricelistServiceImpl implements PricelistService {
         return true;
     }
 
+    @Override
+    public PriceList findById(Long id) {
+        return pricelistRepository.findById(id);
+    }
+
 
 }
