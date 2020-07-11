@@ -33,8 +33,9 @@ public class Date {
     public Date() {
     }
 
-    public Date(LocalDate date){
+    public Date(LocalDate date, DateRange dateRange){
         this.date = date;
+        this.dateRange = dateRange;
     }
 
     public long getId() {
@@ -53,5 +54,11 @@ public class Date {
         this.date = date;
     }
 
+    public DateRange getDateRange() {
+        return dateRange;
+    }
 
+    public void setDateRange(DateRange dateRange) {
+        this.dateRange = dateRange;
+    }
 }
