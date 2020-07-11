@@ -16,10 +16,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -64,6 +61,7 @@ public class AdServiceImpl implements AdService {
         PreparedStatement preparedStatementAd = null;
         PreparedStatement preparedStatementUser = null;
         PreparedStatement preparedStatementCar = null;
+        PreparedStatement preparedStatementDates = null;
         try {
             connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
             Ad advertisment = new Ad();
@@ -123,6 +121,9 @@ public class AdServiceImpl implements AdService {
                     int cars = carService.findAll().size();
                     Long carId = Long.valueOf(++cars);
                     car.setId(carId);
+                    int ads = findAll().size();
+                    Long adId = Long.valueOf(++ads);
+                    advertisment.setId(adId);
                     preparedStatementCar = connection.prepareStatement("INSERT INTO car (brand, car_class, model, fuel, transmission, km, km_limit, child_seats, cdw, id) values (?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     preparedStatementCar.setString(1, car.getBrand());
                     preparedStatementCar.setString(2, car.getCarClass());
@@ -135,12 +136,18 @@ public class AdServiceImpl implements AdService {
                     preparedStatementCar.setBoolean(9, car.isCdw());
                     preparedStatementCar.setLong(10, car.getId());
                     preparedStatementCar.executeUpdate();
-                    preparedStatementAd = connection.prepareStatement("INSERT INTO ad (car_id, city, user_username, price_list_id) values (?, ?, ?, ?)");
+                    preparedStatementAd = connection.prepareStatement("INSERT INTO ad (car_id, city, user_username, price_list_id, id) values (?, ?, ?, ?,?)");
                     preparedStatementAd.setLong(1, car.getId());
                     preparedStatementAd.setString(2, advertisment.getCity());
                     preparedStatementAd.setString(3, user.getUsername());
                     preparedStatementAd.setLong(4, advertisment.getPriceList().getId());
+                    preparedStatementAd.setLong(5, advertisment.getId());
                     preparedStatementAd.executeUpdate();
+
+                    preparedStatementDates = connection.prepareStatement("INSERT INTO AD_RENT_DATES (ad_id, rent_dates_id) values (?,?)");
+                    preparedStatementDates.setArray(1, (Array) advertisment.getRentDates());
+                    preparedStatementDates.setLong(2, advertisment.getId());
+                    preparedStatementDates.executeUpdate();
                 } catch (Exception e) {
                     LOGGER.error("Failed to save car or ad to the database, Exception: ", e.getMessage());
                     return false;
@@ -150,10 +157,11 @@ public class AdServiceImpl implements AdService {
             }
         } finally {
             try {
-                if (preparedStatementUser != null || preparedStatementAd != null || preparedStatementCar != null) {
+                if (preparedStatementUser != null || preparedStatementAd != null || preparedStatementCar != null || preparedStatementDates != null) {
 
                     preparedStatementAd.close();
                     preparedStatementCar.close();
+                    preparedStatementDates.close();
 
                     if(preparedStatementUser != null) {
                         preparedStatementUser.close();
@@ -262,6 +270,16 @@ public class AdServiceImpl implements AdService {
         filterParametersDTO.setMaxKm(maxKm);
 
         return filterParametersDTO;
+    }
+
+    @Override
+    public boolean delete(AdDTO adDTO) {
+        Ad ad = findAdById(adDTO.getId());
+        if(!ad.getRentRequests().isEmpty())
+            return false;
+
+        adRepository.delete(ad);
+        return true;
     }
 
 
@@ -590,6 +608,8 @@ public class AdServiceImpl implements AdService {
 
         return true;
     }
+
+
 
 
 }

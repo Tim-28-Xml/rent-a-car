@@ -23,4 +23,5 @@ public interface AdService {
     boolean setRentDatesForAds(List<RentAdDTO> rentAdDTOS);
     Page<AdDTO> findAllPageable(int page);
     FilterParametersDTO getFilterParamteres();
+    boolean delete(AdDTO adDTO);
 }
