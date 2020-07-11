@@ -83,7 +83,8 @@ public class AdController {
     @PreAuthorize("hasAuthority('CREATE_AD')")
     @PostMapping(value = "/save")
     public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto, Principal p) throws SQLException {
-        if(adService.save(createAdDto, p)) {
+        createAdDto.setUsername(p.getName());
+        if(adService.save(createAdDto)) {
             String cdw = "";
             if(createAdDto.isCollision()) {
                 cdw = "Yes";

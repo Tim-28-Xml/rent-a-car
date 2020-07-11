@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface AdService {
-    boolean save(CreateAdDto ad, Principal p) throws SQLException;
+    boolean save(CreateAdDto ad) throws SQLException;
     boolean save(Ad ad);
     List<AdDTO> findAll();
     AdDTO findById(long id);

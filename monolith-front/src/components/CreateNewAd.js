@@ -255,7 +255,7 @@ class CreateNewAd extends React.Component {
         this.state.endDate = date;
         this.state.dateStringEnd = dateString;
 
-        var obj = { startDateA: this.state.startDate, endDateA: this.state.endDate }
+        var obj = { startDate: this.state.startDate, endDate: this.state.endDate }
         var list = [];
         list.push(obj);
         this.state.dates.push.apply(this.state.dates, list);
@@ -300,17 +300,17 @@ class CreateNewAd extends React.Component {
                 console.log("---------FOR----------");
                 console.log("j" + moment(this.state.dates[j]));
                 console.log("startAnother" + this.state.dateStringStartAnother);
-                console.log("start" + moment(this.state.dates[j].startDateA));
-                console.log("end" + moment(this.state.dates[j].startEndA));
+                console.log("start" + moment(this.state.dates[j].startDate));
+                console.log("end" + moment(this.state.dates[j].startEnd));
                 console.log("---------END----------");
 
-                if(moment(this.state.dateStringStartAnother).isBetween(moment(this.state.dates[j].startDateA), moment(this.state.dates[j].endDateA))) {
+                if(moment(this.state.dateStringStartAnother).isBetween(moment(this.state.dates[j].startDate), moment(this.state.dates[j].endDate))) {
                     return alert("Dates overlap");
                 }
             }
         }
 
-        var obj = { startDateA: this.state.startDateAnother, endDateA: this.state.endDateAnother }
+        var obj = { startDate: this.state.startDateAnother, endDate: this.state.endDateAnother }
         var list = [];
         list.push(obj);
         this.state.dates.push.apply(this.state.dates, list);

@@ -1,6 +1,8 @@
 package com.tim26.AdService.model;
 
 //import com.tim26.AdService.adapter.LocalDateAdapter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
@@ -22,11 +24,13 @@ public class DateRange {
     private long id;
 
     @Column
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     //@XmlElement
    // @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Column
+    @JsonDeserialize(using = LocalDateDeserializer.class)
    // @XmlElement
     //@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate endDate;

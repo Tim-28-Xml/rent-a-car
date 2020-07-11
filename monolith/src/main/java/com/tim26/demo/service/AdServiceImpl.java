@@ -38,8 +38,8 @@ public class AdServiceImpl implements AdService {
     private String adKey;
 
     @Override
-    public boolean save(CreateAdDto ad, Principal p) {
-        Agent agent = (Agent) userService.findByUsername(p.getName());
+    public boolean save(CreateAdDto ad) {
+        Agent agent = (Agent) userService.findByUsername(ad.getUsername());
         if(agent != null) {
 
             Ad advertisment = new Ad();
@@ -69,8 +69,8 @@ public class AdServiceImpl implements AdService {
 
                 for(DateRange dt : ad.getDates()){
 
-                    LocalDate start = dt.getStartDateA();
-                    LocalDate end = dt.getEndDateA();
+                    LocalDate start = dt.getStartDate();
+                    LocalDate end = dt.getEndDate();
                     List<Date> totalDates = new ArrayList<>();
                     while (!start.isAfter(end)) {
 
@@ -78,7 +78,7 @@ public class AdServiceImpl implements AdService {
                         start = start.plusDays(1);
                     }
 
-                    DateRange helper = new DateRange(dt.getStartDateA(),dt.getEndDateA(),totalDates);
+                    DateRange helper = new DateRange(dt.getStartDate(),dt.getEndDate(),totalDates);
                     advertisment.getRentDates().add(helper);
 
                 }
@@ -91,7 +91,7 @@ public class AdServiceImpl implements AdService {
                 advertisment.setPriceList(priceList);
 
                 try {
-                    advertisment = adRepository.save(advertisment);
+                    adRepository.save(advertisment);
                     rabbitTemplate.convertAndSend(exchange, adKey, ad);
                     return  true;
                 } catch (Exception e) {

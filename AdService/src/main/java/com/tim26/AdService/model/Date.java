@@ -4,6 +4,11 @@ package com.tim26.AdService.model;
 
 //import com.tim26.AdService.adapter.LocalDateAdapter;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -22,6 +27,8 @@ public class Date {
     private long id;
 
     @Column
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     //@XmlElement
     //@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate date;

@@ -11,6 +11,7 @@ import com.tim26.AdService.service.interfaces.CodebookService;
 import com.tim26.AdService.service.interfaces.PricelistService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Service
+@Service(value = "adService")
 public class AdServiceImpl implements AdService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdServiceImpl.class);
@@ -49,7 +50,7 @@ public class AdServiceImpl implements AdService {
     private static int DEFAULT_PAGE_SIZE = 8;
 
     @Override
-    public boolean save(CreateAdDto ad, Principal p) throws SQLException {
+    public boolean save(CreateAdDto ad) throws SQLException {
         if (!validateCreationData(ad))
             return false;
 
@@ -65,9 +66,9 @@ public class AdServiceImpl implements AdService {
             Ad advertisment = new Ad();
             Car car = new Car();
             User user = new User();
-            user.setUsername(p.getName());
-            if(!userRepository.findByUsername(p.getName()).isPresent()) {
-                LOGGER.info("Adding user: {} to the Ad Service Database", p.getName());
+            user.setUsername(ad.getUsername());
+            if(!userRepository.findByUsername(ad.getUsername()).isPresent()) {
+                LOGGER.info("Adding user: {} to the Ad Service Database", ad.getUsername());
                 preparedStatementUser = connection.prepareStatement("INSERT INTO user (username) values (?)");
                 preparedStatementUser.executeUpdate();
             }
