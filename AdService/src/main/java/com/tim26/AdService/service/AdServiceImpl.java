@@ -398,12 +398,7 @@ public class AdServiceImpl implements AdService {
         String km = String.valueOf(createAdDto.getKm());
         String kmLimit = String.valueOf(createAdDto.getKmLimit());
         String childSeats = String.valueOf(createAdDto.getChildSeats());
-
-        if(createAdDto.getKm() > createAdDto.getKmLimit()) {
-            LOGGER.error("Validation creation data for adding advertisment: FAILED, Km cannot be greater than Km Limit");
-            return false;
-        }
-
+        
         if(createAdDto.getChildSeats().contains("-")) {
             LOGGER.error("Validation creation data for adding advertisment: FAILED, Number of child seats cannot be a negative number");
             return false;
