@@ -83,7 +83,7 @@ public class AdController {
     @PreAuthorize("hasAuthority('CREATE_AD')")
     @PostMapping(value = "/save")
     public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto, Principal p) throws SQLException {
-        if(adService.save(createAdDto, p)) {
+        /*if(adService.save(createAdDto, p)) {
             String cdw = "";
             if(createAdDto.isCollision()) {
                 cdw = "Yes";
@@ -101,7 +101,12 @@ public class AdController {
             cdw = "No";
         }
         LOGGER.error("Response is 400 BAD REQUEST, Failed to CREATE NEW AD \n with car brand: {}, model: {}, \n fuel type: {}, transmission type: {}, car class: {}, \n number of child seats: {}, with collision damage waiver: {}, pricelist name: {} and owner: {}\n", createAdDto.getBrand(), createAdDto.getModel(), createAdDto.getFuel(), createAdDto.getTransmission(), createAdDto.getCarClass(), createAdDto.getChildSeats(), cdw, createAdDto.getPricelist(), p.getName());
-        return new ResponseEntity<>(createAdDto, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(createAdDto, HttpStatus.BAD_REQUEST);*/
+        if(adService.save(createAdDto, p)){
+            return new ResponseEntity<>(createAdDto, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PreAuthorize("hasAuthority('VIEW_MY_ADS')")

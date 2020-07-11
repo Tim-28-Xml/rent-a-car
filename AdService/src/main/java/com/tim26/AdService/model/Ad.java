@@ -41,7 +41,7 @@ public class Ad {
 
 
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
    // @XmlElement
     @JoinTable(name = "ad_rent_requests",
             joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"),
