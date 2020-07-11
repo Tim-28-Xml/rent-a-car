@@ -10,4 +10,5 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
     Agent save(Agent save);
     Agent findByMbr(int mbr);
     List<Agent> findAll();
+    Agent findByUsername(String username);
 }

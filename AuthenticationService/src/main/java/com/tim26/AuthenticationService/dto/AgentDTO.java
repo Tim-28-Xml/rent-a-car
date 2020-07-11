@@ -9,21 +9,23 @@ public class AgentDTO {
     private String email;
     private int mbr;
     private String address;
+    private String password;
 
     public AgentDTO(){
 
     }
 
-    public AgentDTO(String username, String name, String email, int mbr, String address) {
+    public AgentDTO(String username, String name, String email, int mbr, String address,String password) {
         this.username = username;
         this.name = name;
         this.email = email;
         this.mbr = mbr;
         this.address = address;
+        this.password = password;
     }
 
     public AgentDTO(Agent agent){
-        this(agent.getUsername(), agent.getName(), agent.getEmail(), agent.getMbr(), agent.getAddress());
+        this(agent.getUsername(), agent.getName(), agent.getEmail(), agent.getMbr(), agent.getAddress(),agent.getPassword());
     }
 
     public String getUsername() {
@@ -66,4 +68,11 @@ public class AgentDTO {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

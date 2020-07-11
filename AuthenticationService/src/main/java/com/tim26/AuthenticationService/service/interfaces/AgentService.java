@@ -9,4 +9,6 @@ public interface AgentService {
     Agent save(Agent agent);
     Agent findByMbr(int mbr);
     List<AgentDTO> findAllAgents();
+    Agent findByUsername(String username);
+    boolean updateAgent(AgentDTO agent);
 }

@@ -2,6 +2,7 @@ package com.tim26.AuthenticationService.service;
 
 import com.tim26.AuthenticationService.dto.AgentDTO;
 import com.tim26.AuthenticationService.model.Agent;
+import com.tim26.AuthenticationService.model.EndUser;
 import com.tim26.AuthenticationService.model.Permission;
 import com.tim26.AuthenticationService.repository.AgentRepository;
 import com.tim26.AuthenticationService.repository.PermissionRepository;
@@ -59,5 +60,44 @@ public class AgentServiceImpl implements AgentService {
             }
         }
         return agentDTOS;
+    }
+
+    @Override
+    public Agent findByUsername(String username) {
+        return  agentRepository.findByUsername(username);
+    }
+
+    @Override
+    public boolean updateAgent(AgentDTO agent) {
+
+        Agent original = findByUsername(agent.getUsername());
+
+        if(agent != null){
+
+            if((original.getMbr() == (original.getMbr()))) {
+                original.setMbr(agent.getMbr());
+            }
+
+            if(agent.getName() != "" && (!agent.getName().equals(original.getName()))) {
+                original.setName(agent.getName());
+            }
+
+            if(agent.getAddress() != "" && (!agent.getAddress().equals(original.getAddress()))) {
+                original.setAddress(agent.getAddress());
+            }
+
+            if(agent.getEmail() != "" && (!agent.getEmail() .equals(original.getEmail() ))) {
+                original.setEmail(agent.getEmail() );
+            }
+
+            if(agent.getPassword() != "" && (!agent.getPassword().equals(original.getPassword()))) {
+                original.setPassword(agent.getPassword() );
+            }
+
+            save(original);
+            return true;
+        }
+
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 package com.tim26.AuthenticationService.service.interfaces;
 
+import com.tim26.AuthenticationService.dto.AdminDTO;
 import com.tim26.AuthenticationService.dto.PermissionsDTO;
 import com.tim26.AuthenticationService.model.User;
 import org.springframework.stereotype.Service;
@@ -25,4 +26,5 @@ public interface UService {
     boolean declineAccount(String username);
     Long getUserId(Principal p);
     boolean isPasswordValid(String password);
+    boolean update(AdminDTO user);
 }

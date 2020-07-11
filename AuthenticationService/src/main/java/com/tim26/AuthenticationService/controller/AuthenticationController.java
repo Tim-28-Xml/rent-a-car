@@ -1,10 +1,10 @@
 package com.tim26.AuthenticationService.controller;
 
-import com.netflix.discovery.converters.Auto;
-import com.tim26.AuthenticationService.model.Agent;
-import com.tim26.AuthenticationService.model.EndUser;
-import com.tim26.AuthenticationService.model.PersonTokenState;
-import com.tim26.AuthenticationService.model.User;
+import com.tim26.AuthenticationService.dto.AdminDTO;
+import com.tim26.AuthenticationService.dto.AgentDTO;
+import com.tim26.AuthenticationService.dto.EndUserDTO;
+import com.tim26.AuthenticationService.dto.UpdateUserDTO;
+import com.tim26.AuthenticationService.model.*;
 import com.tim26.AuthenticationService.security.TokenUtils;
 import com.tim26.AuthenticationService.security.auth.JwtAuthenticationRequest;
 import com.tim26.AuthenticationService.service.CustomUserDetailsService;
@@ -125,6 +125,31 @@ public class AuthenticationController {
         }else {
             return  ResponseEntity.status(500).build();
         }
+
+    }
+
+    @GetMapping(value="/user")
+    public UpdateUserDTO getUser(Principal p){
+        User user = userService.findByUsername(p.getName());
+        UpdateUserDTO returndto = new UpdateUserDTO();
+
+        if(user.getPermissions().contains("ROLE_USER")){
+            EndUserDTO endUserDTO = new EndUserDTO(endUserService.findByUsername(p.getName()));
+            returndto.setEndUserDTO(endUserDTO);
+            return returndto;
+        }
+        if(user.getPermissions().contains("ROLE_AGENT")){
+            AgentDTO agentDTO = new AgentDTO(agentService.findByUsername(p.getName()));
+            returndto.setAgentDTO(agentDTO);
+            return  returndto;
+        }
+        if(user.getPermissions().contains("ROLE_ADMIN")){
+            AdminDTO adminDTO = new AdminDTO(user.getEmail(),user.getPassword(),user.getUsername());
+            returndto.setAdminDTO(adminDTO);
+            return  returndto;
+        }
+
+        return  returndto;
 
     }
 

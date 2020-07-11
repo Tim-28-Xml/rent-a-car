@@ -80,4 +80,34 @@ public class EndUserServiceImpl implements EndUserService {
         return userRepository.save(endUser);
     }
 
+    @Override
+    public boolean updateEndUser(EndUserDTO dto) {
+
+        EndUser original = findByUsername(dto.getUsername());
+
+        if(dto != null){
+
+            if(dto.getFirstname() != "" && (!dto.getFirstname().equals(original.getFirstname()))) {
+                original.setFirstname(dto.getFirstname());
+            }
+
+            if(dto.getLastname() != "" && (!dto.getLastname().equals(original.getLastname()))) {
+                original.setLastname(dto.getLastname());
+            }
+
+            if(dto.getEmail() != "" && (!dto.getEmail() .equals(original.getEmail() ))) {
+                original.setEmail(dto.getEmail() );
+            }
+
+            if(dto.getPassword() != "" && (!dto.getPassword().equals(original.getPassword()))) {
+                original.setPassword(dto.getPassword() );
+            }
+
+            save(original);
+            return true;
+        }
+
+        return false;
+    }
+
 }

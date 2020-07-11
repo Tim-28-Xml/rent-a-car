@@ -1,7 +1,9 @@
 package com.tim26.AuthenticationService.service;
 
 import com.netflix.discovery.converters.Auto;
+import com.tim26.AuthenticationService.dto.AdminDTO;
 import com.tim26.AuthenticationService.dto.PermissionsDTO;
+import com.tim26.AuthenticationService.model.EndUser;
 import com.tim26.AuthenticationService.model.Permission;
 import com.tim26.AuthenticationService.model.User;
 import com.tim26.AuthenticationService.repository.PermissionRepository;
@@ -60,6 +62,26 @@ public class UServiceImpl implements UService, UserDetailsService {
     @Override
     public boolean isPasswordValid(String password) {
         return textPattern.matcher(password).matches();
+    }
+
+    @Override
+    public boolean update(AdminDTO user) {
+        User original = findByUsername(user.getUsername());
+
+        if(user != null){
+
+            if(user.getEmail() != "" && (!user.getEmail() .equals(original.getEmail() ))) {
+                original.setEmail(user.getEmail() );
+            }
+
+            if(user.getPassword() != "" && (!user.getPassword().equals(original.getPassword()))) {
+                original.setPassword(user.getPassword() );
+            }
+            save(original);
+            return true;
+        }
+
+        return false;
     }
 
     @Override

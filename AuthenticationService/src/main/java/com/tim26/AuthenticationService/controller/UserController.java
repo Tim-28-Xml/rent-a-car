@@ -3,6 +3,8 @@ package com.tim26.AuthenticationService.controller;
 import com.tim26.AuthenticationService.dto.AgentDTO;
 import com.tim26.AuthenticationService.dto.EndUserDTO;
 import com.tim26.AuthenticationService.dto.PermissionsDTO;
+import com.tim26.AuthenticationService.dto.UpdateUserDTO;
+import com.tim26.AuthenticationService.model.Permission;
 import com.tim26.AuthenticationService.model.User;
 import com.tim26.AuthenticationService.service.interfaces.AgentService;
 import com.tim26.AuthenticationService.service.interfaces.EndUserService;
@@ -15,10 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -46,6 +45,24 @@ public class UserController {
 
         List<EndUserDTO> users = endUserService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN','USER','AGENT')")
+    @PutMapping(value = "/update")
+    public boolean updateInfo(@RequestBody UpdateUserDTO dto){
+
+        if(dto.getAgentDTO() != null){
+            return   agentService.updateAgent(dto.getAgentDTO());
+        }
+
+        if(dto.getEndUserDTO() != null){
+          return   endUserService.updateEndUser(dto.getEndUserDTO());
+        }
+        if(dto.getAdminDTO() != null){
+            return uService.update(dto.getAdminDTO());
+        }
+
+        return false;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
