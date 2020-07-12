@@ -1,10 +1,10 @@
 --Users
-insert into user(username) values ('agent1');
-insert into user(username) values ('user1');
-insert into user(username) values ('user5');
-insert into user(username) values ('user2');
-insert into user(username) values ('marko');
-insert into user(username) values ('branko');
+insert into user(username, unpaid) values ('agent1', 0);
+insert into user(username, unpaid) values ('user1', 0);
+insert into user(username, unpaid) values ('user5', 0);
+insert into user(username, unpaid) values ('user2', 0);
+insert into user(username, unpaid) values ('marko', 0);
+insert into user(username, unpaid) values ('branko', 0);
 
 
 --Cars and ads

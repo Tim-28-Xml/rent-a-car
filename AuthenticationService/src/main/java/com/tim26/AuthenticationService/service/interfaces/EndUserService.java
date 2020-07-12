@@ -12,4 +12,5 @@ public interface EndUserService {
     List<EndUserDTO> findAll();
     List<EndUserDTO> findAllRequests();
     EndUser save(EndUser endUser);
+    boolean checkPaidReports(String username, int num);
 }

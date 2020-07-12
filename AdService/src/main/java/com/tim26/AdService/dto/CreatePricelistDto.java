@@ -7,6 +7,7 @@ public class CreatePricelistDto {
     private double dailyPrice;
     private double cdwPrice;
     private double pricePerExtraKm;
+    private String username;
 
     public CreatePricelistDto() {}
 
@@ -51,5 +52,13 @@ public class CreatePricelistDto {
 
     public void setPricePerExtraKm(double pricePerExtraKm) {
         this.pricePerExtraKm = pricePerExtraKm;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

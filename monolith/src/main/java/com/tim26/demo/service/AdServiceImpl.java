@@ -7,14 +7,18 @@ import com.tim26.demo.repository.AdRepository;
 import com.tim26.demo.repository.UserRepository;
 import com.tim26.demo.service.interfaces.*;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AdServiceImpl implements AdService {
@@ -35,11 +39,26 @@ public class AdServiceImpl implements AdService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private CarService carService;
+    private AmqpTemplate rabbitTemplate;
+
+    @Value("${exchange}")
+    String exchange;
+
+    @Value("${ad-service-key}")
+    private String adKey;
 
     @Override
-    public boolean save(CreateAdDto ad, Principal p) {
-        Agent agent = (Agent) userService.findByUsername(p.getName());
+    public boolean save(CreateAdDto ad) {
+        Agent agent = (Agent) userService.findByUsername(ad.getUsername());
+        User user = userService.findByUsername(ad.getUsername());
+
+        String role = user.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .filter(r -> r.contains("ROLE"))
+                .findFirst().get();
+
+        ad.setRole(role);
+
         if(agent != null) {
 
             Ad advertisment = new Ad();
@@ -69,8 +88,8 @@ public class AdServiceImpl implements AdService {
 
                 for(DateRange dt : ad.getDates()){
 
-                    LocalDate start = dt.getStartDateA();
-                    LocalDate end = dt.getEndDateA();
+                    LocalDate start = dt.getStartDate();
+                    LocalDate end = dt.getEndDate();
                     List<Date> totalDates = new ArrayList<>();
                     while (!start.isAfter(end)) {
 
@@ -78,7 +97,7 @@ public class AdServiceImpl implements AdService {
                         start = start.plusDays(1);
                     }
 
-                    DateRange helper = new DateRange(dt.getStartDateA(),dt.getEndDateA(),totalDates);
+                    DateRange helper = new DateRange(dt.getStartDate(),dt.getEndDate(),totalDates);
                     advertisment.getRentDates().add(helper);
 
                 }
@@ -91,7 +110,8 @@ public class AdServiceImpl implements AdService {
                 advertisment.setPriceList(priceList);
 
                 try {
-                    advertisment = adRepository.save(advertisment);
+                    adRepository.save(advertisment);
+                    rabbitTemplate.convertAndSend(exchange, adKey, ad);
                     return  true;
                 } catch (Exception e) {
                     return false;

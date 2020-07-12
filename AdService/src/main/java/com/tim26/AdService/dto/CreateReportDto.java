@@ -1,10 +1,5 @@
-package com.tim26.demo.dto;
+package com.tim26.AdService.dto;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "text")
 public class CreateReportDto {
     private Long id;
     private double km;
@@ -14,15 +9,6 @@ public class CreateReportDto {
     private Long requestId;
 
     public CreateReportDto() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public double getKm() {
@@ -55,6 +41,14 @@ public class CreateReportDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getRequestId() {

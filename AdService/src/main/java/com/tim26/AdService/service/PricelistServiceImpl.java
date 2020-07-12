@@ -22,7 +22,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service(value = "pricelistService")
 public class PricelistServiceImpl implements PricelistService {
 
     private static final Logger LOGGER= LoggerFactory.getLogger(PricelistServiceImpl.class);
@@ -40,7 +40,7 @@ public class PricelistServiceImpl implements PricelistService {
     private ModelMapper modelMapper;
 
     @Override
-    public boolean save(Principal p, CreatePricelistDto createPricelistDto) throws SQLException {
+    public boolean save(CreatePricelistDto createPricelistDto) throws SQLException {
         if(!validateCreationData(createPricelistDto)) {
             return false;
         }
@@ -55,11 +55,11 @@ public class PricelistServiceImpl implements PricelistService {
         try {
 
             connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-            if(!userRepository.findByUsername(p.getName()).isPresent()) {
+            if(!userRepository.findByUsername(createPricelistDto.getUsername()).isPresent()) {
                 preparedStatementUser = connection.prepareStatement("INSERT INTO user (username) values (?)");
                 preparedStatementUser.executeUpdate();
             }
-            User user = userService.findByUsername(p.getName());
+            User user = userService.findByUsername(createPricelistDto.getUsername());
             if(user != null) {
                 PriceList priceList = new PriceList();
                 priceList.setCdwPrice(createPricelistDto.getCdwPrice());

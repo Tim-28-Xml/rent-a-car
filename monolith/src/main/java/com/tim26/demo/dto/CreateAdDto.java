@@ -1,11 +1,14 @@
 package com.tim26.demo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.tim26.demo.model.DateRange;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "brand")
 public class CreateAdDto {
     private String brand;
     private String model;
@@ -20,6 +23,8 @@ public class CreateAdDto {
     private List<String> files;
     private String city;
     private String pricelist;
+    private String username;
+    private String role;
 
     public CreateAdDto() {
 
@@ -142,5 +147,21 @@ public class CreateAdDto {
 
     public void setPricelist(String pricelist) {
         this.pricelist = pricelist;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -70,5 +70,3 @@ insert into user_permissions(user_id,permission_id) values (-5,'CREATE_CODEBOOK'
 insert into user_permissions(user_id,permission_id) values (-5,'CREATE_PRICELIST');
 insert into user_permissions(user_id,permission_id) values (-5,'PAY');
 
-
-

@@ -1,5 +1,11 @@
 package com.tim26.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.tim26.demo.model.DateRange;
 
 import javax.persistence.*;
@@ -9,6 +15,7 @@ import java.time.LocalDate;
 
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "date")
 public class Date {
 
     @Id
@@ -17,6 +24,8 @@ public class Date {
     private long id;
 
     @Column
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate date;
 
     @ManyToOne

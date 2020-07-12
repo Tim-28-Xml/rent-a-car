@@ -30,7 +30,8 @@ public class AdController {
     @PostMapping(value = "/save")
     @PreAuthorize("hasAuthority('CREATE_AD')")
     public ResponseEntity<CreateAdDto> save(@RequestBody CreateAdDto createAdDto, Principal p) {
-        if(adService.save(createAdDto, p))
+        createAdDto.setUsername(p.getName());
+        if(adService.save(createAdDto))
             return new ResponseEntity<>(createAdDto, HttpStatus.OK);
 
         return new ResponseEntity<>(createAdDto, HttpStatus.BAD_REQUEST);

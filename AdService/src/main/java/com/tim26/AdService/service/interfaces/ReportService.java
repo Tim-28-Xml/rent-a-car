@@ -1,5 +1,6 @@
 package com.tim26.AdService.service.interfaces;
 
+import com.tim26.AdService.dto.CreateReportDto;
 import com.tim26.AdService.dto.ReportDTO;
 import com.tim26.AdService.model.Report;
 
@@ -11,4 +12,5 @@ public interface ReportService {
     List<ReportDTO> getAllByUser(String username);
     List<ReportDTO> payAdditionalKm(Long id, Principal p);
     Report save(Report report);
+    void save(CreateReportDto dto);
 }

@@ -39,6 +39,14 @@ public class Report {
     public Report() {
     }
 
+    public Report(String text, double startKM, double endKM, Ad ad, User user) {
+        this.text = text;
+        this.startKM = startKM;
+        this.endKM = endKM;
+        this.ad = ad;
+        this.user = user;
+    }
+
     public long getId() {
         return id;
     }

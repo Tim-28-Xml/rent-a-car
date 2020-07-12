@@ -8,7 +8,9 @@ import com.tim26.demo.repository.RentRequestRepository;
 import com.tim26.demo.repository.ReportRepository;
 import com.tim26.demo.repository.UserRepository;
 import com.tim26.demo.service.interfaces.ReportService;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -32,6 +34,15 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private RentRequestRepository rentRequestRepository;
 
+    @Autowired
+    private AmqpTemplate rabbitTemplate;
+
+    @Value("${exchange}")
+    String exchange;
+
+    @Value("${ad-service-key}")
+    private String adKey;
+
     @Override
     public boolean save(CreateReportDto dto, Principal p) {
 
@@ -52,12 +63,13 @@ public class ReportServiceImpl implements ReportService {
                Ad ad = adRepository.findById(dto.getAdId()).get();
                    r.setAd(ad);
                    r.setStartKM(ad.getCar().getKm());
-                   r.setEndKM(dto.getKm());
+                   r.setEndKM(ad.getCar().getKm()+dto.getKm());
                    ad.getReports().add(r);
                    ad.getCar().setKm(dto.getKm());
                    reportRepository.save(r);
                    adRepository.save(ad);
                    rentRequestRepository.save(rentRequest.get());
+                   rabbitTemplate.convertAndSend(exchange, adKey, dto);
                    return true;
             }
         }

@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Service
+@Service(value = "adService")
 public class AdServiceImpl implements AdService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdServiceImpl.class);
@@ -50,14 +50,14 @@ public class AdServiceImpl implements AdService {
     private static int DEFAULT_PAGE_SIZE = 8;
 
     @Override
-    public boolean save(CreateAdDto ad, Principal p) throws SQLException {
+    public boolean save(CreateAdDto ad) throws SQLException {
         /*if(!validateCreationData(ad))
             return false;*/
 
         Ad advertisment = new Ad();
         Car car = new Car();
         User user = new User();
-        user.setUsername(p.getName());
+        user.setUsername(ad.getUsername());
 
         if(userRepository.findByUsername(user.getUsername()) == null) {
             userRepository.save(user.getUsername());
@@ -551,8 +551,6 @@ public class AdServiceImpl implements AdService {
 
         return true;
     }
-
-
 
 
 }

@@ -15,10 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -167,5 +164,10 @@ public class UserController {
     public ResponseEntity<Long> getUserId(Principal p){
 
         return new ResponseEntity<>(uService.getUserId(p), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/check", params = { "username", "num" })
+    public void findPaginated(@RequestParam("username") String username, @RequestParam("num") int num){
+        endUserService.checkPaidReports(username, num);
     }
 }

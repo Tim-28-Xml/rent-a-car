@@ -1,5 +1,12 @@
 package com.tim26.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import java.time.LocalDate;
@@ -7,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "startDate" +
+        "")
 public class DateRange {
 
     @Id
@@ -14,10 +23,14 @@ public class DateRange {
     private long id;
 
     @Column
-    private LocalDate startDateA;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate startDate;
 
     @Column
-    private LocalDate endDateA;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate endDate;
 
     @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(joinColumns=@JoinColumn(referencedColumnName="id"),
@@ -28,15 +41,15 @@ public class DateRange {
     }
 
     public DateRange(LocalDate startDate, LocalDate endDate,List<Date> dates) {
-        this.startDateA = startDate;
-        this.endDateA = endDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.setDates(dates);
     }
 
     public DateRange(LocalDate startDate, LocalDate endDate){
 
-        this.startDateA = startDate;
-        this.endDateA = endDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
 
         LocalDate start = startDate;
         LocalDate end = endDate;
@@ -60,20 +73,20 @@ public class DateRange {
         this.id = id;
     }
 
-    public LocalDate getStartDateA() {
-        return startDateA;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setStartDateA(LocalDate startDateA) {
-        this.startDateA = startDateA;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getEndDateA() {
-        return endDateA;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setEndDateA(LocalDate endDateA) {
-        this.endDateA = endDateA;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public List<Date> getDates() {
