@@ -39,7 +39,8 @@ public class PricelistController {
     @PostMapping(value = "/save")
     public ResponseEntity<CreatePricelistDto> save(@RequestBody CreatePricelistDto createPricelistDto, Principal p) throws SQLException {
         //if(pricelistService.save(p.getName(), createPricelistDto) != null)
-        if(pricelistService.save(p, createPricelistDto)) {
+        createPricelistDto.setUsername(p.getName());
+        if(pricelistService.save(createPricelistDto)) {
             LOGGER.info("Response is 200 OK, CREATE PRICELIST - Name: {}, \n Daily price: {}, \n Price with cdw: {}, \n Price if the km limit is passed: {} \n", createPricelistDto.getName(), createPricelistDto.getDailyPrice(), createPricelistDto.getCdwPrice(), createPricelistDto.getPricePerExtraKm());
             return new ResponseEntity<>(createPricelistDto, HttpStatus.OK);
         }

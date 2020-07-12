@@ -3,6 +3,7 @@ package com.tim26.AdService.config;
 import com.tim26.AdService.listener.RabbitMQListener;
 import com.tim26.AdService.service.AdServiceImpl;
 import com.tim26.AdService.service.interfaces.AdService;
+import com.tim26.AdService.service.interfaces.PricelistService;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
@@ -20,6 +21,9 @@ public class RabbitMQConfig {
     @Autowired
     private AdService adService;
 
+    @Autowired
+    private PricelistService pricelistService;
+
     @Value("${queue-name}")
     String queueName;
 
@@ -30,12 +34,12 @@ public class RabbitMQConfig {
 
 
     @Bean
-    @DependsOn("adService")
+    @DependsOn({"adService", "pricelistService"})
     MessageListenerContainer messageListenerContainer(ConnectionFactory connectionFactory ) {
         SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
         simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
         simpleMessageListenerContainer.setQueues(queue());
-        simpleMessageListenerContainer.setMessageListener(new RabbitMQListener(adService));
+        simpleMessageListenerContainer.setMessageListener(new RabbitMQListener(adService, pricelistService));
         return simpleMessageListenerContainer;
     }
 

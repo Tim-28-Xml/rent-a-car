@@ -11,7 +11,9 @@ import com.tim26.demo.service.interfaces.PricelistService;
 import com.tim26.demo.service.interfaces.UService;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.modelmapper.ModelMapper;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -33,9 +35,19 @@ public class PricelistServiceImpl implements PricelistService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
+    @Value("${exchange}")
+    String exchange;
+
+    @Value("${ad-service-key}")
+    private String adKey;
+
     @Override
     public boolean save(Principal p, CreatePricelistDto createPricelistDto) {
         User user = uService.findByUsername(p.getName());
+        createPricelistDto.setUsername(p.getName());
         if(user != null) {
             PriceList priceList = new PriceList();
             priceList.setCdwPrice(createPricelistDto.getCdwPrice());
@@ -44,7 +56,8 @@ public class PricelistServiceImpl implements PricelistService {
             priceList.setName(createPricelistDto.getName());
             priceList.setUser(user);
 
-            priceList = pricelistRepository.save(priceList);
+            pricelistRepository.save(priceList);
+            amqpTemplate.convertAndSend(exchange, adKey, createPricelistDto);
             return true;
         }
         return false;

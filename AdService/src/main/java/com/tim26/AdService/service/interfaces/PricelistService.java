@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface PricelistService {
-    boolean save(Principal p, CreatePricelistDto createPricelistDto) throws SQLException;
+    boolean save(CreatePricelistDto createPricelistDto) throws SQLException;
     List<CreatePricelistDto> findAll();
     PriceList findByName(String name);
     boolean validateCreationData(CreatePricelistDto dto);
