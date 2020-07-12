@@ -78,6 +78,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/ads/car/{id}").permitAll()
                 .antMatchers("/api/ads/filter").permitAll()
                 .antMatchers("/api/review/by-ad-approved/{id}").permitAll()
+                .antMatchers("/api/users/check**").permitAll()
+
 
                 // svaki zahtev mora biti autorizovan
                 .anyRequest().authenticated().and()
@@ -106,6 +108,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(HttpMethod.GET,"/api/ads/one/{id}");
         web.ignoring().antMatchers(HttpMethod.GET,"/api/ads/car/{id}");
         web.ignoring().antMatchers(HttpMethod.GET,"/api/review/by-ad-approved/{id}");
+        web.ignoring().antMatchers(HttpMethod.GET,"/api/users/check**");
 
     }
 

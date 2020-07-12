@@ -1,5 +1,7 @@
 package com.tim26.AdService.model;
 
+import org.bouncycastle.est.CACertsResponse;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@XmlElement
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
@@ -31,7 +33,7 @@ public class Ad {
     //@XmlElement
     private PriceList priceList;
 
-    @OneToMany(mappedBy = "ad")
+    @OneToMany(mappedBy = "ad", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@XmlElement
     private List<Report> reports;
 

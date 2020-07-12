@@ -31,9 +31,10 @@ public class User {
     @OneToMany()
     private List<Report> reports = new ArrayList<>();
 
-    public User() {
-    }
+    @Column
+    private int unpaid = 0;
 
+    public User() {}
 
     public User(String username) {
         this.username = username;
@@ -78,5 +79,21 @@ public class User {
 
     public void setReports(List<Report> reports) {
         this.reports = reports;
+    }
+
+    public int getUnpaid() {
+        return unpaid;
+    }
+
+    public void setUnpaid(int unpaid) {
+        this.unpaid = unpaid;
+    }
+
+    public void incUnpaid(){
+        this.unpaid++;
+    }
+
+    public void decUnpaid(){
+        this.unpaid--;
     }
 }

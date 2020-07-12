@@ -63,7 +63,7 @@ public class ReportServiceImpl implements ReportService {
                Ad ad = adRepository.findById(dto.getAdId()).get();
                    r.setAd(ad);
                    r.setStartKM(ad.getCar().getKm());
-                   r.setEndKM(dto.getKm());
+                   r.setEndKM(ad.getCar().getKm()+dto.getKm());
                    ad.getReports().add(r);
                    ad.getCar().setKm(dto.getKm());
                    reportRepository.save(r);
