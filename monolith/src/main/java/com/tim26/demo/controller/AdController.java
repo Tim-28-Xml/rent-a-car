@@ -83,12 +83,22 @@ public class AdController {
         return new ResponseEntity<>(ads, HttpStatus.OK);
     }
 
-    @PostMapping(value = "rent-creator")
+    @PostMapping(value = "/rent-creator")
     public ResponseEntity<String> rentAdByCreator(@RequestBody RentAdDTO rentAdDTO, Principal p){
         if(adService.rentByCreator(rentAdDTO, p)){
             return new ResponseEntity<>("Car is successfully rented!",HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Car cannot be rented!",HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @PostMapping(value = "/delete")
+    public ResponseEntity delete(@RequestBody AdDTO adDTO, Principal p){
+        if(adService.delete(adDTO, p)){
+            return new ResponseEntity<>("Ad is successfully deleted!",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Ad cannot be deleted!",HttpStatus.BAD_REQUEST);
         }
 
     }

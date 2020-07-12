@@ -28,6 +28,9 @@ public class User {
     //@XmlElement
     private List<Ad> shoppingCart = new ArrayList<>();
 
+    @OneToMany()
+    private List<Report> reports = new ArrayList<>();
+
     public User() {
     }
 
@@ -67,5 +70,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
     }
 }

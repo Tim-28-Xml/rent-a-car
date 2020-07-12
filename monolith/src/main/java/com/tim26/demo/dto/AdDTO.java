@@ -4,6 +4,7 @@ import com.tim26.demo.model.Ad;
 
 public class AdDTO {
 
+    private Long id;
     private CarDTO carDTO;
     private String username;
     private double rating;
@@ -31,8 +32,14 @@ public class AdDTO {
         this.reviewNum = reviewNum;
     }
 
+    public AdDTO(CarDTO carDTO, String username, Long id) {
+        this.carDTO = carDTO;
+        this.username  = username;
+        this.id = id;
+    }
+
     public AdDTO(Ad ad){
-        this(new CarDTO(ad.getCar()),ad.getUser().getUsername());
+        this(new CarDTO(ad.getCar()),ad.getUser().getUsername(), ad.getId());
     }
 
     public CarDTO getCarDTO() {
@@ -65,5 +72,13 @@ public class AdDTO {
 
     public void setReviewNum(int reviewNum) {
         this.reviewNum = reviewNum;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

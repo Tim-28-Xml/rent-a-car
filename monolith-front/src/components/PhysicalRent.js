@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Card, Modal } from "react-bootstrap"
 import axios from 'axios'
 import DatePicker from 'react-datepicker';
+import {serviceConfig} from '../appSettings.js'
+import { store } from 'react-notifications-component'
 import "react-datepicker/dist/react-datepicker.css";
 
 const moment = require('moment');
@@ -15,6 +17,7 @@ class PhysicalRent extends React.Component {
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
         this.rentByCreator = this.rentByCreator.bind(this);
+        this.deleteAd = this.deleteAd.bind(this);
         this.addDays = this.addDays.bind(this);
 
         this.state = {
@@ -123,6 +126,54 @@ class PhysicalRent extends React.Component {
         return result;
     }
 
+    deleteAd(ad) {
+        let token = localStorage.getItem('token');
+
+        const options = {
+            headers: { 'Authorization': 'Bearer ' + token }
+        };
+
+        console.log(this.state);
+
+        axios.post(`http://localhost:8082/ads/delete`, ad, options).then(
+            (resp) => {
+                store.addNotification({
+                    title: "Success!",
+                    message: "Advertisment is deleted.",
+                    type: "success",
+                    insert: "top",
+                    container: "top-center",
+                    animationIn: ["animated", "fadeIn"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                        duration: 2000,
+                        pauseOnHover: true
+                    },
+                    onRemoval: (id, removedBy) => {
+                        window.
+                            location.href = "https://localhost:3000/"
+                    }
+                })
+            },
+            (resp) => {
+                store.addNotification({
+                    title: "Error",
+                    message: "Ad has rent requests!",
+                    type: "danger",
+                    insert: "top",
+                    container: "top-center",
+                    animationIn: ["animated", "fadeIn"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                        duration: 2000,
+                        pauseOnHover: true
+                      },
+                    
+                  })
+            }
+        );
+    }
+
     renderAdCards() {
         
         console.log(this.state);
@@ -150,6 +201,7 @@ class PhysicalRent extends React.Component {
                                 transmission: &nbsp; {ad.carDTO.transmission}
                         </Card.Text>
                         <button onClick={this.handleShow}>Physical rent</button>
+                        <button className="deleteAd" variant="outline-danger" onClick={this.deleteAd.bind(this, ad)} >Delete</button>
                         <Modal
                             show={this.state.show}
                             onHide={this.handleClose}

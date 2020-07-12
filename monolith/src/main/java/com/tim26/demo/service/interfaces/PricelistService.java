@@ -12,4 +12,5 @@ public interface PricelistService {
     List<CreatePricelistDto> findAll();
     PriceList findByName(String name);
     List<PricelistDto> findAllMine(Principal p);
+    boolean delete(PricelistDto pricelistDto, Principal p);
 }

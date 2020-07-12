@@ -67,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/confirm-account/**").permitAll()
                 .antMatchers("/ads/all").permitAll()
                 .antMatchers("/ads/**").permitAll()
+                .antMatchers("/api/pricelists/delete").permitAll()
                 .antMatchers("/ads/one/**").permitAll()
 
                 // svaki zahtev mora biti autorizovan
@@ -84,6 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web)  {
         web.ignoring().antMatchers(HttpMethod.POST, "/auth/login");
+        web.ignoring().antMatchers(HttpMethod.POST, "/api/pricelists/delete");
         web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
                 "/**/*.css", "/**/*.js");
     }
